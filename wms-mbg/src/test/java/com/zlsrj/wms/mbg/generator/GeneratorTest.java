@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
@@ -31,18 +32,18 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @Slf4j
 public class GeneratorTest {
-	
+
 	@Value("${spring.datasource.driver-class-name}")
-    private String driverClassName;
-	
+	private String driverClassName;
+
 	@Value("${spring.datasource.url}")
-    private String url;
-	
+	private String url;
+
 	@Value("${spring.datasource.username}")
-    private String username;
-	
+	private String username;
+
 	@Value("${spring.datasource.password}")
-    private String password;
+	private String password;
 
 	/**
 	 * <p>
@@ -63,7 +64,6 @@ public class GeneratorTest {
 		throw new MybatisPlusException("请输入正确的" + tip + "！");
 	}
 
-
 	@Test
 	public void generator() {
 		// 代码生成器
@@ -77,6 +77,9 @@ public class GeneratorTest {
 		gc.setOutputDir(projectPath + "/src/main/java"); // D:\spaceWms\wms-cloud\wms-mbg
 		gc.setAuthor("wms"); // 开发人员
 		gc.setOpen(false); // 是否打开输出目录
+		
+		//gc.setDateType(DateType.TIME_PACK);// 默认 使用 java.time 包下的 java8 新的时间类型
+		gc.setDateType(DateType.ONLY_DATE);// 只使用 java.util.date 代替 TIME_PACK不兼容druid，所以放弃
 
 		mpg.setGlobalConfig(gc);
 
@@ -112,23 +115,37 @@ public class GeneratorTest {
 						+ tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
 			}
 		});
+
+		String MAPPER_TEST_JAVA_FTL = "/templates/mapperTest.java.ftl";
+		String MAPPER_TEST_JAVA_OUTPUT_DIR = "/src/test/java/com/zlsrj/wms/mbg/";
+
+		// 测试类
+		focList.add(new FileOutConfig(MAPPER_TEST_JAVA_FTL) {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return projectPath + MAPPER_TEST_JAVA_OUTPUT_DIR + "mapper" + "/" + tableInfo.getEntityName() + "Mapper"
+						+ "Test" + StringPool.DOT_JAVA;
+			}
+		});
+
 		cfg.setFileOutConfigList(focList);
 		mpg.setCfg(cfg);
 		mpg.setTemplate(new TemplateConfig().setXml(null));
 
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
-		
+
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-		//strategy.setSuperEntityClass("com.zlsrj.wms.mbg.entity.BaseEntity");
-		strategy.setEntityLombokModel(true); //lombok支持
+		// strategy.setSuperEntityClass("com.zlsrj.wms.mbg.entity.BaseEntity");
+		strategy.setEntityLombokModel(true); // lombok支持
 		// strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController");
-		strategy.setInclude(scanner("表名"));
+		//strategy.setInclude(scanner("表名"));
+		strategy.setInclude("t_op_tenant_info");
 		// strategy.setSuperEntityColumns("trans_id");
 		strategy.setControllerMappingHyphenStyle(true);
-		//strategy.setTablePrefix(pc.getModuleName() + "_");
-		strategy.setTablePrefix("t_op_","t_pm_","t_dev_","t_");
+		// strategy.setTablePrefix(pc.getModuleName() + "_");
+		strategy.setTablePrefix("t_op_", "t_pm_", "t_dev_", "t_");
 		mpg.setStrategy(strategy);
 
 		// 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！

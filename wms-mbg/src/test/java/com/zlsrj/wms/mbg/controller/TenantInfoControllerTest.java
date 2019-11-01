@@ -49,8 +49,35 @@ public class TenantInfoControllerTest {
 	}
 
 	@Test
-	public void insertTest() throws Exception {
+	public void getByIdTest() throws Exception {
+		Long id = 1189861168806760448L;
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/select" + "/" + id)).andReturn()
+				.getResponse().getContentAsString();
+		log.info(responseString);
+	}
 
+	@Test
+	public void listTest() throws Exception {
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/list")).andReturn()
+				.getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void pageTest() throws Exception {
+		final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("tenantStatus", Integer.toString(1));
+
+		params.add("pageNum", Integer.toString(2));
+		params.add("pageSize", Integer.toString(3));
+
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/page").params(params))
+				.andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+
+	@Test
+	public void insertTest() throws Exception {
 		TenantInfo tenantInfo = TenantInfo.builder().id(IdUtil.createSnowflake(1L, 1L).nextId())
 				.tenantName(RandomUtil.randomString(4)).displayName(RandomUtil.randomString(4))
 				.tenantLinkman(RandomUtil.randomString(4))
@@ -67,15 +94,13 @@ public class TenantInfoControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-
 		log.info(responseString);
 	}
 
 	@Test
 	public void updateTest() throws Exception {
-		Long id = 1189808651897016320L;
-
-		TenantInfo tenantInfo = TenantInfo.builder().tenantName(RandomUtil.randomString(4))
+		Long id = 1189879741449113600L;
+		TenantInfo tenantInfo = TenantInfo.builder().id(id).tenantName(RandomUtil.randomString(4))
 				.displayName(RandomUtil.randomString(4)).tenantLinkman(RandomUtil.randomString(4))
 				.tenantMobile(RandomUtil.randomString(RandomUtil.BASE_NUMBER, 11))
 				.tenantTel(RandomUtil.randomString(RandomUtil.BASE_NUMBER, 11))
@@ -84,14 +109,13 @@ public class TenantInfoControllerTest {
 				.regTime(new Date()).endDate(new Date()).build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantInfo/update" + "/" + id)
+				.perform(MockMvcRequestBuilders.put("/tenantInfo/update")
 						.content(JSONUtil.toJsonStr(tenantInfo)) // 请求的url,请求的方法是get
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-
 		log.info(responseString);
 	}
 
@@ -101,12 +125,11 @@ public class TenantInfoControllerTest {
 		Integer status = 0;
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantInfo/update" + "/" + id + "/status" + "/" + status)
+				.perform(MockMvcRequestBuilders.put("/tenantInfo/update" + "/" + id + "/status" + "/" + status)
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-
 		log.info(responseString);
 	}
 
@@ -115,12 +138,11 @@ public class TenantInfoControllerTest {
 		Long id = 1189808734482862080L;
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantInfo/delete" + "/" + id)
+				.perform(MockMvcRequestBuilders.delete("/tenantInfo/delete" + "/" + id)
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-
 		log.info(responseString);
 	}
 
@@ -128,51 +150,18 @@ public class TenantInfoControllerTest {
 	public void deleteByIdsTest() throws Exception {
 		Long[] ids = new Long[] { 1189808830318514176L, 1189808905383972864L, 1189816879435354112L,
 				1189817068195811328L, 1189818722504806400L, };
-
 		List<String> list = new ArrayList<String>();
 		Arrays.asList(ids).forEach(id -> list.add(Long.toString(id)));
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantInfo/delete/ids" + "/" + StringUtils.join(list, ','))
+				.perform(MockMvcRequestBuilders.delete("/tenantInfo/delete/ids" + "/" + StringUtils.join(list, ','))
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-
 		log.info(responseString);
 	}
 
-	@Test
-	public void listTest() throws Exception {
-
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/list")).andReturn()
-				.getResponse().getContentAsString();
-		log.info(responseString);
-	}
-
-	@Test
-	public void getByIdTest() throws Exception {
-
-		Long id = 1189861168806760448L;
-
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/select" + "/" + id)).andReturn()
-				.getResponse().getContentAsString();
-		log.info(responseString);
-	}
-
-	@Test
-	public void pageTest() throws Exception {
-		final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		// params.add("id", Long.toString(1189861280723374080L));
-
-		params.add("tenantStatus", Integer.toString(1));
-
-		params.add("pageNum", Integer.toString(2));
-		params.add("pageSize", Integer.toString(3));
-
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantInfo/page").params(params))
-				.andReturn().getResponse().getContentAsString();
-		log.info(responseString);
-	}
+	
 
 }

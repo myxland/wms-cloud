@@ -37,13 +37,6 @@ public class TenantInfoController {
 	@Autowired
 	private ITenantInfoService tenantInfoService;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public Object list() {
-		List<TenantInfo> tenantInfoList = tenantInfoService.list();
-
-		return tenantInfoList;
-	}
-
 	@RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
 	public Object getById(@PathVariable("id") Long id) {
 		TenantInfo tenantInfo = tenantInfoService.getById(id);
@@ -51,50 +44,12 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfo);
 	}
 
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public Object insert(@RequestBody TenantInfo tenantInfo) {
-		boolean success = tenantInfoService.save(tenantInfo);
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public Object list() {
+		List<TenantInfo> tenantInfoList = tenantInfoService.list();
 
-		return success ? CommonResult.success(success) : CommonResult.failed();
+		return tenantInfoList;
 	}
-
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public Object update(@PathVariable("id") Long id, @RequestBody TenantInfo tenantInfo) {
-		tenantInfo.setId(id);
-		boolean success = tenantInfoService.updateById(tenantInfo);
-
-		return success ? CommonResult.success(success) : CommonResult.failed();
-	}
-
-	@RequestMapping(value = "/update/{id}/status/{status}", method = RequestMethod.POST)
-	public Object update(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
-
-		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
-		updateWrapperTenantInfo.lambda().set(TenantInfo::getTenantStatus, status).eq(TenantInfo::getId, id);
-
-		boolean success = tenantInfoService.update(updateWrapperTenantInfo);
-
-		return success ? CommonResult.success(success) : CommonResult.failed();
-	}
-
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public Object delete(@PathVariable("id") Long id) {
-		boolean success = tenantInfoService.removeById(id);
-		return success ? CommonResult.success(success) : CommonResult.failed();
-	}
-
-	@RequestMapping(value = "/delete/ids/{ids}", method = RequestMethod.POST)
-	public Object deleteByIds(@PathVariable("ids") String ids) {
-		List<Long> idList = Arrays.asList(ids.split(",")).stream().map(id -> Long.parseLong(id))
-				.collect(Collectors.toList());
-		boolean success = tenantInfoService.removeByIds(idList);
-		return success ? CommonResult.success(success) : CommonResult.failed();
-	}
-
-	// IPage<T> page(IPage<T> page, Wrapper<T> queryWrapper);
-	// @RequestParam(value = "keyword", required = false) String keyword,
-	// @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-	// @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public Object page(TenantInfoQueryParam tenantInfoQueryParam,
@@ -111,5 +66,44 @@ public class TenantInfoController {
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(page, queryWrapperTenantInfo);
 
 		return CommonPage.restPage(tenantInfoPage);
+	}
+
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public Object insert(@RequestBody TenantInfo tenantInfo) {
+		boolean success = tenantInfoService.save(tenantInfo);
+
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public Object update(@RequestBody TenantInfo tenantInfo) {
+		boolean success = tenantInfoService.updateById(tenantInfo);
+
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+
+	@RequestMapping(value = "/update/{id}/status/{status}", method = RequestMethod.PUT)
+	public Object update(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
+		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
+		updateWrapperTenantInfo.lambda().set(TenantInfo::getTenantStatus, status).eq(TenantInfo::getId, id);
+		boolean success = tenantInfoService.update(updateWrapperTenantInfo);
+
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public Object delete(@PathVariable("id") Long id) {
+		boolean success = tenantInfoService.removeById(id);
+		
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+
+	@RequestMapping(value = "/delete/ids/{ids}", method = RequestMethod.DELETE)
+	public Object deleteByIds(@PathVariable("ids") String ids) {
+		List<Long> idList = Arrays.asList(ids.split(",")).stream().map(id -> Long.parseLong(id))
+				.collect(Collectors.toList());
+		boolean success = tenantInfoService.removeByIds(idList);
+		
+		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
 }

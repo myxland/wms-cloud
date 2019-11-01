@@ -15,6 +15,7 @@
 	<modules>
 		<module>wms-common</module>
 		<module>wms-mbg</module>
+		<module>wms-generator</module>
 	</modules>
 
 	<properties>
@@ -25,11 +26,11 @@
 		<hutool.version>4.5.15</hutool.version>
 
 		<wms-common.version>0.0.1-SNAPSHOT</wms-common.version>
-		
+
 		<swagger2.version>2.9.2</swagger2.version>
 		<swagger.annotations.version>1.5.21</swagger.annotations.version>
 		<swagger.models.version>1.5.21</swagger.models.version>
-		
+
 	</properties>
 
 	<dependencyManagement>
@@ -49,7 +50,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
@@ -63,10 +64,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		
+
 		<!-- swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
