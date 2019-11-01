@@ -1,0 +1,12 @@
+spring:
+  profiles: 
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wop?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: 123456
+# Logger Config
+logging:
+  level:
+    com.abc.springboot2.mybatisplus.generator: debug
