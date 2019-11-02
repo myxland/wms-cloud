@@ -1,6 +1,9 @@
 package com.zlsrj.wms.common.test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -9,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.github.javafaker.Faker;
 
+import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
@@ -45,6 +49,8 @@ public class TestCaseUtil {
 			"622580", "622150", "622660", "622620", "622298", "622516", "621771", "622909", "621222", "622568" };
 
 	public final static int[] BANK_LENGTH = new int[] { 18, 19, 19, 17, 19, 16, 19, 16, 16, 16, 16, 16, 18, 16, 19 };
+	
+	public final static String[] DOMAIN_SUFFIX = new String[] { "com", "cn", "net", "com.cn" };
 
 //	620200开头的银行卡是工商银行借记卡
 //
@@ -175,6 +181,12 @@ public class TestCaseUtil {
 		AREA.put("65", "新疆维吾尔自治区");
 	}
 
+	public static String companyShortName() {
+		String companyName = COMPANY_NAME_SHORT[RandomUtil.randomInt(COMPANY_NAME_SHORT.length)];
+
+		return companyName;
+	}
+
 	public static String companyName() {
 
 		String state = new Faker(Locale.CHINA).address().state();
@@ -207,8 +219,47 @@ public class TestCaseUtil {
 		return stringBuilder.toString();
 	}
 
+	public static String companyName(String companyShortName) {
+
+		String state = new Faker(Locale.CHINA).address().state();
+
+		String city = new Faker(Locale.CHINA).address().city();
+		String companyName = companyShortName;
+		String companyType = COMPANY_TYPE[RandomUtil.randomInt(COMPANY_TYPE.length)];
+		String companyPostfix = COMPANY_POSTFIX[RandomUtil.randomInt(COMPANY_POSTFIX.length)];
+
+		StringBuilder stringBuilder = new StringBuilder();
+
+		switch (RandomUtil.randomInt(3)) {
+		case 0:
+			stringBuilder.append(state);
+			stringBuilder.append(city);
+			break;
+		case 1:
+			stringBuilder.append(state);
+			break;
+		case 2:
+			stringBuilder.append(city);
+			break;
+		}
+
+		stringBuilder.append(companyName);
+
+		stringBuilder.append(companyType);
+		stringBuilder.append(companyPostfix);
+
+		return stringBuilder.toString();
+	}
+
 	public static String mobile() {
 		return "1" + RandomUtil.randomChar("3456789") + RandomUtil.randomString(RandomUtil.BASE_NUMBER, 9);/// ^1[3456789]\d{9}$/;
+	};
+
+	public static String tel() {
+		return "0" + RandomUtil.randomChar("123456789")
+				+ RandomUtil.randomString(RandomUtil.BASE_NUMBER, RandomUtil.randomInt(1, 2 + 1)) + "-"
+				+ RandomUtil.randomChar("123456789")
+				+ RandomUtil.randomString(RandomUtil.BASE_NUMBER, RandomUtil.randomInt(6, 7 + 1));/// ^1[3456789]\d{9}$/;
 	};
 
 	public static Long id() {
@@ -220,13 +271,7 @@ public class TestCaseUtil {
 		return RandomUtil.randomString(RandomUtil.BASE_NUMBER, 15);
 	}
 
-	public static String dateBefore() {
-		return DateUtil.format(DateUtil.offsetDay(DateUtil.date(), -RandomUtil.randomInt(0, 365 * 50)), "yyyy-MM-dd");
-	}
-
-	public static String dateAfter() {
-		return DateUtil.format(DateUtil.offsetDay(DateUtil.date(), RandomUtil.randomInt(0, 365 * 50)), "yyyy-MM-dd");
-	}
+	
 
 	public static String idcard() {
 		int random = RandomUtil.randomInt(AREA.size());
@@ -357,6 +402,38 @@ public class TestCaseUtil {
 		return select((Object[]) BANK).toString();
 	}
 
+	public static String bankName() {
+		return bank();
+	}
+
+	public static String bankNo() {
+		//return RandomUtil.randomChar("123456789") + RandomUtil.randomNumbers(10);
+		
+//		CNAPS CODE 由12位数字组成：
+//		　　102 1000 9999 6
+//
+//		行别代码：由3位定长数字组成。每个行别代码分别特指一家银行行别，如102对应中国工商银行、104对应中国银行、501对应汇丰银行。
+//
+//		地区代码：由4位定长数字组成。地区代码为银行机构所在城市的电子联行清算中心代码，编制标准采用 GB13497-1992 《全国清算中心代码》
+//
+//		分支机构序号：由4位定长数字排序组成。该构序号由其分行或所在城市总行与其上级管辖协商确认后，对城市内所属分支机构顺序编号。
+//
+//		校验码：为1位数字。演算法采用双模演算法，录入前11位行号后系统自动生成校验号。
+
+		String bank = Integer.toString(RandomUtil.randomInt(100, 999));
+		String area = Integer.toString(RandomUtil.randomInt(1000, 9999));
+		String branch = Integer.toString(RandomUtil.randomInt(1000, 9999));
+		String verify = RandomUtil.randomString(RandomUtil.BASE_NUMBER, 1);
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(bank);
+		stringBuilder.append(area);
+		stringBuilder.append(branch);
+		stringBuilder.append(verify);
+
+		return stringBuilder.toString();
+	}
+
 	public static String bankCardNo(String bank) {
 		if (StringUtils.isEmpty(bank)) {
 			bank = bank();
@@ -394,32 +471,104 @@ public class TestCaseUtil {
 
 		return StringUtils.join(first, RandomUtil.randomString(RandomUtil.BASE_NUMBER, length - 1));
 	}
-	
+
 	public static String address() {
 		return new Faker(Locale.CHINA).address().streetAddress();
 	}
 
+	public static String province() {
+		return new Faker(Locale.CHINA).address().state();
+	}
+
+	public static String city() {
+		return new Faker(Locale.CHINA).address().city();
+	}
+
+	public static String area() {
+		return new Faker(Locale.CHINA).name().lastName() + new Faker(Locale.CHINA).name().lastName();
+	}
+	
+	public static String wx() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("wxid_");
+		stringBuilder.append(RandomUtil.randomString(14));
+
+		return stringBuilder.toString();
+	}
+	
+	public static String domain() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(RandomUtil.randomBoolean() ? "www." : "");
+		stringBuilder.append(RandomUtil.randomString(RandomUtil.BASE_CHAR, RandomUtil.randomInt(2, 10)));
+		stringBuilder.append(".");
+		stringBuilder.append(select((Object[]) DOMAIN_SUFFIX).toString());
+
+		return stringBuilder.toString();
+	}
+	
+	public static Date date() {
+		return DateUtil.offset(
+				DateUtil.offset(new Date(), DateField.SECOND, RandomUtil.randomInt(-24 * 60 * 60, 24 * 60 * 60)),
+				DateField.DAY_OF_YEAR, RandomUtil.randomInt(-1000, 1000));
+	}
+
+	public static Date dateBefore() {
+		return DateUtil.offset(DateUtil.offset(new Date(), DateField.SECOND, RandomUtil.randomInt(-24 * 60 * 60, 0)),
+				DateField.DAY_OF_YEAR, RandomUtil.randomInt(-1000, 0));
+	}
+
+	public static Date dateAfter() {
+		return DateUtil.offset(DateUtil.offset(new Date(), DateField.SECOND, RandomUtil.randomInt(0, 24 * 60 * 60)),
+				DateField.DAY_OF_YEAR, RandomUtil.randomInt(0, 1000));
+	}
+	
+	public static String dateBeforeString() {
+		return DateUtil.format(DateUtil.offsetDay(DateUtil.date(), -RandomUtil.randomInt(0, 365 * 50)), "yyyy-MM-dd");
+	}
+
+	public static String dateAfterString() {
+		return DateUtil.format(DateUtil.offsetDay(DateUtil.date(), RandomUtil.randomInt(0, 365 * 50)), "yyyy-MM-dd");
+	}
+	
+	public static BigDecimal money() {
+		return RandomUtil.randomBigDecimal(new BigDecimal(Math.pow(10, 4))).setScale(2, RoundingMode.HALF_UP);
+	}
+
+	public static BigDecimal rate() {
+		return RandomUtil.randomBigDecimal().setScale(2, RoundingMode.HALF_UP);
+	}
 
 	public static void main(String[] args) {
 		System.out.println("公司名：" + TestCaseUtil.companyName());
 		System.out.println("手机：" + TestCaseUtil.mobile());
+		System.out.println("电话：" + TestCaseUtil.tel());
 		System.out.println("ID：" + TestCaseUtil.id());
 		System.out.println("营业执照：" + TestCaseUtil.licence());
 		System.out.println("身份证：" + TestCaseUtil.idcard());
 
-		System.out.println("之前日期：" + TestCaseUtil.dateBefore());
-		System.out.println("之后日期：" + TestCaseUtil.dateAfter());
+		System.out.println("之前日期：" + TestCaseUtil.dateBeforeString());
+		System.out.println("之后日期：" + TestCaseUtil.dateAfterString());
 
 		System.out.println("状态：" + TestCaseUtil.select(1, 2, 3, 4));
 		System.out.println("状态：" + TestCaseUtil.select("C", "P", "S", "F"));
 
 		System.out.println("年龄：" + TestCaseUtil.age());
 		System.out.println("职位：" + TestCaseUtil.job());
+		System.out.println("行号：" + TestCaseUtil.bankNo());
 		System.out.println("银行：" + TestCaseUtil.bank());
 		System.out.println("卡号：" + TestCaseUtil.bankCardNo(TestCaseUtil.bank()));
 		System.out.println("姓名：" + TestCaseUtil.name());
 		System.out.println("邮箱：" + TestCaseUtil.email(TestCaseUtil.name()));
 		System.out.println("QQ：" + TestCaseUtil.qq());
 		System.out.println("地址：" + TestCaseUtil.address());
+		System.out.println("微信：" + TestCaseUtil.wx());
+		System.out.println("域名：" + TestCaseUtil.domain());
+		
+		System.out.println("随机日期：" + TestCaseUtil.date());
+		System.out.println("之前日期：" + TestCaseUtil.dateBefore());
+		System.out.println("之后日期：" + TestCaseUtil.dateAfter());
+		
+		System.out.println("金额：" + TestCaseUtil.money());
+		System.out.println("比例：" + TestCaseUtil.rate());
 	}
 }

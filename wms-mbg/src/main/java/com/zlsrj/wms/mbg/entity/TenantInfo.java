@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @ApiModel(value = "TenantInfo对象", description = "租户")
 public class TenantInfo implements Serializable {
 
-	private static final long serialVersionUID = -3877647851451410981L;
+	private static final long serialVersionUID = 1483810642213014113L;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableId(value = "id", type = IdType.INPUT)
@@ -39,8 +39,8 @@ public class TenantInfo implements Serializable {
 	private String displayName;
 
 	@ApiModelProperty(value = "省")
-	@TableField("tenant_provice")
-	private String tenantProvice;
+	@TableField("tenant_province")
+	private String tenantProvince;
 
 	@ApiModelProperty(value = "市")
 	@TableField("tenant_city")
@@ -74,7 +74,7 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_qq")
 	private String tenantQq;
 
-	@ApiModelProperty(value = "租户类型（使用单位/供应单位/内部运营)")
+	@ApiModelProperty(value = "租户类型（1：使用单位；2：供应单位；3：内部运营）")
 	@TableField("tenant_type")
 	private Integer tenantType;
 
@@ -112,11 +112,11 @@ public class TenantInfo implements Serializable {
 
 	@ApiModelProperty(value = "是否启用部分缴费（启用/不启用）")
 	@TableField("part_charge_on")
-	private String partChargeOn;
+	private Integer partChargeOn;
 
 	@ApiModelProperty(value = "是否启用违约金（启用/不启用）")
 	@TableField("over_duefine_on")
-	private String overDuefineOn;
+	private Integer overDuefineOn;
 
 	@ApiModelProperty(value = "违约金宽限天数（从计费之日开始）")
 	@TableField("over_duefine_day")

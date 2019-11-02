@@ -22,14 +22,6 @@ import com.zlsrj.wms.mbg.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.mbg.entity.TenantInfo;
 import com.zlsrj.wms.mbg.service.ITenantInfoService;
 
-/**
- * <p>
- * 租户 前端控制器
- * </p>
- *
- * @author wms
- * @since 2019-10-31
- */
 @RestController
 @RequestMapping("/tenantInfo")
 public class TenantInfoController {
@@ -60,8 +52,33 @@ public class TenantInfoController {
 		QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
-				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus,
-						tenantInfoQueryParam.getTenantStatus());
+				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())
+				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfoQueryParam.getDisplayName())
+				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfoQueryParam.getTenantProvince())
+				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
+				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfoQueryParam.getTenantArea())
+				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfoQueryParam.getTenantAddress())
+				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfoQueryParam.getTenantLinkman())
+				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfoQueryParam.getTenantMobile())
+				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfoQueryParam.getTenantTel())
+				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfoQueryParam.getTenantEmail())
+				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq, tenantInfoQueryParam.getTenantQq())
+				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType, tenantInfoQueryParam.getTenantType())
+				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfoQueryParam.getTenantStatus())
+				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime, tenantInfoQueryParam.getRegTime())
+				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate, tenantInfoQueryParam.getEndDate())
+				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfoQueryParam.getCreditNumber())
+				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfoQueryParam.getInvoiceAddress())
+				.eq(tenantInfoQueryParam.getBankNo() != null, TenantInfo::getBankNo, tenantInfoQueryParam.getBankNo())
+				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName, tenantInfoQueryParam.getBankName())
+				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfoQueryParam.getAccountNo())
+				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfoQueryParam.getPartChargeOn())
+				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfoQueryParam.getOverDuefineOn())
+				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfoQueryParam.getOverDuefineDay())
+				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfoQueryParam.getOverDuefineRatio())
+				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfoQueryParam.getOverDuefineTopRatio())
+				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfoQueryParam.getYcdkType())
+				;
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(page, queryWrapperTenantInfo);
 
@@ -83,7 +100,7 @@ public class TenantInfoController {
 	}
 
 	@RequestMapping(value = "/update/{id}/status/{status}", method = RequestMethod.PUT)
-	public Object update(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
+	public Object updateStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
 		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
 		updateWrapperTenantInfo.lambda().set(TenantInfo::getTenantStatus, status).eq(TenantInfo::getId, id);
 		boolean success = tenantInfoService.update(updateWrapperTenantInfo);
@@ -106,4 +123,5 @@ public class TenantInfoController {
 		
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
+	
 }
