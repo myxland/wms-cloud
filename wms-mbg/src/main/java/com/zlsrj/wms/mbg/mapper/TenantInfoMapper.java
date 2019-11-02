@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author wms
- * @since 2019-10-31
+ * @since 2019-11-02
  */
 public interface TenantInfoMapper extends BaseMapper<TenantInfo> {
 

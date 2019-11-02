@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author wms
- * @since 2019-10-31
+ * @since 2019-11-02
  */
 public interface ITenantInfoService extends IService<TenantInfo> {
 

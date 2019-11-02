@@ -4,7 +4,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/wop?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+      url: jdbc:mysql://localhost:3306/wop
       username: root
       password: 123456
       filters: stat,wall,log4j,config

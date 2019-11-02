@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -77,6 +78,8 @@ public class GeneratorTest {
 		gc.setOutputDir(projectPath + "/src/main/java"); // D:\spaceWms\wms-cloud\wms-mbg
 		gc.setAuthor("wms"); // 开发人员
 		gc.setOpen(false); // 是否打开输出目录
+		gc.setSwagger2(true); //开启 swagger2 模式
+		gc.setIdType(IdType.INPUT); //该类型可以通过自己注册自动填充插件进行填充
 		
 		//gc.setDateType(DateType.TIME_PACK);// 默认 使用 java.time 包下的 java8 新的时间类型
 		gc.setDateType(DateType.ONLY_DATE);// 只使用 java.util.date 代替 TIME_PACK不兼容druid，所以放弃
@@ -139,11 +142,15 @@ public class GeneratorTest {
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 		// strategy.setSuperEntityClass("com.zlsrj.wms.mbg.entity.BaseEntity");
 		strategy.setEntityLombokModel(true); // lombok支持
+		strategy.setEntitySerialVersionUID(true);
+		strategy.setEntityBuilderModel(true);
+		strategy.setEntityTableFieldAnnotationEnable(true);//是否生成实体时，生成字段注解
 		// strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController");
 		//strategy.setInclude(scanner("表名"));
 		strategy.setInclude("t_op_tenant_info");
 		// strategy.setSuperEntityColumns("trans_id");
-		strategy.setControllerMappingHyphenStyle(true);
+		strategy.setRestControllerStyle(true); //生成 @RestController控制器
+		strategy.setControllerMappingHyphenStyle(true);//驼峰转连字符
 		// strategy.setTablePrefix(pc.getModuleName() + "_");
 		strategy.setTablePrefix("t_op_", "t_pm_", "t_dev_", "t_");
 		mpg.setStrategy(strategy);
