@@ -16,6 +16,10 @@
 		<module>wms-common</module>
 		<module>wms-mbg</module>
 		<module>wms-generator</module>
+		<module>wms-eureka</module>
+		<module>wms-api</module>
+		<module>wms-admin</module>
+		<module>wms-id</module>
 	</modules>
 
 	<properties>
@@ -26,20 +30,35 @@
 		<hutool.version>4.5.15</hutool.version>
 
 		<wms-common.version>0.0.1-SNAPSHOT</wms-common.version>
+		<wms-api.version>0.0.1-SNAPSHOT</wms-api.version>
 
 		<swagger2.version>2.9.2</swagger2.version>
 		<swagger.annotations.version>1.5.21</swagger.annotations.version>
 		<swagger.models.version>1.5.21</swagger.models.version>
 
+		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 	</properties>
 
 	<dependencyManagement>
+		
 		<dependencies>
-			<!--mall通用模块 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!--通用模块 -->
 			<dependency>
 				<groupId>com.zlsrj.wms</groupId>
 				<artifactId>wms-common</artifactId>
 				<version>${wms-common.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.zlsrj.wms</groupId>
+				<artifactId>wms-api</artifactId>
+				<version>${wms-api.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
