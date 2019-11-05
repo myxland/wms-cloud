@@ -30,7 +30,7 @@ public class TenantEmployee implements Serializable {
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
-	private Integer tenantId;
+	private Long tenantId;
 
 	@ApiModelProperty(value = "员工名称")
 	@TableField("emp_name")

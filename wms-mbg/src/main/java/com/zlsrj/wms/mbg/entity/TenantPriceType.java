@@ -30,7 +30,7 @@ public class TenantPriceType implements Serializable {
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
-	private Integer tenantId;
+	private Long tenantId;
 
 	@ApiModelProperty(value = "价格类别名称")
 	@TableField("price_type_name")

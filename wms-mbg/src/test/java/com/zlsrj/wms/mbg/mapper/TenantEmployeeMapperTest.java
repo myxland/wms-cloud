@@ -44,7 +44,7 @@ public class TenantEmployeeMapperTest {
 	public void insert() {
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
 				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomInt(0,1000+1))// 租户编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门

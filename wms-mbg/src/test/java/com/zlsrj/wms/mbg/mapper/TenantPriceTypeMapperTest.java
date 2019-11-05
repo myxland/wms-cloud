@@ -44,7 +44,7 @@ public class TenantPriceTypeMapperTest {
 	public void insert() {
 		TenantPriceType tenantPriceType = TenantPriceType.builder()//
 				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomInt(0,1000+1))// 租户编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（启用/不启用）
 				.bottomNum(RandomUtil.randomInt(0,1000+1))// 保底水量

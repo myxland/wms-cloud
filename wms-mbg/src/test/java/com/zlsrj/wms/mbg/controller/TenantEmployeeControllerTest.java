@@ -50,8 +50,8 @@ public class TenantEmployeeControllerTest {
 	@Test
 	public void getByIdTest() throws Exception {
 		Long id = 1L;
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantEmployee/select" + "/" + id)).andReturn()
-				.getResponse().getContentAsString();
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantEmployee/select" + "/" + id))
+				.andReturn().getResponse().getContentAsString();
 		log.info(responseString);
 	}
 
@@ -79,12 +79,12 @@ public class TenantEmployeeControllerTest {
 	public void insertTest() throws Exception {
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
 				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomInt(0,1000+1))// 租户编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0, 1 + 1))// 可登录系统（1可登录，0不能登录）
+				.empStatus(RandomUtil.randomInt(0, 1 + 1))// 员工状态（在职/离职/禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -92,7 +92,8 @@ public class TenantEmployeeControllerTest {
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantEmployee/insert").content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
+				.perform(MockMvcRequestBuilders.post("/tenantEmployee/insert")
+						.content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -105,13 +106,13 @@ public class TenantEmployeeControllerTest {
 	public void updateTest() throws Exception {
 		Long id = 1L;
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
-				.id(id)// 
-				.tenantId(RandomUtil.randomInt(0,1000+1))// 租户编号
+				.id(id)//
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0, 1 + 1))// 可登录系统（1可登录，0不能登录）
+				.empStatus(RandomUtil.randomInt(0, 1 + 1))// 员工状态（在职/离职/禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -119,9 +120,10 @@ public class TenantEmployeeControllerTest {
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.put("/tenantEmployee/update").content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
-						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+				.perform(
+						MockMvcRequestBuilders.put("/tenantEmployee/update").content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
+								.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+								.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符

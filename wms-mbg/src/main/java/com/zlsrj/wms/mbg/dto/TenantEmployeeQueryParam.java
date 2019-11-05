@@ -18,7 +18,7 @@ public class TenantEmployeeQueryParam implements Serializable {
 	private Long id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Integer tenantId;
+	private Long tenantId;
 
 	@ApiModelProperty(value = "员工名称")
 	private String empName;

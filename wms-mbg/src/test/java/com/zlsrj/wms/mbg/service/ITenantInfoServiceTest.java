@@ -42,7 +42,8 @@ public class ITenantInfoServiceTest {
 				.tenantTel(TestCaseUtil.tel())// 单位电话
 				.tenantEmail(TestCaseUtil.email(null))// 邮箱
 				.tenantQq(TestCaseUtil.qq())// QQ号码
-				.tenantType(RandomUtil.randomInt(0,1+1))// 租户类型（1：使用单位；2：供应单位；3：内部运营）
+				//.tenantType(RandomUtil.randomInt(0,1+1))// 租户类型（1：使用单位；2：供应单位；3：内部运营）
+				.tenantType(1)// 租户类型（1：使用单位；2：供应单位；3：内部运营）
 				.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（正式/试用）
 				.regTime(new Date())// 注册时间
 				.endDate(new Date())// 到期日期

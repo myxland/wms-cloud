@@ -15,7 +15,7 @@ spring:
 # Logger Config
 logging:
   level:
-    com.abc.springboot2.mybatisplus.generator: debug
+    com.abc.zlsrj.wms.mbg: debug
 
     
 mq:
@@ -24,3 +24,9 @@ mq:
       custType: mq-mbg-tenant-custType
       waterType: mq-mbg-tenant-waterType
       system: mq-mbg-tenant-system
+      dept: mq-mbg-tenant-dept
+      employee: mq-mbg-tenant-employee
+      role: mq-mbg-tenant-role
+      price: mq-mbg-tenant-price
+      rbac: mq-mbg-tenant-rbac
+      base: mq-mbg-tenant-base
