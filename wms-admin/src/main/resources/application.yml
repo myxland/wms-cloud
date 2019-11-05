@@ -20,3 +20,9 @@ eureka:
 feign:
   hystrix:
     enabled: false
+
+jwt: 
+  secret: mySecret
+  expiration: 604800 #60*60*24
+  tokenHeader: Authorization
+  tokenHead: Bearer
