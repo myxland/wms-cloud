@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantAccount;
+import com.zlsrj.wms.api.entity.TenantAccount;
 import com.zlsrj.wms.mbg.mapper.TenantAccountMapper;
 import com.zlsrj.wms.mbg.service.ITenantAccountService;
 

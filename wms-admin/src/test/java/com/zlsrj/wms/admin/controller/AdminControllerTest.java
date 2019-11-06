@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.zlsrj.wms.admin.dto.AdminLoginParam;
+import com.zlsrj.wms.api.dto.AdminLoginParam;
 
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;

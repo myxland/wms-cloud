@@ -8,7 +8,7 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.mbg.mapper.TenantInfoMapper;
 import com.zlsrj.wms.mbg.service.ITenantAccountService;
 import com.zlsrj.wms.mbg.service.ITenantInfoService;

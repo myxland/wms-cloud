@@ -1,0 +1,19 @@
+server:
+  port: 8003
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: wms-iam-8003
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: wms-iam
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://localhost:3306/wop
+    username: root
+    password: 123456

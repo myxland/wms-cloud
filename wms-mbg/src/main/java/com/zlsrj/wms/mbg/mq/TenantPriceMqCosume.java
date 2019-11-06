@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import com.zlsrj.wms.mbg.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.mbg.service.ITenantPriceService;
 
 import cn.hutool.json.JSONUtil;

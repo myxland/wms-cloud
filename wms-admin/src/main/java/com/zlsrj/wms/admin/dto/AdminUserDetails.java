@@ -8,17 +8,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.zlsrj.wms.admin.entity.Admin;
-import com.zlsrj.wms.admin.entity.Permission;
+import com.zlsrj.wms.api.entity.AdminPermission;
+import com.zlsrj.wms.api.entity.AdminUser;
 
 public class AdminUserDetails implements UserDetails {
 
 	private static final long serialVersionUID = 7497995345934388331L;
 
-	private Admin admin;
-	private List<Permission> permissionList;
+	private AdminUser admin;
+	private List<AdminPermission> permissionList;
 
-	public AdminUserDetails(Admin admin, List<Permission> permissionList) {
+	public AdminUserDetails(AdminUser admin, List<AdminPermission> permissionList) {
 		this.admin = admin;
 		this.permissionList = permissionList;
 	}

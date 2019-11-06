@@ -14,12 +14,13 @@
 	<name>Water Manage System Cloud</name>
 	<modules>
 		<module>wms-common</module>
-		<module>wms-mbg</module>
-		<module>wms-generator</module>
-		<module>wms-eureka</module>
 		<module>wms-api</module>
-		<module>wms-admin</module>
+		<module>wms-eureka</module>
+		<module>wms-generator</module>
+		<module>wms-mbg</module>
 		<module>wms-id</module>
+		<module>wms-iam</module>
+		<module>wms-admin</module>
 	</modules>
 
 	<properties>

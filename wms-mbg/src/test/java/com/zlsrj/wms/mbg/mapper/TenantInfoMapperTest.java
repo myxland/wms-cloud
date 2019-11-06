@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlsrj.wms.common.test.TestCaseUtil;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantInfo;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;

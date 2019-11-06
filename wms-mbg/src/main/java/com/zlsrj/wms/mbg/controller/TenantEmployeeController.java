@@ -16,10 +16,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.dto.TenantEmployeeQueryParam;
-import com.zlsrj.wms.mbg.entity.TenantEmployee;
 import com.zlsrj.wms.mbg.service.ITenantEmployeeService;
 
 @RestController
@@ -32,6 +32,13 @@ public class TenantEmployeeController {
 	@RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
 	public Object getById(@PathVariable("id") Long id) {
 		TenantEmployee tenantEmployee = tenantEmployeeService.getById(id);
+
+		return CommonResult.success(tenantEmployee);
+	}
+	
+	@RequestMapping(value = "/select/empName/{empName}", method = RequestMethod.GET)
+	public CommonResult<TenantEmployee> getByEmpName(@PathVariable("empName") String empName) {
+		TenantEmployee tenantEmployee = tenantEmployeeService.getByEmpName(empName);
 
 		return CommonResult.success(tenantEmployee);
 	}

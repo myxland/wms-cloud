@@ -16,10 +16,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantSystemQueryParam;
+import com.zlsrj.wms.api.entity.TenantSystem;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.dto.TenantSystemQueryParam;
-import com.zlsrj.wms.mbg.entity.TenantSystem;
 import com.zlsrj.wms.mbg.service.ITenantSystemService;
 
 @RestController

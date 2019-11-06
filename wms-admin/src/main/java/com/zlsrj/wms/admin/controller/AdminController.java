@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zlsrj.wms.admin.dto.AdminLoginParam;
-import com.zlsrj.wms.admin.entity.Admin;
 import com.zlsrj.wms.admin.service.IAdminService;
+import com.zlsrj.wms.api.dto.AdminLoginParam;
+import com.zlsrj.wms.api.entity.AdminUser;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +48,7 @@ public class AdminController {
 	@ResponseBody
 	public CommonResult<Map<String, Object>> getAdminInfo(Principal principal) {
 		String username = principal.getName();
-		Admin admin = adminService.getAdminByUsername(username);
+		AdminUser admin = adminService.getAdminByUsername(username);
 		Map<String, Object> data = new HashMap<>();
 		data.put("username", admin.getUsername());
 		data.put("roles", new String[] { "TEST" });

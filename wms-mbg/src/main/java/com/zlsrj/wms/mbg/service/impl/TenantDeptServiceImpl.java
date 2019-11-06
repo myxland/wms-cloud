@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantDept;
+import com.zlsrj.wms.api.entity.TenantDept;
 import com.zlsrj.wms.mbg.mapper.TenantDeptMapper;
 import com.zlsrj.wms.mbg.service.ITenantDeptService;
 

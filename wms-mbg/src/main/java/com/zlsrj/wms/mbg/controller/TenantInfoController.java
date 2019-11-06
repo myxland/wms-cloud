@@ -16,10 +16,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.dto.TenantInfoQueryParam;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
 import com.zlsrj.wms.mbg.service.ITenantInfoService;
 
 @RestController
@@ -44,7 +44,7 @@ public class TenantInfoController {
 	}
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
-	public Object page(TenantInfoQueryParam tenantInfoQueryParam,
+	public CommonPage<TenantInfo> page(TenantInfoQueryParam tenantInfoQueryParam,
 			@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
 
@@ -52,33 +52,57 @@ public class TenantInfoController {
 		QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
-				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())
-				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfoQueryParam.getDisplayName())
-				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfoQueryParam.getTenantProvince())
-				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
-				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfoQueryParam.getTenantArea())
-				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfoQueryParam.getTenantAddress())
-				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfoQueryParam.getTenantLinkman())
-				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfoQueryParam.getTenantMobile())
-				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfoQueryParam.getTenantTel())
-				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfoQueryParam.getTenantEmail())
-				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq, tenantInfoQueryParam.getTenantQq())
-				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType, tenantInfoQueryParam.getTenantType())
-				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfoQueryParam.getTenantStatus())
-				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime, tenantInfoQueryParam.getRegTime())
-				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate, tenantInfoQueryParam.getEndDate())
-				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfoQueryParam.getCreditNumber())
-				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfoQueryParam.getInvoiceAddress())
+				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName,
+						tenantInfoQueryParam.getTenantName())
+				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName,
+						tenantInfoQueryParam.getDisplayName())
+				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince,
+						tenantInfoQueryParam.getTenantProvince())
+				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity,
+						tenantInfoQueryParam.getTenantCity())
+				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea,
+						tenantInfoQueryParam.getTenantArea())
+				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress,
+						tenantInfoQueryParam.getTenantAddress())
+				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman,
+						tenantInfoQueryParam.getTenantLinkman())
+				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile,
+						tenantInfoQueryParam.getTenantMobile())
+				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel,
+						tenantInfoQueryParam.getTenantTel())
+				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail,
+						tenantInfoQueryParam.getTenantEmail())
+				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq,
+						tenantInfoQueryParam.getTenantQq())
+				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType,
+						tenantInfoQueryParam.getTenantType())
+				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus,
+						tenantInfoQueryParam.getTenantStatus())
+				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime,
+						tenantInfoQueryParam.getRegTime())
+				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate,
+						tenantInfoQueryParam.getEndDate())
+				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber,
+						tenantInfoQueryParam.getCreditNumber())
+				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress,
+						tenantInfoQueryParam.getInvoiceAddress())
 				.eq(tenantInfoQueryParam.getBankNo() != null, TenantInfo::getBankNo, tenantInfoQueryParam.getBankNo())
-				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName, tenantInfoQueryParam.getBankName())
-				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfoQueryParam.getAccountNo())
-				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfoQueryParam.getPartChargeOn())
-				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfoQueryParam.getOverDuefineOn())
-				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfoQueryParam.getOverDuefineDay())
-				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfoQueryParam.getOverDuefineRatio())
-				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfoQueryParam.getOverDuefineTopRatio())
-				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfoQueryParam.getYcdkType())
-				;
+				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName,
+						tenantInfoQueryParam.getBankName())
+				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo,
+						tenantInfoQueryParam.getAccountNo())
+				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn,
+						tenantInfoQueryParam.getPartChargeOn())
+				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn,
+						tenantInfoQueryParam.getOverDuefineOn())
+				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay,
+						tenantInfoQueryParam.getOverDuefineDay())
+				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio,
+						tenantInfoQueryParam.getOverDuefineRatio())
+				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio,
+						tenantInfoQueryParam.getOverDuefineTopRatio())
+				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType,
+						tenantInfoQueryParam.getYcdkType());
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(page, queryWrapperTenantInfo);
 
@@ -111,7 +135,7 @@ public class TenantInfoController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public Object delete(@PathVariable("id") Long id) {
 		boolean success = tenantInfoService.removeById(id);
-		
+
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
 
@@ -120,8 +144,8 @@ public class TenantInfoController {
 		List<Long> idList = Arrays.asList(ids.split(",")).stream().map(id -> Long.parseLong(id))
 				.collect(Collectors.toList());
 		boolean success = tenantInfoService.removeByIds(idList);
-		
+
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
-	
+
 }

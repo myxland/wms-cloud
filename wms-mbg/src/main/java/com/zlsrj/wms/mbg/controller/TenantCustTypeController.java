@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantCustTypeQueryParam;
+import com.zlsrj.wms.api.entity.TenantCustType;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.dto.TenantCustTypeQueryParam;
-import com.zlsrj.wms.mbg.entity.TenantCustType;
 import com.zlsrj.wms.mbg.service.ITenantCustTypeService;
 
 @RestController

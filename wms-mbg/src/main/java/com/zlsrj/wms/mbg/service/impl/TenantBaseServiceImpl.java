@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.zlsrj.wms.mbg.entity.TenantCustType;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
-import com.zlsrj.wms.mbg.entity.TenantWaterType;
+import com.zlsrj.wms.api.entity.TenantCustType;
+import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantWaterType;
 import com.zlsrj.wms.mbg.enums.CustTypeEnum;
 import com.zlsrj.wms.mbg.enums.WaterTypeEnum;
 import com.zlsrj.wms.mbg.service.ITenantBaseService;

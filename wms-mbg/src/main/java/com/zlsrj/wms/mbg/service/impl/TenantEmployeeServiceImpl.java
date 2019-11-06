@@ -2,9 +2,10 @@ package com.zlsrj.wms.mbg.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantEmployee;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.mbg.mapper.TenantEmployeeMapper;
 import com.zlsrj.wms.mbg.service.ITenantEmployeeService;
 
@@ -39,5 +40,15 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		boolean success = retBool(baseMapper.insert(tenantEmployee));
 
 		return success;
+	}
+
+	@Override
+	public TenantEmployee getByEmpName(String empName) {
+		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
+		queryWrapperTenantEmployee.lambda()//
+				.eq(TenantEmployee::getEmpName, empName);
+		TenantEmployee tenantEmployee = baseMapper.selectOne(queryWrapperTenantEmployee);
+
+		return tenantEmployee;
 	}
 }

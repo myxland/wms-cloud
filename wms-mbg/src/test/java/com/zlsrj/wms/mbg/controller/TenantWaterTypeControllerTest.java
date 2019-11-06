@@ -23,7 +23,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
-import com.zlsrj.wms.mbg.entity.TenantWaterType;
+import com.zlsrj.wms.api.entity.TenantWaterType;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;

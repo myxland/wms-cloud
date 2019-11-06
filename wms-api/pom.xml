@@ -8,11 +8,26 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>wms-api</artifactId>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
+			<groupId>com.zlsrj.wms</groupId>
+			<artifactId>wms-common</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatisplus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.62</version>
 		</dependency>
 	</dependencies>
 

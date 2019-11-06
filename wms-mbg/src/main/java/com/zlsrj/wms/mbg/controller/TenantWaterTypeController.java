@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantWaterTypeQueryParam;
+import com.zlsrj.wms.api.entity.TenantWaterType;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.dto.TenantWaterTypeQueryParam;
-import com.zlsrj.wms.mbg.entity.TenantWaterType;
 import com.zlsrj.wms.mbg.service.ITenantWaterTypeService;
 
 @RestController

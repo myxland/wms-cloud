@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.SystemDesign;
-import com.zlsrj.wms.mbg.entity.TenantSystem;
+import com.zlsrj.wms.api.entity.SystemDesign;
+import com.zlsrj.wms.api.entity.TenantSystem;
 import com.zlsrj.wms.mbg.enums.PricePolicyTypeEnum;
 import com.zlsrj.wms.mbg.mapper.TenantSystemMapper;
 import com.zlsrj.wms.mbg.service.ISystemDesignService;

@@ -2,15 +2,15 @@ package com.zlsrj.wms.admin.service;
 
 import java.util.List;
 
-import com.zlsrj.wms.admin.entity.Admin;
-import com.zlsrj.wms.admin.entity.Permission;
+import com.zlsrj.wms.api.entity.AdminPermission;
+import com.zlsrj.wms.api.entity.AdminUser;
 
 public interface IAdminService {
 
 	String login(String username, String password);
 
-	Admin getAdminByUsername(String username);
+	AdminUser getAdminByUsername(String username);
 
-	List<Permission> getPermissionList(Long adminId);
+	List<AdminPermission> getPermissionList(Long adminId);
 
 }

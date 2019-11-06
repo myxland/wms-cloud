@@ -24,10 +24,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.zlsrj.wms.admin.component.RestAuthenticationEntryPoint;
 import com.zlsrj.wms.admin.component.RestfulAccessDeniedHandler;
 import com.zlsrj.wms.admin.dto.AdminUserDetails;
-import com.zlsrj.wms.admin.entity.Admin;
-import com.zlsrj.wms.admin.entity.Permission;
 import com.zlsrj.wms.admin.filter.JwtAuthenticationTokenFilter;
 import com.zlsrj.wms.admin.service.IAdminService;
+import com.zlsrj.wms.api.entity.AdminPermission;
+import com.zlsrj.wms.api.entity.AdminUser;
 
 import cn.hutool.crypto.SecureUtil;
 
@@ -47,15 +47,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
+	public final static String[] STATIC_RESOURCE_ANT_PATH = new String[] { "/", "/*.html", "/favicon.ico", "/**/*.html",
+			"/**/*.css", "/**/*.js", "/swagger-resources/**", "/v2/api-docs/**" };
+
+	public final static String[] LOGIN_ANT_PATH = new String[] { "/admin/login", "/admin/register" };
+
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf()// 由于使用的是JWT，我们这里不需要csrf
 				.disable().sessionManagement()// 基于token，所以不需要session
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, // 允许对于网站静态资源的无授权访问
-						"/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js", "/swagger-resources/**",
-						"/v2/api-docs/**")
-				.permitAll().antMatchers("/admin/login", "/admin/register")// 对登录注册要允许匿名访问
+				.antMatchers(HttpMethod.GET, STATIC_RESOURCE_ANT_PATH)// 允许对于网站静态资源的无授权访问
+				.permitAll().antMatchers(LOGIN_ANT_PATH)// 对登录注册要允许匿名访问
 				.permitAll().antMatchers(HttpMethod.OPTIONS)// 跨域请求会先进行一次options请求
 				.permitAll().antMatchers("/**")// 测试时全部运行访问
 				.permitAll().anyRequest()// 除上面外的所有请求全部需要鉴权认证
@@ -119,9 +122,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 			@Override
 			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-				Admin admin = adminService.getAdminByUsername(username);
+				AdminUser admin = adminService.getAdminByUsername(username);
 				if (admin != null) {
-					List<Permission> permissionList = adminService.getPermissionList(admin.getId());
+					List<AdminPermission> permissionList = adminService.getPermissionList(admin.getId());
 					return new AdminUserDetails(admin, permissionList);
 				}
 

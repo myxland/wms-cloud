@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlsrj.wms.mbg.entity.TenantInfo;
-import com.zlsrj.wms.mbg.entity.TenantPriceDetail;
-import com.zlsrj.wms.mbg.entity.TenantPriceItem;
-import com.zlsrj.wms.mbg.entity.TenantPriceStep;
-import com.zlsrj.wms.mbg.entity.TenantPriceType;
+import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantPriceDetail;
+import com.zlsrj.wms.api.entity.TenantPriceItem;
+import com.zlsrj.wms.api.entity.TenantPriceStep;
+import com.zlsrj.wms.api.entity.TenantPriceType;
 import com.zlsrj.wms.mbg.enums.PriceCalcTypeEnum;
 import com.zlsrj.wms.mbg.enums.PriceItemEnum;
 import com.zlsrj.wms.mbg.enums.PriceTypeEnum;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantCustType;
+import com.zlsrj.wms.api.entity.TenantCustType;
 import com.zlsrj.wms.mbg.enums.CustTypeEnum;
 import com.zlsrj.wms.mbg.mapper.TenantCustTypeMapper;
 import com.zlsrj.wms.mbg.service.ITenantCustTypeService;

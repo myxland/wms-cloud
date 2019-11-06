@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
-import com.zlsrj.wms.mbg.entity.TenantRole;
+import com.zlsrj.wms.api.entity.TenantRole;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;

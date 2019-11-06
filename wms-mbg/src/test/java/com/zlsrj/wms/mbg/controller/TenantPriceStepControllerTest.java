@@ -24,7 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
-import com.zlsrj.wms.mbg.entity.TenantPriceStep;
+import com.zlsrj.wms.api.entity.TenantPriceStep;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONUtil;

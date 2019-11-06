@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantWaterType;
+import com.zlsrj.wms.api.entity.TenantWaterType;
 import com.zlsrj.wms.mbg.enums.WaterTypeEnum;
 import com.zlsrj.wms.mbg.mapper.TenantWaterTypeMapper;
 import com.zlsrj.wms.mbg.service.ITenantWaterTypeService;

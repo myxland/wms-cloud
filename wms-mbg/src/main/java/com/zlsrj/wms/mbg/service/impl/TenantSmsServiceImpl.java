@@ -3,7 +3,7 @@ package com.zlsrj.wms.mbg.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zlsrj.wms.mbg.entity.TenantSms;
+import com.zlsrj.wms.api.entity.TenantSms;
 import com.zlsrj.wms.mbg.mapper.TenantSmsMapper;
 import com.zlsrj.wms.mbg.service.ITenantSmsService;
 
