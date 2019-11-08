@@ -45,7 +45,7 @@ public class TenantAccountMapperTest {
 	public void insert() {
 		TenantAccount tenantAccount = TenantAccount.builder()//
 				.id(TestCaseUtil.id())// 编号ID
-				.tenantId(RandomUtil.randomLong())// 租房编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.accountBalance(new BigDecimal(0))// 账户余额
 				.build();
 				

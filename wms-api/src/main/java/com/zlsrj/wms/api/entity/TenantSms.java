@@ -28,7 +28,7 @@ public class TenantSms implements Serializable {
 	@TableId(value = "id", type = IdType.INPUT)
 	private Long id;
 
-	@ApiModelProperty(value = "租房编号")
+	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
 	private Long tenantId;
 

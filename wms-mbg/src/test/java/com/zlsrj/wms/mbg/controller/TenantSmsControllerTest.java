@@ -79,7 +79,7 @@ public class TenantSmsControllerTest {
 	public void insertTest() throws Exception {
 		TenantSms tenantSms = TenantSms.builder()//
 				.id(TestCaseUtil.id())// 编号ID
-				.tenantId(RandomUtil.randomLong())// 租房编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsSpService(RandomUtil.randomString(4))// 短信SP服务商
 				.smsReadSendOn(RandomUtil.randomInt(0,1+1))// 是否启用抄表账单通知短信（启用/不启用）
@@ -103,7 +103,7 @@ public class TenantSmsControllerTest {
 		Long id = 1L;
 		TenantSms tenantSms = TenantSms.builder()//
 				.id(id)// 
-				.tenantId(RandomUtil.randomLong())// 租房编号
+				.tenantId(RandomUtil.randomLong())// 租户编号
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsSpService(RandomUtil.randomString(4))// 短信SP服务商
 				.smsReadSendOn(RandomUtil.randomInt(0,1+1))// 是否启用抄表账单通知短信（启用/不启用）

@@ -36,7 +36,7 @@ public class TenantAccount implements Serializable {
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租房编号")
+	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;

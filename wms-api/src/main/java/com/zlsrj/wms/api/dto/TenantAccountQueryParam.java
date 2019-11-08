@@ -18,7 +18,7 @@ public class TenantAccountQueryParam implements Serializable {
 	@ApiModelProperty(value = "编号ID")
 	private Long id;
 
-	@ApiModelProperty(value = "租房编号")
+	@ApiModelProperty(value = "租户编号")
 	private Long tenantId;
 
 	@ApiModelProperty(value = "账户余额")

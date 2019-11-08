@@ -17,7 +17,7 @@ public class TenantSmsQueryParam implements Serializable {
 	@ApiModelProperty(value = "编号ID")
 	private Long id;
 
-	@ApiModelProperty(value = "租房编号")
+	@ApiModelProperty(value = "租户编号")
 	private Long tenantId;
 
 	@ApiModelProperty(value = "短信签名")

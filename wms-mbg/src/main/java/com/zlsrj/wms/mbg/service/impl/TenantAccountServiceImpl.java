@@ -22,7 +22,7 @@ public class TenantAccountServiceImpl extends ServiceImpl<TenantAccountMapper, T
 	public boolean initByTenant(Long tenantId) {
 		TenantAccount tenantAccount = TenantAccount.builder()//
 				.id(IdUtil.createSnowflake(1L, 1L).nextId())// 编号ID
-				.tenantId(tenantId)// 租房编号
+				.tenantId(tenantId)// 租户编号
 				.accountBalance(new BigDecimal(0))// 账户余额
 				.build();
 		boolean success = retBool(baseMapper.insert(tenantAccount));
