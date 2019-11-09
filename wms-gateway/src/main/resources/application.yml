@@ -1,0 +1,22 @@
+server:
+  port: 7070
+  
+spring:
+  application:
+    name: wms-gateway
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+      #defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: wms-gateway-7070
+    prefer-ip-address: true
+
+#zuul: 
+#  prefix: /wms/v1
+#  ignored-services:#  - wms-mbg
+#  routes:
+#    mbg.serviceId: wms-mbg
+#    mbg.path: /mbg/**

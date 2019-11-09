@@ -46,7 +46,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "根据参数查询租户列表")
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.GET)
-	public IPage<TenantInfoVo> page(TenantInfoQueryParam tenantInfoQueryParam,
+	public Page<TenantInfoVo> page(TenantInfoQueryParam tenantInfoQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
 			@RequestParam(value = "sort") String sort, // 排序列字段名
@@ -111,7 +111,7 @@ public class TenantInfoRestController {
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(pageTenantInfo, queryWrapperTenantInfo);
 
-		IPage<TenantInfoVo> tenantInfoVoPage = new Page<TenantInfoVo>(page, rows);
+		Page<TenantInfoVo> tenantInfoVoPage = new Page<TenantInfoVo>(page, rows);
 		tenantInfoVoPage.setCurrent(tenantInfoPage.getCurrent());
 		tenantInfoVoPage.setPages(tenantInfoPage.getPages());
 		tenantInfoVoPage.setSize(tenantInfoPage.getSize());
@@ -120,7 +120,10 @@ public class TenantInfoRestController {
 				.map(e -> entity2vo(e))//
 				.collect(Collectors.toList()));
 
+		log.info(JSON.toJSONString(tenantInfoVoPage));
+		
 		return tenantInfoVoPage;
+		//return CommonPage.restPage(tenantInfoVoPage);
 	}
 
 	@ApiOperation(value = "新增租户")

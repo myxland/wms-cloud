@@ -21,6 +21,7 @@
 		<module>wms-id</module>
 		<module>wms-iam</module>
 		<module>wms-admin</module>
+		<module>wms-gateway</module>
 	</modules>
 
 	<properties>
