@@ -19,7 +19,7 @@ public interface TenantInfoClientService {
 	public TenantInfoVo getById(@PathVariable("id") Long id);
 
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.GET)
-	public Page<TenantInfoVo> page(@RequestParam TenantInfoQueryParam tenantInfoQueryParam,
+	public Page<TenantInfoVo> page(@RequestBody TenantInfoQueryParam tenantInfoQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
 			@RequestParam(value = "sort") String sort, // 排序列字段名
@@ -38,4 +38,3 @@ public interface TenantInfoClientService {
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") Long id);
 }
-

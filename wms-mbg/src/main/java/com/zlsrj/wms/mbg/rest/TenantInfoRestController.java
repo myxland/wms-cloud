@@ -28,7 +28,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "租户",tags= {"租户操作接口"})
+@Api(value = "租户", tags = { "租户操作接口" })
 @RestController
 @Slf4j
 public class TenantInfoRestController {
@@ -46,7 +46,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "根据参数查询租户列表")
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.GET)
-	public Page<TenantInfoVo> page(TenantInfoQueryParam tenantInfoQueryParam,
+	public Page<TenantInfoVo> page(@RequestBody TenantInfoQueryParam tenantInfoQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
 			@RequestParam(value = "sort") String sort, // 排序列字段名
@@ -54,7 +54,7 @@ public class TenantInfoRestController {
 	) {
 		IPage<TenantInfo> pageTenantInfo = new Page<TenantInfo>(page, rows);
 		QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
-		queryWrapperTenantInfo.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperTenantInfo.orderBy(StringUtils.isNotEmpty(sort), !"desc".equals(order), sort);
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
 				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName,
@@ -120,10 +120,7 @@ public class TenantInfoRestController {
 				.map(e -> entity2vo(e))//
 				.collect(Collectors.toList()));
 
-		log.info(JSON.toJSONString(tenantInfoVoPage));
-		
 		return tenantInfoVoPage;
-		//return CommonPage.restPage(tenantInfoVoPage);
 	}
 
 	@ApiOperation(value = "新增租户")
