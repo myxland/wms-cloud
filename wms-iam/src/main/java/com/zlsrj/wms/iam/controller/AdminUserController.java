@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.dto.AdminLoginParam;
 import com.zlsrj.wms.api.entity.AdminUser;
-import com.zlsrj.wms.api.entity.TenantEmployee;
-import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,20 +26,14 @@ public class AdminUserController {
 		String username = adminLoginParam.getUsername();
 		String password = adminLoginParam.getPassword();
 
-		CommonResult<TenantEmployee> tenantEmployeeCommonResult = tenantEmployeeClientService.getByEmpName(username);
-
-		AdminUser adminUser = null;
-
-		if (tenantEmployeeCommonResult != null && tenantEmployeeCommonResult.getCode() == 200L) {
-			TenantEmployee tenantEmployee = tenantEmployeeCommonResult.getData();
-			adminUser = AdminUser.builder()//
-					.id(tenantEmployee.getId())//
-					.username(tenantEmployee.getEmpName())//
-					.password(tenantEmployee.getEmpPassword())//
-					.status(tenantEmployee.getEmpStatus())//
-					.icon(null)//
-					.build();
-		}
+		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.getByEmpName(username);
+		AdminUser adminUser = AdminUser.builder()//
+				.id(tenantEmployeeVo.getId())//
+				.username(tenantEmployeeVo.getEmpName())//
+				.password(tenantEmployeeVo.getEmpPassword())//
+				.status(tenantEmployeeVo.getEmpStatus())//
+				.icon(null)//
+				.build();
 
 		return adminUser;
 	}

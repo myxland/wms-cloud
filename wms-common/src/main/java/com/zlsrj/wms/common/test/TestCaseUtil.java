@@ -538,37 +538,37 @@ public class TestCaseUtil {
 		return RandomUtil.randomBigDecimal().setScale(2, RoundingMode.HALF_UP);
 	}
 
-	public static void main(String[] args) {
-		System.out.println("公司名：" + TestCaseUtil.companyName());
-		System.out.println("手机：" + TestCaseUtil.mobile());
-		System.out.println("电话：" + TestCaseUtil.tel());
-		System.out.println("ID：" + TestCaseUtil.id());
-		System.out.println("营业执照：" + TestCaseUtil.licence());
-		System.out.println("身份证：" + TestCaseUtil.idcard());
-
-		System.out.println("之前日期：" + TestCaseUtil.dateBeforeString());
-		System.out.println("之后日期：" + TestCaseUtil.dateAfterString());
-
-		System.out.println("状态：" + TestCaseUtil.select(1, 2, 3, 4));
-		System.out.println("状态：" + TestCaseUtil.select("C", "P", "S", "F"));
-
-		System.out.println("年龄：" + TestCaseUtil.age());
-		System.out.println("职位：" + TestCaseUtil.job());
-		System.out.println("行号：" + TestCaseUtil.bankNo());
-		System.out.println("银行：" + TestCaseUtil.bank());
-		System.out.println("卡号：" + TestCaseUtil.bankCardNo(TestCaseUtil.bank()));
-		System.out.println("姓名：" + TestCaseUtil.name());
-		System.out.println("邮箱：" + TestCaseUtil.email(TestCaseUtil.name()));
-		System.out.println("QQ：" + TestCaseUtil.qq());
-		System.out.println("地址：" + TestCaseUtil.address());
-		System.out.println("微信：" + TestCaseUtil.wx());
-		System.out.println("域名：" + TestCaseUtil.domain());
-		
-		System.out.println("随机日期：" + TestCaseUtil.date());
-		System.out.println("之前日期：" + TestCaseUtil.dateBefore());
-		System.out.println("之后日期：" + TestCaseUtil.dateAfter());
-		
-		System.out.println("金额：" + TestCaseUtil.money());
-		System.out.println("比例：" + TestCaseUtil.rate());
-	}
+//	public static void main(String[] args) {
+//		System.out.println("公司名：" + TestCaseUtil.companyName());
+//		System.out.println("手机：" + TestCaseUtil.mobile());
+//		System.out.println("电话：" + TestCaseUtil.tel());
+//		System.out.println("ID：" + TestCaseUtil.id());
+//		System.out.println("营业执照：" + TestCaseUtil.licence());
+//		System.out.println("身份证：" + TestCaseUtil.idcard());
+//
+//		System.out.println("之前日期：" + TestCaseUtil.dateBeforeString());
+//		System.out.println("之后日期：" + TestCaseUtil.dateAfterString());
+//
+//		System.out.println("状态：" + TestCaseUtil.select(1, 2, 3, 4));
+//		System.out.println("状态：" + TestCaseUtil.select("C", "P", "S", "F"));
+//
+//		System.out.println("年龄：" + TestCaseUtil.age());
+//		System.out.println("职位：" + TestCaseUtil.job());
+//		System.out.println("行号：" + TestCaseUtil.bankNo());
+//		System.out.println("银行：" + TestCaseUtil.bank());
+//		System.out.println("卡号：" + TestCaseUtil.bankCardNo(TestCaseUtil.bank()));
+//		System.out.println("姓名：" + TestCaseUtil.name());
+//		System.out.println("邮箱：" + TestCaseUtil.email(TestCaseUtil.name()));
+//		System.out.println("QQ：" + TestCaseUtil.qq());
+//		System.out.println("地址：" + TestCaseUtil.address());
+//		System.out.println("微信：" + TestCaseUtil.wx());
+//		System.out.println("域名：" + TestCaseUtil.domain());
+//		
+//		System.out.println("随机日期：" + TestCaseUtil.date());
+//		System.out.println("之前日期：" + TestCaseUtil.dateBefore());
+//		System.out.println("之后日期：" + TestCaseUtil.dateAfter());
+//		
+//		System.out.println("金额：" + TestCaseUtil.money());
+//		System.out.println("比例：" + TestCaseUtil.rate());
+//	}
 }

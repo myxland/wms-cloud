@@ -1,10 +1,6 @@
-package com.zlsrj.wms.mbg.controller;
+package com.zlsrj.wms.mbg.rest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,17 +18,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class TenantEmployeeControllerTest {
+public class TenantEmployeeRestControllerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -50,41 +46,51 @@ public class TenantEmployeeControllerTest {
 	@Test
 	public void getByIdTest() throws Exception {
 		Long id = 1L;
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantEmployee/select" + "/" + id))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-employees" + "/" + id))
+				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
+				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
-		log.info(responseString);
-	}
-
-	@Test
-	public void listTest() throws Exception {
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantEmployee/list")).andReturn()
-				.getResponse().getContentAsString();
 		log.info(responseString);
 	}
 
 	@Test
 	public void pageTest() throws Exception {
-		final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("tenantType", Integer.toString(5));
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("page", "1");
+		params.add("rows", "10");
+		params.add("sort", "id");
+		params.add("order", "desc");
+		
+		// params.add("id",TestCaseUtil.id());// 系统ID
+		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
+		// params.add("empName",TestCaseUtil.name());// 员工名称
+		// params.add("empPassword",RandomUtil.randomString(4));// 登录密码
+		// params.add("deptId",RandomUtil.randomLong());// 员工部门
+		// params.add("loginOn",RandomUtil.randomInt(0,1+1));// 可登录系统（1可登录，0不能登录）
+		// params.add("empStatus",RandomUtil.randomInt(0,1+1));// 员工状态（在职/离职/禁用）
+		// params.add("empMobile",TestCaseUtil.mobile());// 员工手机号
+		// params.add("empEmail",TestCaseUtil.email(null));// 员工邮箱
+		// params.add("empPersonalWx",RandomUtil.randomString(4));// 员工个人微信号
+		// params.add("empEnterpriceWx",RandomUtil.randomString(4));// 员工企业微信号
 
-		params.add("pageNum", Integer.toString(1));
-		params.add("pageSize", Integer.toString(10));
-
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenantEmployee/page").params(params))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-employees").params(params))
+				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
+				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
 		log.info(responseString);
 	}
 
 	@Test
-	public void insertTest() throws Exception {
-		TenantEmployee tenantEmployee = TenantEmployee.builder()//
+	public void saveTest() throws Exception {
+
+		TenantEmployee tenantInfo = TenantEmployee.builder()//
 				.id(TestCaseUtil.id())// 系统ID
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0, 1 + 1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0, 1 + 1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
+				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -92,8 +98,7 @@ public class TenantEmployeeControllerTest {
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenantEmployee/insert")
-						.content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
+				.perform(MockMvcRequestBuilders.post("/tenant-employees").content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -103,16 +108,17 @@ public class TenantEmployeeControllerTest {
 	}
 
 	@Test
-	public void updateTest() throws Exception {
+	public void updateByIdTest() throws Exception {
 		Long id = 1L;
-		TenantEmployee tenantEmployee = TenantEmployee.builder()//
-				.id(id)//
+
+		TenantEmployee tenantInfo = TenantEmployee.builder()//
+				//.id(TestCaseUtil.id())// 系统ID
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0, 1 + 1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0, 1 + 1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
+				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -120,23 +126,8 @@ public class TenantEmployeeControllerTest {
 				.build();
 
 		String responseString = mockMvc
-				.perform(
-						MockMvcRequestBuilders.put("/tenantEmployee/update").content(JSONUtil.toJsonStr(tenantEmployee)) // 请求的url,请求的方法是get
-								.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
-								.accept(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
-				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
-				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
-		log.info(responseString);
-	}
-
-	@Test
-	public void updateStatusTest() throws Exception {
-		Long id = 1L;
-		Integer status = 0;
-
-		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.put("/tenantEmployee/update" + "/" + id + "/status" + "/" + status)
+				.perform(MockMvcRequestBuilders.put("/tenant-employees" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -145,11 +136,25 @@ public class TenantEmployeeControllerTest {
 	}
 
 	@Test
-	public void deleteTest() throws Exception {
+	public void updatePatchById() throws Exception {
 		Long id = 1L;
 
+		TenantEmployee tenantInfo = TenantEmployee.builder()//
+				//.tenantId(RandomUtil.randomLong())// 租户编号
+				//.empName(TestCaseUtil.name())// 员工名称
+				//.empPassword(RandomUtil.randomString(4))// 登录密码
+				//.deptId(RandomUtil.randomLong())// 员工部门
+				//.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
+				//.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				//.empMobile(TestCaseUtil.mobile())// 员工手机号
+				//.empEmail(TestCaseUtil.email(null))// 员工邮箱
+				//.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
+				//.empEnterpriceWx(RandomUtil.randomString(4))// 员工企业微信号
+				.build();
+
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.delete("/tenantEmployee/delete" + "/" + id)
+				.perform(MockMvcRequestBuilders.patch("/tenant-employees" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -158,18 +163,13 @@ public class TenantEmployeeControllerTest {
 	}
 
 	@Test
-	public void deleteByIdsTest() throws Exception {
-		Long[] ids = new Long[] { 1L, 2L, 3L, 4L, 5L };
-		List<String> list = new ArrayList<String>();
-		Arrays.asList(ids).forEach(id -> list.add(Long.toString(id)));
+	public void removeById() throws Exception {
+		Long id = 1L;
 
-		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.delete("/tenantEmployee/delete/ids" + "/" + StringUtils.join(list, ','))
-						.accept(MediaType.APPLICATION_JSON_UTF8))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-employees" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符
 		log.info(responseString);
 	}
-
 }
