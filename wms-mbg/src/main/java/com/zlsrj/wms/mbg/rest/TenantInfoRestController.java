@@ -22,6 +22,7 @@ import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.mbg.service.IIdService;
 import com.zlsrj.wms.mbg.service.ITenantInfoService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +36,9 @@ public class TenantInfoRestController {
 
 	@Autowired
 	private ITenantInfoService tenantInfoService;
+
+	@Autowired
+	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
@@ -126,6 +130,9 @@ public class TenantInfoRestController {
 	@ApiOperation(value = "新增租户")
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.POST)
 	public TenantInfoVo save(@RequestBody TenantInfo tenantInfo) {
+		if (tenantInfo.getId() == null || tenantInfo.getId().compareTo(0L) <= 0) {
+			tenantInfo.setId(idService.selectId());
+		}
 		boolean success = tenantInfoService.save(tenantInfo);
 		if (success) {
 			TenantInfo tenantInfoDatabase = tenantInfoService.getById(tenantInfo.getId());

@@ -19,9 +19,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantSmsQueryParam;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantSms;
 import com.zlsrj.wms.api.vo.TenantSmsVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.mbg.service.IIdService;
+import com.zlsrj.wms.mbg.service.ITenantInfoService;
 import com.zlsrj.wms.mbg.service.ITenantSmsService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +38,10 @@ public class TenantSmsRestController {
 
 	@Autowired
 	private ITenantSmsService tenantSmsService;
+	@Autowired
+	private ITenantInfoService tenantInfoService;
+	@Autowired
+	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户短信配置")
 	@RequestMapping(value = "/tenant-smss/{id}", method = RequestMethod.GET)
@@ -57,14 +64,20 @@ public class TenantSmsRestController {
 		queryWrapperTenantSms.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperTenantSms.lambda()
 				.eq(tenantSmsQueryParam.getId() != null, TenantSms::getId, tenantSmsQueryParam.getId())
-				.eq(tenantSmsQueryParam.getTenantId() != null, TenantSms::getTenantId, tenantSmsQueryParam.getTenantId())
-				.eq(tenantSmsQueryParam.getSmsSignature() != null, TenantSms::getSmsSignature, tenantSmsQueryParam.getSmsSignature())
-				.eq(tenantSmsQueryParam.getSmsSpService() != null, TenantSms::getSmsSpService, tenantSmsQueryParam.getSmsSpService())
-				.eq(tenantSmsQueryParam.getSmsReadSendOn() != null, TenantSms::getSmsReadSendOn, tenantSmsQueryParam.getSmsReadSendOn())
-				.eq(tenantSmsQueryParam.getSmsChargeSendOn() != null, TenantSms::getSmsChargeSendOn, tenantSmsQueryParam.getSmsChargeSendOn())
-				.eq(tenantSmsQueryParam.getSmsQfSendOn() != null, TenantSms::getSmsQfSendOn, tenantSmsQueryParam.getSmsQfSendOn())
-				.eq(tenantSmsQueryParam.getSmsQfSendAfterDays() != null, TenantSms::getSmsQfSendAfterDays, tenantSmsQueryParam.getSmsQfSendAfterDays())
-				;
+				.eq(tenantSmsQueryParam.getTenantId() != null, TenantSms::getTenantId,
+						tenantSmsQueryParam.getTenantId())
+				.eq(tenantSmsQueryParam.getSmsSignature() != null, TenantSms::getSmsSignature,
+						tenantSmsQueryParam.getSmsSignature())
+				.eq(tenantSmsQueryParam.getSmsSpService() != null, TenantSms::getSmsSpService,
+						tenantSmsQueryParam.getSmsSpService())
+				.eq(tenantSmsQueryParam.getSmsReadSendOn() != null, TenantSms::getSmsReadSendOn,
+						tenantSmsQueryParam.getSmsReadSendOn())
+				.eq(tenantSmsQueryParam.getSmsChargeSendOn() != null, TenantSms::getSmsChargeSendOn,
+						tenantSmsQueryParam.getSmsChargeSendOn())
+				.eq(tenantSmsQueryParam.getSmsQfSendOn() != null, TenantSms::getSmsQfSendOn,
+						tenantSmsQueryParam.getSmsQfSendOn())
+				.eq(tenantSmsQueryParam.getSmsQfSendAfterDays() != null, TenantSms::getSmsQfSendAfterDays,
+						tenantSmsQueryParam.getSmsQfSendAfterDays());
 
 		IPage<TenantSms> tenantSmsPage = tenantSmsService.page(pageTenantSms, queryWrapperTenantSms);
 
@@ -83,6 +96,9 @@ public class TenantSmsRestController {
 	@ApiOperation(value = "新增租户短信配置")
 	@RequestMapping(value = "/tenant-smss", method = RequestMethod.POST)
 	public TenantSmsVo save(@RequestBody TenantSms tenantSms) {
+		if (tenantSms.getId() == null || tenantSms.getId().compareTo(0L) <= 0) {
+			tenantSms.setId(idService.selectId());
+		}
 		boolean success = tenantSmsService.save(tenantSms);
 		if (success) {
 			TenantSms tenantSmsDatabase = tenantSmsService.getById(tenantSms.getId());
@@ -98,7 +114,7 @@ public class TenantSmsRestController {
 		tenantSms.setId(id);
 		boolean success = tenantSmsService.updateById(tenantSms);
 		if (success) {
-			TenantSms tenantSmsDatabase = tenantSmsService.getById(tenantSms.getId());
+			TenantSms tenantSmsDatabase = tenantSmsService.getById(id);
 			return entity2vo(tenantSmsDatabase);
 		}
 		log.info("update TenantSms fail，{}", ToStringBuilder.reflectionToString(tenantSms, ToStringStyle.JSON_STYLE));
@@ -116,14 +132,15 @@ public class TenantSmsRestController {
 				.set(tenantSms.getSmsSignature() != null, TenantSms::getSmsSignature, tenantSms.getSmsSignature())
 				.set(tenantSms.getSmsSpService() != null, TenantSms::getSmsSpService, tenantSms.getSmsSpService())
 				.set(tenantSms.getSmsReadSendOn() != null, TenantSms::getSmsReadSendOn, tenantSms.getSmsReadSendOn())
-				.set(tenantSms.getSmsChargeSendOn() != null, TenantSms::getSmsChargeSendOn, tenantSms.getSmsChargeSendOn())
+				.set(tenantSms.getSmsChargeSendOn() != null, TenantSms::getSmsChargeSendOn,
+						tenantSms.getSmsChargeSendOn())
 				.set(tenantSms.getSmsQfSendOn() != null, TenantSms::getSmsQfSendOn, tenantSms.getSmsQfSendOn())
-				.set(tenantSms.getSmsQfSendAfterDays() != null, TenantSms::getSmsQfSendAfterDays, tenantSms.getSmsQfSendAfterDays())
-				;
+				.set(tenantSms.getSmsQfSendAfterDays() != null, TenantSms::getSmsQfSendAfterDays,
+						tenantSms.getSmsQfSendAfterDays());
 
 		boolean success = tenantSmsService.update(updateWrapperTenantSms);
 		if (success) {
-			TenantSms tenantSmsDatabase = tenantSmsService.getById(tenantSms.getId());
+			TenantSms tenantSmsDatabase = tenantSmsService.getById(id);
 			return entity2vo(tenantSmsDatabase);
 		}
 		log.info("partial update TenantSms fail，{}",
@@ -141,6 +158,12 @@ public class TenantSmsRestController {
 	private TenantSmsVo entity2vo(TenantSms tenantSms) {
 		String jsonString = JSON.toJSONString(tenantSms);
 		TenantSmsVo tenantSmsVo = JSON.parseObject(jsonString, TenantSmsVo.class);
+		if (StringUtils.isEmpty(tenantSmsVo.getTenantName())) {
+			TenantInfo tenantInfo = tenantInfoService.getById(tenantSmsVo.getTenantId());
+			if (tenantInfo != null) {
+				tenantSmsVo.setTenantName(tenantInfo.getTenantName());
+			}
+		}
 		return tenantSmsVo;
 	}
 

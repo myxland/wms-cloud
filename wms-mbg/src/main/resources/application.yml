@@ -44,3 +44,9 @@ mq:
       price: mq-mbg-tenant-price
       rbac: mq-mbg-tenant-rbac
       base: mq-mbg-tenant-base
+      
+
+id: 
+  config: 
+    workerId: 16 #最大支持机器节点数0~31，一共32个
+    datacenterId: 16 #最大支持数据中心节点数0~31，一共32个
