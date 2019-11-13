@@ -48,7 +48,7 @@ public class TenantSmsController {
 	@RequestMapping(value = "/update/smsReadSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsReadSendOn(@RequestParam("ids") String ids,
-			@RequestParam("smsReadSendOn") int smsReadSendOn) {
+			@RequestParam("smsReadSendOn") Integer smsReadSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			TenantSms tenantSms = new TenantSms();
@@ -63,7 +63,7 @@ public class TenantSmsController {
 	@RequestMapping(value = "/update/smsChargeSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsChargeSendOn(@RequestParam("ids") String ids,
-			@RequestParam("smsChargeSendOn") int smsChargeSendOn) {
+			@RequestParam("smsChargeSendOn") Integer smsChargeSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			TenantSms tenantSms = new TenantSms();
@@ -78,7 +78,7 @@ public class TenantSmsController {
 	@RequestMapping(value = "/update/smsQfSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsQfSendOn(@RequestParam("ids") String ids,
-			@RequestParam("smsQfSendOn") int smsQfSendOn) {
+			@RequestParam("smsQfSendOn") Integer smsQfSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			TenantSms tenantSms = new TenantSms();
