@@ -1,4 +1,4 @@
-package com.zlsrj.wms.id.config;
+package com.zlsrj.wms.system.config;
 
 import java.util.ArrayList;
 import java.util.List;

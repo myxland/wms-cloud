@@ -1,4 +1,4 @@
-package com.zlsrj.wms.id;
+package com.zlsrj.wms.system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,15 +6,12 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-public class IdApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(IdApplication.class, args);
-    }
-
+public class WmsSystemApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(WmsSystemApplication.class, args);
+	}
 }

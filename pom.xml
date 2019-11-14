@@ -18,10 +18,10 @@
 		<module>wms-eureka</module>
 		<module>wms-generator</module>
 		<module>wms-mbg</module>
-		<module>wms-id</module>
 		<module>wms-iam</module>
 		<module>wms-admin</module>
 		<module>wms-gateway</module>
+		<module>wms-system</module>
 	</modules>
 
 	<properties>

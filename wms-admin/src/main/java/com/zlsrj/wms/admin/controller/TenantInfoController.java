@@ -27,7 +27,7 @@ public class TenantInfoController {
 	@ResponseBody
 	public CommonResult<CommonPage<TenantInfoVo>> list(TenantInfoQueryParam tenantInfoQueryParam, int pageNum,
 			int pageSize) {
-		Page<TenantInfoVo> tenantInfoVoPage = tenantInfoClientService.page(tenantInfoQueryParam, 1, 10, "id", "desc");
+		Page<TenantInfoVo> tenantInfoVoPage = tenantInfoClientService.page(tenantInfoQueryParam, pageNum, pageSize, "id", "desc");
 
 		CommonPage<TenantInfoVo> tenantInfoCommonPage = CommonPage.restPage(tenantInfoVoPage);
 

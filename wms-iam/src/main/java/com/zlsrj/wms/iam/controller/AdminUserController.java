@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.dto.AdminLoginParam;
 import com.zlsrj.wms.api.entity.AdminUser;
-import com.zlsrj.wms.api.vo.TenantEmployeeVo;
+import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.iam.service.ITenantEmployeeService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,20 +18,20 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminUserController {
 
 	@Autowired
-	private TenantEmployeeClientService tenantEmployeeClientService;
+	private ITenantEmployeeService tenantEmployeeService;
 
 	// 根据用户名，密码获取登录结果
 	@RequestMapping(value = "/adminUser/login", method = RequestMethod.POST)
 	public AdminUser login(@RequestBody AdminLoginParam adminLoginParam) {
 		String username = adminLoginParam.getUsername();
-		String password = adminLoginParam.getPassword();
+//		String password = adminLoginParam.getPassword();
 
-		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.getByEmpName(username);
+		TenantEmployee tenantEmployee = tenantEmployeeService.getByEmpName(username);
 		AdminUser adminUser = AdminUser.builder()//
-				.id(tenantEmployeeVo.getId())//
-				.username(tenantEmployeeVo.getEmpName())//
-				.password(tenantEmployeeVo.getEmpPassword())//
-				.status(tenantEmployeeVo.getEmpStatus())//
+				.id(tenantEmployee.getId())//
+				.username(tenantEmployee.getEmpName())//
+				.password(tenantEmployee.getEmpPassword())//
+				.status(tenantEmployee.getEmpStatus())//
 				.icon(null)//
 				.build();
 

@@ -20,7 +20,7 @@ public class TenantBillQueryParam implements Serializable {
 	@ApiModelProperty(value = "租户编号")
 	private Long tenantId;
 
-	@ApiModelProperty(value = "用户发票开具方式（按实收开票/按应收开票）")
+	@ApiModelProperty(value = "用户发票开具方式（1：按实收开票；2：按应收开票）")
 	private Integer billPrintType;
 
 	@ApiModelProperty(value = "发票备注定义")

@@ -28,7 +28,7 @@ public class ITenantBillServiceTest {
 		TenantBill tenantBill = TenantBill.builder()//
 				.id(TestCaseUtil.id())// 编号ID
 				.tenantId(RandomUtil.randomLong())// 租户编号
-				.billPrintType(RandomUtil.randomInt(0,1+1))// 用户发票开具方式（按实收开票/按应收开票）
+				.billPrintType(RandomUtil.randomInt(0,1+1))// 用户发票开具方式（1：按实收开票；2：按应收开票）
 				.billRemark(RandomUtil.randomString(4))// 发票备注定义
 				.billService(RandomUtil.randomString(4))// 电子发票服务商（百望/航天信息）
 				.billJrdm(RandomUtil.randomString(4))// 接入代码
@@ -52,7 +52,7 @@ public class ITenantBillServiceTest {
 
 		TenantBill tenantBill = TenantBill.builder()//
 				.tenantId(RandomUtil.randomLong())// 租户编号
-				.billPrintType(RandomUtil.randomInt(0,1+1))// 用户发票开具方式（按实收开票/按应收开票）
+				.billPrintType(RandomUtil.randomInt(0,1+1))// 用户发票开具方式（1：按实收开票；2：按应收开票）
 				.billRemark(RandomUtil.randomString(4))// 发票备注定义
 				.billService(RandomUtil.randomString(4))// 电子发票服务商（百望/航天信息）
 				.billJrdm(RandomUtil.randomString(4))// 接入代码
