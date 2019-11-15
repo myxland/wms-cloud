@@ -19,10 +19,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.SystemMenuDesignQueryParam;
+import com.zlsrj.wms.api.entity.SystemDesign;
 import com.zlsrj.wms.api.entity.SystemMenuDesign;
 import com.zlsrj.wms.api.vo.SystemMenuDesignVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.system.service.IIdService;
+import com.zlsrj.wms.system.service.ISystemDesignService;
 import com.zlsrj.wms.system.service.ISystemMenuDesignService;
 
 import io.swagger.annotations.Api;
@@ -36,6 +38,8 @@ public class SystemMenuDesignRestController {
 
 	@Autowired
 	private ISystemMenuDesignService systemMenuDesignService;
+	@Autowired
+	private ISystemDesignService systemDesignService;
 	@Autowired
 	private IIdService idService;
 
@@ -155,6 +159,12 @@ public class SystemMenuDesignRestController {
 	private SystemMenuDesignVo entity2vo(SystemMenuDesign systemMenuDesign) {
 		String jsonString = JSON.toJSONString(systemMenuDesign);
 		SystemMenuDesignVo systemMenuDesignVo = JSON.parseObject(jsonString, SystemMenuDesignVo.class);
+		if (StringUtils.isEmpty(systemMenuDesignVo.getModuleName())) {
+			SystemDesign systemDesign = systemDesignService.getById(systemMenuDesign.getSysId());
+			if (systemDesign != null) {
+				systemMenuDesignVo.setModuleName(systemDesign.getModuleName());
+			}
+		}
 		return systemMenuDesignVo;
 	}
 

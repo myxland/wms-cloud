@@ -29,6 +29,9 @@ public class SystemMenuDesignVo implements Serializable {
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long sysId;
 
+	@ApiModelProperty(value = "模块名称")
+	private String moduleName;
+
 	@ApiModelProperty(value = "菜单名称")
 	private String menuName;
 

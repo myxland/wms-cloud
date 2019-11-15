@@ -44,6 +44,51 @@ public class SystemMenuDesignController {
 		return CommonResult.success(systemMenuDesignCommonPage);
 	}
 
+	@ApiOperation(value = "更新模块菜单开放基础版")
+	@RequestMapping(value = "/update/basicOn", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Boolean> updateBasicOn(@RequestParam("ids") String ids,
+			@RequestParam("basicOn") Integer basicOn) {
+		Arrays.asList(ids.split(",")).forEach(n -> {
+			Long id = Long.parseLong(n);
+			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
+			systemMenuDesign.setBasicOn(basicOn);
+			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
+		});
+
+		return CommonResult.success(true);
+	}
+
+	@ApiOperation(value = "更新模块菜单开放高级版")
+	@RequestMapping(value = "/update/advanceOn", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Boolean> updateAdvanceOn(@RequestParam("ids") String ids,
+			@RequestParam("advanceOn") Integer advanceOn) {
+		Arrays.asList(ids.split(",")).forEach(n -> {
+			Long id = Long.parseLong(n);
+			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
+			systemMenuDesign.setAdvanceOn(advanceOn);
+			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
+		});
+
+		return CommonResult.success(true);
+	}
+
+	@ApiOperation(value = "更新模块菜单开放旗舰版")
+	@RequestMapping(value = "/update/ultimateOn", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Boolean> updateUltimateOn(@RequestParam("ids") String ids,
+			@RequestParam("ultimateOn") Integer ultimateOn) {
+		Arrays.asList(ids.split(",")).forEach(n -> {
+			Long id = Long.parseLong(n);
+			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
+			systemMenuDesign.setUltimateOn(ultimateOn);
+			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
+		});
+
+		return CommonResult.success(true);
+	}
+
 	@ApiOperation(value = "新增模块菜单")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
