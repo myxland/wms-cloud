@@ -50,9 +50,9 @@ public class TenantSystemMapperTest {
 				.sysId(RandomUtil.randomLong())// 模块编号
 				.sysDispName(TestCaseUtil.name())// 模块显示名称
 				.sysOrder(RandomUtil.randomInt(0,1000+1))// 模块排序
-				.sysEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（基础版/高级版/旗舰版）
-				.sysStatus(RandomUtil.randomInt(0,1+1))// 模块状态（1开通/0未开通）
-				.sysPriceType(RandomUtil.randomInt(0,1+1))// 价格体系（标准价格/指定价格）
+				.sysEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
+				.sysStatus(RandomUtil.randomInt(0,1+1))// 模块状态（1：开通；0：未开通）
+				.sysPriceType(RandomUtil.randomInt(0,1+1))// 价格体系（1：标准价格；2：指定价格）
 				.sysOpenDate(new Date())// 开通时间
 				.sysEndDate(new Date())// 到期时间
 				.sysStartChargeDate(new Date())// 开始计费日期
