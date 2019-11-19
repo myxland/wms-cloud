@@ -37,14 +37,17 @@ public class TenantDept implements Serializable {
 
 	@ApiModelProperty(value = "上级部门")
 	@TableField("parent_dept_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long parentDeptId;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
 	@ApiModelProperty(value = "部门名称")
 	@TableField("dept_name")
 	private String deptName;
+
 
 }
