@@ -31,7 +31,7 @@ public class ITenantPriceDetailServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeId(RandomUtil.randomLong())// 价格类别
 				.priceItemId(RandomUtil.randomLong())// 费用项目
-				.calcType(RandomUtil.randomInt(0,1+1))// 计算方法（固定单价/固定金额/阶梯价格）
+				.calcType(RandomUtil.randomInt(0,1+1))// 计算方法（1：固定单价；2：固定金额；3：阶梯价格）
 				.price(new BigDecimal(0))// 指定价格（金额）
 				.build();
 
@@ -51,7 +51,7 @@ public class ITenantPriceDetailServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeId(RandomUtil.randomLong())// 价格类别
 				.priceItemId(RandomUtil.randomLong())// 费用项目
-				.calcType(RandomUtil.randomInt(0,1+1))// 计算方法（固定单价/固定金额/阶梯价格）
+				.calcType(RandomUtil.randomInt(0,1+1))// 计算方法（1：固定单价；2：固定金额；3：阶梯价格）
 				.price(new BigDecimal(0))// 指定价格（金额）
 				.build();
 		tenantPriceDetail.setId(id);

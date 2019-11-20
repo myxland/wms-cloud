@@ -26,7 +26,7 @@ public class TenantRoleSystemQueryParam implements Serializable {
 	@ApiModelProperty(value = "模块编号")
 	private Long sysId;
 
-	@ApiModelProperty(value = "开放（1开放，0不开放）")
+	@ApiModelProperty(value = "开放（1：开放；0：不开放）")
 	private Integer roleSysOn;
 
 }

@@ -26,7 +26,7 @@ public class TenantEmployeeRoleQueryParam implements Serializable {
 	@ApiModelProperty(value = "角色编号")
 	private Long roleId;
 
-	@ApiModelProperty(value = "开放（1开放，0不开放）")
+	@ApiModelProperty(value = "开放（1：开放；0：不开放）")
 	private Integer empRoleOn;
 
 }

@@ -66,8 +66,8 @@ public class TenantEmployeeRestControllerTest {
 		// params.add("empName",TestCaseUtil.name());// 员工名称
 		// params.add("empPassword",RandomUtil.randomString(4));// 登录密码
 		// params.add("deptId",RandomUtil.randomLong());// 员工部门
-		// params.add("loginOn",RandomUtil.randomInt(0,1+1));// 可登录系统（1可登录，0不能登录）
-		// params.add("empStatus",RandomUtil.randomInt(0,1+1));// 员工状态（在职/离职/禁用）
+		// params.add("loginOn",RandomUtil.randomInt(0,1+1));// 可登录系统（1：可登录；0：不能登录）
+		// params.add("empStatus",RandomUtil.randomInt(0,1+1));// 员工状态（1：在职；2：离职；3：禁用）
 		// params.add("empMobile",TestCaseUtil.mobile());// 员工手机号
 		// params.add("empEmail",TestCaseUtil.email(null));// 员工邮箱
 		// params.add("empPersonalWx",RandomUtil.randomString(4));// 员工个人微信号
@@ -89,8 +89,8 @@ public class TenantEmployeeRestControllerTest {
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -117,8 +117,8 @@ public class TenantEmployeeRestControllerTest {
 				.empName(TestCaseUtil.name())// 员工名称
 				.empPassword(RandomUtil.randomString(4))// 登录密码
 				.deptId(RandomUtil.randomLong())// 员工部门
-				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
-				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.empMobile(TestCaseUtil.mobile())// 员工手机号
 				.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
@@ -144,8 +144,8 @@ public class TenantEmployeeRestControllerTest {
 				//.empName(TestCaseUtil.name())// 员工名称
 				//.empPassword(RandomUtil.randomString(4))// 登录密码
 				//.deptId(RandomUtil.randomLong())// 员工部门
-				//.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1可登录，0不能登录）
-				//.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（在职/离职/禁用）
+				//.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				//.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				//.empMobile(TestCaseUtil.mobile())// 员工手机号
 				//.empEmail(TestCaseUtil.email(null))// 员工邮箱
 				//.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号

@@ -2,6 +2,8 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -30,10 +32,12 @@ public class TenantEmployee implements Serializable {
 
 	@ApiModelProperty(value = "系统ID")
 	@TableId(value = "id", type = IdType.INPUT)
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
 	@ApiModelProperty(value = "员工名称")
@@ -46,13 +50,14 @@ public class TenantEmployee implements Serializable {
 
 	@ApiModelProperty(value = "员工部门")
 	@TableField("dept_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long deptId;
 
-	@ApiModelProperty(value = "可登录系统（1可登录，0不能登录）")
+	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
 	@TableField("login_on")
 	private Integer loginOn;
 
-	@ApiModelProperty(value = "员工状态（在职/离职/禁用）")
+	@ApiModelProperty(value = "员工状态（1：在职；2：离职；3：禁用）")
 	@TableField("emp_status")
 	private Integer empStatus;
 
@@ -71,5 +76,6 @@ public class TenantEmployee implements Serializable {
 	@ApiModelProperty(value = "员工企业微信号")
 	@TableField("emp_enterprice_wx")
 	private String empEnterpriceWx;
+
 
 }

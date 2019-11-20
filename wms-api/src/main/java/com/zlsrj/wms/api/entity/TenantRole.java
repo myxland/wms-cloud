@@ -2,6 +2,8 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,12 +11,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
@@ -26,10 +32,12 @@ public class TenantRole implements Serializable {
 
 	@ApiModelProperty(value = "系统ID")
 	@TableId(value = "id", type = IdType.INPUT)
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
 	@ApiModelProperty(value = "角色名称")
@@ -39,5 +47,6 @@ public class TenantRole implements Serializable {
 	@ApiModelProperty(value = "角色说明")
 	@TableField("role_remark")
 	private String roleRemark;
+
 
 }

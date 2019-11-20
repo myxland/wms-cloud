@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantPriceDetail查询参数", description = "")
+@ApiModel(value = "TenantPriceDetail查询参数", description = "价格明细")
 public class TenantPriceDetailQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 1911109532111161510L;
@@ -27,7 +27,7 @@ public class TenantPriceDetailQueryParam implements Serializable {
 	@ApiModelProperty(value = "费用项目")
 	private Long priceItemId;
 
-	@ApiModelProperty(value = "计算方法（固定单价/固定金额/阶梯价格）")
+	@ApiModelProperty(value = "计算方法（1：固定单价；2：固定金额；3：阶梯价格）")
 	private Integer calcType;
 
 	@ApiModelProperty(value = "指定价格（金额）")

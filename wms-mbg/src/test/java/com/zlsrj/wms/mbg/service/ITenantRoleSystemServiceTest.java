@@ -30,7 +30,7 @@ public class ITenantRoleSystemServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.roleId(RandomUtil.randomLong())// 角色编号
 				.sysId(RandomUtil.randomLong())// 模块编号
-				.roleSysOn(RandomUtil.randomInt(0,1+1))// 开放（1开放，0不开放）
+				.roleSysOn(RandomUtil.randomInt(0,1+1))// 开放（1：开放；0：不开放）
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantRoleSystem, ToStringStyle.MULTI_LINE_STYLE));
@@ -49,7 +49,7 @@ public class ITenantRoleSystemServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.roleId(RandomUtil.randomLong())// 角色编号
 				.sysId(RandomUtil.randomLong())// 模块编号
-				.roleSysOn(RandomUtil.randomInt(0,1+1))// 开放（1开放，0不开放）
+				.roleSysOn(RandomUtil.randomInt(0,1+1))// 开放（1：开放；0：不开放）
 				.build();
 		tenantRoleSystem.setId(id);
 

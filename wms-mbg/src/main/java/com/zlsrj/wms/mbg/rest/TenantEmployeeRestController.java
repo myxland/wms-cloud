@@ -19,9 +19,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.mbg.service.IIdService;
+import com.zlsrj.wms.mbg.service.ITenantInfoService;
 import com.zlsrj.wms.mbg.service.ITenantEmployeeService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +38,10 @@ public class TenantEmployeeRestController {
 
 	@Autowired
 	private ITenantEmployeeService tenantEmployeeService;
+	@Autowired
+	private ITenantInfoService tenantInfoService;
+	@Autowired
+	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户员工")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
@@ -43,18 +50,10 @@ public class TenantEmployeeRestController {
 
 		return entity2vo(tenantEmployee);
 	}
-	
-	@ApiOperation(value = "根据用户名查询租户员工")
-	@RequestMapping(value = "/tenant-employees/emp-name/{empName}", method = RequestMethod.GET)
-	public TenantEmployeeVo getByEmpName(@PathVariable("empName") String empName) {
-		TenantEmployee tenantEmployee = tenantEmployeeService.getByEmpName(empName);
-
-		return entity2vo(tenantEmployee);
-	}
 
 	@ApiOperation(value = "根据参数查询租户员工列表")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.GET)
-	public Page<TenantEmployeeVo> page(TenantEmployeeQueryParam tenantEmployeeQueryParam,
+	public Page<TenantEmployeeVo> page(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
 			@RequestParam(value = "sort") String sort, // 排序列字段名
@@ -64,17 +63,17 @@ public class TenantEmployeeRestController {
 		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
 		queryWrapperTenantEmployee.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperTenantEmployee.lambda()
-				.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
-				.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
-				.eq(tenantEmployeeQueryParam.getEmpName() != null, TenantEmployee::getEmpName, tenantEmployeeQueryParam.getEmpName())
-				.eq(tenantEmployeeQueryParam.getEmpPassword() != null, TenantEmployee::getEmpPassword, tenantEmployeeQueryParam.getEmpPassword())
-				.eq(tenantEmployeeQueryParam.getDeptId() != null, TenantEmployee::getDeptId, tenantEmployeeQueryParam.getDeptId())
-				.eq(tenantEmployeeQueryParam.getLoginOn() != null, TenantEmployee::getLoginOn, tenantEmployeeQueryParam.getLoginOn())
-				.eq(tenantEmployeeQueryParam.getEmpStatus() != null, TenantEmployee::getEmpStatus, tenantEmployeeQueryParam.getEmpStatus())
-				.eq(tenantEmployeeQueryParam.getEmpMobile() != null, TenantEmployee::getEmpMobile, tenantEmployeeQueryParam.getEmpMobile())
-				.eq(tenantEmployeeQueryParam.getEmpEmail() != null, TenantEmployee::getEmpEmail, tenantEmployeeQueryParam.getEmpEmail())
-				.eq(tenantEmployeeQueryParam.getEmpPersonalWx() != null, TenantEmployee::getEmpPersonalWx, tenantEmployeeQueryParam.getEmpPersonalWx())
-				.eq(tenantEmployeeQueryParam.getEmpEnterpriceWx() != null, TenantEmployee::getEmpEnterpriceWx, tenantEmployeeQueryParam.getEmpEnterpriceWx())
+						.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
+						.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
+						.eq(tenantEmployeeQueryParam.getEmpName() != null, TenantEmployee::getEmpName, tenantEmployeeQueryParam.getEmpName())
+						.eq(tenantEmployeeQueryParam.getEmpPassword() != null, TenantEmployee::getEmpPassword, tenantEmployeeQueryParam.getEmpPassword())
+						.eq(tenantEmployeeQueryParam.getDeptId() != null, TenantEmployee::getDeptId, tenantEmployeeQueryParam.getDeptId())
+						.eq(tenantEmployeeQueryParam.getLoginOn() != null, TenantEmployee::getLoginOn, tenantEmployeeQueryParam.getLoginOn())
+						.eq(tenantEmployeeQueryParam.getEmpStatus() != null, TenantEmployee::getEmpStatus, tenantEmployeeQueryParam.getEmpStatus())
+						.eq(tenantEmployeeQueryParam.getEmpMobile() != null, TenantEmployee::getEmpMobile, tenantEmployeeQueryParam.getEmpMobile())
+						.eq(tenantEmployeeQueryParam.getEmpEmail() != null, TenantEmployee::getEmpEmail, tenantEmployeeQueryParam.getEmpEmail())
+						.eq(tenantEmployeeQueryParam.getEmpPersonalWx() != null, TenantEmployee::getEmpPersonalWx, tenantEmployeeQueryParam.getEmpPersonalWx())
+						.eq(tenantEmployeeQueryParam.getEmpEnterpriceWx() != null, TenantEmployee::getEmpEnterpriceWx, tenantEmployeeQueryParam.getEmpEnterpriceWx())
 				;
 
 		IPage<TenantEmployee> tenantEmployeePage = tenantEmployeeService.page(pageTenantEmployee, queryWrapperTenantEmployee);
@@ -94,6 +93,9 @@ public class TenantEmployeeRestController {
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
 	public TenantEmployeeVo save(@RequestBody TenantEmployee tenantEmployee) {
+		if (tenantEmployee.getId() == null || tenantEmployee.getId().compareTo(0L) <= 0) {
+			tenantEmployee.setId(idService.selectId());
+		}
 		boolean success = tenantEmployeeService.save(tenantEmployee);
 		if (success) {
 			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(tenantEmployee.getId());
@@ -109,7 +111,7 @@ public class TenantEmployeeRestController {
 		tenantEmployee.setId(id);
 		boolean success = tenantEmployeeService.updateById(tenantEmployee);
 		if (success) {
-			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(tenantEmployee.getId());
+			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(id);
 			return entity2vo(tenantEmployeeDatabase);
 		}
 		log.info("update TenantEmployee fail，{}", ToStringBuilder.reflectionToString(tenantEmployee, ToStringStyle.JSON_STYLE));
@@ -137,7 +139,7 @@ public class TenantEmployeeRestController {
 
 		boolean success = tenantEmployeeService.update(updateWrapperTenantEmployee);
 		if (success) {
-			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(tenantEmployee.getId());
+			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(id);
 			return entity2vo(tenantEmployeeDatabase);
 		}
 		log.info("partial update TenantEmployee fail，{}",
@@ -155,6 +157,12 @@ public class TenantEmployeeRestController {
 	private TenantEmployeeVo entity2vo(TenantEmployee tenantEmployee) {
 		String jsonString = JSON.toJSONString(tenantEmployee);
 		TenantEmployeeVo tenantEmployeeVo = JSON.parseObject(jsonString, TenantEmployeeVo.class);
+		if (StringUtils.isEmpty(tenantEmployeeVo.getTenantName())) {
+			TenantInfo tenantInfo = tenantInfoService.getById(tenantEmployee.getTenantId());
+			if (tenantInfo != null) {
+				tenantEmployeeVo.setTenantName(tenantInfo.getTenantName());
+			}
+		}
 		return tenantEmployeeVo;
 	}
 

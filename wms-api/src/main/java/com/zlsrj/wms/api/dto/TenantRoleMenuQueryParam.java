@@ -29,7 +29,7 @@ public class TenantRoleMenuQueryParam implements Serializable {
 	@ApiModelProperty(value = "菜单编号")
 	private Long menuId;
 
-	@ApiModelProperty(value = "开放（1开放，0不开放）")
+	@ApiModelProperty(value = "开放（1：开放；0：不开放）")
 	private Integer roleMenuOn;
 
 }

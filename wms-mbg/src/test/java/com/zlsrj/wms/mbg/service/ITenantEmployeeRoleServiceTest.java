@@ -30,7 +30,7 @@ public class ITenantEmployeeRoleServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empId(RandomUtil.randomLong())// 员工编号
 				.roleId(RandomUtil.randomLong())// 角色编号
-				.empRoleOn(RandomUtil.randomInt(0,1+1))// 开放（1开放，0不开放）
+				.empRoleOn(RandomUtil.randomInt(0,1+1))// 开放（1：开放；0：不开放）
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantEmployeeRole, ToStringStyle.MULTI_LINE_STYLE));
@@ -49,7 +49,7 @@ public class ITenantEmployeeRoleServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.empId(RandomUtil.randomLong())// 员工编号
 				.roleId(RandomUtil.randomLong())// 角色编号
-				.empRoleOn(RandomUtil.randomInt(0,1+1))// 开放（1开放，0不开放）
+				.empRoleOn(RandomUtil.randomInt(0,1+1))// 开放（1：开放；0：不开放）
 				.build();
 		tenantEmployeeRole.setId(id);
 
