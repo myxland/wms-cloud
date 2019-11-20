@@ -7,9 +7,10 @@
 		<artifactId>wms-cloud</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>wms-iam</artifactId>
+	<artifactId>wms-cust</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.zlsrj.wms</groupId>
@@ -75,8 +76,8 @@
 			<artifactId>p6spy</artifactId>
 			<version>3.8.5</version>
 		</dependency>
-
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
