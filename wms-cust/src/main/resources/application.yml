@@ -11,9 +11,28 @@ eureka:
 
 spring:
   application:
-    name: wms-iam
+    name: wms-cust
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://localhost:3306/woc
     username: root
     password: 123456
+  boot:
+    admin:
+      client:
+        url: "http://localhost:7080"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    com.abc.zlsrj.wms.cust: debug
+
+
+id: 
+  config: 
+    workerId: 20 #最大支持机器节点数0~31，一共32个
+    datacenterId: 20 #最大支持数据中心节点数0~31，一共32个

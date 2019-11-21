@@ -106,7 +106,12 @@
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
 
-
+		<!--spring-boot-admin-client -->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

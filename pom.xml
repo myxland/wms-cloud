@@ -23,6 +23,7 @@
 		<module>wms-gateway</module>
 		<module>wms-system</module>
 		<module>wms-cust</module>
+		<module>wms-monitor</module>
 	</modules>
 
 	<properties>

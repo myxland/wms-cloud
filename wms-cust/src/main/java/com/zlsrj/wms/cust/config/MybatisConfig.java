@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 
 @Configuration
-@MapperScan("com.zlsrj.wms.iam.mapper")
+@MapperScan("com.zlsrj.wms.cust.mapper")
 public class MybatisConfig {
 	/**
 	 * 分页插件
