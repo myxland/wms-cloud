@@ -530,6 +530,22 @@ public class TestCaseUtil {
 		return DateUtil.format(DateUtil.offsetDay(DateUtil.date(), RandomUtil.randomInt(0, 365 * 50)), "yyyy-MM-dd");
 	}
 	
+	public static Date monthBefore() {
+		return DateUtil.beginOfMonth(dateBefore()) ;
+	}
+	
+	public static Date monthAfter() {
+		return DateUtil.endOfMonth(dateAfter()) ;
+	}
+	
+	public static Date yearBefore() {
+		return DateUtil.beginOfYear(dateBefore()) ;
+	}
+	
+	public static Date yearAfter() {
+		return DateUtil.endOfYear(dateAfter()) ;
+	}
+	
 	public static BigDecimal money() {
 		return RandomUtil.randomBigDecimal(new BigDecimal(Math.pow(10, 4))).setScale(2, RoundingMode.HALF_UP);
 	}
