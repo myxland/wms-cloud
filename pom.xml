@@ -24,6 +24,7 @@
 		<module>wms-system</module>
 		<module>wms-cust</module>
 		<module>wms-monitor</module>
+		<module>wms-account</module>
 	</modules>
 
 	<properties>
