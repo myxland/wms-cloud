@@ -21,9 +21,15 @@ public class TenantInfoQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
+	
+	@ApiModelProperty(value = "租户名称")
+	private String tenantNameLike;
 
 	@ApiModelProperty(value = "显示名称")
 	private String displayName;
+	
+	@ApiModelProperty(value = "显示名称")
+	private String displayNameLike;
 
 	@ApiModelProperty(value = "省")
 	private String tenantProvince;
@@ -55,7 +61,7 @@ public class TenantInfoQueryParam implements Serializable {
 	@ApiModelProperty(value = "租户类型（1：使用单位；2：供应单位；3：内部运营）")
 	private Integer tenantType;
 
-	@ApiModelProperty(value = "租户状态（正式/试用）")
+	@ApiModelProperty(value = "租户状态（1：正式；2：试用）")
 	private Integer tenantStatus;
 
 	@ApiModelProperty(value = "注册时间")
@@ -91,13 +97,13 @@ public class TenantInfoQueryParam implements Serializable {
 	@ApiModelProperty(value = "开户账号")
 	private String accountNo;
 
-	@ApiModelProperty(value = "是否启用部分缴费（启用/不启用）")
+	@ApiModelProperty(value = "是否启用部分缴费（1：启用；0：不启用）")
 	private Integer partChargeOn;
 
-	@ApiModelProperty(value = "是否启用违约金（启用/不启用）")
+	@ApiModelProperty(value = "是否启用违约金（1：启用；0：不启用）")
 	private Integer overDuefineOn;
 
-	@ApiModelProperty(value = "违约金宽限天数（从计费之日开始）")
+	@ApiModelProperty(value = "违约金宽限天数")
 	private Integer overDuefineDay;
 
 	@ApiModelProperty(value = "违约金每天收取比例")
@@ -106,7 +112,7 @@ public class TenantInfoQueryParam implements Serializable {
 	@ApiModelProperty(value = "违约金封顶比例（与欠费金额相比）")
 	private BigDecimal overDuefineTopRatio;
 
-	@ApiModelProperty(value = "预存抵扣方式（抄表后即时抵扣/人工发起抵扣）")
+	@ApiModelProperty(value = "预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）")
 	private Integer ycdkType;
 
 }

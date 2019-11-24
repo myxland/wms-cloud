@@ -85,7 +85,7 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_type")
 	private Integer tenantType;
 
-	@ApiModelProperty(value = "租户状态（正式/试用）")
+	@ApiModelProperty(value = "租户状态（1：正式；2：试用）")
 	@TableField("tenant_status")
 	private Integer tenantStatus;
 
@@ -117,15 +117,15 @@ public class TenantInfo implements Serializable {
 	@TableField("account_no")
 	private String accountNo;
 
-	@ApiModelProperty(value = "是否启用部分缴费（启用/不启用）")
+	@ApiModelProperty(value = "是否启用部分缴费（1：启用；0：不启用）")
 	@TableField("part_charge_on")
 	private Integer partChargeOn;
 
-	@ApiModelProperty(value = "是否启用违约金（启用/不启用）")
+	@ApiModelProperty(value = "是否启用违约金（1：启用；0：不启用）")
 	@TableField("over_duefine_on")
 	private Integer overDuefineOn;
 
-	@ApiModelProperty(value = "违约金宽限天数（从计费之日开始）")
+	@ApiModelProperty(value = "违约金宽限天数")
 	@TableField("over_duefine_day")
 	private Integer overDuefineDay;
 
@@ -137,8 +137,9 @@ public class TenantInfo implements Serializable {
 	@TableField("over_duefine_top_ratio")
 	private BigDecimal overDuefineTopRatio;
 
-	@ApiModelProperty(value = "预存抵扣方式（抄表后即时抵扣/人工发起抵扣）")
+	@ApiModelProperty(value = "预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）")
 	@TableField("ycdk_type")
 	private Integer ycdkType;
+
 
 }

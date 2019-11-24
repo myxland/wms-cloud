@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantInfo")
+@FeignClient(value = "WMS-TENANT", contextId = "TenantInfo")
 public interface TenantInfoClientService {
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
 	public TenantInfoVo getById(@PathVariable("id") Long id);
@@ -38,3 +38,4 @@ public interface TenantInfoClientService {
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") Long id);
 }
+
