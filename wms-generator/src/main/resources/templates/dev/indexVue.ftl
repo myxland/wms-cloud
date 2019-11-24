@@ -104,7 +104,7 @@
         <#if column.viewable>
         <#if column.selectable>
         <#if column.singleUpdatable>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}">
+        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">
             <el-switch
               @change="handle${column.propertyName?cap_first}Change(scope.$index, scope.row)"

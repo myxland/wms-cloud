@@ -59,8 +59,8 @@ public class TableNameFactory {
 				"t_dev_read_curr_his",//
 				"t_dev_rec_list",//
 				"t_iot_device_design",//
-				"",//
-				"",//
+				"t_op_tenant_info",//
+				"t_op_tenant_account",//
 				"",//
 				"",//
 				"",//

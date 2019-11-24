@@ -39,6 +39,7 @@ public class TableField implements Serializable {
 	private List<PropertyOption> propertyOptionList = new ArrayList<PropertyOption>();
 
 	private boolean queryable = false;/* 是否可作为查询字段 */
+	private boolean likeable = false;/* 是否可作为模糊查询字段 */
 	private boolean addable = false;/* 是否可作为增加字段 */
 	private boolean updatable = false;/* 是否可作为更新字段 */
 	private boolean selectable = propertySelect;/* 是否可作为下拉列表字段 */

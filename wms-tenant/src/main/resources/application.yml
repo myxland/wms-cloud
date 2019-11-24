@@ -17,6 +17,18 @@ spring:
     url: jdbc:p6spy:mysql://localhost:3306/wop
     username: root
     password: 123456
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: redis2019
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000
   boot:
     admin:
       client:

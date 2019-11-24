@@ -105,6 +105,7 @@ public class PathTest {
 		String tableName = TableNameFactory.build();
 		String tablePrefix = "t_op_";
 		tablePrefix = "t_";
+		tablePrefix = "t_op_";
 
 		log.info(schema);
 		log.info(domainName);

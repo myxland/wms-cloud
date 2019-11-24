@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.TenantAccount;
 import com.zlsrj.wms.api.vo.TenantAccountVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantAccount")
+@FeignClient(value = "WMS-TENANT", contextId = "TenantAccount")
 public interface TenantAccountClientService {
 	@RequestMapping(value = "/tenant-accounts/{id}", method = RequestMethod.GET)
 	public TenantAccountVo getById(@PathVariable("id") Long id);

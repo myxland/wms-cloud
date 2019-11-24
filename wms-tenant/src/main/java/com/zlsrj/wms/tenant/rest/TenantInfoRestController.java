@@ -1,5 +1,6 @@
 package com.zlsrj.wms.tenant.rest;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,6 +26,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.tenant.service.IIdService;
 import com.zlsrj.wms.tenant.service.ITenantInfoService;
 
+import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -60,35 +62,73 @@ public class TenantInfoRestController {
 		queryWrapperTenantInfo.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
-				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())
-				.like(tenantInfoQueryParam.getTenantNameLike() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantNameLike())
-				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfoQueryParam.getDisplayName())
-				.like(tenantInfoQueryParam.getDisplayNameLike() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getDisplayNameLike())
-				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfoQueryParam.getTenantProvince())
-				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
-				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfoQueryParam.getTenantArea())
-				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfoQueryParam.getTenantAddress())
-				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfoQueryParam.getTenantLinkman())
-				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfoQueryParam.getTenantMobile())
-				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfoQueryParam.getTenantTel())
-				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfoQueryParam.getTenantEmail())
-				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq, tenantInfoQueryParam.getTenantQq())
-				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType, tenantInfoQueryParam.getTenantType())
-				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfoQueryParam.getTenantStatus())
-				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime, tenantInfoQueryParam.getRegTime())
-				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate, tenantInfoQueryParam.getEndDate())
-				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfoQueryParam.getCreditNumber())
-				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfoQueryParam.getInvoiceAddress())
+				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName,
+						tenantInfoQueryParam.getTenantName())
+				.like(tenantInfoQueryParam.getTenantNameLike() != null, TenantInfo::getTenantName,
+						tenantInfoQueryParam.getTenantNameLike())
+				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName,
+						tenantInfoQueryParam.getDisplayName())
+				.like(tenantInfoQueryParam.getDisplayNameLike() != null, TenantInfo::getTenantName,
+						tenantInfoQueryParam.getDisplayNameLike())
+				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince,
+						tenantInfoQueryParam.getTenantProvince())
+				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity,
+						tenantInfoQueryParam.getTenantCity())
+				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea,
+						tenantInfoQueryParam.getTenantArea())
+				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress,
+						tenantInfoQueryParam.getTenantAddress())
+				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman,
+						tenantInfoQueryParam.getTenantLinkman())
+				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile,
+						tenantInfoQueryParam.getTenantMobile())
+				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel,
+						tenantInfoQueryParam.getTenantTel())
+				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail,
+						tenantInfoQueryParam.getTenantEmail())
+				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq,
+						tenantInfoQueryParam.getTenantQq())
+				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType,
+						tenantInfoQueryParam.getTenantType())
+				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus,
+						tenantInfoQueryParam.getTenantStatus())
+				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime,
+						tenantInfoQueryParam.getRegTime())
+				.ge(tenantInfoQueryParam.getRegTimeStart() != null, TenantInfo::getRegTime,
+						tenantInfoQueryParam.getRegTimeStart() == null ? null
+								: DateUtil.beginOfDay(tenantInfoQueryParam.getRegTimeStart()))
+				.le(tenantInfoQueryParam.getRegTimeEnd() != null, TenantInfo::getRegTime,
+						tenantInfoQueryParam.getRegTimeEnd() == null ? null
+								: DateUtil.endOfDay(tenantInfoQueryParam.getRegTimeEnd()))
+				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate,
+						tenantInfoQueryParam.getEndDate())
+				.ge(tenantInfoQueryParam.getEndDateStart() != null, TenantInfo::getEndDate,
+						tenantInfoQueryParam.getEndDateStart() == null ? null
+								: DateUtil.beginOfDay(tenantInfoQueryParam.getEndDateStart()))
+				.le(tenantInfoQueryParam.getEndDateEnd() != null, TenantInfo::getEndDate,
+						tenantInfoQueryParam.getEndDateEnd() == null ? null
+								: DateUtil.endOfDay(tenantInfoQueryParam.getEndDateEnd()))
+				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber,
+						tenantInfoQueryParam.getCreditNumber())
+				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress,
+						tenantInfoQueryParam.getInvoiceAddress())
 				.eq(tenantInfoQueryParam.getBankNo() != null, TenantInfo::getBankNo, tenantInfoQueryParam.getBankNo())
-				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName, tenantInfoQueryParam.getBankName())
-				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfoQueryParam.getAccountNo())
-				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfoQueryParam.getPartChargeOn())
-				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfoQueryParam.getOverDuefineOn())
-				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfoQueryParam.getOverDuefineDay())
-				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfoQueryParam.getOverDuefineRatio())
-				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfoQueryParam.getOverDuefineTopRatio())
-				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfoQueryParam.getYcdkType())
-				;
+				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName,
+						tenantInfoQueryParam.getBankName())
+				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo,
+						tenantInfoQueryParam.getAccountNo())
+				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn,
+						tenantInfoQueryParam.getPartChargeOn())
+				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn,
+						tenantInfoQueryParam.getOverDuefineOn())
+				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay,
+						tenantInfoQueryParam.getOverDuefineDay())
+				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio,
+						tenantInfoQueryParam.getOverDuefineRatio())
+				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio,
+						tenantInfoQueryParam.getOverDuefineTopRatio())
+				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType,
+						tenantInfoQueryParam.getYcdkType());
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(pageTenantInfo, queryWrapperTenantInfo);
 
@@ -109,6 +149,9 @@ public class TenantInfoRestController {
 	public TenantInfoVo save(@RequestBody TenantInfo tenantInfo) {
 		if (tenantInfo.getId() == null || tenantInfo.getId().compareTo(0L) <= 0) {
 			tenantInfo.setId(idService.selectId());
+		}
+		if (tenantInfo.getRegTime() == null) {
+			tenantInfo.setRegTime(new Date());
 		}
 		boolean success = tenantInfoService.save(tenantInfo);
 		if (success) {
@@ -135,13 +178,18 @@ public class TenantInfoRestController {
 	@ApiOperation(value = "根据参数更新租户信息")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.PATCH)
 	public TenantInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantInfo tenantInfo) {
+		TenantInfo tenantInfoWhere = TenantInfo.builder()//
+				.id(id)//
+				.build();
 		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
+		updateWrapperTenantInfo.setEntity(tenantInfoWhere);
 		updateWrapperTenantInfo.lambda()//
-				.eq(TenantInfo::getId, id)
+				//.eq(TenantInfo::getId, id)
 				// .set(tenantInfo.getId() != null, TenantInfo::getId, tenantInfo.getId())
 				.set(tenantInfo.getTenantName() != null, TenantInfo::getTenantName, tenantInfo.getTenantName())
 				.set(tenantInfo.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfo.getDisplayName())
-				.set(tenantInfo.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfo.getTenantProvince())
+				.set(tenantInfo.getTenantProvince() != null, TenantInfo::getTenantProvince,
+						tenantInfo.getTenantProvince())
 				.set(tenantInfo.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfo.getTenantCity())
 				.set(tenantInfo.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfo.getTenantArea())
 				.set(tenantInfo.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfo.getTenantAddress())
@@ -155,19 +203,22 @@ public class TenantInfoRestController {
 				.set(tenantInfo.getRegTime() != null, TenantInfo::getRegTime, tenantInfo.getRegTime())
 				.set(tenantInfo.getEndDate() != null, TenantInfo::getEndDate, tenantInfo.getEndDate())
 				.set(tenantInfo.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfo.getCreditNumber())
-				.set(tenantInfo.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfo.getInvoiceAddress())
+				.set(tenantInfo.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress,
+						tenantInfo.getInvoiceAddress())
 				.set(tenantInfo.getBankNo() != null, TenantInfo::getBankNo, tenantInfo.getBankNo())
 				.set(tenantInfo.getBankName() != null, TenantInfo::getBankName, tenantInfo.getBankName())
 				.set(tenantInfo.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfo.getAccountNo())
 				.set(tenantInfo.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfo.getPartChargeOn())
 				.set(tenantInfo.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfo.getOverDuefineOn())
-				.set(tenantInfo.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfo.getOverDuefineDay())
-				.set(tenantInfo.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfo.getOverDuefineRatio())
-				.set(tenantInfo.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfo.getOverDuefineTopRatio())
-				.set(tenantInfo.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfo.getYcdkType())
-				;
+				.set(tenantInfo.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay,
+						tenantInfo.getOverDuefineDay())
+				.set(tenantInfo.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio,
+						tenantInfo.getOverDuefineRatio())
+				.set(tenantInfo.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio,
+						tenantInfo.getOverDuefineTopRatio())
+				.set(tenantInfo.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfo.getYcdkType());
 
-		boolean success = tenantInfoService.update(updateWrapperTenantInfo);
+		boolean success = tenantInfoService.update(tenantInfoWhere,updateWrapperTenantInfo);
 		if (success) {
 			TenantInfo tenantInfoDatabase = tenantInfoService.getById(id);
 			return entity2vo(tenantInfoDatabase);
