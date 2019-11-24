@@ -1,0 +1,15 @@
+server:
+  port: 19888
+spring:
+  application:
+    name: wms-generator
+  profiles: 
+    #active: mbg
+    #active: system
+    #active: cust
+    #active: account
+    active: dev
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-prefix: mybatis.sql.
