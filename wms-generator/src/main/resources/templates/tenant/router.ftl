@@ -41,6 +41,13 @@ export const constantRouterMap = [
         hidden: true
       },
       {
+        path: 'view${table.entityName?cap_first}',
+        name: 'view${table.entityName?cap_first}',
+        component: () => import('@/views/${projectName}/${table.entityName?uncap_first}/view'),
+        meta: {title: '查看${table.tableComment}', icon: '${table.entityName?uncap_first}-view'},
+        hidden: true
+      },
+      {
         path: 'update${table.entityName?cap_first}',
         name: 'update${table.entityName?cap_first}',
         component: () => import('@/views/${projectName}/${table.entityName?uncap_first}/update'),
