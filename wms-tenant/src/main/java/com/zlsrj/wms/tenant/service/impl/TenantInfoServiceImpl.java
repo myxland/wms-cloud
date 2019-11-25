@@ -51,12 +51,11 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		if (success) {
 			try {
 				Long id = updateWrapper.getEntity().getId();
-				TenantInfo tenantInfo = baseMapper.selectById(id);
-				redisService.setValue(Long.toString(id), JSON.toJSONString(tenantInfo));
+				redisService.remove(Long.toString(id));
 			}
 			catch(Exception e) {
 				//ex.printStackTrace();
-				log.error("redis set value error", e);
+				log.error("redis remove error", e);
 			}
 		}
 		return success;

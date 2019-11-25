@@ -28,6 +28,7 @@ public class TableInfo implements Serializable {
 	private boolean addable = true;/* 是否可以新增 */
 	private boolean updatable = true;/* 是否可以编辑 */
 	private boolean deletable = true;/* 是否可以删除 */
+	private boolean selectable = false; /* 是否作为下拉列表数据 */
 
 	// private String entityName;
 	// private String entityShortName;/* t_op_tenant_info --> TenantInfo */
@@ -95,7 +96,7 @@ public class TableInfo implements Serializable {
 	public boolean isIncludeTenantId() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("tenant_id")).count() > 0;
 	}
-	
+
 	@JSONField(serialize = false)
 	public boolean isIncludeSysId() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("sys_id")).count() > 0;
