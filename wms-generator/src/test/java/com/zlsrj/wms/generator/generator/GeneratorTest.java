@@ -151,8 +151,27 @@ public class GeneratorTest {
 					column.setGridWidth(280);
 				}
 				
+				//手机号码默认宽度120
+				if(column.getColumnName().endsWith("_mobile")) {
+					column.setGridWidth(120);
+				}
+				
 				if("BigDecimal".equals(column.getPropertyType())) {
 					column.setGridAlign("right");
+				}
+			}
+			
+			for (int i = 0; i < columnList.size(); i++) {
+				TableField column = columnList.get(i);
+				if (column.getColumnName().equals("id") == false// 非id字段
+						&& column.getColumnName().endsWith("tenant_id") == false// 非tenant_id字段
+						&& column.getColumnName().endsWith("parent_id") == false// 非父级字段
+						&& column.isPropertySelect() == false// 非下拉列表字段
+						&& column.isViewable() == false// 非Grid显示字段
+				) {
+
+					column.setGridWidthAuto(true);
+					break;
 				}
 			}
 		}

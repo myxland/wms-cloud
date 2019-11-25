@@ -21,13 +21,13 @@ public class TenantInfoQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
-	
+
 	@ApiModelProperty(value = "租户名称")
 	private String tenantNameLike;
 
 	@ApiModelProperty(value = "显示名称")
 	private String displayName;
-	
+
 	@ApiModelProperty(value = "显示名称")
 	private String displayNameLike;
 

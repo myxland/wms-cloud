@@ -31,12 +31,11 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 				TenantInfo tenantInfo = JSON.parseObject(jsonString, TenantInfo.class);
 				return tenantInfo;
 			}
-		}
-		catch(Exception e) {
-			//ex.printStackTrace();
+		} catch (Exception e) {
+			// ex.printStackTrace();
 			log.error("redis get value error", e);
 		}
-		
+
 		TenantInfo tenantInfo = baseMapper.selectById(id);
 		if (tenantInfo != null) {
 			redisService.setValue(id.toString(), JSON.toJSONString(tenantInfo));
@@ -52,24 +51,22 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 			try {
 				Long id = updateWrapper.getEntity().getId();
 				redisService.remove(Long.toString(id));
-			}
-			catch(Exception e) {
-				//ex.printStackTrace();
+			} catch (Exception e) {
+				// ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}
 		return success;
 	}
-	
+
 	@Override
 	public boolean removeById(Serializable id) {
 		boolean success = super.removeById(id);
 		if (success) {
 			try {
 				redisService.remove(id.toString());
-			}
-			catch(Exception e) {
-				//ex.printStackTrace();
+			} catch (Exception e) {
+				// ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}

@@ -133,14 +133,16 @@ public class TableInfo implements Serializable {
 	@JSONField(serialize = false)
 	public boolean isIncludeNotNullabe() {
 		return columnList.stream()
-				.filter(column -> "PRI".equals(column.getColumnKey()) == false && "NO".equals(column.getIsNullable()))
+				.filter(column -> "PRI".equals(column.getColumnKey()) == false
+						&& StringUtils.isEmpty(column.getDefaultAddValue()) && "NO".equals(column.getIsNullable()))
 				.count() > 0;
 	}
 
 	@JSONField(serialize = false)
 	public List<TableField> getNotNullabeColumnList() {
 		return columnList.stream()
-				.filter(column -> "PRI".equals(column.getColumnKey()) == false && "NO".equals(column.getIsNullable()))
+				.filter(column -> "PRI".equals(column.getColumnKey()) == false
+						&& StringUtils.isEmpty(column.getDefaultAddValue()) && "NO".equals(column.getIsNullable()))
 				.collect(Collectors.toList());
 	}
 }

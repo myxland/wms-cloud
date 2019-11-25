@@ -40,10 +40,10 @@ public class TableField implements Serializable {
 
 	private boolean queryable = false;/* 是否可作为查询字段 */
 	private boolean likeable = false;/* 是否可作为模糊查询字段 */
-	private boolean addable = false;/* 是否可作为增加字段 */
-	private boolean updatable = false;/* 是否可作为更新字段 */
+	private boolean addable = true;/* 是否可作为增加字段 */
+	private boolean updatable = true;/* 是否可作为更新字段 */
 	private boolean selectable = propertySelect;/* 是否可作为下拉列表字段 */
-	private boolean addableOrUpdatable = false;/* 是否可作为增加或者编辑字段 */
+	private boolean addableOrUpdatable = true;/* 是否可作为增加或者编辑字段 */
 
 	private String defaultAddValue = null;/* 新增时默认值 */
 	private String defaultUpdateValue = null;/* 更新时默认值 */
@@ -54,6 +54,7 @@ public class TableField implements Serializable {
 	private boolean viewable = true;/* 是否Grid显示字段 */
 	private boolean detailable = true;/* 是否明细显示字段 */
 
+	private boolean gridWidthAuto = false;/* Grid宽度自由调整 */
 	private int gridWidth = 100;/* Grid宽度值 */
 	private String gridAlign = "left";/* Grid对齐方式，left,center,right */
 

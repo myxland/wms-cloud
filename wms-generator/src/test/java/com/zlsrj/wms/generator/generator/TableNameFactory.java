@@ -61,7 +61,7 @@ public class TableNameFactory {
 				"t_iot_device_design",//
 				"t_op_tenant_info",//
 				"t_op_tenant_account",//
-				"",//
+				"t_op_tenant_info",//
 				"",//
 				"",//
 				"",//
