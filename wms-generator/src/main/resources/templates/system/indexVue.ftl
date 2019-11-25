@@ -72,6 +72,10 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <#elseif column.likeable>
+            <el-form-item label="${column.propertyComment}：">
+              <el-input style="width: 203px" v-model="listQuery.${column.propertyName}Like" placeholder="${column.propertyComment}"></el-input>
+            </el-form-item>
             <#else>
             <el-form-item label="${column.propertyComment}：">
               <el-input style="width: 203px" v-model="listQuery.${column.propertyName}" placeholder="${column.propertyComment}"></el-input>
@@ -104,7 +108,7 @@
         <#if column.viewable>
         <#if column.selectable>
         <#if column.singleUpdatable>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">
             <el-switch
               @change="handle${column.propertyName?cap_first}Change(scope.$index, scope.row)"
@@ -115,32 +119,32 @@
           </template>
         </el-table-column>
         <#else>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName} | format${column.propertyName?cap_first}}}</template>
         </el-table-column>
         </#if>        
         <#elseif "datetime"==column.dataType>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName} | formatTime}}</template>
         </el-table-column>
         <#elseif "date"==column.dataType>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName} | formatDate}}</template>
         </el-table-column>
         <#elseif "decimal"==column.dataType && 2==column.numericScale>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName} | formatMoney}}</template>
         </el-table-column>
         <#elseif column.columnName?ends_with("tenant_id")>
-        <el-table-column label="${column.propertyComment?replace("编号","")}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment?replace("编号","")}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName?replace("Id","Name")}}}</template>
         </el-table-column>
         <#elseif column.columnName?ends_with("sys_id")>
-        <el-table-column label="${column.propertyComment?replace("编号","")}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment?replace("编号","")}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName?replace("sysId","moduleName")?replace("SysId","ModuleName")}}}</template>
         </el-table-column>
         <#else>
-        <el-table-column label="${column.propertyComment}" width="${column.gridWidth}" align="${column.gridAlign}" header-align="center">
+        <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName}}}</template>
         </el-table-column>
         </#if>
@@ -217,6 +221,8 @@
     ${column.propertyName}: null,
     ${column.propertyName}Start: null,
     ${column.propertyName}End: null<#if column_has_next>,</#if>
+    <#elseif column.likeable>
+    ${column.propertyName}Like: null<#if column_has_next>,</#if>
     <#else>
     ${column.propertyName}: null<#if column_has_next>,</#if>
     </#if>

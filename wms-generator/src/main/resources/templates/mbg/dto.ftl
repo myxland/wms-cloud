@@ -32,6 +32,11 @@ public class ${table.entityName}QueryParam implements Serializable {
 	private ${column.propertyType} ${column.propertyName}End;
 
 	</#if>
+	<#if column.likeable>
+	@ApiModelProperty(value = "${column.columnComment}")
+	private ${column.propertyType} ${column.propertyName}Like;
+
+	</#if>
 	</#list>
 }
 

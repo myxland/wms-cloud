@@ -1,5 +1,8 @@
 package ${domainName}.${projectName}.rest;
 
+<#if table.includeDate>
+import java.util.Date;
+</#if>
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -83,12 +86,13 @@ public class ${table.entityName}RestController {
 		queryWrapper${table.entityName}.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapper${table.entityName}.lambda()
 		<#list table.columnList as column>
-		<#if column.propertyType=="Date">
-						.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
-						.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null?DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()):null)
-						.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null?DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()):null)
-		<#else>
-						.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#if column.likeable>
+				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
+		</#if>
+		<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
+				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
 		</#if>
 		</#list>
 				;
@@ -113,6 +117,21 @@ public class ${table.entityName}RestController {
 		if (${table.entityName?uncap_first}.getId() == null || ${table.entityName?uncap_first}.getId().compareTo(0L) <= 0) {
 			${table.entityName?uncap_first}.setId(idService.selectId());
 		}
+		<#list table.columnList as column>
+		<#if column.defaultAddValue?default("")?trim?length gt 1>
+		if (${table.entityName?uncap_first}.get${column.propertyName?cap_first}() == null) {
+			<#if column.dataType=="date">
+			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(DateUtil.beginOfDay(new Date()));
+			<#elseif column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(new Date());
+			<#elseif column.propertyType=="Integer"|| column.propertyType=="Integer" || column.propertyType=="Long" || column.propertyType=="BigDecimal" || column.propertyType=="Double" || column.propertyType=="Float">
+			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(${column.defaultAddValue});
+			<#else>
+			${table.entityName?uncap_first}.set${column.propertyName?cap_first}("${column.defaultAddValue}");
+			</#if>
+		}
+		</#if>
+		</#list>
 		boolean success = ${table.entityName?uncap_first}Service.save(${table.entityName?uncap_first});
 		if (success) {
 			${table.entityName} ${table.entityName?uncap_first}Database = ${table.entityName?uncap_first}Service.getById(${table.entityName?uncap_first}.getId());
@@ -138,9 +157,13 @@ public class ${table.entityName}RestController {
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PATCH)
 	public ${table.entityName}Vo updatePatchById(@PathVariable("id") Long id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
+        ${table.entityName} ${table.entityName?uncap_first}Where = ${table.entityName}.builder()//
+				.id(id)//
+				.build();
 		UpdateWrapper<${table.entityName}> updateWrapper${table.entityName} = new UpdateWrapper<${table.entityName}>();
+		updateWrapper${table.entityName}.setEntity(${table.entityName?uncap_first}Where);
 		updateWrapper${table.entityName}.lambda()//
-				.eq(${table.entityName}::getId, id)
+				//.eq(${table.entityName}::getId, id)
 				<#list table.columnList as column>
 				<#if "PRI"==column.columnKey>
 				// .set(${table.entityName?uncap_first}.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}.get${column.propertyName?cap_first}())

@@ -8,7 +8,7 @@
       </el-form-item>
       <#elseif column.columnName?ends_with("sys_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
-        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}" clearable>
+        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> clearable>
                 <el-option
                   v-for="item in systemDesignOptions"
                   :key="item.value"
@@ -19,7 +19,7 @@
       </el-form-item>
       <#elseif column.columnName?ends_with("tenant_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
-        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}" clearable>
+        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> clearable>
                 <el-option
                   v-for="item in tenantInfoOptions"
                   :key="item.value"
@@ -33,6 +33,9 @@
       <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
         <el-switch
           v-model="${table.entityName?uncap_first}.${column.propertyName}"
+          <#if column.defaultAddValue?default("")?trim?length gt 1>
+          :disabled="true"
+          </#if>
           :active-value="1"
           :inactive-value="0">
         </el-switch>
@@ -41,6 +44,9 @@
       <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}" clearable>
         <el-select
           v-model="${table.entityName?uncap_first}.${column.propertyName}"
+          <#if column.defaultAddValue?default("")?trim?length gt 1>
+          :disabled="true"
+          </#if>
           placeholder="请选择${column.propertyComment}">
           <el-option
             v-for="item in ${column.propertyName}Options"
@@ -50,10 +56,46 @@
           </el-option>
         </el-select>
       </el-form-item>      
-      </#if>      
+      </#if>
+      <#elseif column.propertyType=="Date">
+      <#if column.dataType="date">
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
+        <el-date-picker
+                class="input-width"
+                v-model="${table.entityName?uncap_first}.${column.propertyName}"
+                value-format="yyyy-MM-dd"
+                type="date"
+                <#if column.defaultAddValue?default("")?trim?length gt 1>
+                :disabled="true"
+                </#if>
+                placeholder="请选择${column.propertyComment}">
+        </el-date-picker>
+      </el-form-item>
       <#else>
       <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
-        <el-input v-model="${table.entityName?uncap_first}.${column.propertyName}"></el-input>
+        <el-date-picker
+                class="input-width"
+                v-model="${table.entityName?uncap_first}.${column.propertyName}"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                type="datetime"
+                <#if column.defaultAddValue?default("")?trim?length gt 1>
+                :disabled="true"
+                </#if>
+                placeholder="请选择${column.propertyComment}">
+        </el-date-picker>
+      </el-form-item>
+      </#if>
+      <#elseif column.dataType == "int" && column.propertySelect == false>
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
+        <el-input-number v-model="${table.entityName?uncap_first}.${column.propertyName}" :min="0"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> placeholder="${column.propertyComment}"></el-input-number>
+      </el-form-item>
+      <#elseif column.dataType == "decimal">
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
+        <el-input-number v-model="${table.entityName?uncap_first}.${column.propertyName}" :min="0"<#if column.columnName?ends_with("_ratio")> :max="1"</#if> precision="${column.numericScale}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> placeholder="${column.propertyComment}"></el-input-number>
+      </el-form-item>
+      <#else>
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
+        <el-input v-model="${table.entityName?uncap_first}.${column.propertyName}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if>></el-input>
       </el-form-item>
       </#if>
       </#list>
@@ -72,6 +114,9 @@
   <#if table.includeTenantId>
   import {fetchList as fetchTenantInfoList} from '@/api/tenantInfo';
   </#if>
+  <#if table.includeDate>
+  import {formatDate} from '@/utils/date';
+  </#if>
   import SingleUpload from '@/components/Upload/singleUpload'
   const default${table.entityName?cap_first}={
     <#list table.columnList as column>
@@ -86,6 +131,8 @@
     <#else>
     ${column.propertyName}: 0<#if column_has_next>,</#if>
     </#if>
+    <#elseif "decimal" == column.dataType>
+    ${column.propertyName}: null<#if column_has_next>,</#if>
     <#else>
     ${column.propertyName}: ''<#if column_has_next>,</#if>
     </#if>
@@ -151,7 +198,22 @@
     created() {
       if (this.isEdit) {
         get${table.entityName?cap_first}(this.$route.query.id).then(response => {
+          <#if table.includeDate>
+          let data = response.data;
+          <#list table.columnList as column>
+          <#if column.propertyType=="Date">
+          <#if column.dataType="date">
+          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd');
+          <#else>
+          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd hh:mm:ss');
+          </#if>
+          </#if>
+          </#list>        
+          this.${table.entityName?uncap_first} = data;
+          //this.${table.entityName?uncap_first} = response.data;
+          <#else>
           this.${table.entityName?uncap_first} = response.data;
+          </#if>
         });
       }else{
         this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first});
