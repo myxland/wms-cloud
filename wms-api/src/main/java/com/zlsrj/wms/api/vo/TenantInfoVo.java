@@ -1,7 +1,6 @@
 package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -42,7 +41,7 @@ public class TenantInfoVo implements Serializable {
 	private String tenantAddress;
 
 	@ApiModelProperty(value = "联系人")
-	private String tenantLinkman;
+	private String tenantContact;
 
 	@ApiModelProperty(value = "手机号码")
 	private String tenantMobile;
@@ -67,38 +66,5 @@ public class TenantInfoVo implements Serializable {
 
 	@ApiModelProperty(value = "到期日期")
 	private Date endDate;
-
-	@ApiModelProperty(value = "税号")
-	private String creditNumber;
-
-	@ApiModelProperty(value = "开票地址")
-	private String invoiceAddress;
-
-	@ApiModelProperty(value = "开户行行号")
-	private String bankNo;
-
-	@ApiModelProperty(value = "开户行名称")
-	private String bankName;
-
-	@ApiModelProperty(value = "开户账号")
-	private String accountNo;
-
-	@ApiModelProperty(value = "是否启用部分缴费（1：启用；0：不启用）")
-	private Integer partChargeOn;
-
-	@ApiModelProperty(value = "是否启用违约金（1：启用；0：不启用）")
-	private Integer overDuefineOn;
-
-	@ApiModelProperty(value = "违约金宽限天数")
-	private Integer overDuefineDay;
-
-	@ApiModelProperty(value = "违约金每天收取比例")
-	private BigDecimal overDuefineRatio;
-
-	@ApiModelProperty(value = "违约金封顶比例（与欠费金额相比）")
-	private BigDecimal overDuefineTopRatio;
-
-	@ApiModelProperty(value = "预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）")
-	private Integer ycdkType;
 
 }

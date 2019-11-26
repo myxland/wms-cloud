@@ -44,36 +44,6 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfoCommonPage);
 	}
 
-	@ApiOperation(value = "更新租户是否启用部分缴费")
-	@RequestMapping(value = "/update/partChargeOn", method = RequestMethod.POST)
-	@ResponseBody
-	public CommonResult<Boolean> updatePartChargeOn(@RequestParam("ids") String ids,
-			@RequestParam("partChargeOn") Integer partChargeOn) {
-		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
-			TenantInfo tenantInfo = new TenantInfo();
-			tenantInfo.setPartChargeOn(partChargeOn);
-			tenantInfoClientService.updatePatchById(id, tenantInfo);
-		});
-
-		return CommonResult.success(true);
-	}
-
-	@ApiOperation(value = "更新租户是否启用违约金")
-	@RequestMapping(value = "/update/overDuefineOn", method = RequestMethod.POST)
-	@ResponseBody
-	public CommonResult<Boolean> updateOverDuefineOn(@RequestParam("ids") String ids,
-			@RequestParam("overDuefineOn") Integer overDuefineOn) {
-		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
-			TenantInfo tenantInfo = new TenantInfo();
-			tenantInfo.setOverDuefineOn(overDuefineOn);
-			tenantInfoClientService.updatePatchById(id, tenantInfo);
-		});
-
-		return CommonResult.success(true);
-	}
-
 	@ApiOperation(value = "新增租户")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody

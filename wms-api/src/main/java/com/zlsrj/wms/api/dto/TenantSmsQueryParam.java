@@ -20,22 +20,22 @@ public class TenantSmsQueryParam implements Serializable {
 	@ApiModelProperty(value = "租户编号")
 	private Long tenantId;
 
-	@ApiModelProperty(value = "短信签名")
+	@ApiModelProperty(value = "签名")
 	private String smsSignature;
 
-	@ApiModelProperty(value = "短信SP服务商")
+	@ApiModelProperty(value = "SP服务商")
 	private String smsSpService;
 
-	@ApiModelProperty(value = "是否启用抄表账单通知短信（启用/不启用）")
+	@ApiModelProperty(value = "抄表账单通知")
 	private Integer smsReadSendOn;
 
-	@ApiModelProperty(value = "是否启用缴费成功通知短信（启用/不启用）")
+	@ApiModelProperty(value = "缴费成功通知")
 	private Integer smsChargeSendOn;
 
-	@ApiModelProperty(value = "是否启用欠费通知短信（启用/不启用）")
+	@ApiModelProperty(value = "是否启用欠费通知短信（1：启用；0：不启用）")
 	private Integer smsQfSendOn;
 
-	@ApiModelProperty(value = "欠费通知短信发送间隔天数（欠费多少天后，催费多少天后仍然未缴）")
+	@ApiModelProperty(value = "欠费通知短信发送间隔天数")
 	private Integer smsQfSendAfterDays;
 
 }

@@ -26,7 +26,7 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
 				.id(IdUtil.createSnowflake(1L, 1L).nextId())// 系统ID
 				.tenantId(tenantInfo.getId())// 租户编号
-				.empName(tenantInfo.getTenantLinkman())// 员工名称
+				.empName(tenantInfo.getTenantContact())// 员工名称
 				.empPassword(DigestUtil.md5Hex(RandomUtil.randomString(8)))// 登录密码
 				.deptId(null)// 员工部门
 				.loginOn(1)// 可登录系统（1可登录，0不能登录）

@@ -1,5 +1,4 @@
 package com.zlsrj.wms.tenant.service.impl;
-
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +50,8 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 			try {
 				Long id = updateWrapper.getEntity().getId();
 				redisService.remove(Long.toString(id));
-			} catch (Exception e) {
-				// ex.printStackTrace();
+			} catch(Exception e) {
+				//ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}
@@ -65,8 +64,8 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		if (success) {
 			try {
 				redisService.remove(id.toString());
-			} catch (Exception e) {
-				// ex.printStackTrace();
+			} catch(Exception e) {
+				//ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}

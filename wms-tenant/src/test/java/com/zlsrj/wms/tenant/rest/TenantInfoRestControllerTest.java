@@ -1,6 +1,5 @@
 package com.zlsrj.wms.tenant.rest;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.junit.After;
@@ -81,17 +80,6 @@ public class TenantInfoRestControllerTest {
 		// params.add("tenantStatus",RandomUtil.randomInt(0,1+1));// 租户状态（1：正式；2：试用）
 		// params.add("regTime",new Date());// 注册时间
 		// params.add("endDate",new Date());// 到期日期
-		// params.add("creditNumber",RandomUtil.randomString(4));// 税号
-		// params.add("invoiceAddress",TestCaseUtil.address());// 开票地址
-		// params.add("bankNo",TestCaseUtil.bankNo());// 开户行行号
-		// params.add("bankName",TestCaseUtil.bankName());// 开户行名称
-		// params.add("accountNo",TestCaseUtil.bankCardNo(TestCaseUtil.bank()));// 开户账号
-		// params.add("partChargeOn",RandomUtil.randomInt(0,1+1));// 是否启用部分缴费（1：启用；0：不启用）
-		// params.add("overDuefineOn",RandomUtil.randomInt(0,1+1));// 是否启用违约金（1：启用；0：不启用）
-		// params.add("overDuefineDay",RandomUtil.randomInt(0,1000+1));// 违约金宽限天数
-		// params.add("overDuefineRatio",new BigDecimal(0));// 违约金每天收取比例
-		// params.add("overDuefineTopRatio",new BigDecimal(0));// 违约金封顶比例（与欠费金额相比）
-		// params.add("ycdkType",RandomUtil.randomInt(0,1+1));// 预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-infos").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -113,7 +101,7 @@ public class TenantInfoRestControllerTest {
 				.tenantCity(TestCaseUtil.city())// 市
 				.tenantArea(TestCaseUtil.area())// 区县
 				.tenantAddress(TestCaseUtil.address())// 联系地址
-				.tenantLinkman(TestCaseUtil.name())// 联系人
+				.tenantContact(TestCaseUtil.name())// 联系人
 				.tenantMobile(TestCaseUtil.mobile())// 手机号码
 				.tenantTel(TestCaseUtil.tel())// 单位电话
 				.tenantEmail(TestCaseUtil.email(null))// 邮箱
@@ -122,17 +110,6 @@ public class TenantInfoRestControllerTest {
 				.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（1：正式；2：试用）
 				.regTime(new Date())// 注册时间
 				.endDate(new Date())// 到期日期
-				.creditNumber(RandomUtil.randomString(4))// 税号
-				.invoiceAddress(TestCaseUtil.address())// 开票地址
-				.bankNo(TestCaseUtil.bankNo())// 开户行行号
-				.bankName(TestCaseUtil.bankName())// 开户行名称
-				.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
-				.partChargeOn(RandomUtil.randomInt(0,1+1))// 是否启用部分缴费（1：启用；0：不启用）
-				.overDuefineOn(RandomUtil.randomInt(0,1+1))// 是否启用违约金（1：启用；0：不启用）
-				.overDuefineDay(RandomUtil.randomInt(0,1000+1))// 违约金宽限天数
-				.overDuefineRatio(new BigDecimal(0))// 违约金每天收取比例
-				.overDuefineTopRatio(new BigDecimal(0))// 违约金封顶比例（与欠费金额相比）
-				.ycdkType(RandomUtil.randomInt(0,1+1))// 预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）
 				.build();
 
 		String responseString = mockMvc
@@ -159,7 +136,7 @@ public class TenantInfoRestControllerTest {
 				.tenantCity(TestCaseUtil.city())// 市
 				.tenantArea(TestCaseUtil.area())// 区县
 				.tenantAddress(TestCaseUtil.address())// 联系地址
-				.tenantLinkman(TestCaseUtil.name())// 联系人
+				.tenantContact(TestCaseUtil.name())// 联系人
 				.tenantMobile(TestCaseUtil.mobile())// 手机号码
 				.tenantTel(TestCaseUtil.tel())// 单位电话
 				.tenantEmail(TestCaseUtil.email(null))// 邮箱
@@ -168,17 +145,6 @@ public class TenantInfoRestControllerTest {
 				.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（1：正式；2：试用）
 				.regTime(new Date())// 注册时间
 				.endDate(new Date())// 到期日期
-				.creditNumber(RandomUtil.randomString(4))// 税号
-				.invoiceAddress(TestCaseUtil.address())// 开票地址
-				.bankNo(TestCaseUtil.bankNo())// 开户行行号
-				.bankName(TestCaseUtil.bankName())// 开户行名称
-				.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
-				.partChargeOn(RandomUtil.randomInt(0,1+1))// 是否启用部分缴费（1：启用；0：不启用）
-				.overDuefineOn(RandomUtil.randomInt(0,1+1))// 是否启用违约金（1：启用；0：不启用）
-				.overDuefineDay(RandomUtil.randomInt(0,1000+1))// 违约金宽限天数
-				.overDuefineRatio(new BigDecimal(0))// 违约金每天收取比例
-				.overDuefineTopRatio(new BigDecimal(0))// 违约金封顶比例（与欠费金额相比）
-				.ycdkType(RandomUtil.randomInt(0,1+1))// 预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）
 				.build();
 
 		String responseString = mockMvc
@@ -213,17 +179,6 @@ public class TenantInfoRestControllerTest {
 				//.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（1：正式；2：试用）
 				//.regTime(new Date())// 注册时间
 				//.endDate(new Date())// 到期日期
-				//.creditNumber(RandomUtil.randomString(4))// 税号
-				//.invoiceAddress(TestCaseUtil.address())// 开票地址
-				//.bankNo(TestCaseUtil.bankNo())// 开户行行号
-				//.bankName(TestCaseUtil.bankName())// 开户行名称
-				//.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
-				//.partChargeOn(RandomUtil.randomInt(0,1+1))// 是否启用部分缴费（1：启用；0：不启用）
-				//.overDuefineOn(RandomUtil.randomInt(0,1+1))// 是否启用违约金（1：启用；0：不启用）
-				//.overDuefineDay(RandomUtil.randomInt(0,1000+1))// 违约金宽限天数
-				//.overDuefineRatio(new BigDecimal(0))// 违约金每天收取比例
-				//.overDuefineTopRatio(new BigDecimal(0))// 违约金封顶比例（与欠费金额相比）
-				//.ycdkType(RandomUtil.randomInt(0,1+1))// 预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）
 				.build();
 
 		String responseString = mockMvc

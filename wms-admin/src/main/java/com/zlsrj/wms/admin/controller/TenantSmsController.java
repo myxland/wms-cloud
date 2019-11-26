@@ -44,7 +44,7 @@ public class TenantSmsController {
 		return CommonResult.success(tenantSmsCommonPage);
 	}
 
-	@ApiOperation(value = "更新租户短信配置抄表账单通知")
+	@ApiOperation(value = "更新租户短信配置启用抄表账单通知")
 	@RequestMapping(value = "/update/smsReadSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsReadSendOn(@RequestParam("ids") String ids,
@@ -59,7 +59,7 @@ public class TenantSmsController {
 		return CommonResult.success(true);
 	}
 
-	@ApiOperation(value = "更新租户短信配置缴费成功通知")
+	@ApiOperation(value = "更新租户短信配置启用缴费成功通知")
 	@RequestMapping(value = "/update/smsChargeSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsChargeSendOn(@RequestParam("ids") String ids,
@@ -74,7 +74,7 @@ public class TenantSmsController {
 		return CommonResult.success(true);
 	}
 
-	@ApiOperation(value = "更新租户短信配置欠费通知")
+	@ApiOperation(value = "更新租户短信配置启用欠费通知")
 	@RequestMapping(value = "/update/smsQfSendOn", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateSmsQfSendOn(@RequestParam("ids") String ids,

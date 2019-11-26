@@ -70,7 +70,7 @@ public class TenantInfoRestController {
 				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
 				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfoQueryParam.getTenantArea())
 				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfoQueryParam.getTenantAddress())
-				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfoQueryParam.getTenantLinkman())
+				.eq(tenantInfoQueryParam.getTenantContact() != null, TenantInfo::getTenantContact, tenantInfoQueryParam.getTenantContact())
 				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfoQueryParam.getTenantMobile())
 				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfoQueryParam.getTenantTel())
 				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfoQueryParam.getTenantEmail())
@@ -83,17 +83,6 @@ public class TenantInfoRestController {
 				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate, tenantInfoQueryParam.getEndDate())
 				.ge(tenantInfoQueryParam.getEndDateStart() != null, TenantInfo::getEndDate,tenantInfoQueryParam.getEndDateStart() == null ? null: DateUtil.beginOfDay(tenantInfoQueryParam.getEndDateStart()))
 				.le(tenantInfoQueryParam.getEndDateEnd() != null, TenantInfo::getEndDate,tenantInfoQueryParam.getEndDateEnd() == null ? null: DateUtil.endOfDay(tenantInfoQueryParam.getEndDateEnd()))
-				.eq(tenantInfoQueryParam.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfoQueryParam.getCreditNumber())
-				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfoQueryParam.getInvoiceAddress())
-				.eq(tenantInfoQueryParam.getBankNo() != null, TenantInfo::getBankNo, tenantInfoQueryParam.getBankNo())
-				.eq(tenantInfoQueryParam.getBankName() != null, TenantInfo::getBankName, tenantInfoQueryParam.getBankName())
-				.eq(tenantInfoQueryParam.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfoQueryParam.getAccountNo())
-				.eq(tenantInfoQueryParam.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfoQueryParam.getPartChargeOn())
-				.eq(tenantInfoQueryParam.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfoQueryParam.getOverDuefineOn())
-				.eq(tenantInfoQueryParam.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfoQueryParam.getOverDuefineDay())
-				.eq(tenantInfoQueryParam.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfoQueryParam.getOverDuefineRatio())
-				.eq(tenantInfoQueryParam.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfoQueryParam.getOverDuefineTopRatio())
-				.eq(tenantInfoQueryParam.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfoQueryParam.getYcdkType())
 				;
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(pageTenantInfo, queryWrapperTenantInfo);
@@ -144,7 +133,7 @@ public class TenantInfoRestController {
 	@ApiOperation(value = "根据参数更新租户信息")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.PATCH)
 	public TenantInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantInfo tenantInfo) {
-		TenantInfo tenantInfoWhere = TenantInfo.builder()//
+        TenantInfo tenantInfoWhere = TenantInfo.builder()//
 				.id(id)//
 				.build();
 		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
@@ -158,7 +147,7 @@ public class TenantInfoRestController {
 				.set(tenantInfo.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfo.getTenantCity())
 				.set(tenantInfo.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfo.getTenantArea())
 				.set(tenantInfo.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfo.getTenantAddress())
-				.set(tenantInfo.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfo.getTenantLinkman())
+				.set(tenantInfo.getTenantContact() != null, TenantInfo::getTenantContact, tenantInfo.getTenantContact())
 				.set(tenantInfo.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfo.getTenantMobile())
 				.set(tenantInfo.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfo.getTenantTel())
 				.set(tenantInfo.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfo.getTenantEmail())
@@ -167,17 +156,6 @@ public class TenantInfoRestController {
 				.set(tenantInfo.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfo.getTenantStatus())
 				.set(tenantInfo.getRegTime() != null, TenantInfo::getRegTime, tenantInfo.getRegTime())
 				.set(tenantInfo.getEndDate() != null, TenantInfo::getEndDate, tenantInfo.getEndDate())
-				.set(tenantInfo.getCreditNumber() != null, TenantInfo::getCreditNumber, tenantInfo.getCreditNumber())
-				.set(tenantInfo.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfo.getInvoiceAddress())
-				.set(tenantInfo.getBankNo() != null, TenantInfo::getBankNo, tenantInfo.getBankNo())
-				.set(tenantInfo.getBankName() != null, TenantInfo::getBankName, tenantInfo.getBankName())
-				.set(tenantInfo.getAccountNo() != null, TenantInfo::getAccountNo, tenantInfo.getAccountNo())
-				.set(tenantInfo.getPartChargeOn() != null, TenantInfo::getPartChargeOn, tenantInfo.getPartChargeOn())
-				.set(tenantInfo.getOverDuefineOn() != null, TenantInfo::getOverDuefineOn, tenantInfo.getOverDuefineOn())
-				.set(tenantInfo.getOverDuefineDay() != null, TenantInfo::getOverDuefineDay, tenantInfo.getOverDuefineDay())
-				.set(tenantInfo.getOverDuefineRatio() != null, TenantInfo::getOverDuefineRatio, tenantInfo.getOverDuefineRatio())
-				.set(tenantInfo.getOverDuefineTopRatio() != null, TenantInfo::getOverDuefineTopRatio, tenantInfo.getOverDuefineTopRatio())
-				.set(tenantInfo.getYcdkType() != null, TenantInfo::getYcdkType, tenantInfo.getYcdkType())
 				;
 
 		boolean success = tenantInfoService.update(updateWrapperTenantInfo);

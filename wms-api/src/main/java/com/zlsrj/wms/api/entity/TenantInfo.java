@@ -1,7 +1,6 @@
 package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -62,8 +61,8 @@ public class TenantInfo implements Serializable {
 	private String tenantAddress;
 
 	@ApiModelProperty(value = "联系人")
-	@TableField("tenant_linkman")
-	private String tenantLinkman;
+	@TableField("tenant_contact")
+	private String tenantContact;
 
 	@ApiModelProperty(value = "手机号码")
 	@TableField("tenant_mobile")
@@ -96,50 +95,6 @@ public class TenantInfo implements Serializable {
 	@ApiModelProperty(value = "到期日期")
 	@TableField("end_date")
 	private Date endDate;
-
-	@ApiModelProperty(value = "税号")
-	@TableField("credit_number")
-	private String creditNumber;
-
-	@ApiModelProperty(value = "开票地址")
-	@TableField("invoice_address")
-	private String invoiceAddress;
-
-	@ApiModelProperty(value = "开户行行号")
-	@TableField("bank_no")
-	private String bankNo;
-
-	@ApiModelProperty(value = "开户行名称")
-	@TableField("bank_name")
-	private String bankName;
-
-	@ApiModelProperty(value = "开户账号")
-	@TableField("account_no")
-	private String accountNo;
-
-	@ApiModelProperty(value = "是否启用部分缴费（1：启用；0：不启用）")
-	@TableField("part_charge_on")
-	private Integer partChargeOn;
-
-	@ApiModelProperty(value = "是否启用违约金（1：启用；0：不启用）")
-	@TableField("over_duefine_on")
-	private Integer overDuefineOn;
-
-	@ApiModelProperty(value = "违约金宽限天数")
-	@TableField("over_duefine_day")
-	private Integer overDuefineDay;
-
-	@ApiModelProperty(value = "违约金每天收取比例")
-	@TableField("over_duefine_ratio")
-	private BigDecimal overDuefineRatio;
-
-	@ApiModelProperty(value = "违约金封顶比例（与欠费金额相比）")
-	@TableField("over_duefine_top_ratio")
-	private BigDecimal overDuefineTopRatio;
-
-	@ApiModelProperty(value = "预存抵扣方式（1：抄表后即时抵扣；2：人工发起抵扣）")
-	@TableField("ycdk_type")
-	private Integer ycdkType;
 
 
 }
