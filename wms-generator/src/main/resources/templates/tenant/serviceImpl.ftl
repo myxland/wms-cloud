@@ -117,6 +117,16 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 				.${column.propertyName}(tenantInfo.getId())// ${column.columnComment}
 				<#elseif column.propertyType=="BigDecimal">
 				.${column.propertyName}(BigDecimal.ZERO)// ${column.columnComment}
+				<#elseif column.defaultAddValue?default("")?trim?length gt 1>
+				<#if column.dataType=="date">
+				.${column.propertyName}(DateUtil.beginOfDay(new Date()));
+				<#elseif column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+				.${column.propertyName}(new Date());
+				<#elseif column.propertyType=="Integer"|| column.propertyType=="Long" || column.propertyType=="BigDecimal" || column.propertyType=="Double" || column.propertyType=="Float">
+				.${column.propertyName}(${column.defaultAddValue});
+				<#else>
+				.${column.propertyName}("${column.defaultAddValue}");
+				</#if>
 				<#else>
 				.${column.propertyName}(null)// ${column.columnComment}
 				</#if>
