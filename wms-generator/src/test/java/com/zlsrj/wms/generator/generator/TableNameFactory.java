@@ -63,9 +63,9 @@ public class TableNameFactory {
 				"t_op_tenant_account",//
 				"t_op_tenant_info",//
 				"t_op_tenant_config",//
-				"",//
-				"",//
-				"",//
+				"t_op_tenant_sms",//
+				"t_op_tenant_invoice",//
+				"t_op_tenant_bill",//
 				"",//
 				"",//
 				"",//

@@ -12,8 +12,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.tenant.mapper.TenantInfoMapper;
 import com.zlsrj.wms.tenant.service.ITenantAccountService;
+import com.zlsrj.wms.tenant.service.ITenantBillService;
 import com.zlsrj.wms.tenant.service.ITenantConfigService;
 import com.zlsrj.wms.tenant.service.ITenantInfoService;
+import com.zlsrj.wms.tenant.service.ITenantInvoiceService;
+import com.zlsrj.wms.tenant.service.ITenantSmsService;
 import com.zlsrj.wms.tenant.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,15 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Autowired
 	private ITenantAccountService tenantAccountService;
+	
+	@Autowired
+	private ITenantSmsService tenantSmsService;
+	
+	@Autowired
+	private ITenantInvoiceService tenantInvoiceService;
+	
+	@Autowired
+	private ITenantBillService tenantBillService;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -48,10 +60,24 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		} catch (Exception e) {
 			log.error("创建默认租户账户出错", e);
 		}
-
 		// t_op_tenant_sms
+		try {
+			tenantSmsService.saveByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户短信配置出错", e);
+		}
 		// t_op_tenant_invoice
+		try {
+			tenantInvoiceService.saveByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户发票配置出错", e);
+		}
 		// t_op_tenant_bill
+		try {
+			tenantBillService.saveByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户发票配置出错", e);
+		}
 
 		// 2,不同服务默认配置信息，mq消息通知
 		return success;

@@ -40,19 +40,19 @@ public class TenantSms implements Serializable {
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
-	@ApiModelProperty(value = "签名")
+	@ApiModelProperty(value = "短信签名")
 	@TableField("sms_signature")
 	private String smsSignature;
 
-	@ApiModelProperty(value = "SP服务商")
+	@ApiModelProperty(value = "短信SP服务商")
 	@TableField("sms_sp_service")
 	private String smsSpService;
 
-	@ApiModelProperty(value = "抄表账单通知")
+	@ApiModelProperty(value = "是否启用抄表账单通知短信（1：启用；0：不启用）")
 	@TableField("sms_read_send_on")
 	private Integer smsReadSendOn;
 
-	@ApiModelProperty(value = "缴费成功通知")
+	@ApiModelProperty(value = "是否启用缴费成功通知短信（1：启用；0：不启用）")
 	@TableField("sms_charge_send_on")
 	private Integer smsChargeSendOn;
 

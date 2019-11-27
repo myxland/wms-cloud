@@ -51,6 +51,16 @@ public class TenantSmsRestController {
 		return entity2vo(tenantSms);
 	}
 
+	@ApiOperation(value = "根据ID查询租户短信配置")
+	@RequestMapping(value = "/tenant-smss/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public TenantSmsVo getByTenantId(@PathVariable("tenant-id") Long tenantId) {
+		QueryWrapper<TenantSms> queryWrapperTenantSms = new QueryWrapper<TenantSms>();
+		queryWrapperTenantSms.lambda().eq(TenantSms::getTenantId, tenantId);
+		TenantSms tenantSms = tenantSmsService.getOne(queryWrapperTenantSms);
+
+		return entity2vo(tenantSms);
+	}
+
 	@ApiOperation(value = "根据参数查询租户短信配置列表")
 	@RequestMapping(value = "/tenant-smss", method = RequestMethod.GET)
 	public Page<TenantSmsVo> page(@RequestBody TenantSmsQueryParam tenantSmsQueryParam,
@@ -153,6 +163,10 @@ public class TenantSmsRestController {
 	}
 
 	private TenantSmsVo entity2vo(TenantSms tenantSms) {
+		if (tenantSms == null) {
+			return null;
+		}
+
 		String jsonString = JSON.toJSONString(tenantSms);
 		TenantSmsVo tenantSmsVo = JSON.parseObject(jsonString, TenantSmsVo.class);
 		if (StringUtils.isEmpty(tenantSmsVo.getTenantName())) {

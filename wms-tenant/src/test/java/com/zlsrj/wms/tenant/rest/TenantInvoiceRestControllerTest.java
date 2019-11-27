@@ -19,7 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
-import com.zlsrj.wms.api.entity.TenantSms;
+import com.zlsrj.wms.api.entity.TenantInvoice;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class TenantSmsRestControllerTest {
+public class TenantInvoiceRestControllerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -46,7 +46,7 @@ public class TenantSmsRestControllerTest {
 	@Test
 	public void getByIdTest() throws Exception {
 		Long id = 1L;
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-smss" + "/" + id))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-invoices" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
@@ -61,16 +61,15 @@ public class TenantSmsRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 编号ID
+		// params.add("id",TestCaseUtil.id());// 租户编号
 		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
-		// params.add("smsSignature",RandomUtil.randomString(4));// 短信签名
-		// params.add("smsSpService",RandomUtil.randomString(4));// 短信SP服务商
-		// params.add("smsReadSendOn",RandomUtil.randomInt(0,1+1));// 是否启用抄表账单通知短信（1：启用；0：不启用）
-		// params.add("smsChargeSendOn",RandomUtil.randomInt(0,1+1));// 是否启用缴费成功通知短信（1：启用；0：不启用）
-		// params.add("smsQfSendOn",RandomUtil.randomInt(0,1+1));// 是否启用欠费通知短信（1：启用；0：不启用）
-		// params.add("smsQfSendAfterDays",RandomUtil.randomInt(0,1000+1));// 欠费通知短信发送间隔天数
+		// params.add("creditNumber",RandomUtil.randomString(4));// 税号
+		// params.add("invoiceAddress",TestCaseUtil.address());// 开票地址
+		// params.add("bankNo",TestCaseUtil.bankNo());// 开户行行号
+		// params.add("bankName",TestCaseUtil.bankName());// 开户行名称
+		// params.add("accountNo",TestCaseUtil.bankCardNo(TestCaseUtil.bank()));// 开户账号
 
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-smss").params(params))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-invoices").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
@@ -80,19 +79,18 @@ public class TenantSmsRestControllerTest {
 	@Test
 	public void saveTest() throws Exception {
 
-		TenantSms tenantInfo = TenantSms.builder()//
-				.id(TestCaseUtil.id())// 编号ID
+		TenantInvoice tenantInfo = TenantInvoice.builder()//
+				.id(TestCaseUtil.id())// 租户编号
 				.tenantId(RandomUtil.randomLong())// 租户编号
-				.smsSignature(RandomUtil.randomString(4))// 短信签名
-				.smsSpService(RandomUtil.randomString(4))// 短信SP服务商
-				.smsReadSendOn(RandomUtil.randomInt(0,1+1))// 是否启用抄表账单通知短信（1：启用；0：不启用）
-				.smsChargeSendOn(RandomUtil.randomInt(0,1+1))// 是否启用缴费成功通知短信（1：启用；0：不启用）
-				.smsQfSendOn(RandomUtil.randomInt(0,1+1))// 是否启用欠费通知短信（1：启用；0：不启用）
-				.smsQfSendAfterDays(RandomUtil.randomInt(0,1000+1))// 欠费通知短信发送间隔天数
+				.creditNumber(RandomUtil.randomString(4))// 税号
+				.invoiceAddress(TestCaseUtil.address())// 开票地址
+				.bankNo(TestCaseUtil.bankNo())// 开户行行号
+				.bankName(TestCaseUtil.bankName())// 开户行名称
+				.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenant-smss").content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.post("/tenant-invoices").content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -105,19 +103,18 @@ public class TenantSmsRestControllerTest {
 	public void updateByIdTest() throws Exception {
 		Long id = 1L;
 
-		TenantSms tenantInfo = TenantSms.builder()//
-				//.id(TestCaseUtil.id())// 编号ID
+		TenantInvoice tenantInfo = TenantInvoice.builder()//
+				//.id(TestCaseUtil.id())// 租户编号
 				.tenantId(RandomUtil.randomLong())// 租户编号
-				.smsSignature(RandomUtil.randomString(4))// 短信签名
-				.smsSpService(RandomUtil.randomString(4))// 短信SP服务商
-				.smsReadSendOn(RandomUtil.randomInt(0,1+1))// 是否启用抄表账单通知短信（1：启用；0：不启用）
-				.smsChargeSendOn(RandomUtil.randomInt(0,1+1))// 是否启用缴费成功通知短信（1：启用；0：不启用）
-				.smsQfSendOn(RandomUtil.randomInt(0,1+1))// 是否启用欠费通知短信（1：启用；0：不启用）
-				.smsQfSendAfterDays(RandomUtil.randomInt(0,1000+1))// 欠费通知短信发送间隔天数
+				.creditNumber(RandomUtil.randomString(4))// 税号
+				.invoiceAddress(TestCaseUtil.address())// 开票地址
+				.bankNo(TestCaseUtil.bankNo())// 开户行行号
+				.bankName(TestCaseUtil.bankName())// 开户行名称
+				.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.put("/tenant-smss" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.put("/tenant-invoices" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -130,18 +127,17 @@ public class TenantSmsRestControllerTest {
 	public void updatePatchById() throws Exception {
 		Long id = 1L;
 
-		TenantSms tenantInfo = TenantSms.builder()//
+		TenantInvoice tenantInfo = TenantInvoice.builder()//
 				//.tenantId(RandomUtil.randomLong())// 租户编号
-				//.smsSignature(RandomUtil.randomString(4))// 短信签名
-				//.smsSpService(RandomUtil.randomString(4))// 短信SP服务商
-				//.smsReadSendOn(RandomUtil.randomInt(0,1+1))// 是否启用抄表账单通知短信（1：启用；0：不启用）
-				//.smsChargeSendOn(RandomUtil.randomInt(0,1+1))// 是否启用缴费成功通知短信（1：启用；0：不启用）
-				//.smsQfSendOn(RandomUtil.randomInt(0,1+1))// 是否启用欠费通知短信（1：启用；0：不启用）
-				//.smsQfSendAfterDays(RandomUtil.randomInt(0,1000+1))// 欠费通知短信发送间隔天数
+				//.creditNumber(RandomUtil.randomString(4))// 税号
+				//.invoiceAddress(TestCaseUtil.address())// 开票地址
+				//.bankNo(TestCaseUtil.bankNo())// 开户行行号
+				//.bankName(TestCaseUtil.bankName())// 开户行名称
+				//.accountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.patch("/tenant-smss" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.patch("/tenant-invoices" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -154,7 +150,7 @@ public class TenantSmsRestControllerTest {
 	public void removeById() throws Exception {
 		Long id = 1L;
 
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-smss" + "/" + id)) //
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-invoices" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符

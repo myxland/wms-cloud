@@ -18,6 +18,9 @@ public interface TenantSmsClientService {
 	@RequestMapping(value = "/tenant-smss/{id}", method = RequestMethod.GET)
 	public TenantSmsVo getById(@PathVariable("id") Long id);
 
+	@RequestMapping(value = "/tenant-smss/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public TenantSmsVo getByTenantId(@PathVariable("tenant-id") Long tenantId);
+
 	@RequestMapping(value = "/tenant-smss", method = RequestMethod.GET)
 	public Page<TenantSmsVo> page(@RequestBody TenantSmsQueryParam tenantSmsQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //

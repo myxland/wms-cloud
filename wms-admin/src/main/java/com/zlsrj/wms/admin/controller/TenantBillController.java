@@ -62,6 +62,15 @@ public class TenantBillController {
 		return CommonResult.success(tenantBillVo);
 	}
 
+	@ApiOperation(value = "根据租户ID查询租户账单配置")
+	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<TenantBillVo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+		TenantBillVo tenantBillVo = tenantBillClientService.getByTenantId(tenantId);
+
+		return CommonResult.success(tenantBillVo);
+	}
+
 	@ApiOperation(value = "根据参数更新租户账单配置信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody

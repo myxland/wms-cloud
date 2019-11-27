@@ -107,6 +107,15 @@ public class TenantSmsController {
 		return CommonResult.success(tenantSmsVo);
 	}
 
+	@ApiOperation(value = "根据租户ID查询租户短信配置")
+	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<TenantSmsVo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+		TenantSmsVo tenantSmsVo = tenantSmsClientService.getByTenantId(tenantId);
+
+		return CommonResult.success(tenantSmsVo);
+	}
+
 	@ApiOperation(value = "根据参数更新租户短信配置信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody

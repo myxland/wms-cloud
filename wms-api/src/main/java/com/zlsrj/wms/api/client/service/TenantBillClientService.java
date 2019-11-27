@@ -13,10 +13,13 @@ import com.zlsrj.wms.api.entity.TenantBill;
 import com.zlsrj.wms.api.vo.TenantBillVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantBill")
+@FeignClient(value = "WMS-TENANT", contextId = "TenantBill")
 public interface TenantBillClientService {
 	@RequestMapping(value = "/tenant-bills/{id}", method = RequestMethod.GET)
 	public TenantBillVo getById(@PathVariable("id") Long id);
+
+	@RequestMapping(value = "/tenant-bills/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public TenantBillVo getByTenantId(@PathVariable("tenant-id") Long tenantId);
 
 	@RequestMapping(value = "/tenant-bills", method = RequestMethod.GET)
 	public Page<TenantBillVo> page(@RequestBody TenantBillQueryParam tenantBillQueryParam,
