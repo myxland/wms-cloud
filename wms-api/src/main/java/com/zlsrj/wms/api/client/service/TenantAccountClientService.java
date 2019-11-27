@@ -18,6 +18,9 @@ public interface TenantAccountClientService {
 	@RequestMapping(value = "/tenant-accounts/{id}", method = RequestMethod.GET)
 	public TenantAccountVo getById(@PathVariable("id") Long id);
 
+	@RequestMapping(value = "/tenant-accounts/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public TenantAccountVo getByTenantId(@PathVariable("tenant-id") Long tenantId);
+
 	@RequestMapping(value = "/tenant-accounts", method = RequestMethod.GET)
 	public Page<TenantAccountVo> page(@RequestBody TenantAccountQueryParam tenantAccountQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -38,4 +41,3 @@ public interface TenantAccountClientService {
 	@RequestMapping(value = "/tenant-accounts/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") Long id);
 }
-

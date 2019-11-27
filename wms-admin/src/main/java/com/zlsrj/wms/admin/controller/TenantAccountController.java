@@ -1,14 +1,11 @@
 package com.zlsrj.wms.admin.controller;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -37,7 +34,8 @@ public class TenantAccountController {
 	@ResponseBody
 	public CommonResult<CommonPage<TenantAccountVo>> list(TenantAccountQueryParam tenantAccountQueryParam, int pageNum,
 			int pageSize) {
-		Page<TenantAccountVo> tenantAccountVoPage = tenantAccountClientService.page(tenantAccountQueryParam, pageNum, pageSize, "id", "desc");
+		Page<TenantAccountVo> tenantAccountVoPage = tenantAccountClientService.page(tenantAccountQueryParam, pageNum,
+				pageSize, "id", "desc");
 
 		CommonPage<TenantAccountVo> tenantAccountCommonPage = CommonPage.restPage(tenantAccountVoPage);
 
@@ -62,6 +60,15 @@ public class TenantAccountController {
 		return CommonResult.success(tenantAccountVo);
 	}
 
+	@ApiOperation(value = "根据租户ID查询租户账户")
+	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<TenantAccountVo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+		TenantAccountVo tenantAccountVo = tenantAccountClientService.getByTenantId(tenantId);
+
+		return CommonResult.success(tenantAccountVo);
+	}
+
 	@ApiOperation(value = "根据参数更新租户账户信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
@@ -71,7 +78,7 @@ public class TenantAccountController {
 
 		return CommonResult.success(tenantAccountVo);
 	}
-	
+
 	@ApiOperation(value = "根据ID删除租户账户")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody

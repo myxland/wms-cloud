@@ -51,6 +51,16 @@ public class TenantAccountRestController {
 		return entity2vo(tenantAccount);
 	}
 
+	@ApiOperation(value = "根据ID查询租户账户")
+	@RequestMapping(value = "/tenant-accounts/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public TenantAccountVo getByTenantId(@PathVariable("tenant-id") Long tenantId) {
+		QueryWrapper<TenantAccount> queryWrapperTenantAccount = new QueryWrapper<TenantAccount>();
+		queryWrapperTenantAccount.lambda().eq(TenantAccount::getTenantId, tenantId);
+		TenantAccount tenantAccount = tenantAccountService.getOne(queryWrapperTenantAccount);
+
+		return entity2vo(tenantAccount);
+	}
+
 	@ApiOperation(value = "根据参数查询租户账户列表")
 	@RequestMapping(value = "/tenant-accounts", method = RequestMethod.GET)
 	public Page<TenantAccountVo> page(@RequestBody TenantAccountQueryParam tenantAccountQueryParam,
@@ -64,11 +74,13 @@ public class TenantAccountRestController {
 		queryWrapperTenantAccount.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperTenantAccount.lambda()
 				.eq(tenantAccountQueryParam.getId() != null, TenantAccount::getId, tenantAccountQueryParam.getId())
-				.eq(tenantAccountQueryParam.getTenantId() != null, TenantAccount::getTenantId, tenantAccountQueryParam.getTenantId())
-				.eq(tenantAccountQueryParam.getAccountBalance() != null, TenantAccount::getAccountBalance, tenantAccountQueryParam.getAccountBalance())
-				;
+				.eq(tenantAccountQueryParam.getTenantId() != null, TenantAccount::getTenantId,
+						tenantAccountQueryParam.getTenantId())
+				.eq(tenantAccountQueryParam.getAccountBalance() != null, TenantAccount::getAccountBalance,
+						tenantAccountQueryParam.getAccountBalance());
 
-		IPage<TenantAccount> tenantAccountPage = tenantAccountService.page(pageTenantAccount, queryWrapperTenantAccount);
+		IPage<TenantAccount> tenantAccountPage = tenantAccountService.page(pageTenantAccount,
+				queryWrapperTenantAccount);
 
 		Page<TenantAccountVo> tenantAccountVoPage = new Page<TenantAccountVo>(page, rows);
 		tenantAccountVoPage.setCurrent(tenantAccountPage.getCurrent());
@@ -93,7 +105,8 @@ public class TenantAccountRestController {
 			TenantAccount tenantAccountDatabase = tenantAccountService.getById(tenantAccount.getId());
 			return entity2vo(tenantAccountDatabase);
 		}
-		log.info("save TenantAccount fail，{}", ToStringBuilder.reflectionToString(tenantAccount, ToStringStyle.JSON_STYLE));
+		log.info("save TenantAccount fail，{}",
+				ToStringBuilder.reflectionToString(tenantAccount, ToStringStyle.JSON_STYLE));
 		return null;
 	}
 
@@ -106,7 +119,8 @@ public class TenantAccountRestController {
 			TenantAccount tenantAccountDatabase = tenantAccountService.getById(id);
 			return entity2vo(tenantAccountDatabase);
 		}
-		log.info("update TenantAccount fail，{}", ToStringBuilder.reflectionToString(tenantAccount, ToStringStyle.JSON_STYLE));
+		log.info("update TenantAccount fail，{}",
+				ToStringBuilder.reflectionToString(tenantAccount, ToStringStyle.JSON_STYLE));
 		return null;
 	}
 
@@ -116,10 +130,11 @@ public class TenantAccountRestController {
 		UpdateWrapper<TenantAccount> updateWrapperTenantAccount = new UpdateWrapper<TenantAccount>();
 		updateWrapperTenantAccount.lambda()//
 				.eq(TenantAccount::getId, id)
-				// .set(tenantAccount.getId() != null, TenantAccount::getId, tenantAccount.getId())
+				// .set(tenantAccount.getId() != null, TenantAccount::getId,
+				// tenantAccount.getId())
 				.set(tenantAccount.getTenantId() != null, TenantAccount::getTenantId, tenantAccount.getTenantId())
-				.set(tenantAccount.getAccountBalance() != null, TenantAccount::getAccountBalance, tenantAccount.getAccountBalance())
-				;
+				.set(tenantAccount.getAccountBalance() != null, TenantAccount::getAccountBalance,
+						tenantAccount.getAccountBalance());
 
 		boolean success = tenantAccountService.update(updateWrapperTenantAccount);
 		if (success) {
@@ -139,6 +154,9 @@ public class TenantAccountRestController {
 	}
 
 	private TenantAccountVo entity2vo(TenantAccount tenantAccount) {
+		if (tenantAccount == null) {
+			return null;
+		}
 		String jsonString = JSON.toJSONString(tenantAccount);
 		TenantAccountVo tenantAccountVo = JSON.parseObject(jsonString, TenantAccountVo.class);
 		if (StringUtils.isEmpty(tenantAccountVo.getTenantName())) {

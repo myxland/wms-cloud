@@ -96,6 +96,26 @@ public class TableInfo implements Serializable {
 	public boolean isIncludeTenantId() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("tenant_id")).count() > 0;
 	}
+	
+	/**
+	 * 是否跟tenantInfo实体一对一关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeTenantOne2One() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("tenant_id")//
+				&& "UNI".equals(column.getColumnKey())//
+		).count() > 0;
+	}
+
+	/**
+	 * 是否跟tenantInfo实体一对多关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeTenantOne2Many() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("tenant_id")//
+				&& ("UNI".equals(column.getColumnKey()) == false)//
+		).count() > 0;
+	}
 
 	@JSONField(serialize = false)
 	public boolean isIncludeSysId() {

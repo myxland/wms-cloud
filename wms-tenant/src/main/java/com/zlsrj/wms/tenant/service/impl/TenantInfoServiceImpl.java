@@ -1,4 +1,5 @@
 package com.zlsrj.wms.tenant.service.impl;
+
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.tenant.mapper.TenantInfoMapper;
+import com.zlsrj.wms.tenant.service.ITenantAccountService;
 import com.zlsrj.wms.tenant.service.ITenantInfoService;
 import com.zlsrj.wms.tenant.service.RedisService;
 
@@ -21,6 +23,30 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 
 	@Autowired
 	private RedisService<String, String> redisService;
+
+	@Autowired
+	private ITenantAccountService tenantAccountService;
+
+	@Override
+	public boolean save(TenantInfo tenantInfo) {
+		boolean success = super.save(tenantInfo);
+		// 创建租户时，默认创建租户相关配置信息
+		// 1，同微服务默认配置信息，service调用
+		// t_op_tenant_config
+		// t_op_tenant_account
+		try {
+			tenantAccountService.saveByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户账户信息出错", e);
+		}
+
+		// t_op_tenant_sms
+		// t_op_tenant_invoice
+		// t_op_tenant_bill
+
+		// 2,不同服务默认配置信息，mq消息通知
+		return success;
+	}
 
 	@Override
 	public TenantInfo getById(Serializable id) {
@@ -50,8 +76,8 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 			try {
 				Long id = updateWrapper.getEntity().getId();
 				redisService.remove(Long.toString(id));
-			} catch(Exception e) {
-				//ex.printStackTrace();
+			} catch (Exception e) {
+				// ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}
@@ -64,8 +90,8 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		if (success) {
 			try {
 				redisService.remove(id.toString());
-			} catch(Exception e) {
-				//ex.printStackTrace();
+			} catch (Exception e) {
+				// ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}

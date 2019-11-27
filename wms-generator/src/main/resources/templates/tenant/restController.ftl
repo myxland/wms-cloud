@@ -73,6 +73,18 @@ public class ${table.entityName}RestController {
 		return entity2vo(${table.entityName?uncap_first});
 	}
 
+	<#if table.includeTenantOne2One>
+	@ApiOperation(value = "根据ID查询${table.tableComment}")
+	@RequestMapping(value = "/${table.restSegment}s/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") Long tenantId) {
+		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
+		queryWrapper${table.entityName}.lambda().eq(${table.entityName}::getTenantId, tenantId);
+		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Service.getOne(queryWrapper${table.entityName});
+
+		return entity2vo(${table.entityName?uncap_first});
+	}
+
+	</#if>
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
@@ -191,6 +203,10 @@ public class ${table.entityName}RestController {
 	}
 
 	private ${table.entityName}Vo entity2vo(${table.entityName} ${table.entityName?uncap_first}) {
+		if (${table.entityName?uncap_first} == null) {
+			return null;
+		}
+
 		String jsonString = JSON.toJSONString(${table.entityName?uncap_first});
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = JSON.parseObject(jsonString, ${table.entityName}Vo.class);
 		<#if table.includeSysId>

@@ -100,6 +100,17 @@ public class ${table.entityName}Controller {
 		return CommonResult.success(${table.entityName?uncap_first}Vo);
 	}
 
+	<#if table.includeTenantOne2One>
+	@ApiOperation(value = "根据租户ID查询${table.tableComment}")
+	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<${table.entityName}Vo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.getByTenantId(tenantId);
+
+		return CommonResult.success(${table.entityName?uncap_first}Vo);
+	}
+
+	</#if>
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
