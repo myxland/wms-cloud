@@ -28,6 +28,15 @@ export function get${table.entityName?cap_first}(id) {
     method:'get',
   })
 }
+<#if table.includeTenantOne2One>
+
+export function get${table.entityName?cap_first}ByTenantId(tenantId) {
+  return request({
+    url:'/${table.entityName?uncap_first}/tenantId/'+tenantId,
+    method:'get',
+  })
+}
+</#if>
 
 export function update${table.entityName?cap_first}(id,data) {
   return request({

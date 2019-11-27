@@ -107,7 +107,7 @@
   </el-card>
 </template>
 <script>
-  import {create${table.entityName?cap_first}, get${table.entityName?cap_first}, update${table.entityName?cap_first}} from '@/api/${table.entityName?uncap_first}'
+  import {create${table.entityName?cap_first}, get${table.entityName?cap_first},<#if table.includeTenantOne2One> get${table.entityName?cap_first}ByTenantId,</#if> update${table.entityName?cap_first}} from '@/api/${table.entityName?uncap_first}'
   <#if table.includeSysId>
   import {fetchList as fetchSystemDesignList} from '@/api/systemDesign';
   </#if>
@@ -197,24 +197,47 @@
     },
     created() {
       if (this.isEdit) {
-        get${table.entityName?cap_first}(this.$route.query.id).then(response => {
-          <#if table.includeDate>
-          let data = response.data;
-          <#list table.columnList as column>
-          <#if column.propertyType=="Date">
-          <#if column.dataType="date">
-          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd');
-          <#else>
-          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd hh:mm:ss');
-          </#if>
-          </#if>
-          </#list>        
-          this.${table.entityName?uncap_first} = data;
-          //this.${table.entityName?uncap_first} = response.data;
-          <#else>
-          this.${table.entityName?uncap_first} = response.data;
-          </#if>
-        });
+      	if (this.$route.query.id) {
+          	get${table.entityName?cap_first}(this.$route.query.id).then(response => {
+	          <#if table.includeDate>
+	          let data = response.data;
+	          <#list table.columnList as column>
+	          <#if column.propertyType=="Date">
+	          <#if column.dataType="date">
+	          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd');
+	          <#else>
+	          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd hh:mm:ss');
+	          </#if>
+	          </#if>
+	          </#list>        
+	          this.${table.entityName?uncap_first} = data;
+	          //this.${table.entityName?uncap_first} = response.data;
+	          <#else>
+	          this.${table.entityName?uncap_first} = response.data;
+	          </#if>
+        	});
+        }
+        if (this.$route.query.tenantId) {
+          get${table.entityName?cap_first}ByTenantId(this.$route.query.tenantId).then(response => {
+	          <#if table.includeDate>
+	          let data = response.data;
+	          <#list table.columnList as column>
+	          <#if column.propertyType=="Date">
+	          <#if column.dataType="date">
+	          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd');
+	          <#else>
+	          data.${column.propertyName} = formatDate(new Date(data.${column.propertyName}), 'yyyy-MM-dd hh:mm:ss');
+	          </#if>
+	          </#if>
+	          </#list>        
+	          this.${table.entityName?uncap_first} = data;
+	          //this.${table.entityName?uncap_first} = response.data;
+	          <#else>
+	          this.${table.entityName?uncap_first} = response.data;
+	          </#if>
+        	});
+        }
+        
       }else{
         this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first});
       }
