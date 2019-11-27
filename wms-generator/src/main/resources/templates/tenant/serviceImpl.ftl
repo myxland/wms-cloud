@@ -110,9 +110,6 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 	<#if table.includeTenantOne2One>
 	public boolean saveByTenantInfo(TenantInfo tenantInfo) {
 		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName}.builder()//
-				.id(idService.selectId())//
-				.tenantId(tenantInfo.getId())//
-				.accountBalance(BigDecimal.ZERO)//
 				<#list table.columnList as column>
 				<#if "id" == column.columnName>
 				.${column.propertyName}(idService.selectId())// ${column.columnComment}

@@ -18,6 +18,11 @@ public interface ${table.entityName}ClientService {
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.GET)
 	public ${table.entityName}Vo getById(@PathVariable("id") Long id);
 
+	<#if table.includeTenantOne2One>
+	@RequestMapping(value = "/${table.restSegment}s/tenant-id/{tenant-id}", method = RequestMethod.GET)
+	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") Long tenantId);
+
+	</#if>
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
