@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.tenant.mapper.TenantInfoMapper;
 import com.zlsrj.wms.tenant.service.ITenantAccountService;
+import com.zlsrj.wms.tenant.service.ITenantConfigService;
 import com.zlsrj.wms.tenant.service.ITenantInfoService;
 import com.zlsrj.wms.tenant.service.RedisService;
 
@@ -25,6 +26,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	private RedisService<String, String> redisService;
 
 	@Autowired
+	private ITenantConfigService tenantConfigService;
+	
+	@Autowired
 	private ITenantAccountService tenantAccountService;
 
 	@Override
@@ -33,11 +37,16 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		// 创建租户时，默认创建租户相关配置信息
 		// 1，同微服务默认配置信息，service调用
 		// t_op_tenant_config
+		try {
+			tenantConfigService.saveByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户基础配置出错", e);
+		}
 		// t_op_tenant_account
 		try {
 			tenantAccountService.saveByTenantInfo(tenantInfo);
 		} catch (Exception e) {
-			log.error("创建默认租户账户信息出错", e);
+			log.error("创建默认租户账户出错", e);
 		}
 
 		// t_op_tenant_sms
