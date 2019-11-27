@@ -91,7 +91,7 @@
       </el-form-item>
       <#elseif column.dataType == "decimal">
       <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
-        <el-input-number v-model="${table.entityName?uncap_first}.${column.propertyName}" :min="0"<#if column.columnName?ends_with("_ratio")> :max="1"</#if> precision="${column.numericScale}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> placeholder="${column.propertyComment}"></el-input-number>
+        <el-input-number v-model="${table.entityName?uncap_first}.${column.propertyName}" :min="0"<#if column.columnName?ends_with("_ratio")> :max="1"</#if> :precision="${column.numericScale}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> placeholder="${column.propertyComment}"></el-input-number>
       </el-form-item>
       <#else>
       <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
