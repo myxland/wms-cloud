@@ -52,7 +52,7 @@
             </el-form-item>
             <#elseif column.columnName?ends_with("tenant_id")>
             <el-form-item label="${column.propertyComment?replace("编号","")}：">
-              <el-select v-model="listQuery.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}" clearable>
+              <el-select v-model="listQuery.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if table.includeTenantOne2Many> :disabled="this.$route.query.tenantId?true:false"</#if> clearable>
                 <el-option
                   v-for="item in tenantInfoOptions"
                   :key="item.value"
@@ -63,7 +63,7 @@
             </el-form-item>
             <#elseif column.columnName?ends_with("sys_id")>
             <el-form-item label="${column.propertyComment?replace("编号","")}：">
-              <el-select v-model="listQuery.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}" clearable>
+              <el-select v-model="listQuery.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if table.includeSysOne2Many> :disabled="this.$route.query.sysId?true:false"</#if> clearable>
                 <el-option
                   v-for="item in systemDesignOptions"
                   :key="item.value"
@@ -262,7 +262,13 @@
           </#if>
         ],
         operateType: null,
-        listQuery:Object.assign({},defaultListQuery),
+        <#if table.includeTenantOne2Many>
+        tenantId: null,
+        </#if>
+        <#if table.includeSysOne2Many>
+        sysId: null,
+        </#if>
+        listQuery:Object.assign({},defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many>,this.$route.query</#if>),
         list: null,
         total: null,
         listLoading: true,
@@ -287,6 +293,20 @@
       </#if>
       <#if table.includeTenantId>
       this.getTenantInfoList();
+      </#if>
+      <#if table.includeTenantOne2Many>
+      let tenantId = this.$route.query.tenantId;
+      if(tenantId){
+        this.tenantId = tenantId;
+        this.listQuery.tenantId = tenantId;
+      }
+      </#if>
+      <#if table.includeSysOne2Many>
+      let sysId = this.$route.query.sysId;
+      if(sysId){
+        this.sysId = sysId;
+        this.listQuery.sysId = sysId;
+      }
       </#if>
     },
     filters:{
@@ -358,16 +378,16 @@
       },
       </#if>
       handleResetSearch() {
-        this.listQuery = Object.assign({}, defaultListQuery);
+        this.listQuery = Object.assign({}, defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many>, this.$route.query</#if>);
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleView(index, row) {
-        this.${"$"}router.push({path: '/${projectName}/view${table.entityName?cap_first}', query: {id: row.id}})
+        this.${"$"}router.push({path: '/${projectName}/view${table.entityName?cap_first}', query: {id: row.id<#if table.includeTenantOne2Many>, tenantId:this.tenantId</#if><#if table.includeSysOne2Many>, sysId:this.sysId</#if>}})
       },
       handleUpdate(index, row) {
-        this.${"$"}router.push({path: '/${projectName}/update${table.entityName?cap_first}', query: {id: row.id}})
+        this.${"$"}router.push({path: '/${projectName}/update${table.entityName?cap_first}', query: {id: row.id<#if table.includeTenantOne2Many>, tenantId:this.tenantId</#if><#if table.includeSysOne2Many>, sysId:this.sysId</#if>}})
       },
       handleDelete(index, row) {
         this.${"$"}confirm('是否要删除该${table.tableComment}', '提示', {
@@ -466,7 +486,7 @@
         </#if>
       },
       add${table.entityName?cap_first}() {
-        this.${"$"}router.push({path: '/${projectName}/add${table.entityName?cap_first}'})
+        this.${"$"}router.push({path: '/${projectName}/add${table.entityName?cap_first}'<#if table.includeTenantOne2Many || table.includeSysOne2Many>, query: {<#if table.includeTenantOne2Many>tenantId:this.tenantId</#if><#if table.includeSysOne2Many>sysId:this.sysId</#if>}</#if>})
       }
     }
   }

@@ -8,7 +8,7 @@
       </el-form-item>
       <#elseif column.columnName?ends_with("sys_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
-        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> clearable>
+        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if><#if table.includeSysOne2Many> :disabled="this.$route.query.sysId?true:false"</#if> clearable>
                 <el-option
                   v-for="item in systemDesignOptions"
                   :key="item.value"
@@ -19,7 +19,7 @@
       </el-form-item>
       <#elseif column.columnName?ends_with("tenant_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
-        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if> clearable>
+        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if><#if table.includeTenantOne2Many> :disabled="this.$route.query.tenantId?true:false"</#if> clearable>
                 <el-option
                   v-for="item in tenantInfoOptions"
                   :key="item.value"
@@ -164,7 +164,7 @@
     },
     data() {
       return {
-        ${table.entityName?uncap_first}:Object.assign({}, default${table.entityName?cap_first}),
+        ${table.entityName?uncap_first}:Object.assign({}, default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many>, this.$route.query</#if>),
         <#if table.includeSysId>
         systemDesignOptions:[],
         </#if>
@@ -217,7 +217,7 @@
 	          </#if>
         	});
         }
-        if (this.$route.query.tenantId) {
+        else if (this.$route.query.tenantId) {
           get${table.entityName?cap_first}ByTenantId(this.$route.query.tenantId).then(response => {
 	          <#if table.includeDate>
 	          let data = response.data;
@@ -239,7 +239,7 @@
         }
         
       }else{
-        this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first});
+        this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many>,this.$route.query</#if>);
       }
       <#if table.includeSysId>
       this.getSystemDesignList();
