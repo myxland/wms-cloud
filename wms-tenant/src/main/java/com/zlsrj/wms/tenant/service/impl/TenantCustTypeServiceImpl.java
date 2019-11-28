@@ -1,10 +1,8 @@
 package com.zlsrj.wms.tenant.service.impl;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -26,11 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class TenantCustTypeServiceImpl extends ServiceImpl<TenantCustTypeMapper, TenantCustType>
-		implements ITenantCustTypeService {
+public class TenantCustTypeServiceImpl extends ServiceImpl<TenantCustTypeMapper, TenantCustType> implements ITenantCustTypeService {
 	@Resource
 	private RedisService<String, String> redisService;
-	
 	@Resource
 	private IIdService idService;
 
@@ -62,8 +58,8 @@ public class TenantCustTypeServiceImpl extends ServiceImpl<TenantCustTypeMapper,
 			try {
 				Long id = updateWrapper.getEntity().getId();
 				redisService.remove(Long.toString(id));
-			} catch (Exception e) {
-				// ex.printStackTrace();
+			} catch(Exception e) {
+				//ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}
@@ -76,14 +72,14 @@ public class TenantCustTypeServiceImpl extends ServiceImpl<TenantCustTypeMapper,
 		if (success) {
 			try {
 				redisService.remove(id.toString());
-			} catch (Exception e) {
-				// ex.printStackTrace();
+			} catch(Exception e) {
+				//ex.printStackTrace();
 				log.error("redis remove error", e);
 			}
 		}
 		return success;
 	}
-
+	
 	@Override
 	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
 		QueryWrapper<TenantCustType> queryWrapperTenantCustType = new QueryWrapper<TenantCustType>();
@@ -99,9 +95,9 @@ public class TenantCustTypeServiceImpl extends ServiceImpl<TenantCustTypeMapper,
 		List<TenantCustType> tenantCustTypeList = new ArrayList<TenantCustType>();
 		for (CustTypeEnum custTypeEnum : CustTypeEnum.values()) {
 			TenantCustType tenantCustType = TenantCustType.builder()//
-					.id(idService.selectId())//
-					.tenantId(tenantInfo.getId())//
-					.custTypeName(custTypeEnum.getText())//
+					.id(idService.selectId())// 用户类型
+					.tenantId(tenantInfo.getId())// 租户编号
+					.custTypeName(custTypeEnum.getText())// 用户类别名称
 					.build();
 			log.info(tenantCustType.toString());
 			tenantCustTypeList.add(tenantCustType);
