@@ -8,9 +8,10 @@ import java.util.List;
 </#if>
 </#if>
 <#if table.includeTenantOne2One>
-<#if table.includeBigDecimal></#if>
+<#if table.includeBigDecimal>
 import java.math.BigDecimal;
 
+</#if>
 </#if>
 <#if table.selectable>
 import javax.annotation.Resource;

@@ -67,7 +67,7 @@ public class TableNameFactory {
 				"t_op_tenant_invoice",//
 				"t_op_tenant_bill",//
 				"t_op_tenant_cust_type",//
-				"",//
+				"t_op_tenant_water_type",//
 				"",//
 				"",//
 				"",//
