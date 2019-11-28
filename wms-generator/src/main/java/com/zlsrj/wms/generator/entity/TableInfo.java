@@ -121,6 +121,26 @@ public class TableInfo implements Serializable {
 	public boolean isIncludeSysId() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("sys_id")).count() > 0;
 	}
+	
+	/**
+	 * 是否跟systemDesign实体一对一关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeSysOne2One() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("sys_id")//
+				&& "UNI".equals(column.getColumnKey())//
+		).count() > 0;
+	}
+
+	/**
+	 * 是否跟systemDesign实体一对多关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeSysOne2Many() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("sys_id")//
+				&& ("UNI".equals(column.getColumnKey()) == false)//
+		).count() > 0;
+	}
 
 	@JSONField(serialize = false)
 	public List<TableField> getSelectColumnList() {
