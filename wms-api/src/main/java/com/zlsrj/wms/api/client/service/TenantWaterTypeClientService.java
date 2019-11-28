@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.TenantWaterType;
 import com.zlsrj.wms.api.vo.TenantWaterTypeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantWaterType")
+@FeignClient(value = "WMS-TENANT", contextId = "TenantWaterType")
 public interface TenantWaterTypeClientService {
 	@RequestMapping(value = "/tenant-water-types/{id}", method = RequestMethod.GET)
 	public TenantWaterTypeVo getById(@PathVariable("id") Long id);

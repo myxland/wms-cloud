@@ -18,6 +18,7 @@ import com.zlsrj.wms.tenant.service.ITenantCustTypeService;
 import com.zlsrj.wms.tenant.service.ITenantInfoService;
 import com.zlsrj.wms.tenant.service.ITenantInvoiceService;
 import com.zlsrj.wms.tenant.service.ITenantSmsService;
+import com.zlsrj.wms.tenant.service.ITenantWaterTypeService;
 import com.zlsrj.wms.tenant.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Autowired
 	private ITenantCustTypeService tenantCustTypeService;
+	
+	@Autowired
+	private ITenantWaterTypeService tenantWaterTypeService;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -87,6 +91,12 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 			tenantCustTypeService.saveBatchByTenantInfo(tenantInfo);
 		} catch (Exception e) {
 			log.error("创建默认租户用户类型出错", e);
+		}
+		
+		try {
+			tenantWaterTypeService.saveBatchByTenantInfo(tenantInfo);
+		} catch (Exception e) {
+			log.error("创建默认租户用水类型出错", e);
 		}
 
 		// 2,不同服务默认配置信息，mq消息通知
