@@ -1,21 +1,21 @@
 package com.zlsrj.wms.admin.controller;
 
-import java.util.Arrays;
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantDeptClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.TenantDeptQueryParam;
 import com.zlsrj.wms.api.entity.TenantDept;
 import com.zlsrj.wms.api.vo.TenantDeptVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -31,18 +31,8 @@ public class TenantDeptController {
 
 	@Autowired
 	private TenantDeptClientService tenantDeptClientService;
-	
-	@ApiOperation(value = "根据参数查询租户部门列表一级部门")
-	@RequestMapping(value = "/listRoot", method = RequestMethod.GET)
-	@ResponseBody
-	public CommonResult<CommonPage<TenantDeptVo>> listRoot(TenantDeptQueryParam tenantDeptQueryParam, int pageNum,
-			int pageSize) {
-		Page<TenantDeptVo> tenantDeptVoPage = tenantDeptClientService.pageRoot(tenantDeptQueryParam, pageNum, pageSize, "id", "desc");
-
-		CommonPage<TenantDeptVo> tenantDeptCommonPage = CommonPage.restPage(tenantDeptVoPage);
-
-		return CommonResult.success(tenantDeptCommonPage);
-	}
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
 
 	@ApiOperation(value = "根据参数查询租户部门列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -50,6 +40,7 @@ public class TenantDeptController {
 	public CommonResult<CommonPage<TenantDeptVo>> list(TenantDeptQueryParam tenantDeptQueryParam, int pageNum,
 			int pageSize) {
 		Page<TenantDeptVo> tenantDeptVoPage = tenantDeptClientService.page(tenantDeptQueryParam, pageNum, pageSize, "id", "desc");
+		tenantDeptVoPage.getRecords().stream().forEach(v->wrappperVo(v));
 
 		CommonPage<TenantDeptVo> tenantDeptCommonPage = CommonPage.restPage(tenantDeptVoPage);
 
@@ -70,6 +61,7 @@ public class TenantDeptController {
 	@ResponseBody
 	public CommonResult<TenantDeptVo> getById(@PathVariable("id") Long id) {
 		TenantDeptVo tenantDeptVo = tenantDeptClientService.getById(id);
+		wrappperVo(tenantDeptVo);
 
 		return CommonResult.success(tenantDeptVo);
 	}
@@ -80,6 +72,7 @@ public class TenantDeptController {
 	public CommonResult<TenantDeptVo> getById(@RequestBody TenantDept tenantDept) {
 		Long id = tenantDept.getId();
 		TenantDeptVo tenantDeptVo = tenantDeptClientService.updatePatchById(id, tenantDept);
+		wrappperVo(tenantDeptVo);
 
 		return CommonResult.success(tenantDeptVo);
 	}
@@ -91,6 +84,15 @@ public class TenantDeptController {
 		CommonResult<Object> commonResult = tenantDeptClientService.removeById(id);
 
 		return commonResult;
+	}
+	
+	private void wrappperVo(TenantDeptVo tenantDeptVo) {
+		if (StringUtils.isEmpty(tenantDeptVo.getTenantName())) {
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantDeptVo.getTenantId());
+			if (tenantInfoVo != null) {
+				tenantDeptVo.setTenantName(tenantInfoVo.getTenantName());
+			}
+		}
 	}
 
 }

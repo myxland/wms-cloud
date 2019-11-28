@@ -13,21 +13,13 @@ import com.zlsrj.wms.api.entity.TenantDept;
 import com.zlsrj.wms.api.vo.TenantDeptVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantDept")
+@FeignClient(value = "WMS-EMPLOYEE", contextId = "TenantDept")
 public interface TenantDeptClientService {
 	@RequestMapping(value = "/tenant-depts/{id}", method = RequestMethod.GET)
 	public TenantDeptVo getById(@PathVariable("id") Long id);
 
 	@RequestMapping(value = "/tenant-depts", method = RequestMethod.GET)
 	public Page<TenantDeptVo> page(@RequestBody TenantDeptQueryParam tenantDeptQueryParam,
-			@RequestParam(value = "page", defaultValue = "1") int page, //
-			@RequestParam(value = "rows", defaultValue = "10") int rows, //
-			@RequestParam(value = "sort") String sort, // 排序列字段名
-			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
-	);
-	
-	@RequestMapping(value = "/tenant-depts/root", method = RequestMethod.GET)
-	public Page<TenantDeptVo> pageRoot(@RequestBody TenantDeptQueryParam tenantDeptQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
 			@RequestParam(value = "sort") String sort, // 排序列字段名
