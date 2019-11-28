@@ -20,7 +20,7 @@ import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.entity.TenantRoleMenu;
 import com.zlsrj.wms.api.entity.TenantRoleSystem;
 import com.zlsrj.wms.api.entity.TenantSystem;
-import com.zlsrj.wms.mbg.enums.PricePolicyTypeEnum;
+import com.zlsrj.wms.api.enums.PricePolicyTypeEnum;
 import com.zlsrj.wms.mbg.service.ISystemDesignService;
 import com.zlsrj.wms.mbg.service.ISystemMenuDesignService;
 import com.zlsrj.wms.mbg.service.ITenantDeptService;

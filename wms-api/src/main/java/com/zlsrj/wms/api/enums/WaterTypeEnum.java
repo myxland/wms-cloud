@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.enums;
+package com.zlsrj.wms.api.enums;
 
 /**
  * 默认用水分类

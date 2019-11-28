@@ -1,24 +1,22 @@
-package com.zlsrj.wms.mbg.enums;
+package com.zlsrj.wms.api.enums;
 
 /**
- * 计费周期
+ * 租户类型
+ *
  */
-public enum BillCycleTypeEnum {
+public enum TenantTypeEnum {
+	USER_COMPANY(1, "使用单位"),
 
-	HOUR(0, "实时"),
+	SUPPLYR_COMPANY(2, "供应单位"),
 
-	DAY(1, "按天"),
-
-	MONTH(2, "按月"),
-
-	YEAR(2, "按年")
+	INTERNAL_OPERATION(3, "内部运营")
 
 	;
 
 	private Integer code;
 	private String text;
 
-	private BillCycleTypeEnum(Integer code, String text) {
+	private TenantTypeEnum(Integer code, String text) {
 		this.code = code;
 		this.text = text;
 	}
@@ -39,8 +37,8 @@ public enum BillCycleTypeEnum {
 		this.text = text;
 	}
 
-	public static BillCycleTypeEnum getEnumByCode(Integer code) {
-		for (BillCycleTypeEnum value : BillCycleTypeEnum.values()) {
+	public static TenantTypeEnum getEnumByCode(Integer code) {
+		for (TenantTypeEnum value : TenantTypeEnum.values()) {
 			if (value.getCode() == code) {
 				return value;
 			}

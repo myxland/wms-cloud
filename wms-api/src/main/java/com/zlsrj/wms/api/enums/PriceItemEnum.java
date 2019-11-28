@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.enums;
+package com.zlsrj.wms.api.enums;
 
 /**
  * 默认费用项目分类

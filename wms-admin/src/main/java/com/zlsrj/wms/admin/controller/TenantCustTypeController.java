@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "", tags = { "操作接口" })
+@Api(value = "用户类型", tags = { "用户类型操作接口" })
 @Controller
 @RequestMapping("/tenantCustType")
 @Slf4j
@@ -32,7 +32,7 @@ public class TenantCustTypeController {
 	@Autowired
 	private TenantCustTypeClientService tenantCustTypeClientService;
 
-	@ApiOperation(value = "根据参数查询列表")
+	@ApiOperation(value = "根据参数查询用户类型列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<CommonPage<TenantCustTypeVo>> list(TenantCustTypeQueryParam tenantCustTypeQueryParam, int pageNum,
@@ -44,7 +44,7 @@ public class TenantCustTypeController {
 		return CommonResult.success(tenantCustTypeCommonPage);
 	}
 
-	@ApiOperation(value = "新增")
+	@ApiOperation(value = "新增用户类型")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustTypeVo> create(@RequestBody TenantCustType tenantCustType) {
@@ -53,7 +53,7 @@ public class TenantCustTypeController {
 		return CommonResult.success(tenantCustTypeVo);
 	}
 
-	@ApiOperation(value = "根据ID查询")
+	@ApiOperation(value = "根据ID查询用户类型")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<TenantCustTypeVo> getById(@PathVariable("id") Long id) {
@@ -62,7 +62,7 @@ public class TenantCustTypeController {
 		return CommonResult.success(tenantCustTypeVo);
 	}
 
-	@ApiOperation(value = "根据参数更新信息")
+	@ApiOperation(value = "根据参数更新用户类型信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustTypeVo> getById(@RequestBody TenantCustType tenantCustType) {
@@ -72,7 +72,7 @@ public class TenantCustTypeController {
 		return CommonResult.success(tenantCustTypeVo);
 	}
 	
-	@ApiOperation(value = "根据ID删除")
+	@ApiOperation(value = "根据ID删除用户类型")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Object> removeById(@PathVariable("id") Long id) {

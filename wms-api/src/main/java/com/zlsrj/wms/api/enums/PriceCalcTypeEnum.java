@@ -1,27 +1,22 @@
-package com.zlsrj.wms.mbg.enums;
+package com.zlsrj.wms.api.enums;
 
 /**
- * 默认用户分类
+ * 默认费用计算方法分类
  *
  */
-public enum CustTypeEnum {
+public enum PriceCalcTypeEnum {
+	FIXED_RATE(1, "固定单价"),
 
-	DENIZEN(1, "居民"),
+	FIXED_MONEY(2, "固定金额"),
 
-	ADMINISTRA(2, "行政事业"),
-
-	INDUSTRY(3, "工业"),
-
-	BUSINESS(4, "经营服务"),
-
-	SPECIAL(5, "特种行业")
+	STEP(3, "阶梯价格")
 
 	;
 
 	private Integer code;
 	private String text;
 
-	private CustTypeEnum(Integer code, String text) {
+	private PriceCalcTypeEnum(Integer code, String text) {
 		this.code = code;
 		this.text = text;
 	}
@@ -42,13 +37,12 @@ public enum CustTypeEnum {
 		this.text = text;
 	}
 
-	public static CustTypeEnum getEnumByCode(Integer code) {
-		for (CustTypeEnum value : CustTypeEnum.values()) {
+	public static PriceCalcTypeEnum getEnumByCode(Integer code) {
+		for (PriceCalcTypeEnum value : PriceCalcTypeEnum.values()) {
 			if (value.getCode() == code) {
 				return value;
 			}
 		}
 		return null;
 	}
-
 }

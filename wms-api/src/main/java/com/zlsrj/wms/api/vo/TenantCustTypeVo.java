@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantCustType对象", description = "")
+@ApiModel(value = "TenantCustType对象", description = "用户类型")
 public class TenantCustTypeVo implements Serializable {
 
 	private static final long serialVersionUID = 8781410121201311111L;

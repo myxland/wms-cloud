@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Builder
 @TableName("t_op_tenant_cust_type")
-@ApiModel(value = "TenantCustType对象", description = "")
+@ApiModel(value = "TenantCustType对象", description = "用户类型")
 public class TenantCustType implements Serializable {
 
 	private static final long serialVersionUID = 1013124211413721010L;

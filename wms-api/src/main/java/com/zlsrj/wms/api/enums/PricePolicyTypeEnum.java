@@ -1,23 +1,23 @@
-package com.zlsrj.wms.mbg.enums;
+package com.zlsrj.wms.api.enums;
 
 /**
- * 默认价格类别分类
+ * 价格策略环境
  *
  */
-public enum PriceTypeEnum {
+public enum PricePolicyTypeEnum {
 
-	DENIZEN(1, "居民用水"),
+	FREE(0, "免费"),
 
-	NO_DENIZEN(2, "非居民用水"),
+	USAGE(1, "按量付费"),
 
-	SPECIAL(3, "特种行业用水")
+	FIXED(2, "固定价格")
 
 	;
 
 	private Integer code;
 	private String text;
 
-	private PriceTypeEnum(Integer code, String text) {
+	private PricePolicyTypeEnum(Integer code, String text) {
 		this.code = code;
 		this.text = text;
 	}
@@ -38,13 +38,12 @@ public enum PriceTypeEnum {
 		this.text = text;
 	}
 
-	public static PriceTypeEnum getEnumByCode(Integer code) {
-		for (PriceTypeEnum value : PriceTypeEnum.values()) {
+	public static PricePolicyTypeEnum getEnumByCode(Integer code) {
+		for (PricePolicyTypeEnum value : PricePolicyTypeEnum.values()) {
 			if (value.getCode() == code) {
 				return value;
 			}
 		}
 		return null;
 	}
-
 }
