@@ -158,7 +158,7 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 		;
 		int count = super.count(queryWrapper${table.entityName});
 		if (count > 0) {
-			log.error("根据租户信息初始化${table.tableComment}失败，租户类型已存在。");
+			log.error("根据租户信息初始化${table.tableComment}失败，${table.tableComment}已存在。");
 			return false;
 		}
 
