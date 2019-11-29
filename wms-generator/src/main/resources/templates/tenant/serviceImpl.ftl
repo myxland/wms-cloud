@@ -1,19 +1,20 @@
 package ${domainName}.${projectName}.service.impl;
 <#if table.selectable>
 import java.io.Serializable;
+</#if>
 <#if table.includeTenantOne2Many>
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 </#if>
-</#if>
+
 <#if table.includeTenantOne2One>
 <#if table.includeBigDecimal>
 import java.math.BigDecimal;
 
 </#if>
 </#if>
-<#if table.selectable>
+<#if table.selectable || table.includeTenantOne2Many>
 import javax.annotation.Resource;
 
 </#if>
@@ -26,9 +27,11 @@ import org.springframework.stereotype.Service;
 <#if table.selectable>
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+</#if>
 <#if table.includeTenantOne2Many>
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 </#if>
+<#if table.selectable>
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 </#if>
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -47,13 +50,13 @@ import ${domainName}.${projectName}.service.I${table.entityName}Service;
 <#if table.selectable>
 import ${domainName}.${projectName}.service.RedisService;
 </#if>
-<#if table.selectable>
+<#if table.selectable || table.includeTenantOne2Many>
 
 import lombok.extern.slf4j.Slf4j;
 </#if>
 
 @Service
-<#if table.selectable>
+<#if table.selectable || table.includeTenantOne2Many>
 @Slf4j
 </#if>
 public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityName}Mapper, ${table.entityName}> implements I${table.entityName}Service {
