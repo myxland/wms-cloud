@@ -2,7 +2,11 @@ package com.zlsrj.wms.tenant.service.impl;
 
 import java.io.Serializable;
 
+import javax.annotation.Resource;
+import javax.jms.Queue;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -21,35 +25,42 @@ import com.zlsrj.wms.tenant.service.ITenantSmsService;
 import com.zlsrj.wms.tenant.service.ITenantWaterTypeService;
 import com.zlsrj.wms.tenant.service.RedisService;
 
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantInfo> implements ITenantInfoService {
 
-	@Autowired
+	@Resource
 	private RedisService<String, String> redisService;
 
-	@Autowired
+	@Resource
 	private ITenantConfigService tenantConfigService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantAccountService tenantAccountService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantSmsService tenantSmsService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantInvoiceService tenantInvoiceService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantBillService tenantBillService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantCustTypeService tenantCustTypeService;
-	
-	@Autowired
+
+	@Resource
 	private ITenantWaterTypeService tenantWaterTypeService;
+
+	@Resource
+	private JmsMessagingTemplate jmsMessagingTemplate;
+	
+	@Resource(name = "queueRbac")
+	private Queue queueRbac;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -86,13 +97,13 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		} catch (Exception e) {
 			log.error("创建默认租户发票配置出错", e);
 		}
-		
+
 		try {
 			tenantCustTypeService.saveBatchByTenantInfo(tenantInfo);
 		} catch (Exception e) {
 			log.error("创建默认租户用户类型出错", e);
 		}
-		
+
 		try {
 			tenantWaterTypeService.saveBatchByTenantInfo(tenantInfo);
 		} catch (Exception e) {
@@ -100,6 +111,12 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		}
 
 		// 2,不同服务默认配置信息，mq消息通知
+		try {
+			jmsMessagingTemplate.convertAndSend(queueRbac, JSONUtil.toJsonStr(tenantInfo));
+		} catch (Exception e) {
+			log.error("send message error", e);
+		}
+		
 		return success;
 	}
 

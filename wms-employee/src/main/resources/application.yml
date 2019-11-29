@@ -33,6 +33,18 @@ spring:
     admin:
       client:
         url: "http://localhost:7080"
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: false # false=Queue true=Topic
+    
+mq:
+  mbg: 
+    tenant: 
+      rbac: mq-mbg-tenant-rbac
+      
 management:
   endpoints:
     web:
