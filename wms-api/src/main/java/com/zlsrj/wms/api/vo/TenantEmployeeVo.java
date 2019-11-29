@@ -37,6 +37,9 @@ public class TenantEmployeeVo implements Serializable {
 	@ApiModelProperty(value = "员工部门")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long deptId;
+	
+	@ApiModelProperty(value = "员工部门")
+	private String deptName;
 
 	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
 	private Integer loginOn;

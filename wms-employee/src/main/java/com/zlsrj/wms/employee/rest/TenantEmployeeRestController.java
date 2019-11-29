@@ -19,10 +19,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.entity.TenantDept;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.employee.service.IIdService;
+import com.zlsrj.wms.employee.service.ITenantDeptService;
 import com.zlsrj.wms.employee.service.ITenantEmployeeService;
 
 import io.swagger.annotations.Api;
@@ -36,6 +38,8 @@ public class TenantEmployeeRestController {
 
 	@Autowired
 	private ITenantEmployeeService tenantEmployeeService;
+	@Autowired
+	private ITenantDeptService tenantDeptService;
 	@Autowired
 	private IIdService idService;
 
@@ -161,6 +165,12 @@ public class TenantEmployeeRestController {
 
 		String jsonString = JSON.toJSONString(tenantEmployee);
 		TenantEmployeeVo tenantEmployeeVo = JSON.parseObject(jsonString, TenantEmployeeVo.class);
+		if (StringUtils.isEmpty(tenantEmployeeVo.getDeptName())) {
+			TenantDept tenantDept = tenantDeptService.getById(tenantEmployee.getDeptId());
+			if (tenantDept != null) {
+				tenantEmployeeVo.setDeptName(tenantDept.getDeptName());
+			}
+		}
 		return tenantEmployeeVo;
 	}
 
