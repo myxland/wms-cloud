@@ -22,22 +22,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
-<#if table.includeSysId>
-import ${domainName}.${projectNameApi}.entity.SystemDesign;
-</#if>
-<#if table.includeTenantId>
-import ${domainName}.${projectNameApi}.entity.TenantInfo;
-</#if>
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 import ${domainName}.common.api.CommonResult;
 import ${domainName}.${projectName}.service.IIdService;
-<#if table.includeSysId>
-import ${domainName}.${projectName}.service.ISystemDesignService;
-</#if>
-<#if table.includeTenantId>
-import ${domainName}.${projectName}.service.ITenantInfoService;
-</#if>
 import ${domainName}.${projectName}.service.I${table.entityName}Service;
 
 <#if table.includeDate>
@@ -54,14 +42,6 @@ public class ${table.entityName}RestController {
 
 	@Autowired
 	private I${table.entityName}Service ${table.entityName?uncap_first}Service;
-	<#if table.includeSysId>
-	@Autowired
-	private ISystemDesignService systemDesignService;
-	</#if>
-	<#if table.includeTenantId>
-	@Autowired
-	private ITenantInfoService tenantInfoService;
-	</#if>
 	@Autowired
 	private IIdService idService;
 
@@ -209,30 +189,6 @@ public class ${table.entityName}RestController {
 
 		String jsonString = JSON.toJSONString(${table.entityName?uncap_first});
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = JSON.parseObject(jsonString, ${table.entityName}Vo.class);
-		<#if table.includeSysId>
-		<#list table.columnList as column>
-		<#if column.columnName?ends_with("sys_id")>
-		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.get${column.propertyName?cap_first?replace("SysId","ModuleName")}())) {
-			SystemDesign systemDesign = systemDesignService.getById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
-			if (systemDesign != null) {
-				${table.entityName?uncap_first}Vo.set${column.propertyName?cap_first?replace("SysId","ModuleName")}(systemDesign.getModuleName());
-			}
-		}
-		</#if>
-		</#list>
-		</#if>
-		<#if table.includeTenantId>
-		<#list table.columnList as column>
-		<#if column.columnName?ends_with("tenant_id")>
-		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.get${column.propertyName?replace("Id","Name")?cap_first}())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
-			if (tenantInfo != null) {
-				${table.entityName?uncap_first}Vo.set${column.propertyName?replace("Id","Name")?cap_first}(tenantInfo.getTenantName());
-			}
-		}
-		</#if>
-		</#list>
-		</#if>
 		return ${table.entityName?uncap_first}Vo;
 	}
 

@@ -147,7 +147,6 @@ public class TenantDeptRestController {
 
 		String jsonString = JSON.toJSONString(tenantDept);
 		TenantDeptVo tenantDeptVo = JSON.parseObject(jsonString, TenantDeptVo.class);
-		
 		return tenantDeptVo;
 	}
 
