@@ -1,5 +1,6 @@
 package com.zlsrj.wms.admin.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
 import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -31,6 +34,8 @@ public class TenantRoleController {
 
 	@Autowired
 	private TenantRoleClientService tenantRoleClientService;
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
 
 	@ApiOperation(value = "根据参数查询租户角色列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -38,6 +43,7 @@ public class TenantRoleController {
 	public CommonResult<CommonPage<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam, int pageNum,
 			int pageSize) {
 		Page<TenantRoleVo> tenantRoleVoPage = tenantRoleClientService.page(tenantRoleQueryParam, pageNum, pageSize, "id", "desc");
+		tenantRoleVoPage.getRecords().stream().forEach(v->wrappperVo(v));
 
 		CommonPage<TenantRoleVo> tenantRoleCommonPage = CommonPage.restPage(tenantRoleVoPage);
 
@@ -58,6 +64,7 @@ public class TenantRoleController {
 	@ResponseBody
 	public CommonResult<TenantRoleVo> getById(@PathVariable("id") Long id) {
 		TenantRoleVo tenantRoleVo = tenantRoleClientService.getById(id);
+		wrappperVo(tenantRoleVo);
 
 		return CommonResult.success(tenantRoleVo);
 	}
@@ -68,6 +75,7 @@ public class TenantRoleController {
 	public CommonResult<TenantRoleVo> getById(@RequestBody TenantRole tenantRole) {
 		Long id = tenantRole.getId();
 		TenantRoleVo tenantRoleVo = tenantRoleClientService.updatePatchById(id, tenantRole);
+		wrappperVo(tenantRoleVo);
 
 		return CommonResult.success(tenantRoleVo);
 	}
@@ -79,6 +87,15 @@ public class TenantRoleController {
 		CommonResult<Object> commonResult = tenantRoleClientService.removeById(id);
 
 		return commonResult;
+	}
+
+	private void wrappperVo(TenantRoleVo tenantRoleVo) {
+		if (StringUtils.isEmpty(tenantRoleVo.getTenantName())) {
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantRoleVo.getTenantId());
+			if (tenantInfoVo != null) {
+				tenantRoleVo.setTenantName(tenantInfoVo.getTenantName());
+			}
+		}
 	}
 
 }

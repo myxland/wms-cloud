@@ -8,6 +8,7 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.employee.service.ITenantDeptService;
 import com.zlsrj.wms.employee.service.ITenantEmployeeService;
 import com.zlsrj.wms.employee.service.ITenantRbacService;
+import com.zlsrj.wms.employee.service.ITenantRoleService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +19,8 @@ public class TenantRbacServiceImpl implements ITenantRbacService {
 	private ITenantDeptService tenantDeptService;
 	@Resource
 	private ITenantEmployeeService tenantEmployeeService;
+	@Resource
+	private ITenantRoleService tenantRoleService;
 
 	/*
 	 * 基于角色的权限访问控制（Role-Based Access Control） 创建部门 创建员工 创建角色 创建系统（模块） 创建菜单
@@ -28,6 +31,8 @@ public class TenantRbacServiceImpl implements ITenantRbacService {
 		boolean success = tenantDeptService.saveBatchByTenantInfo(tenantInfo);
 		
 		success = tenantEmployeeService.saveBatchByTenantInfo(tenantInfo);
+		
+		success = tenantRoleService.saveBatchByTenantInfo(tenantInfo);
 
 		return success;
 	}

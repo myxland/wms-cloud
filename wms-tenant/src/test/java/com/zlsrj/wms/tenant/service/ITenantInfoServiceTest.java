@@ -26,7 +26,7 @@ public class ITenantInfoServiceTest {
 
 	@Test
 	public void insertTest() {
-		for(int i=0;i<26;i++) {
+		for(int i=0;i<RandomUtil.randomInt(1,100+1);i++) {
 			String companyShortName = TestCaseUtil.companyShortName();
 
 			TenantInfo tenantInfo = TenantInfo.builder()//
