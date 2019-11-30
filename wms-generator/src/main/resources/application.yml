@@ -10,7 +10,8 @@ spring:
     #active: account
     #active: dev
     #active: tenant
-    active: employee
+    #active: employee
+    active: module
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

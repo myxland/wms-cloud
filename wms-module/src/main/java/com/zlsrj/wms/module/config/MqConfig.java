@@ -1,4 +1,4 @@
-package com.zlsrj.wms.tenant.config;
+package com.zlsrj.wms.module.config;
 
 import javax.jms.Queue;
 
@@ -12,19 +12,11 @@ import org.springframework.stereotype.Component;
 @EnableJms
 public class MqConfig {
 
-	@Value("${mq.mbg.tenant.rbac}")
-	private String MQ_MBG_TENANT_RBAC;
-	
 	@Value("${mq.mbg.tenant.module}")
 	private String MQ_MBG_TENANT_MODULE;
 
-	@Bean("queueRbac")
-	public Queue getQueueRbac() {
-		return new ActiveMQQueue(MQ_MBG_TENANT_RBAC);
-	}
-	
 	@Bean("queueModule")
-	public Queue getQueueModule() {
+	public Queue getQueueRbac() {
 		return new ActiveMQQueue(MQ_MBG_TENANT_MODULE);
 	}
 }

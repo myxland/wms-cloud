@@ -61,6 +61,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Resource(name = "queueRbac")
 	private Queue queueRbac;
+	
+	@Resource(name = "queueModule")
+	private Queue queueModule;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -113,6 +116,12 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		// 2,不同服务默认配置信息，mq消息通知
 		try {
 			jmsMessagingTemplate.convertAndSend(queueRbac, JSONUtil.toJsonStr(tenantInfo));
+		} catch (Exception e) {
+			log.error("send message error", e);
+		}
+		
+		try {
+			jmsMessagingTemplate.convertAndSend(queueModule, JSONUtil.toJsonStr(tenantInfo));
 		} catch (Exception e) {
 			log.error("send message error", e);
 		}

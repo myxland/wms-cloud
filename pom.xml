@@ -28,6 +28,7 @@
 		<module>wms-dev</module>
 		<module>wms-tenant</module>
 		<module>wms-employee</module>
+		<module>wms-module</module>
 	</modules>
 
 	<properties>
