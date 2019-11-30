@@ -141,6 +141,31 @@ public class TableInfo implements Serializable {
 				&& ("UNI".equals(column.getColumnKey()) == false)//
 		).count() > 0;
 	}
+	
+	@JSONField(serialize = false)
+	public boolean isIncludeModuleId() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("module_id")).count() > 0;
+	}
+	
+	/**
+	 * 是否跟tenantModule实体一对一关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeModuleOne2One() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("module_id")//
+				&& "UNI".equals(column.getColumnKey())//
+		).count() > 0;
+	}
+
+	/**
+	 * 是否跟tenantModule实体一对多关系
+	 */
+	@JSONField(serialize = false)
+	public boolean isIncludeModuleOne2Many() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("module_id")//
+				&& ("UNI".equals(column.getColumnKey()) == false)//
+		).count() > 0;
+	}
 
 	@JSONField(serialize = false)
 	public List<TableField> getSelectColumnList() {

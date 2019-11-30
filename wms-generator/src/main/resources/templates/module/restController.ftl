@@ -65,6 +65,18 @@ public class ${table.entityName}RestController {
 	}
 
 	</#if>
+	<#if table.includeModuleOne2One>
+	@ApiOperation(value = "根据ID查询${table.tableComment}")
+	@RequestMapping(value = "/${table.restSegment}s/module-id/{module-id}", method = RequestMethod.GET)
+	public ${table.entityName}Vo getByModuleId(@PathVariable("module-id") Long moduleId) {
+		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
+		queryWrapper${table.entityName}.lambda().eq(${table.entityName}::getModuleId, moduleId);
+		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Service.getOne(queryWrapper${table.entityName});
+
+		return entity2vo(${table.entityName?uncap_first});
+	}
+
+	</#if>
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,

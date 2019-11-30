@@ -37,6 +37,15 @@ export function get${table.entityName?cap_first}ByTenantId(tenantId) {
   })
 }
 </#if>
+<#if table.includeModuleOne2One>
+
+export function get${table.entityName?cap_first}ByModuleId(moduleId) {
+  return request({
+    url:'/${table.entityName?uncap_first}/moduleId/'+moduleId,
+    method:'get',
+  })
+}
+</#if>
 
 export function update${table.entityName?cap_first}(id,data) {
   return request({
