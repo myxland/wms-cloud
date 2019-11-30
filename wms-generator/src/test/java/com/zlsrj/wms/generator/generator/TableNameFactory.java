@@ -72,7 +72,7 @@ public class TableNameFactory {
 				"t_op_tenant_employee",//
 				"t_op_tenant_role",//
 				"t_op_tenant_employee_role",//
-				"",//
+				"t_op_tenant_module",//
 				"",//
 				"",//
 				"",//

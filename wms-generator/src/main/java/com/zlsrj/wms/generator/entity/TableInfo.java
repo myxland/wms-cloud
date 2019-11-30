@@ -89,7 +89,7 @@ public class TableInfo implements Serializable {
 	@JSONField(serialize = false)
 	public boolean isIncludeCompanyShortName() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("display_name")
-				|| column.getColumnName().endsWith("tenant_name")).count() > 1;
+				|| column.getColumnName().endsWith("tenant_name")).count() > 0;
 	}
 
 	@JSONField(serialize = false)
