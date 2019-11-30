@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.entity.TenantEmployeeRole;
+import com.zlsrj.wms.api.entity.TenantEmployeeRoleBatch;
 import com.zlsrj.wms.api.vo.TenantEmployeeRoleVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantEmployeeRole")
+import io.swagger.annotations.ApiOperation;
+
+@FeignClient(value = "WMS-EMPLOYEE", contextId = "TenantEmployeeRole")
 public interface TenantEmployeeRoleClientService {
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.GET)
 	public TenantEmployeeRoleVo getById(@PathVariable("id") Long id);
@@ -28,6 +31,17 @@ public interface TenantEmployeeRoleClientService {
 
 	@RequestMapping(value = "/tenant-employee-roles", method = RequestMethod.POST)
 	public TenantEmployeeRoleVo save(@RequestBody TenantEmployeeRole tenantEmployeeRole);
+	
+	@RequestMapping(value = "/tenant-employee-roles/batch", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatch(@RequestBody TenantEmployeeRoleBatch tenantEmployeeRoleBatch);
+	
+	@ApiOperation(value = "根据员工批量新增员工角色")
+	@RequestMapping(value = "/tenant-employee-roles/batch/employee/{empId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByEmpId(@PathVariable("empId") Long empId,@RequestBody TenantEmployeeRoleBatch tenantEmployeeRoleBatch);
+	
+	@ApiOperation(value = "根据角色批量新增员工角色")
+	@RequestMapping(value = "/tenant-employee-roles/batch/role/{roleId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByRoleId(@PathVariable("roleId") Long roleId,@RequestBody TenantEmployeeRoleBatch tenantEmployeeRoleBatch);
 
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.PUT)
 	public TenantEmployeeRoleVo updateById(@PathVariable("id") Long id, @RequestBody TenantEmployeeRole tenantEmployeeRole);

@@ -31,10 +31,16 @@ public class TenantEmployeeRoleVo implements Serializable {
 	@ApiModelProperty(value = "员工编号")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long empId;
+	
+	@ApiModelProperty(value = "员工名称")
+	private String empName;
 
 	@ApiModelProperty(value = "角色编号")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long roleId;
+	
+	@ApiModelProperty(value = "角色名称")
+	private String roleName;
 
 	@ApiModelProperty(value = "开放（1：开放；0：不开放）")
 	private Integer empRoleOn;
