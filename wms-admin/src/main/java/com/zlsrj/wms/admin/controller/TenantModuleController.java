@@ -50,7 +50,7 @@ public class TenantModuleController {
 		return CommonResult.success(tenantModuleCommonPage);
 	}
 
-	@ApiOperation(value = "更新租户模块模块状态")
+	@ApiOperation(value = "更新租户模块状态")
 	@RequestMapping(value = "/update/moduleStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Boolean> updateModuleStatus(@RequestParam("ids") String ids,

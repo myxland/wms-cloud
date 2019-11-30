@@ -25,6 +25,9 @@ public class TenantModuleQueryParam implements Serializable {
 	@ApiModelProperty(value = "模块显示名称")
 	private String moduleDisplayName;
 
+	@ApiModelProperty(value = "模块显示名称")
+	private String moduleDisplayNameLike;
+
 	@ApiModelProperty(value = "模块排序")
 	private Integer moduleOrder;
 

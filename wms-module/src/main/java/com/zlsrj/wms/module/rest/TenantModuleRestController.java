@@ -64,6 +64,7 @@ public class TenantModuleRestController {
 				.eq(tenantModuleQueryParam.getId() != null, TenantModule::getId, tenantModuleQueryParam.getId())
 				.eq(tenantModuleQueryParam.getTenantId() != null, TenantModule::getTenantId, tenantModuleQueryParam.getTenantId())
 				.eq(tenantModuleQueryParam.getModuleDisplayName() != null, TenantModule::getModuleDisplayName, tenantModuleQueryParam.getModuleDisplayName())
+				.like(tenantModuleQueryParam.getModuleDisplayNameLike() != null, TenantModule::getModuleDisplayName,tenantModuleQueryParam.getModuleDisplayNameLike())
 				.eq(tenantModuleQueryParam.getModuleOrder() != null, TenantModule::getModuleOrder, tenantModuleQueryParam.getModuleOrder())
 				.eq(tenantModuleQueryParam.getModuleEdition() != null, TenantModule::getModuleEdition, tenantModuleQueryParam.getModuleEdition())
 				.eq(tenantModuleQueryParam.getModuleStatus() != null, TenantModule::getModuleStatus, tenantModuleQueryParam.getModuleStatus())
