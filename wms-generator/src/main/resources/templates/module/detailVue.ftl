@@ -21,7 +21,7 @@
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
         <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if><#if table.includeModuleOne2Many> :disabled="this.$route.query.moduleId?true:false"</#if> clearable>
                 <el-option
-                  v-for="item in moduleOptions"
+                  v-for="item in moduleInfoOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
