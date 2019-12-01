@@ -10,6 +10,10 @@
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
         {{${table.entityName?uncap_first}.${column.propertyName?replace("Id","Name")}}}
       </el-form-item>
+      <#elseif column.columnName?ends_with("module_id")>
+      <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
+        {{${table.entityName?uncap_first}.${column.propertyName?replace("Id","Name")}}}
+      </el-form-item>
       <#elseif column.columnName?ends_with("tenant_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
         {{${table.entityName?uncap_first}.${column.propertyName?replace("Id","Name")}}}
@@ -59,6 +63,9 @@
   import {get${table.entityName}} from '@/api/${table.entityName?uncap_first}'
   <#if table.includeSysId>
   import {fetchList as fetchSystemDesignList} from '@/api/systemDesign';
+  </#if>
+  <#if table.includeModuleId>
+  import {fetchList as fetchModuleInfoList} from '@/api/moduleInfo';
   </#if>
   <#if table.includeTenantId>
   import {fetchList as fetchTenantInfoList} from '@/api/tenantInfo';

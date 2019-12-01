@@ -220,7 +220,7 @@
 </template>
 <script>
   import {fetchList, delete${table.entityName?cap_first}<#if table.includeSingleUpdatable><#list table.singleUpdatableColumnList as column>, update${column.propertyName?cap_first}</#list></#if><#if table.includeBatchUpdatable><#list table.batchUpdatableColumnList as column>, update${column.propertyName?cap_first}</#list></#if>} from '@/api/${table.entityName?uncap_first}'
-   <#if table.includeSysId>
+  <#if table.includeSysId>
   import {fetchList as fetchSystemDesignList} from '@/api/systemDesign';
   </#if>
   <#if table.includeModuleId>
@@ -298,7 +298,7 @@
         ${column.propertyName}Options: Object.assign({},default${column.propertyName?cap_first}Options),
         </#if>
         </#list>
-		<#if table.includeSysId>
+        <#if table.includeSysId>
         systemDesignOptions:[],
         </#if>
         <#if table.includeModuleId>

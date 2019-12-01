@@ -82,11 +82,11 @@ public class ${table.entityName}RestController {
 		<#list table.columnList as column>
 				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
 		<#if column.likeable>
-				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
+				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
 		</#if>
 		<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
-				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
-				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, TenantInfo::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
+				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
+				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
 		</#if>
 		</#list>
 				;

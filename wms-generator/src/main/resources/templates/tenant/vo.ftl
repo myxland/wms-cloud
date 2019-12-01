@@ -40,5 +40,10 @@ public class ${table.entityName}Vo implements Serializable {
 	private String ${column.propertyName?replace("sysId","moduleName")?replace("SysId","ModuleName")};
 
 	</#if>
+	<#if column.columnName?ends_with("module_id")>
+	@ApiModelProperty(value = "${column.columnComment?replace("编号","名称")}")
+	private String ${column.propertyName?replace("moduleId","moduleName")?replace("ModuleId","ModuleName")};
+
+	</#if>
 	</#list>
 }
