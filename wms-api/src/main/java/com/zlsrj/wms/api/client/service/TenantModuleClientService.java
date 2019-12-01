@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
 import com.zlsrj.wms.api.entity.TenantModule;
+import com.zlsrj.wms.api.entity.TenantModuleBatch;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
+
+import io.swagger.annotations.ApiOperation;
 
 @FeignClient(value = "WMS-TENANT", contextId = "TenantModule")
 public interface TenantModuleClientService {
@@ -28,6 +31,12 @@ public interface TenantModuleClientService {
 
 	@RequestMapping(value = "/tenant-modules", method = RequestMethod.POST)
 	public TenantModuleVo save(@RequestBody TenantModule tenantModule);
+	
+	@RequestMapping(value = "/tenant-modules/batch/tenant/{tenantId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByTenantId(@PathVariable("tenantId") Long tenantId,@RequestBody TenantModuleBatch tenantModuleBatch);
+	
+	@RequestMapping(value = "/tenant-modules/batch/module/{moduleId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByModuleId(@PathVariable("moduleId") Long moduleId,@RequestBody TenantModuleBatch tenantModuleBatch);
 
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.PUT)
 	public TenantModuleVo updateById(@PathVariable("id") Long id, @RequestBody TenantModule tenantModule);

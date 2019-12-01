@@ -1,6 +1,5 @@
 package com.zlsrj.wms.tenant.rest;
 
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -20,9 +19,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
-import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantModule;
+import com.zlsrj.wms.api.entity.TenantModuleBatch;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.tenant.service.IIdService;
@@ -114,6 +113,20 @@ public class TenantModuleRestController {
 		}
 		log.info("save TenantModule fail，{}", ToStringBuilder.reflectionToString(tenantModule, ToStringStyle.JSON_STYLE));
 		return null;
+	}
+	
+	@ApiOperation(value = "根据租户批量新增租户模块")
+	@RequestMapping(value = "/tenant-modules/batch/tenant/{tenantId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByTenantId(@PathVariable("tenantId") Long tenantId,@RequestBody TenantModuleBatch tenantModuleBatch) {
+		boolean success = tenantModuleService.saveBatchTenantModuleByTenantId(tenantId,tenantModuleBatch);
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+	
+	@ApiOperation(value = "根据模块批量新增租户模块")
+	@RequestMapping(value = "/tenant-modules/batch/module/{moduleId}", method = RequestMethod.POST)
+	public CommonResult<Object> saveBatchByModuleId(@PathVariable("moduleId") Long moduleId,@RequestBody TenantModuleBatch tenantModuleBatch) {
+		boolean success = tenantModuleService.saveBatchTenantModuleByModuleId(moduleId,tenantModuleBatch);
+		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
 
 	@ApiOperation(value = "更新租户模块全部信息")

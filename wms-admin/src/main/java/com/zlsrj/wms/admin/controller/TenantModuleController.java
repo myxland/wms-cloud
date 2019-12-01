@@ -1,26 +1,24 @@
 package com.zlsrj.wms.admin.controller;
 
 import org.apache.commons.lang3.StringUtils;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zlsrj.wms.api.client.service.TenantModuleClientService;
-import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.client.service.TenantModuleClientService;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
 import com.zlsrj.wms.api.entity.TenantModule;
-import com.zlsrj.wms.api.vo.TenantModuleVo;
-import com.zlsrj.wms.api.vo.TenantInfoVo;
+import com.zlsrj.wms.api.entity.TenantModuleBatch;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
+import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -61,6 +59,24 @@ public class TenantModuleController {
 		TenantModuleVo tenantModuleVo = tenantModuleClientService.save(tenantModule);
 
 		return CommonResult.success(tenantModuleVo);
+	}
+	
+	@ApiOperation(value = "根据租户编号批量新增租户模块")
+	@RequestMapping(value = "/createBatch/tenant/{tenantId}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> createBatchByTenantId(@PathVariable("tenantId") Long tenantId,@RequestBody TenantModuleBatch tenantModuleBatch) {
+		CommonResult<Object> CommonResult = tenantModuleClientService.saveBatchByTenantId(tenantId,tenantModuleBatch);
+
+		return CommonResult;
+	}
+	
+	@ApiOperation(value = "根据模块编号批量新增租户模块")
+	@RequestMapping(value = "/createBatch/module/{moduleId}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> createBatchByModuleId(@PathVariable("moduleId") Long moduleId,@RequestBody TenantModuleBatch tenantModuleBatch) {
+		CommonResult<Object> CommonResult = tenantModuleClientService.saveBatchByModuleId(moduleId,tenantModuleBatch);
+
+		return CommonResult;
 	}
 
 	@ApiOperation(value = "根据ID查询租户模块")
