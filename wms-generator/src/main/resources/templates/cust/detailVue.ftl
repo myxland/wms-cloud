@@ -41,12 +41,13 @@
         </el-switch>
       </el-form-item>
       <#else>
-      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}" clearable>
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
         <el-select
           v-model="${table.entityName?uncap_first}.${column.propertyName}"
           <#if column.defaultAddValue?default("")?trim?length gt 1>
           :disabled="true"
           </#if>
+	  clearable
           placeholder="请选择${column.propertyComment}">
           <el-option
             v-for="item in ${column.propertyName}Options"
@@ -55,7 +56,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-      </el-form-item>      
+      </el-form-item>
       </#if>
       <#elseif column.propertyType=="Date">
       <#if column.dataType="date">

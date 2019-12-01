@@ -28,9 +28,9 @@
         </el-switch>
       </el-form-item>
       <#else>
-      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}" clearable>
+      <el-form-item label="${column.propertyComment}：" prop="${column.propertyName}">
         {{${table.entityName?uncap_first}.${column.propertyName} | format${column.propertyName?cap_first}}}
-      </el-form-item>      
+      </el-form-item>
       </#if>
       <#elseif column.propertyType=="Date">
       <#if column.dataType="date">
