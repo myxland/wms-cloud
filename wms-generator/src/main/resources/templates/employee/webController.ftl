@@ -1,6 +1,6 @@
 package ${domainName}.${projectNameWeb}.controller;
 
-<#if table.includeTenantId || table.includeSysId>
+<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 import org.apache.commons.lang3.StringUtils;
 </#if>
 import java.util.Arrays;
@@ -22,6 +22,9 @@ import ${domainName}.${projectNameApi}.client.service.TenantInfoClientService;
 <#if table.includeSysId>
 import ${domainName}.${projectNameApi}.client.service.SystemDesignClientService;
 </#if>
+<#if table.includeModuleId>
+import ${domainName}.${projectNameApi}.client.service.ModuleInfoClientService;
+</#if>
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
@@ -30,6 +33,9 @@ import ${domainName}.${projectNameApi}.vo.TenantInfoVo;
 </#if>
 <#if table.includeSysId>
 import ${domainName}.${projectNameApi}.vo.SystemDesignVo;
+</#if>
+<#if table.includeModuleId>
+import ${domainName}.${projectNameApi}.vo.ModuleInfoVo;
 </#if>
 import ${domainName}.common.api.CommonPage;
 import ${domainName}.common.api.CommonResult;
@@ -54,6 +60,10 @@ public class ${table.entityName}Controller {
 	@Autowired
 	private SystemDesignClientService systemDesignClientService;
 	</#if>
+	<#if table.includeModuleId>
+	@Autowired
+	private ModuleInfoClientService moduleInfoClientService;
+	</#if>
 
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -61,7 +71,7 @@ public class ${table.entityName}Controller {
 	public CommonResult<CommonPage<${table.entityName}Vo>> list(${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam, int pageNum,
 			int pageSize) {
 		Page<${table.entityName}Vo> ${table.entityName?uncap_first}VoPage = ${table.entityName?uncap_first}ClientService.page(${table.entityName?uncap_first}QueryParam, pageNum, pageSize, "id", "desc");
-		<#if table.includeTenantId || table.includeSysId>
+		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		${table.entityName?uncap_first}VoPage.getRecords().stream().forEach(v->wrappperVo(v));
 		</#if>
 
@@ -122,7 +132,7 @@ public class ${table.entityName}Controller {
 	@ResponseBody
 	public CommonResult<${table.entityName}Vo> getById(@PathVariable("id") Long id) {
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.getById(id);
-		<#if table.includeTenantId || table.includeSysId>
+		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		wrappperVo(${table.entityName?uncap_first}Vo);
 		</#if>
 
@@ -135,7 +145,7 @@ public class ${table.entityName}Controller {
 	@ResponseBody
 	public CommonResult<${table.entityName}Vo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.getByTenantId(tenantId);
-		<#if table.includeTenantId || table.includeSysId>
+		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		wrappperVo(${table.entityName?uncap_first}Vo);
 		</#if>
 
@@ -149,7 +159,7 @@ public class ${table.entityName}Controller {
 	public CommonResult<${table.entityName}Vo> getById(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
 		Long id = ${table.entityName?uncap_first}.getId();
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.updatePatchById(id, ${table.entityName?uncap_first});
-		<#if table.includeTenantId || table.includeSysId>
+		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		wrappperVo(${table.entityName?uncap_first}Vo);
 		</#if>
 
@@ -165,7 +175,7 @@ public class ${table.entityName}Controller {
 		return commonResult;
 	}
 
-	<#if table.includeTenantId || table.includeSysId>
+	<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 	private void wrappperVo(${table.entityName}Vo ${table.entityName?uncap_first}Vo) {
 		<#if table.includeTenantId>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.getTenantName())) {
@@ -180,6 +190,14 @@ public class ${table.entityName}Controller {
 			SystemDesignVo systemDesignVo = systemDesignClientService.getById(${table.entityName?uncap_first}Vo.getSysId());
 			if (systemDesignVo != null) {
 				${table.entityName?uncap_first}Vo.setSysName(systemDesignVo.getModuleName());
+			}
+		}
+		</#if>
+		<#if table.includeModuleId>
+		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.getModuleName())) {
+			ModuleInfoVo moduleInfoVo = moduleInfoClientService.getById(${table.entityName?uncap_first}Vo.getModuleId());
+			if (moduleInfoVo != null) {
+				${table.entityName?uncap_first}Vo.setModuleName(moduleInfoVo.getModuleName());
 			}
 		}
 		</#if>

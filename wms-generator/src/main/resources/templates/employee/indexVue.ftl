@@ -72,6 +72,17 @@
                 </el-option>
               </el-select>
             </el-form-item>
+            <#elseif column.columnName?ends_with("module_id")>
+            <el-form-item label="${column.propertyComment?replace("编号","")}：">
+              <el-select v-model="listQuery.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if table.includeModuleOne2Many> :disabled="this.$route.query.moduleId?true:false"</#if> clearable>
+                <el-option
+                  v-for="item in moduleInfoOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
             <#elseif column.likeable>
             <el-form-item label="${column.propertyComment}：">
               <el-input style="width: 203px" v-model="listQuery.${column.propertyName}Like" placeholder="${column.propertyComment}"></el-input>
@@ -143,6 +154,10 @@
         <el-table-column label="${column.propertyComment?replace("编号","")}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName?replace("sysId","moduleName")?replace("SysId","ModuleName")}}}</template>
         </el-table-column>
+        <#elseif column.columnName?ends_with("module_id")>
+        <el-table-column label="${column.propertyComment?replace("编号","")}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
+          <template slot-scope="scope">{{scope.row.${column.propertyName?replace("moduleId","moduleName")?replace("ModuleId","ModuleName")}}}</template>
+        </el-table-column>
         <#else>
         <el-table-column label="${column.propertyComment}" width="<#if column.gridWidthAuto==false>${column.gridWidth}</#if>" align="${column.gridAlign}" header-align="center">
           <template slot-scope="scope">{{scope.row.${column.propertyName}}}</template>
@@ -205,8 +220,11 @@
 </template>
 <script>
   import {fetchList, delete${table.entityName?cap_first}<#if table.includeSingleUpdatable><#list table.singleUpdatableColumnList as column>, update${column.propertyName?cap_first}</#list></#if><#if table.includeBatchUpdatable><#list table.batchUpdatableColumnList as column>, update${column.propertyName?cap_first}</#list></#if>} from '@/api/${table.entityName?uncap_first}'
-   <#if table.includeSysId>
+  <#if table.includeSysId>
   import {fetchList as fetchSystemDesignList} from '@/api/systemDesign';
+  </#if>
+  <#if table.includeModuleId>
+  import {fetchList as fetchModuleInfoList} from '@/api/moduleInfo';
   </#if>
   <#if table.includeTenantId>
   import {fetchList as fetchTenantInfoList} from '@/api/tenantInfo';
@@ -268,7 +286,10 @@
         <#if table.includeSysOne2Many>
         sysId: null,
         </#if>
-        listQuery:Object.assign({},defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many>,this.$route.query</#if>),
+        <#if table.includeModuleOne2Many>
+        moduleId: null,
+        </#if>
+        listQuery:Object.assign({},defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many || table.includeModuleOne2Many>,this.$route.query</#if>),
         list: null,
         total: null,
         listLoading: true,
@@ -277,8 +298,11 @@
         ${column.propertyName}Options: Object.assign({},default${column.propertyName?cap_first}Options),
         </#if>
         </#list>
-	<#if table.includeSysId>
+        <#if table.includeSysId>
         systemDesignOptions:[],
+        </#if>
+        <#if table.includeModuleId>
+        moduleInfoOptions:[],
         </#if>
         <#if table.includeTenantId>
         tenantInfoOptions:[],
@@ -290,6 +314,9 @@
       this.getList();
       <#if table.includeSysId>
       this.getSystemDesignList();
+      </#if>
+      <#if table.includeModuleId>
+      this.getModuleInfoList();
       </#if>
       <#if table.includeTenantId>
       this.getTenantInfoList();
@@ -306,6 +333,13 @@
       if(sysId){
         this.sysId = sysId;
         this.listQuery.sysId = sysId;
+      }
+      </#if>
+      <#if table.includeModuleOne2Many>
+      let moduleId = this.$route.query.moduleId;
+      if(moduleId){
+        this.moduleId = moduleId;
+        this.listQuery.moduleId = moduleId;
       }
       </#if>
     },
@@ -366,6 +400,17 @@
         });
       },
       </#if>
+      <#if table.includeModuleId>
+      getModuleInfoList() {
+        fetchModuleInfoList({pageNum:1,pageSize:500}).then(response => {
+          this.moduleInfoOptions = [];
+          let moduleInfoList = response.data.list;
+          for(let i=0;i<moduleInfoList.length;i++){
+            this.moduleInfoOptions.push({label:moduleInfoList[i].moduleName,value:moduleInfoList[i].id});
+          }
+        });
+      },
+      </#if>
       <#if table.includeTenantId>
       getTenantInfoList() {
         fetchTenantInfoList({pageNum:1,pageSize:500}).then(response => {
@@ -378,13 +423,13 @@
       },
       </#if>
       handleResetSearch() {
-        this.listQuery = Object.assign({}, defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many>, this.$route.query</#if>);
+        this.listQuery = Object.assign({}, defaultListQuery<#if table.includeTenantOne2Many || table.includeSysOne2Many || table.includeModuleOne2Many>, this.$route.query</#if>);
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleView(index, row) {
-        this.${"$"}router.push({path: '/${projectName}/view${table.entityName?cap_first}', query: {id: row.id<#if table.includeTenantOne2Many>, tenantId:this.tenantId</#if><#if table.includeSysOne2Many>, sysId:this.sysId</#if>}})
+        this.${"$"}router.push({path: '/${projectName}/view${table.entityName?cap_first}', query: {id: row.id<#if table.includeTenantOne2Many>, tenantId:this.tenantId</#if><#if table.includeSysOne2Many>, sysId:this.sysId</#if><#if table.includeModuleOne2Many>, moduleId:this.moduleId</#if>}})
       },
       handleUpdate(index, row) {
         this.${"$"}router.push({path: '/${projectName}/update${table.entityName?cap_first}', query: {id: row.id<#if table.includeTenantOne2Many>, tenantId:this.tenantId</#if><#if table.includeSysOne2Many>, sysId:this.sysId</#if>}})
@@ -486,7 +531,7 @@
         </#if>
       },
       add${table.entityName?cap_first}() {
-        this.${"$"}router.push({path: '/${projectName}/add${table.entityName?cap_first}'<#if table.includeTenantOne2Many || table.includeSysOne2Many>, query: {<#if table.includeTenantOne2Many>tenantId:this.tenantId</#if><#if table.includeSysOne2Many>sysId:this.sysId</#if>}</#if>})
+        this.${"$"}router.push({path: '/${projectName}/add${table.entityName?cap_first}'<#if table.includeTenantOne2Many || table.includeSysOne2Many || table.includeModuleOne2Many>, query: {<#if table.includeTenantOne2Many>tenantId:this.tenantId</#if><#if table.includeSysOne2Many>sysId:this.sysId</#if><#if table.includeModuleOne2Many>moduleId:this.moduleId</#if>}</#if>})
       }
     }
   }

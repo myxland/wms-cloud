@@ -76,7 +76,7 @@ public class TableNameFactory {
 				"t_op_module_info",//
 				"t_op_module_menu",//
 				"t_op_tenant_module",//
-				"",//
+				"t_op_tenant_role_module",//
 				"",//
 				"",//
 				"",//

@@ -17,6 +17,17 @@
                 </el-option>
         </el-select>
       </el-form-item>
+      <#elseif column.columnName?ends_with("module_id")>
+      <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
+        <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if><#if table.includeModuleOne2Many> :disabled="this.$route.query.moduleId?true:false"</#if> clearable>
+                <el-option
+                  v-for="item in moduleInfoOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+        </el-select>
+      </el-form-item>
       <#elseif column.columnName?ends_with("tenant_id")>
       <el-form-item label="${column.propertyComment?replace("编号","")}：" prop="${column.propertyName}">
         <el-select v-model="${table.entityName?uncap_first}.${column.propertyName}" placeholder="请选择${column.propertyComment?replace("编号","")}"<#if column.defaultAddValue?default("")?trim?length gt 1> :disabled="true"</#if><#if table.includeTenantOne2Many> :disabled="this.$route.query.tenantId?true:false"</#if> clearable>
@@ -108,9 +119,12 @@
   </el-card>
 </template>
 <script>
-  import {create${table.entityName?cap_first}, get${table.entityName?cap_first},<#if table.includeTenantOne2One> get${table.entityName?cap_first}ByTenantId,</#if> update${table.entityName?cap_first}} from '@/api/${table.entityName?uncap_first}'
+  import {create${table.entityName?cap_first}, get${table.entityName?cap_first},<#if table.includeTenantOne2One> get${table.entityName?cap_first}ByTenantId,</#if><#if table.includeModuleOne2One> get${table.entityName?cap_first}ByModuleId,</#if> update${table.entityName?cap_first}} from '@/api/${table.entityName?uncap_first}'
   <#if table.includeSysId>
   import {fetchList as fetchSystemDesignList} from '@/api/systemDesign';
+  </#if>
+  <#if table.includeModuleId>
+  import {fetchList as fetchModuleInfoList} from '@/api/moduleInfo';
   </#if>
   <#if table.includeTenantId>
   import {fetchList as fetchTenantInfoList} from '@/api/tenantInfo';
@@ -165,9 +179,12 @@
     },
     data() {
       return {
-        ${table.entityName?uncap_first}:Object.assign({}, default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many>, this.$route.query</#if>),
+        ${table.entityName?uncap_first}:Object.assign({}, default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many || table.includeModuleOne2Many>, this.$route.query</#if>),
         <#if table.includeSysId>
         systemDesignOptions:[],
+        </#if>
+        <#if table.includeModuleId>
+        moduleInfoOptions:[],
         </#if>
         <#if table.includeTenantId>
         tenantInfoOptions:[],
@@ -240,10 +257,13 @@
         }
         
       }else{
-        this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many>,this.$route.query</#if>);
+        this.${table.entityName?uncap_first} = Object.assign({},default${table.entityName?cap_first}<#if table.includeTenantOne2Many || table.includeSysOne2Many || table.includeModuleOne2Many>,this.$route.query</#if>);
       }
       <#if table.includeSysId>
       this.getSystemDesignList();
+      </#if>
+      <#if table.includeModuleId>
+      this.getModuleInfoList();
       </#if>
       <#if table.includeTenantId>
       this.getTenantInfoList();
@@ -257,6 +277,17 @@
           let systemDesignList = response.data.list;
           for(let i=0;i<systemDesignList.length;i++){
             this.systemDesignOptions.push({label:systemDesignList[i].moduleName,value:systemDesignList[i].id});
+          }
+        });
+      },
+      </#if>
+      <#if table.includeModuleId>
+      getModuleInfoList() {
+        fetchModuleInfoList({pageNum:1,pageSize:500}).then(response => {
+          this.moduleInfoOptions = [];
+          let moduleInfoList = response.data.list;
+          for(let i=0;i<moduleInfoList.length;i++){
+            this.moduleInfoOptions.push({label:moduleInfoList[i].moduleName,value:moduleInfoList[i].id});
           }
         });
       },
