@@ -27,7 +27,8 @@ public class TableField implements Serializable {
 							 * set enum float longblob mediumtext mediumblob smallint text blob time date
 							 * varbinary
 							 */
-
+	private int characterMaximumLength;/* 以字符为单位的最大长度 */
+	private int characterOctetLength;/* 以字节为单位的最大长度 */
 	private int numericPrecision;
 	private int numericScale;
 	private String columnKey;/* PRI UNI MUL */

@@ -29,6 +29,7 @@
 		<module>wms-tenant</module>
 		<module>wms-employee</module>
 		<module>wms-module</module>
+		<module>wms-flyway</module>
 	</modules>
 
 	<properties>

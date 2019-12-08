@@ -12,10 +12,12 @@ avatar:
  projectName: tenant
  projectNameApi: api
  projectNameWeb: admin
+ projectNameFlyway: flyway
  projectNameVue: wms-admin-web
  artifactId: wms-tenant
  artifactIdApi: wms-api
  artifactIdWeb: wms-admin
+ artifactIdFlyway: wms-flyway
  author: wms
  target: 
   dir: D:/spaceWms/wms-cloud

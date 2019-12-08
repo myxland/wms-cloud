@@ -9,8 +9,8 @@ spring:
     #active: cust
     #active: account
     #active: dev
-    #active: tenant
-    active: employee
+    active: tenant
+    #active: employee
     #active: module
 mybatis:
   configuration:
