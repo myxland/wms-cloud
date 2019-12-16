@@ -6,7 +6,7 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/wop
       username: root
-      password: 123456
+      password: Abc123#$%123
       filters: stat,wall,log4j,config
       max-active: 100
       initial-size: 1

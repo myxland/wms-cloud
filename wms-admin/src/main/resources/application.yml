@@ -2,12 +2,14 @@ server:
   port: 9001
 
 spring:
+  profiles: 
+    active: local
   application:
     name: wms-admin
   datasource: 
     url: jdbc:mysql://localhost:3306/wop
     username: root
-    password: 123456
+    password: Abc123#$%123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 eureka:

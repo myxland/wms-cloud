@@ -1,0 +1,1 @@
+eureka:  instance:    hostname: eureka7001.com #eureka服务端的实例名称

@@ -10,3 +10,5 @@ eureka:  instance:    hostname: eureka7001.com #eureka服务端的实例名称
       #defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
 
 spring:  application:    name: wms-eureka
+  profiles: 
+    active: local

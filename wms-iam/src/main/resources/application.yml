@@ -10,13 +10,15 @@ eureka:
     prefer-ip-address: true
 
 spring:
+  profiles: 
+    active: local
   application:
     name: wms-iam
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://localhost:3306/wop
     username: root
-    password: 123456
+    password: Abc123#$%123
   boot:
     admin:
       client:

@@ -1,0 +1,1 @@
+eureka:  instance:    hostname: eureka.blogiscapical.cn #eureka服务端的实例名称

@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/woc
     username: root
-    password: 123456
+    password: Abc123#$%123
     driver-class-name: com.mysql.cj.jdbc.Driver
     
 avatar: 
@@ -30,4 +30,4 @@ avatar:
   port: 3306
   schema: woc
   username: root
-  password: 123456  
+  password: Abc123#$%123
