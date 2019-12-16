@@ -30,7 +30,7 @@ public class SwaggerConfig {
 
 		ParameterBuilder parameterBuilder = new ParameterBuilder();
 		List<Parameter> parameterList = new ArrayList<Parameter>();
-		parameterBuilder.name("token").description("令牌").modelRef(new ModelRef("string")).parameterType("header")
+		parameterBuilder.name("Authorization").description("授权").modelRef(new ModelRef("string")).parameterType("header")
 				.required(false).build();
 		parameterList.add(parameterBuilder.build());
 
