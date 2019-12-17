@@ -22,6 +22,6 @@ spring:
         min-idle: 0
     timeout: 10000
   activemq:
-    broker-url: tcp://activemq.blogiscapital.cn:61616
+    broker-url: tcp://192.168.148.215:61616
     user: admin
     password: admin
