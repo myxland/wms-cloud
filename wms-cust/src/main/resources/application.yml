@@ -10,6 +10,8 @@ eureka:
     prefer-ip-address: true
 
 spring:
+  profiles: 
+    active: local
   application:
     name: wms-cust
   datasource:
