@@ -58,6 +58,12 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+    
+    <!-- 为logstash输出的Appender -->
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.148.235:8081</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
 
    
    <!-- 系统模块日志级别控制  -->
@@ -73,6 +79,7 @@
     <root level="info">
         <appender-ref ref="file_info" />
         <appender-ref ref="file_error" />
+        <appender-ref ref="logstash"/>
     </root>
 
 </configuration>
