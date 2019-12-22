@@ -192,7 +192,7 @@ public class TenantRbacServiceImpl implements ITenantRbacService {
 								.id(IdUtil.createSnowflake(1L, 1L).nextId())// 系统ID
 								.tenantId(tenantInfo.getId())// 租户编号
 								.roleId(tenantRoleId)// 角色编号
-								.sysId(s.getId())// 模块编号
+								.moduleId(s.getId())// 模块编号
 								.menuId(m.getId())// 菜单编号
 								.roleMenuOn(1)// 开放（1开放，0不开放）
 								.build();

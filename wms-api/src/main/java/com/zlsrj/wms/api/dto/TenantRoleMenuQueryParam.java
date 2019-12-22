@@ -24,7 +24,7 @@ public class TenantRoleMenuQueryParam implements Serializable {
 	private Long roleId;
 
 	@ApiModelProperty(value = "模块编号")
-	private Long sysId;
+	private Long moduleId;
 
 	@ApiModelProperty(value = "菜单编号")
 	private Long menuId;

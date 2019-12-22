@@ -34,7 +34,7 @@ public class TenantRoleMenuVo implements Serializable {
 
 	@ApiModelProperty(value = "模块编号")
 	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long sysId;
+	private Long moduleId;
 
 	@ApiModelProperty(value = "模块名称")
 	private String moduleName;

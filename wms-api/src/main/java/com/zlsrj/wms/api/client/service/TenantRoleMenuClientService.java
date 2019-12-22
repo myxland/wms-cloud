@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.TenantRoleMenu;
 import com.zlsrj.wms.api.vo.TenantRoleMenuVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantRoleMenu")
+@FeignClient(value = "WMS-EMPLOYEE", contextId = "TenantRoleMenu")
 public interface TenantRoleMenuClientService {
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.GET)
 	public TenantRoleMenuVo getById(@PathVariable("id") Long id);

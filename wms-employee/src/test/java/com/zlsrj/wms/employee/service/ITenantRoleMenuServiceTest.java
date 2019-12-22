@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.service;
+package com.zlsrj.wms.employee.service;
 
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,6 +22,7 @@ public class ITenantRoleMenuServiceTest {
 
 	@Autowired
 	private ITenantRoleMenuService tenantRoleMenuService;
+
 	@Test
 	public void insertTest() {
 		TenantRoleMenu tenantRoleMenu = TenantRoleMenu.builder()//

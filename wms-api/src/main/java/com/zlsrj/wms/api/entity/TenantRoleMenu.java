@@ -46,9 +46,9 @@ public class TenantRoleMenu implements Serializable {
 	private Long roleId;
 
 	@ApiModelProperty(value = "模块编号")
-	@TableField("sys_id")
+	@TableField("module_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long sysId;
+	private Long moduleId;
 
 	@ApiModelProperty(value = "菜单编号")
 	@TableField("menu_id")

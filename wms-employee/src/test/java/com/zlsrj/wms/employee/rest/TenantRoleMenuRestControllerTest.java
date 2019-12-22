@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.employee.rest;
 
 
 import org.junit.After;

@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.employee.rest;
 
 import java.util.stream.Collectors;
 
@@ -19,15 +19,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantRoleMenuQueryParam;
-import com.zlsrj.wms.api.entity.SystemDesign;
-import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRoleMenu;
 import com.zlsrj.wms.api.vo.TenantRoleMenuVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.service.IIdService;
-import com.zlsrj.wms.mbg.service.ISystemDesignService;
-import com.zlsrj.wms.mbg.service.ITenantInfoService;
-import com.zlsrj.wms.mbg.service.ITenantRoleMenuService;
+import com.zlsrj.wms.employee.service.IIdService;
+import com.zlsrj.wms.employee.service.ITenantRoleMenuService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,10 +36,6 @@ public class TenantRoleMenuRestController {
 
 	@Autowired
 	private ITenantRoleMenuService tenantRoleMenuService;
-	@Autowired
-	private ISystemDesignService systemDesignService;
-	@Autowired
-	private ITenantInfoService tenantInfoService;
 	@Autowired
 	private IIdService idService;
 
@@ -67,12 +59,12 @@ public class TenantRoleMenuRestController {
 		QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
 		queryWrapperTenantRoleMenu.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperTenantRoleMenu.lambda()
-						.eq(tenantRoleMenuQueryParam.getId() != null, TenantRoleMenu::getId, tenantRoleMenuQueryParam.getId())
-						.eq(tenantRoleMenuQueryParam.getTenantId() != null, TenantRoleMenu::getTenantId, tenantRoleMenuQueryParam.getTenantId())
-						.eq(tenantRoleMenuQueryParam.getRoleId() != null, TenantRoleMenu::getRoleId, tenantRoleMenuQueryParam.getRoleId())
-						.eq(tenantRoleMenuQueryParam.getModuleId() != null, TenantRoleMenu::getModuleId, tenantRoleMenuQueryParam.getModuleId())
-						.eq(tenantRoleMenuQueryParam.getMenuId() != null, TenantRoleMenu::getMenuId, tenantRoleMenuQueryParam.getMenuId())
-						.eq(tenantRoleMenuQueryParam.getRoleMenuOn() != null, TenantRoleMenu::getRoleMenuOn, tenantRoleMenuQueryParam.getRoleMenuOn())
+				.eq(tenantRoleMenuQueryParam.getId() != null, TenantRoleMenu::getId, tenantRoleMenuQueryParam.getId())
+				.eq(tenantRoleMenuQueryParam.getTenantId() != null, TenantRoleMenu::getTenantId, tenantRoleMenuQueryParam.getTenantId())
+				.eq(tenantRoleMenuQueryParam.getRoleId() != null, TenantRoleMenu::getRoleId, tenantRoleMenuQueryParam.getRoleId())
+				.eq(tenantRoleMenuQueryParam.getModuleId() != null, TenantRoleMenu::getModuleId, tenantRoleMenuQueryParam.getModuleId())
+				.eq(tenantRoleMenuQueryParam.getMenuId() != null, TenantRoleMenu::getMenuId, tenantRoleMenuQueryParam.getMenuId())
+				.eq(tenantRoleMenuQueryParam.getRoleMenuOn() != null, TenantRoleMenu::getRoleMenuOn, tenantRoleMenuQueryParam.getRoleMenuOn())
 				;
 
 		IPage<TenantRoleMenu> tenantRoleMenuPage = tenantRoleMenuService.page(pageTenantRoleMenu, queryWrapperTenantRoleMenu);
@@ -120,9 +112,13 @@ public class TenantRoleMenuRestController {
 	@ApiOperation(value = "根据参数更新角色菜单信息")
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.PATCH)
 	public TenantRoleMenuVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantRoleMenu tenantRoleMenu) {
+        TenantRoleMenu tenantRoleMenuWhere = TenantRoleMenu.builder()//
+				.id(id)//
+				.build();
 		UpdateWrapper<TenantRoleMenu> updateWrapperTenantRoleMenu = new UpdateWrapper<TenantRoleMenu>();
+		updateWrapperTenantRoleMenu.setEntity(tenantRoleMenuWhere);
 		updateWrapperTenantRoleMenu.lambda()//
-				.eq(TenantRoleMenu::getId, id)
+				//.eq(TenantRoleMenu::getId, id)
 				// .set(tenantRoleMenu.getId() != null, TenantRoleMenu::getId, tenantRoleMenu.getId())
 				.set(tenantRoleMenu.getTenantId() != null, TenantRoleMenu::getTenantId, tenantRoleMenu.getTenantId())
 				.set(tenantRoleMenu.getRoleId() != null, TenantRoleMenu::getRoleId, tenantRoleMenu.getRoleId())
@@ -149,20 +145,12 @@ public class TenantRoleMenuRestController {
 	}
 
 	private TenantRoleMenuVo entity2vo(TenantRoleMenu tenantRoleMenu) {
+		if (tenantRoleMenu == null) {
+			return null;
+		}
+
 		String jsonString = JSON.toJSONString(tenantRoleMenu);
 		TenantRoleMenuVo tenantRoleMenuVo = JSON.parseObject(jsonString, TenantRoleMenuVo.class);
-		if (StringUtils.isEmpty(tenantRoleMenuVo.getModuleName())) {
-			SystemDesign systemDesign = systemDesignService.getById(tenantRoleMenu.getModuleId());
-			if (systemDesign != null) {
-				tenantRoleMenuVo.setModuleName(systemDesign.getModuleName());
-			}
-		}
-		if (StringUtils.isEmpty(tenantRoleMenuVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantRoleMenu.getTenantId());
-			if (tenantInfo != null) {
-				tenantRoleMenuVo.setTenantName(tenantInfo.getTenantName());
-			}
-		}
 		return tenantRoleMenuVo;
 	}
 

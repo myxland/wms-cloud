@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.mapper;
+package com.zlsrj.wms.employee.mapper;
 
 import java.util.List;
 
