@@ -193,8 +193,12 @@ public class GeneratorTest {
 
 				String[] IGNORE_PROPERTIES = new String[] { "tableName", "tableComment", "tablePrefix", "tableShortName"//
 						, "primaryKeyList", "selectColumnList"//
-						, "includeBigDecimal", "includeDate", "includeStatus", "includeCompanyShortName"//
-				};
+						, "includeBigDecimal", "includeDate", "includeStatus", "includeCompanyShortName", //
+						"includeTenantId", "includeTenantOne2One", "includeTenantOne2Many", "includeSysId",
+						"includeSysOne2One", "includeSysOne2Many", "includeModuleId", "includeModuleOne2One",
+						"includeModuleOne2Many", "includeSingleUpdatable", "singleUpdatableColumnList",
+						"includeBatchUpdatable", "batchUpdatableColumnList", "includeNotNullabe",
+						"notNullabeColumnList" };
 
 				BeanUtil.copyProperties(tableInfoBak, tableInfo, IGNORE_PROPERTIES); // 忽略属性
 				// columnList
