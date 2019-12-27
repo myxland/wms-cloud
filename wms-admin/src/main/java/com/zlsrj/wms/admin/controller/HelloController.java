@@ -34,7 +34,6 @@ public class HelloController {
 //		Long id = idClientService.select();
 //		CommonResult<TenantEmployee> tenantEmployeeCommonResult = tenantEmployeeClientService.getByEmpName("董天宇");
 		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(1192794842716049408L);
-		log.info(tenantInfoVo.getDisplayName());
 		log.info(ToStringBuilder.reflectionToString(tenantInfoVo, ToStringStyle.MULTI_LINE_STYLE));
 		// return ToStringBuilder.reflectionToString(tenantInfoVo,
 		// ToStringStyle.MULTI_LINE_STYLE);

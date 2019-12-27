@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "租户", tags = { "租户操作接口" })
+@Api(value = "租户表", tags = { "租户表操作接口" })
 @Controller
 @RequestMapping("/tenantInfo")
 @Slf4j
@@ -32,7 +32,7 @@ public class TenantInfoController {
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
 
-	@ApiOperation(value = "根据参数查询租户列表")
+	@ApiOperation(value = "根据参数查询租户表列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<CommonPage<TenantInfoVo>> list(TenantInfoQueryParam tenantInfoQueryParam, int pageNum,
@@ -44,7 +44,7 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfoCommonPage);
 	}
 
-	@ApiOperation(value = "新增租户")
+	@ApiOperation(value = "新增租户表")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantInfoVo> create(@RequestBody TenantInfo tenantInfo) {
@@ -53,7 +53,7 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfoVo);
 	}
 
-	@ApiOperation(value = "根据ID查询租户")
+	@ApiOperation(value = "根据ID查询租户表")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<TenantInfoVo> getById(@PathVariable("id") Long id) {
@@ -62,7 +62,7 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfoVo);
 	}
 
-	@ApiOperation(value = "根据参数更新租户信息")
+	@ApiOperation(value = "根据参数更新租户表信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantInfoVo> getById(@RequestBody TenantInfo tenantInfo) {
@@ -72,7 +72,7 @@ public class TenantInfoController {
 		return CommonResult.success(tenantInfoVo);
 	}
 	
-	@ApiOperation(value = "根据ID删除租户")
+	@ApiOperation(value = "根据ID删除租户表")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Object> removeById(@PathVariable("id") Long id) {

@@ -63,26 +63,7 @@ public class TenantInfoRestController {
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
 				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())
-				.like(tenantInfoQueryParam.getTenantNameLike() != null, TenantInfo::getTenantName,tenantInfoQueryParam.getTenantNameLike())
-				.eq(tenantInfoQueryParam.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfoQueryParam.getDisplayName())
-				.like(tenantInfoQueryParam.getDisplayNameLike() != null, TenantInfo::getDisplayName,tenantInfoQueryParam.getDisplayNameLike())
-				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfoQueryParam.getTenantProvince())
-				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
-				.eq(tenantInfoQueryParam.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfoQueryParam.getTenantArea())
-				.eq(tenantInfoQueryParam.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfoQueryParam.getTenantAddress())
-				.eq(tenantInfoQueryParam.getTenantContact() != null, TenantInfo::getTenantContact, tenantInfoQueryParam.getTenantContact())
-				.eq(tenantInfoQueryParam.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfoQueryParam.getTenantMobile())
-				.eq(tenantInfoQueryParam.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfoQueryParam.getTenantTel())
-				.eq(tenantInfoQueryParam.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfoQueryParam.getTenantEmail())
-				.eq(tenantInfoQueryParam.getTenantQq() != null, TenantInfo::getTenantQq, tenantInfoQueryParam.getTenantQq())
-				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType, tenantInfoQueryParam.getTenantType())
-				.eq(tenantInfoQueryParam.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfoQueryParam.getTenantStatus())
-				.eq(tenantInfoQueryParam.getRegTime() != null, TenantInfo::getRegTime, tenantInfoQueryParam.getRegTime())
-				.ge(tenantInfoQueryParam.getRegTimeStart() != null, TenantInfo::getRegTime,tenantInfoQueryParam.getRegTimeStart() == null ? null: DateUtil.beginOfDay(tenantInfoQueryParam.getRegTimeStart()))
-				.le(tenantInfoQueryParam.getRegTimeEnd() != null, TenantInfo::getRegTime,tenantInfoQueryParam.getRegTimeEnd() == null ? null: DateUtil.endOfDay(tenantInfoQueryParam.getRegTimeEnd()))
-				.eq(tenantInfoQueryParam.getEndDate() != null, TenantInfo::getEndDate, tenantInfoQueryParam.getEndDate())
-				.ge(tenantInfoQueryParam.getEndDateStart() != null, TenantInfo::getEndDate,tenantInfoQueryParam.getEndDateStart() == null ? null: DateUtil.beginOfDay(tenantInfoQueryParam.getEndDateStart()))
-				.le(tenantInfoQueryParam.getEndDateEnd() != null, TenantInfo::getEndDate,tenantInfoQueryParam.getEndDateEnd() == null ? null: DateUtil.endOfDay(tenantInfoQueryParam.getEndDateEnd()))
+				
 				;
 
 		IPage<TenantInfo> tenantInfoPage = tenantInfoService.page(pageTenantInfo, queryWrapperTenantInfo);
@@ -104,9 +85,6 @@ public class TenantInfoRestController {
 	public TenantInfoVo save(@RequestBody TenantInfo tenantInfo) {
 		if (tenantInfo.getId() == null || tenantInfo.getId().compareTo(0L) <= 0) {
 			tenantInfo.setId(idService.selectId());
-		}
-		if (tenantInfo.getRegTime() == null) {
-			tenantInfo.setRegTime(new Date());
 		}
 		boolean success = tenantInfoService.save(tenantInfo);
 		if (success) {
@@ -142,20 +120,6 @@ public class TenantInfoRestController {
 				//.eq(TenantInfo::getId, id)
 				// .set(tenantInfo.getId() != null, TenantInfo::getId, tenantInfo.getId())
 				.set(tenantInfo.getTenantName() != null, TenantInfo::getTenantName, tenantInfo.getTenantName())
-				.set(tenantInfo.getDisplayName() != null, TenantInfo::getDisplayName, tenantInfo.getDisplayName())
-				.set(tenantInfo.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfo.getTenantProvince())
-				.set(tenantInfo.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfo.getTenantCity())
-				.set(tenantInfo.getTenantArea() != null, TenantInfo::getTenantArea, tenantInfo.getTenantArea())
-				.set(tenantInfo.getTenantAddress() != null, TenantInfo::getTenantAddress, tenantInfo.getTenantAddress())
-				.set(tenantInfo.getTenantContact() != null, TenantInfo::getTenantContact, tenantInfo.getTenantContact())
-				.set(tenantInfo.getTenantMobile() != null, TenantInfo::getTenantMobile, tenantInfo.getTenantMobile())
-				.set(tenantInfo.getTenantTel() != null, TenantInfo::getTenantTel, tenantInfo.getTenantTel())
-				.set(tenantInfo.getTenantEmail() != null, TenantInfo::getTenantEmail, tenantInfo.getTenantEmail())
-				.set(tenantInfo.getTenantQq() != null, TenantInfo::getTenantQq, tenantInfo.getTenantQq())
-				.set(tenantInfo.getTenantType() != null, TenantInfo::getTenantType, tenantInfo.getTenantType())
-				.set(tenantInfo.getTenantStatus() != null, TenantInfo::getTenantStatus, tenantInfo.getTenantStatus())
-				.set(tenantInfo.getRegTime() != null, TenantInfo::getRegTime, tenantInfo.getRegTime())
-				.set(tenantInfo.getEndDate() != null, TenantInfo::getEndDate, tenantInfo.getEndDate())
 				;
 
 		boolean success = tenantInfoService.update(updateWrapperTenantInfo);

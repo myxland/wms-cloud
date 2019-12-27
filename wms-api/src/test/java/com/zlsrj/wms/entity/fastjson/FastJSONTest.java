@@ -9,7 +9,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
-import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,11 +18,6 @@ public class FastJSONTest {
 	public void bean2string() {
 		TenantInfo tenantInfo = TenantInfo.builder()//
 				.id(TestCaseUtil.id())//
-				.displayName(TestCaseUtil.name())//
-				.tenantStatus(RandomUtil.randomInt(0, 1 + 1))//
-				.endDate(new java.util.Date())//
-				.regTime(new java.util.Date())//
-				.tenantMobile(TestCaseUtil.mobile())//
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantInfo, ToStringStyle.MULTI_LINE_STYLE));

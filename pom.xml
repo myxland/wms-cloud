@@ -30,6 +30,7 @@
 		<module>wms-employee</module>
 		<module>wms-module</module>
 		<module>wms-flyway</module>
+		<module>wms-saas</module>
 	</modules>
 
 	<properties>

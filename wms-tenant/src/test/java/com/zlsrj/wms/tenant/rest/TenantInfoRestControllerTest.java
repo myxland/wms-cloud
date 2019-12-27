@@ -96,20 +96,6 @@ public class TenantInfoRestControllerTest {
 		TenantInfo tenantInfo = TenantInfo.builder()//
 				.id(TestCaseUtil.id())// 租户编号
 				.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
-				.displayName(companyShortName)// 显示名称
-				.tenantProvince(TestCaseUtil.province())// 省
-				.tenantCity(TestCaseUtil.city())// 市
-				.tenantArea(TestCaseUtil.area())// 区县
-				.tenantAddress(TestCaseUtil.address())// 联系地址
-				.tenantContact(TestCaseUtil.name())// 联系人
-				.tenantMobile(TestCaseUtil.mobile())// 手机号码
-				.tenantTel(TestCaseUtil.tel())// 单位电话
-				.tenantEmail(TestCaseUtil.email(null))// 邮箱
-				.tenantQq(TestCaseUtil.qq())// QQ号码
-				.tenantType(RandomUtil.randomInt(0,1+1))// 租户类型（1：使用单位；2：供应单位；3：内部运营）
-				.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（1：正式；2：试用）
-				.regTime(new Date())// 注册时间
-				.endDate(new Date())// 到期日期
 				.build();
 
 		String responseString = mockMvc
@@ -131,20 +117,6 @@ public class TenantInfoRestControllerTest {
 		TenantInfo tenantInfo = TenantInfo.builder()//
 				//.id(TestCaseUtil.id())// 租户编号
 				.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
-				.displayName(companyShortName)// 显示名称
-				.tenantProvince(TestCaseUtil.province())// 省
-				.tenantCity(TestCaseUtil.city())// 市
-				.tenantArea(TestCaseUtil.area())// 区县
-				.tenantAddress(TestCaseUtil.address())// 联系地址
-				.tenantContact(TestCaseUtil.name())// 联系人
-				.tenantMobile(TestCaseUtil.mobile())// 手机号码
-				.tenantTel(TestCaseUtil.tel())// 单位电话
-				.tenantEmail(TestCaseUtil.email(null))// 邮箱
-				.tenantQq(TestCaseUtil.qq())// QQ号码
-				.tenantType(RandomUtil.randomInt(0,1+1))// 租户类型（1：使用单位；2：供应单位；3：内部运营）
-				.tenantStatus(RandomUtil.randomInt(0,1+1))// 租户状态（1：正式；2：试用）
-				.regTime(new Date())// 注册时间
-				.endDate(new Date())// 到期日期
 				.build();
 
 		String responseString = mockMvc

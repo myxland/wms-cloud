@@ -1,6 +1,7 @@
 package com.zlsrj.wms.api.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -10,76 +11,91 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantInfo查询参数", description = "租户")
+@ApiModel(value = "TenantInfo查询参数", description = "租户表")
 public class TenantInfoQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 5784121514767265731L;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	private Long id;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
 
-	@ApiModelProperty(value = "租户名称")
-	private String tenantNameLike;
+	@ApiModelProperty(value = "账户余额")
+	private BigDecimal tenantBalance;
 
-	@ApiModelProperty(value = "显示名称")
-	private String displayName;
+	@ApiModelProperty(value = "透支额度")
+	private BigDecimal teanantOverdraw;
 
-	@ApiModelProperty(value = "显示名称")
-	private String displayNameLike;
+	@ApiModelProperty(value = "租户显示名称")
+	private String tenantDisplayName;
 
-	@ApiModelProperty(value = "省")
+	@ApiModelProperty(value = "省（下拉框）")
 	private String tenantProvince;
 
-	@ApiModelProperty(value = "市")
+	@ApiModelProperty(value = "市（下拉框）")
 	private String tenantCity;
 
-	@ApiModelProperty(value = "区县")
-	private String tenantArea;
+	@ApiModelProperty(value = "区县（下拉框）")
+	private String tenantCountyTown;
 
 	@ApiModelProperty(value = "联系地址")
-	private String tenantAddress;
+	private String tenantLinkAddress;
 
 	@ApiModelProperty(value = "联系人")
-	private String tenantContact;
+	private String tenantLinkman;
 
 	@ApiModelProperty(value = "手机号码")
-	private String tenantMobile;
+	private String tenantLinkmanMobile;
 
 	@ApiModelProperty(value = "单位电话")
-	private String tenantTel;
+	private String tenantLinkmanTel;
 
 	@ApiModelProperty(value = "邮箱")
-	private String tenantEmail;
+	private String tenantLinkmanEmail;
 
 	@ApiModelProperty(value = "QQ号码")
-	private String tenantQq;
+	private String tenantLinkmanQq;
 
-	@ApiModelProperty(value = "租户类型（1：使用单位；2：供应单位；3：内部运营）")
+	@ApiModelProperty(value = "租户类型（1使用单位/2水表厂商/3代收机构/4内部运营/5分销商）")
 	private Integer tenantType;
 
-	@ApiModelProperty(value = "租户状态（1：正式；2：试用）")
-	private Integer tenantStatus;
-
 	@ApiModelProperty(value = "注册时间")
-	private Date regTime;
+	private Date tenantRegisterTime;
 
 	@ApiModelProperty(value = "注册时间开始")
-	private Date regTimeStart;
+	private Date tenantRegisterTimeStart;
 
 	@ApiModelProperty(value = "注册时间结束")
-	private Date regTimeEnd;
+	private Date tenantRegisterTimeEnd;
 
-	@ApiModelProperty(value = "到期日期")
-	private Date endDate;
+	@ApiModelProperty(value = "开票类别（1普通纸制发票/2普通电子发票/3专用纸制发票）")
+	private Integer invoiceType;
 
-	@ApiModelProperty(value = "到期日期开始")
-	private Date endDateStart;
+	@ApiModelProperty(value = "开票名称")
+	private String invoiceName;
 
-	@ApiModelProperty(value = "到期日期结束")
-	private Date endDateEnd;
+	@ApiModelProperty(value = "税号")
+	private String invoiceTaxNo;
+
+	@ApiModelProperty(value = "开票地址")
+	private String invoiceAddress;
+
+	@ApiModelProperty(value = "开票电话")
+	private String invoiceTel;
+
+	@ApiModelProperty(value = "开户行行号")
+	private String invoiceBankCode;
+
+	@ApiModelProperty(value = "开户行名称")
+	private String invoiceBankName;
+
+	@ApiModelProperty(value = "开户账号")
+	private String invoiceBankAccountNo;
+
+	@ApiModelProperty(value = "租户KEY")
+	private String tenantAccesskey;
 
 }
 

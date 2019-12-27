@@ -89,7 +89,7 @@ public class TableNameFactory {
 				"",//
 				"",//
 				"",//
-				"",//
+				"tenant_info",//
 				"",//
 				"",//
 				""
