@@ -53,15 +53,15 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_display_name")
 	private String tenantDisplayName;
 
-	@ApiModelProperty(value = "省（下拉框）")
+	@ApiModelProperty(value = "省")
 	@TableField("tenant_province")
 	private String tenantProvince;
 
-	@ApiModelProperty(value = "市（下拉框）")
+	@ApiModelProperty(value = "市")
 	@TableField("tenant_city")
 	private String tenantCity;
 
-	@ApiModelProperty(value = "区县（下拉框）")
+	@ApiModelProperty(value = "区/县")
 	@TableField("tenant_county_town")
 	private String tenantCountyTown;
 
@@ -89,7 +89,7 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_linkman_qq")
 	private String tenantLinkmanQq;
 
-	@ApiModelProperty(value = "租户类型（1使用单位/2水表厂商/3代收机构/4内部运营/5分销商）")
+	@ApiModelProperty(value = "租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）")
 	@TableField("tenant_type")
 	private Integer tenantType;
 
@@ -97,7 +97,7 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_register_time")
 	private Date tenantRegisterTime;
 
-	@ApiModelProperty(value = "开票类别（1普通纸制发票/2普通电子发票/3专用纸制发票）")
+	@ApiModelProperty(value = "开票类别（1：普通纸制发票；2：普通电子发票；3：专用纸制发票）")
 	@TableField("invoice_type")
 	private Integer invoiceType;
 
@@ -133,5 +133,11 @@ public class TenantInfo implements Serializable {
 	@TableField("tenant_accesskey")
 	private String tenantAccesskey;
 
-
+	@ApiModelProperty(value = "部门结构")
+	@TableField(exist = false)
+	private int departmentStructure;
+	
+	@ApiModelProperty(value = "阶梯水价")
+	@TableField(exist = false)
+	private int priceStepOn;
 }

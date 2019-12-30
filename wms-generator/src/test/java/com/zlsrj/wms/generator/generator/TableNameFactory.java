@@ -90,7 +90,7 @@ public class TableNameFactory {
 				"",//
 				"",//
 				"tenant_info",//
-				"",//
+				"tenant_consumption_bill",//
 				"",//
 				""
 				);

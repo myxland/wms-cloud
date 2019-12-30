@@ -100,12 +100,14 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>数据列表</span>
+      <#if table.addable>
       <el-button
         class="btn-add"
         @click="add${table.entityName?cap_first}()"
         size="mini">
         添加
       </el-button>
+      </#if>
     </el-card>
     <div class="table-container">
       <el-table ref="${table.entityName?uncap_first}Table"
@@ -114,7 +116,9 @@
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
                 border>
+        <#if table.includeBatchUpdatable>        
         <el-table-column type="selection" width="60" align="center"></el-table-column>
+        </#if>
         <#list table.columnList as column>
         <#if column.viewable>
         <#if column.selectable>
@@ -167,23 +171,30 @@
         </#list>
         <el-table-column label="操作" width="220" align="center">
           <template slot-scope="scope">
+          	<#if table.viewable>
             <el-button
               size="mini"
               @click="handleView(scope.${"$"}index, scope.row)">查看
             </el-button>
+            </#if>
+            <#if table.updatable>
             <el-button
               size="mini"
               @click="handleUpdate(scope.${"$"}index, scope.row)">编辑
             </el-button>
+            </#if>
+            <#if table.deletable>
             <el-button
               size="mini"
               type="danger"
               @click="handleDelete(scope.${"$"}index, scope.row)">删除
             </el-button>
+             </#if>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <#if table.includeBatchUpdatable>
     <div class="batch-operate-container">
       <el-select
         size="small"
@@ -204,6 +215,7 @@
         确定
       </el-button>
     </div>
+    </#if>
     <div class="pagination-container">
       <el-pagination
         background

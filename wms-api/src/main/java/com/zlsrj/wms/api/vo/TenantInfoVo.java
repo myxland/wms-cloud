@@ -35,13 +35,13 @@ public class TenantInfoVo implements Serializable {
 	@ApiModelProperty(value = "租户显示名称")
 	private String tenantDisplayName;
 
-	@ApiModelProperty(value = "省（下拉框）")
+	@ApiModelProperty(value = "省")
 	private String tenantProvince;
 
-	@ApiModelProperty(value = "市（下拉框）")
+	@ApiModelProperty(value = "市")
 	private String tenantCity;
 
-	@ApiModelProperty(value = "区县（下拉框）")
+	@ApiModelProperty(value = "区/县")
 	private String tenantCountyTown;
 
 	@ApiModelProperty(value = "联系地址")
@@ -62,13 +62,13 @@ public class TenantInfoVo implements Serializable {
 	@ApiModelProperty(value = "QQ号码")
 	private String tenantLinkmanQq;
 
-	@ApiModelProperty(value = "租户类型（1使用单位/2水表厂商/3代收机构/4内部运营/5分销商）")
+	@ApiModelProperty(value = "租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）")
 	private Integer tenantType;
 
 	@ApiModelProperty(value = "注册时间")
 	private Date tenantRegisterTime;
 
-	@ApiModelProperty(value = "开票类别（1普通纸制发票/2普通电子发票/3专用纸制发票）")
+	@ApiModelProperty(value = "开票类别（1：普通纸制发票；2：普通电子发票；3：专用纸制发票）")
 	private Integer invoiceType;
 
 	@ApiModelProperty(value = "开票名称")

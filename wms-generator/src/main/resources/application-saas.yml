@@ -20,11 +20,11 @@ avatar:
  artifactIdFlyway: wms-flyway
  author: wms
  target: 
-  dir: D:/gitspace/wms-cloud
+  dir: D:/spaceWms/wms-cloud
   dirVue: D:/avatarVue
   dirBak: D:/avatarBak
  template: 
-  dir: D:/gitspace/wms-cloud/wms-generator/src/main/resources/templates/saas
+  dir: D:/spaceWms/wms-cloud/wms-generator/src/main/resources/templates/saas
  tomcat: 
   port: 8080
  database: 

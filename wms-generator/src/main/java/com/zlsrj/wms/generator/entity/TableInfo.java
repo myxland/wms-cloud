@@ -25,6 +25,7 @@ public class TableInfo implements Serializable {
 
 	private String tablePrefix;// * 表t_op_tenant_info中t_op_ 为表前缀 */
 
+	private boolean viewable = true;/* 是否可以查看 */ 
 	private boolean addable = true;/* 是否可以新增 */
 	private boolean updatable = true;/* 是否可以编辑 */
 	private boolean deletable = true;/* 是否可以删除 */
