@@ -220,7 +220,7 @@ public class PathTest {
 
 			log.info(
 					"======================================================================================================================================");
-
+			System.out.println("");
 			for (String key : names) {
 				String targetPath = prop.getProperty(key);
 //				log.info("rm -rf " + new File(targetPath).getAbsolutePath()
@@ -228,7 +228,7 @@ public class PathTest {
 				System.out.println("rm -rf " + new File(targetPath).getAbsolutePath()
 						.replaceAll(WINDOWS_SEPARATOR, LINUX_SEPARATOR).replaceFirst("D:", "/d"));
 			}
-
+			System.out.println("");
 			log.info(
 					"======================================================================================================================================");
 

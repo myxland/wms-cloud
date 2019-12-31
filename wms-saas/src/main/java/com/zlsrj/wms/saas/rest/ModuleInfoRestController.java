@@ -1,4 +1,4 @@
-package com.zlsrj.wms.module.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.util.stream.Collectors;
 
@@ -20,10 +20,11 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.entity.ModuleInfo;
+import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.module.service.IIdService;
-import com.zlsrj.wms.module.service.IModuleInfoService;
+import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.saas.service.IModuleInfoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,6 +61,17 @@ public class ModuleInfoRestController {
 		queryWrapperModuleInfo.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperModuleInfo.lambda()
 				.eq(moduleInfoQueryParam.getId() != null, ModuleInfo::getId, moduleInfoQueryParam.getId())
+				.eq(moduleInfoQueryParam.getModuleName() != null, ModuleInfo::getModuleName, moduleInfoQueryParam.getModuleName())
+				.eq(moduleInfoQueryParam.getOpenTarget() != null, ModuleInfo::getOpenTarget, moduleInfoQueryParam.getOpenTarget())
+				.eq(moduleInfoQueryParam.getRunEnv() != null, ModuleInfo::getRunEnv, moduleInfoQueryParam.getRunEnv())
+				.eq(moduleInfoQueryParam.getRelyModuleId() != null, ModuleInfo::getRelyModuleId, moduleInfoQueryParam.getRelyModuleId())
+				.eq(moduleInfoQueryParam.getBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getBillingMode())
+				.eq(moduleInfoQueryParam.getBillingCycle() != null, ModuleInfo::getBillingCycle, moduleInfoQueryParam.getBillingCycle())
+				.eq(moduleInfoQueryParam.getBasicEditionOn() != null, ModuleInfo::getBasicEditionOn, moduleInfoQueryParam.getBasicEditionOn())
+				.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
+				.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
+				.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
+				.eq(moduleInfoQueryParam.getModuleAppid() != null, ModuleInfo::getModuleAppid, moduleInfoQueryParam.getModuleAppid())
 				;
 
 		IPage<ModuleInfo> moduleInfoPage = moduleInfoService.page(pageModuleInfo, queryWrapperModuleInfo);
@@ -115,6 +127,17 @@ public class ModuleInfoRestController {
 		updateWrapperModuleInfo.lambda()//
 				//.eq(ModuleInfo::getId, id)
 				// .set(moduleInfo.getId() != null, ModuleInfo::getId, moduleInfo.getId())
+				.set(moduleInfo.getModuleName() != null, ModuleInfo::getModuleName, moduleInfo.getModuleName())
+				.set(moduleInfo.getOpenTarget() != null, ModuleInfo::getOpenTarget, moduleInfo.getOpenTarget())
+				.set(moduleInfo.getRunEnv() != null, ModuleInfo::getRunEnv, moduleInfo.getRunEnv())
+				.set(moduleInfo.getRelyModuleId() != null, ModuleInfo::getRelyModuleId, moduleInfo.getRelyModuleId())
+				.set(moduleInfo.getBillingMode() != null, ModuleInfo::getBillingMode, moduleInfo.getBillingMode())
+				.set(moduleInfo.getBillingCycle() != null, ModuleInfo::getBillingCycle, moduleInfo.getBillingCycle())
+				.set(moduleInfo.getBasicEditionOn() != null, ModuleInfo::getBasicEditionOn, moduleInfo.getBasicEditionOn())
+				.set(moduleInfo.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfo.getAdvanceEditionOn())
+				.set(moduleInfo.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfo.getUltimateEditionOn())
+				.set(moduleInfo.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfo.getModuleOn())
+				.set(moduleInfo.getModuleAppid() != null, ModuleInfo::getModuleAppid, moduleInfo.getModuleAppid())
 				;
 
 		boolean success = moduleInfoService.update(updateWrapperModuleInfo);

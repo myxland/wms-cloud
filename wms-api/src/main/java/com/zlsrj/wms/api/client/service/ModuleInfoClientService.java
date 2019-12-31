@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MODULE", contextId = "ModuleInfo")
+@FeignClient(value = "WMS-SAAS", contextId = "ModuleInfo")
 public interface ModuleInfoClientService {
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.GET)
 	public ModuleInfoVo getById(@PathVariable("id") Long id);

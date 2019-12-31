@@ -24,57 +24,61 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_module_info")
+@TableName("module_info")
 @ApiModel(value = "ModuleInfo对象", description = "模块信息")
 public class ModuleInfo implements Serializable {
 
 	private static final long serialVersionUID = 1911413321312914105L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "服务模块ID")
 	@TableId(value = "id", type = IdType.INPUT)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "依赖模块编码")
-	@TableField("rely_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long relyId;
-
-	@ApiModelProperty(value = "模块名称")
+	@ApiModelProperty(value = "服务模块名称")
 	@TableField("module_name")
 	private String moduleName;
 
-	@ApiModelProperty(value = "开放对象（1：使用单位；2：供应单位；3：内部运营）")
-	@TableField("open_tenant_type")
-	private Integer openTenantType;
+	@ApiModelProperty(value = "开放对象（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）")
+	@TableField("open_target")
+	private Integer openTarget;
 
-	@ApiModelProperty(value = "运行环境（1：PC；2：移动端）")
-	@TableField("run_env_type")
-	private Integer runEnvType;
+	@ApiModelProperty(value = "运行环境（1：PC端；2：移动端；3：微信端；4：支付宝端；5：API接口；6：自助终端）")
+	@TableField("run_env")
+	private Integer runEnv;
 
-	@ApiModelProperty(value = "价格政策（0：免费；1：按量付费；2：固定价格）")
-	@TableField("price_policy_type")
-	private Integer pricePolicyType;
+	@ApiModelProperty(value = "依赖模块ID")
+	@TableField("rely_module_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long relyModuleId;
+
+	@ApiModelProperty(value = "计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）")
+	@TableField("billing_mode")
+	private Integer billingMode;
 
 	@ApiModelProperty(value = "计费周期（1：实时；2：按天；3：按月；4：按年）")
-	@TableField("bill_cycle_type")
-	private Integer billCycleType;
+	@TableField("billing_cycle")
+	private Integer billingCycle;
 
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
-	@TableField("basic_on")
-	private Integer basicOn;
+	@TableField("basic_edition_on")
+	private Integer basicEditionOn;
 
 	@ApiModelProperty(value = "开放高级版（1：开放；0：不开放）")
-	@TableField("advance_on")
-	private Integer advanceOn;
+	@TableField("advance_edition_on")
+	private Integer advanceEditionOn;
 
 	@ApiModelProperty(value = "开放旗舰版（1：开放；0：不开放）")
-	@TableField("ultimate_on")
-	private Integer ultimateOn;
+	@TableField("ultimate_edition_on")
+	private Integer ultimateEditionOn;
 
-	@ApiModelProperty(value = "功能发布（1：已发布；0：未发布）")
-	@TableField("module_release_on")
-	private Integer moduleReleaseOn;
+	@ApiModelProperty(value = "服务发布状态（1：发布 ；0：未发布）")
+	@TableField("module_on")
+	private Integer moduleOn;
+
+	@ApiModelProperty(value = "应用APPID")
+	@TableField("module_appid")
+	private String moduleAppid;
 
 
 }

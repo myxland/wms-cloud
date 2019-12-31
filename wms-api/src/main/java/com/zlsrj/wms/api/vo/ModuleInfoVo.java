@@ -17,39 +17,45 @@ public class ModuleInfoVo implements Serializable {
 
 	private static final long serialVersionUID = 1992121514915146391L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "服务模块ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "依赖模块编码")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long relyId;
-
-	@ApiModelProperty(value = "模块名称")
+	@ApiModelProperty(value = "服务模块名称")
 	private String moduleName;
 
-	@ApiModelProperty(value = "开放对象（1：使用单位；2：供应单位；3：内部运营）")
-	private Integer openTenantType;
+	@ApiModelProperty(value = "开放对象（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）")
+	private Integer openTarget;
 
-	@ApiModelProperty(value = "运行环境（1：PC；2：移动端）")
-	private Integer runEnvType;
+	@ApiModelProperty(value = "运行环境（1：PC端；2：移动端；3：微信端；4：支付宝端；5：API接口；6：自助终端）")
+	private Integer runEnv;
 
-	@ApiModelProperty(value = "价格政策（0：免费；1：按量付费；2：固定价格）")
-	private Integer pricePolicyType;
+	@ApiModelProperty(value = "依赖模块ID")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long relyModuleId;
+
+	@ApiModelProperty(value = "依赖模块ID")
+	private String relyModuleName;
+
+	@ApiModelProperty(value = "计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）")
+	private Integer billingMode;
 
 	@ApiModelProperty(value = "计费周期（1：实时；2：按天；3：按月；4：按年）")
-	private Integer billCycleType;
+	private Integer billingCycle;
 
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
-	private Integer basicOn;
+	private Integer basicEditionOn;
 
 	@ApiModelProperty(value = "开放高级版（1：开放；0：不开放）")
-	private Integer advanceOn;
+	private Integer advanceEditionOn;
 
 	@ApiModelProperty(value = "开放旗舰版（1：开放；0：不开放）")
-	private Integer ultimateOn;
+	private Integer ultimateEditionOn;
 
-	@ApiModelProperty(value = "功能发布（1：已发布；0：未发布）")
-	private Integer moduleReleaseOn;
+	@ApiModelProperty(value = "服务发布状态（1：发布 ；0：未发布）")
+	private Integer moduleOn;
+
+	@ApiModelProperty(value = "应用APPID")
+	private String moduleAppid;
 
 }

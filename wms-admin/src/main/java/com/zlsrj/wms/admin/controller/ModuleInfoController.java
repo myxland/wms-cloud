@@ -1,5 +1,6 @@
 package com.zlsrj.wms.admin.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
+import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.entity.ModuleInfo;
+import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -38,66 +41,67 @@ public class ModuleInfoController {
 	public CommonResult<CommonPage<ModuleInfoVo>> list(ModuleInfoQueryParam moduleInfoQueryParam, int pageNum,
 			int pageSize) {
 		Page<ModuleInfoVo> moduleInfoVoPage = moduleInfoClientService.page(moduleInfoQueryParam, pageNum, pageSize, "id", "desc");
+		moduleInfoVoPage.getRecords().stream().forEach(v->wrappperVo(v));
 
 		CommonPage<ModuleInfoVo> moduleInfoCommonPage = CommonPage.restPage(moduleInfoVoPage);
 
 		return CommonResult.success(moduleInfoCommonPage);
 	}
 
-	@ApiOperation(value = "更新模块信息开放基础版")
-	@RequestMapping(value = "/update/basicOn", method = RequestMethod.POST)
+	@ApiOperation(value = "更新模块信息基础版")
+	@RequestMapping(value = "/update/basicEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateBasicOn(@RequestParam("ids") String ids,
-			@RequestParam("basicOn") Integer basicOn) {
+	public CommonResult<Boolean> updateBasicEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("basicEditionOn") Integer basicEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleInfo moduleInfo = new ModuleInfo();
-			moduleInfo.setBasicOn(basicOn);
+			moduleInfo.setBasicEditionOn(basicEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
 		});
 
 		return CommonResult.success(true);
 	}
 
-	@ApiOperation(value = "更新模块信息开放高级版")
-	@RequestMapping(value = "/update/advanceOn", method = RequestMethod.POST)
+	@ApiOperation(value = "更新模块信息高级版")
+	@RequestMapping(value = "/update/advanceEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateAdvanceOn(@RequestParam("ids") String ids,
-			@RequestParam("advanceOn") Integer advanceOn) {
+	public CommonResult<Boolean> updateAdvanceEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("advanceEditionOn") Integer advanceEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleInfo moduleInfo = new ModuleInfo();
-			moduleInfo.setAdvanceOn(advanceOn);
+			moduleInfo.setAdvanceEditionOn(advanceEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
 		});
 
 		return CommonResult.success(true);
 	}
 
-	@ApiOperation(value = "更新模块信息开放旗舰版")
-	@RequestMapping(value = "/update/ultimateOn", method = RequestMethod.POST)
+	@ApiOperation(value = "更新模块信息旗舰版")
+	@RequestMapping(value = "/update/ultimateEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateUltimateOn(@RequestParam("ids") String ids,
-			@RequestParam("ultimateOn") Integer ultimateOn) {
+	public CommonResult<Boolean> updateUltimateEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("ultimateEditionOn") Integer ultimateEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleInfo moduleInfo = new ModuleInfo();
-			moduleInfo.setUltimateOn(ultimateOn);
+			moduleInfo.setUltimateEditionOn(ultimateEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
 		});
 
 		return CommonResult.success(true);
 	}
 
-	@ApiOperation(value = "更新模块信息功能发布")
-	@RequestMapping(value = "/update/moduleReleaseOn", method = RequestMethod.POST)
+	@ApiOperation(value = "更新模块信息发布状态")
+	@RequestMapping(value = "/update/moduleOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateModuleReleaseOn(@RequestParam("ids") String ids,
-			@RequestParam("moduleReleaseOn") Integer moduleReleaseOn) {
+	public CommonResult<Boolean> updateModuleOn(@RequestParam("ids") String ids,
+			@RequestParam("moduleOn") Integer moduleOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleInfo moduleInfo = new ModuleInfo();
-			moduleInfo.setModuleReleaseOn(moduleReleaseOn);
+			moduleInfo.setModuleOn(moduleOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
 		});
 
@@ -118,6 +122,7 @@ public class ModuleInfoController {
 	@ResponseBody
 	public CommonResult<ModuleInfoVo> getById(@PathVariable("id") Long id) {
 		ModuleInfoVo moduleInfoVo = moduleInfoClientService.getById(id);
+		wrappperVo(moduleInfoVo);
 
 		return CommonResult.success(moduleInfoVo);
 	}
@@ -128,6 +133,7 @@ public class ModuleInfoController {
 	public CommonResult<ModuleInfoVo> getById(@RequestBody ModuleInfo moduleInfo) {
 		Long id = moduleInfo.getId();
 		ModuleInfoVo moduleInfoVo = moduleInfoClientService.updatePatchById(id, moduleInfo);
+		wrappperVo(moduleInfoVo);
 
 		return CommonResult.success(moduleInfoVo);
 	}
@@ -139,6 +145,17 @@ public class ModuleInfoController {
 		CommonResult<Object> commonResult = moduleInfoClientService.removeById(id);
 
 		return commonResult;
+	}
+
+	private void wrappperVo(ModuleInfoVo moduleInfoVo) {
+		if (null != moduleInfoVo.getRelyModuleId()) {
+			if (StringUtils.isEmpty(moduleInfoVo.getRelyModuleName())) {
+				ModuleInfoVo moduleInfoVoRely = moduleInfoClientService.getById(moduleInfoVo.getRelyModuleId());
+				if (null != moduleInfoVoRely) {
+					moduleInfoVo.setRelyModuleName(moduleInfoVoRely.getModuleName());
+				}
+			}
+		}
 	}
 
 }
