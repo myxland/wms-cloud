@@ -1,6 +1,7 @@
 package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
@@ -80,5 +81,15 @@ public class ModuleInfo implements Serializable {
 	@TableField("module_appid")
 	private String moduleAppid;
 
+	@ApiModelProperty(value = "基础模块价格列表")
+	@TableField(exist = false)
+	private List<ModulePrice> basicModulePriceList;
 
+	@ApiModelProperty(value = "高级模块价格列表")
+	@TableField(exist = false)
+	private List<ModulePrice> advanceModulePriceList;
+
+	@ApiModelProperty(value = "旗舰模块价格列表")
+	@TableField(exist = false)
+	private List<ModulePrice> ultimateModulePriceList;
 }
