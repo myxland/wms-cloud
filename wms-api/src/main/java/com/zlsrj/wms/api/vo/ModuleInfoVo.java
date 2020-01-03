@@ -1,9 +1,12 @@
 package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.zlsrj.wms.api.entity.ModulePrice;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,4 +61,12 @@ public class ModuleInfoVo implements Serializable {
 	@ApiModelProperty(value = "应用APPID")
 	private String moduleAppid;
 
+	@ApiModelProperty(value = "基础模块价格列表")
+	private List<ModulePrice> basicModulePriceList;
+
+	@ApiModelProperty(value = "高级模块价格列表")
+	private List<ModulePrice> advanceModulePriceList;
+
+	@ApiModelProperty(value = "旗舰模块价格列表")
+	private List<ModulePrice> ultimateModulePriceList;
 }

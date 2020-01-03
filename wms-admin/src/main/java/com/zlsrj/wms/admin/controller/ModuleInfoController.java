@@ -1,8 +1,8 @@
 package com.zlsrj.wms.admin.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
-import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
+import com.zlsrj.wms.api.client.service.ModulePriceClientService;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
+import com.zlsrj.wms.api.dto.ModulePriceQueryParam;
 import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
-import com.zlsrj.wms.api.vo.ModuleInfoVo;
+import com.zlsrj.wms.api.vo.ModulePriceVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -34,6 +35,9 @@ public class ModuleInfoController {
 
 	@Autowired
 	private ModuleInfoClientService moduleInfoClientService;
+	
+	@Autowired
+	private ModulePriceClientService modulePriceClientService;
 
 	@ApiOperation(value = "根据参数查询模块信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

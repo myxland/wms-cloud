@@ -121,6 +121,12 @@ public class ModuleInfoRestController {
 	public ModuleInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody ModuleInfo moduleInfo) {
         ModuleInfo moduleInfoWhere = ModuleInfo.builder()//
 				.id(id)//
+				.basicEditionOn(moduleInfo.getBasicEditionOn())//
+				.advanceEditionOn(moduleInfo.getAdvanceEditionOn())//
+				.basicEditionOn(moduleInfo.getUltimateEditionOn())//
+				.ultimateModulePriceList(moduleInfo.getBasicModulePriceList())//
+				.advanceModulePriceList(moduleInfo.getAdvanceModulePriceList())//
+				.ultimateModulePriceList(moduleInfo.getUltimateModulePriceList())//
 				.build();
 		UpdateWrapper<ModuleInfo> updateWrapperModuleInfo = new UpdateWrapper<ModuleInfo>();
 		updateWrapperModuleInfo.setEntity(moduleInfoWhere);
