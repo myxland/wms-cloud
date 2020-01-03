@@ -2,6 +2,7 @@ package com.zlsrj.wms.admin.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.admin.service.IAdminService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.AdminLoginParam;
+import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.entity.AdminUser;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
+import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +35,9 @@ public class AdminController {
 
 	@Autowired
 	private IAdminService adminService;
+
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
@@ -53,6 +62,22 @@ public class AdminController {
 		data.put("username", admin.getUsername());
 		data.put("roles", new String[] { "TEST" });
 		data.put("icon", null);
+		data.put("tenantInfoList", getTenantInfoListByAdminUser(admin));
+		//
 		return CommonResult.success(data);
+	}
+
+	private List<TenantInfoVo> getTenantInfoListByAdminUser(AdminUser admin) {
+		TenantInfoQueryParam tenantInfoQueryParam = new TenantInfoQueryParam();
+		Page<TenantInfoVo> tenantInfoVoPage = tenantInfoClientService.page(tenantInfoQueryParam, 1, 500, "id", "asc");
+		tenantInfoVoPage.getRecords().stream().forEach(v -> wrappperVo(v));
+
+		CommonPage<TenantInfoVo> tenantInfoCommonPage = CommonPage.restPage(tenantInfoVoPage);
+
+		return tenantInfoCommonPage.getList();
+	}
+	
+	private void wrappperVo(TenantInfoVo tenantInfoVo) {
+		
 	}
 }
