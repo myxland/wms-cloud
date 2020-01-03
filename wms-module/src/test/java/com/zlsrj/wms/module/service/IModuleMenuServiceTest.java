@@ -27,19 +27,6 @@ public class IModuleMenuServiceTest {
 	public void insertTest() {
 		ModuleMenu moduleMenu = ModuleMenu.builder()//
 				.id(TestCaseUtil.id())// 系统ID
-				.parentMenuId(RandomUtil.randomLong())// 父菜单编号
-				.moduleId(RandomUtil.randomLong())// 模块编号
-				.menuName(TestCaseUtil.name())// 菜单名称
-				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
-				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.basicOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
-				.advanceOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
-				.ultimateOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
-				.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
-				.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
-				.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
-				.perms(RandomUtil.randomString(4))// 授权
-				.menuType(RandomUtil.randomInt(0,1+1))// 菜单类型（0：目录；1：菜单；2：按钮）
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(moduleMenu, ToStringStyle.MULTI_LINE_STYLE));
@@ -55,19 +42,6 @@ public class IModuleMenuServiceTest {
 		Long id = 1L;
 
 		ModuleMenu moduleMenu = ModuleMenu.builder()//
-				.parentMenuId(RandomUtil.randomLong())// 父菜单编号
-				.moduleId(RandomUtil.randomLong())// 模块编号
-				.menuName(TestCaseUtil.name())// 菜单名称
-				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
-				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.basicOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
-				.advanceOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
-				.ultimateOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
-				.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
-				.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
-				.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
-				.perms(RandomUtil.randomString(4))// 授权
-				.menuType(RandomUtil.randomInt(0,1+1))// 菜单类型（0：目录；1：菜单；2：按钮）
 				.build();
 		moduleMenu.setId(id);
 

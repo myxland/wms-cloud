@@ -24,23 +24,18 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_module_menu")
+@TableName("module_menu")
 @ApiModel(value = "ModuleMenu对象", description = "模块菜单")
 public class ModuleMenu implements Serializable {
 
 	private static final long serialVersionUID = 1013136170121288761L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "")
 	@TableId(value = "id", type = IdType.INPUT)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "父菜单编号")
-	@TableField("parent_menu_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long parentMenuId;
-
-	@ApiModelProperty(value = "模块编号")
+	@ApiModelProperty(value = "服务模块ID")
 	@TableField("module_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long moduleId;
@@ -57,17 +52,22 @@ public class ModuleMenu implements Serializable {
 	@TableField("menu_icon")
 	private String menuIcon;
 
+	@ApiModelProperty(value = "父菜单ID")
+	@TableField("menu_parent_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long menuParentId;
+
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
-	@TableField("basic_on")
-	private Integer basicOn;
+	@TableField("basic_edition_on")
+	private Integer basicEditionOn;
 
 	@ApiModelProperty(value = "开放高级版（1：开放；0：不开放）")
-	@TableField("advance_on")
-	private Integer advanceOn;
+	@TableField("advance_edition_on")
+	private Integer advanceEditionOn;
 
 	@ApiModelProperty(value = "开放旗舰版（1：开放；0：不开放）")
-	@TableField("ultimate_on")
-	private Integer ultimateOn;
+	@TableField("ultimate_edition_on")
+	private Integer ultimateEditionOn;
 
 	@ApiModelProperty(value = "基础版链接地址")
 	@TableField("basic_url")
@@ -80,14 +80,6 @@ public class ModuleMenu implements Serializable {
 	@ApiModelProperty(value = "旗舰版链接地址")
 	@TableField("ultimate_url")
 	private String ultimateUrl;
-
-	@ApiModelProperty(value = "授权")
-	@TableField("perms")
-	private String perms;
-
-	@ApiModelProperty(value = "菜单类型（0：目录；1：菜单；2：按钮）")
-	@TableField("menu_type")
-	private Integer menuType;
 
 
 }

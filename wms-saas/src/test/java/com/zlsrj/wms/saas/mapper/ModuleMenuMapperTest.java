@@ -1,4 +1,4 @@
-package com.zlsrj.wms.module.mapper;
+package com.zlsrj.wms.saas.mapper;
 
 import java.util.List;
 
@@ -43,7 +43,18 @@ public class ModuleMenuMapperTest {
 	@Test
 	public void insert() {
 		ModuleMenu moduleMenu = ModuleMenu.builder()//
-				.id(TestCaseUtil.id())// 系统ID
+				.id(TestCaseUtil.id())// 
+				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.menuName(TestCaseUtil.name())// 菜单名称
+				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
+				.menuIcon(RandomUtil.randomString(4))// 菜单图标
+				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
+				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
+				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
+				.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
+				.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
+				.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
 				.build();
 				
 		int count = moduleMenuMapper.insert(moduleMenu);

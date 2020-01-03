@@ -1,4 +1,4 @@
-package com.zlsrj.wms.module.rest;
+package com.zlsrj.wms.saas.rest;
 
 
 import org.junit.After;
@@ -61,20 +61,18 @@ public class ModuleMenuRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 系统ID
-		// params.add("parentMenuId",RandomUtil.randomLong());// 父菜单编号
-		// params.add("moduleId",RandomUtil.randomLong());// 模块编号
+		// params.add("id",TestCaseUtil.id());// 
+		// params.add("moduleId",RandomUtil.randomLong());// 服务模块ID
 		// params.add("menuName",TestCaseUtil.name());// 菜单名称
 		// params.add("menuOrder",RandomUtil.randomInt(0,1000+1));// 菜单排序
 		// params.add("menuIcon",RandomUtil.randomString(4));// 菜单图标
-		// params.add("basicOn",RandomUtil.randomInt(0,1+1));// 开放基础版（1：开放；0：不开放）
-		// params.add("advanceOn",RandomUtil.randomInt(0,1+1));// 开放高级版（1：开放；0：不开放）
-		// params.add("ultimateOn",RandomUtil.randomInt(0,1+1));// 开放旗舰版（1：开放；0：不开放）
+		// params.add("menuParentId",RandomUtil.randomLong());// 父菜单ID
+		// params.add("basicEditionOn",RandomUtil.randomInt(0,1+1));// 开放基础版（1：开放；0：不开放）
+		// params.add("advanceEditionOn",RandomUtil.randomInt(0,1+1));// 开放高级版（1：开放；0：不开放）
+		// params.add("ultimateEditionOn",RandomUtil.randomInt(0,1+1));// 开放旗舰版（1：开放；0：不开放）
 		// params.add("basicUrl",RandomUtil.randomString(4));// 基础版链接地址
 		// params.add("advanceUrl",RandomUtil.randomString(4));// 高级版链接地址
 		// params.add("ultimateUrl",RandomUtil.randomString(4));// 旗舰版链接地址
-		// params.add("perms",RandomUtil.randomString(4));// 授权
-		// params.add("menuType",RandomUtil.randomInt(0,1+1));// 菜单类型（0：目录；1：菜单；2：按钮）
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/module-menus").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -87,7 +85,18 @@ public class ModuleMenuRestControllerTest {
 	public void saveTest() throws Exception {
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
-				.id(TestCaseUtil.id())// 系统ID
+				.id(TestCaseUtil.id())// 
+				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.menuName(TestCaseUtil.name())// 菜单名称
+				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
+				.menuIcon(RandomUtil.randomString(4))// 菜单图标
+				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
+				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
+				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
+				.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
+				.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
+				.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
 				.build();
 
 		String responseString = mockMvc
@@ -105,7 +114,18 @@ public class ModuleMenuRestControllerTest {
 		Long id = 1L;
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
-				//.id(TestCaseUtil.id())// 系统ID
+				//.id(TestCaseUtil.id())// 
+				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.menuName(TestCaseUtil.name())// 菜单名称
+				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
+				.menuIcon(RandomUtil.randomString(4))// 菜单图标
+				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
+				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
+				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
+				.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
+				.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
+				.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
 				.build();
 
 		String responseString = mockMvc
@@ -123,19 +143,17 @@ public class ModuleMenuRestControllerTest {
 		Long id = 1L;
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
-				//.parentMenuId(RandomUtil.randomLong())// 父菜单编号
-				//.moduleId(RandomUtil.randomLong())// 模块编号
+				//.moduleId(RandomUtil.randomLong())// 服务模块ID
 				//.menuName(TestCaseUtil.name())// 菜单名称
 				//.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				//.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				//.basicOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
-				//.advanceOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
-				//.ultimateOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
+				//.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				//.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
+				//.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
+				//.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
 				//.basicUrl(RandomUtil.randomString(4))// 基础版链接地址
 				//.advanceUrl(RandomUtil.randomString(4))// 高级版链接地址
 				//.ultimateUrl(RandomUtil.randomString(4))// 旗舰版链接地址
-				//.perms(RandomUtil.randomString(4))// 授权
-				//.menuType(RandomUtil.randomInt(0,1+1))// 菜单类型（0：目录；1：菜单；2：按钮）
 				.build();
 
 		String responseString = mockMvc

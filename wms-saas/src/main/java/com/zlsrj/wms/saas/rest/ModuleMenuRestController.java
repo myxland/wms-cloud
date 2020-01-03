@@ -1,4 +1,4 @@
-package com.zlsrj.wms.module.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.util.stream.Collectors;
 
@@ -19,11 +19,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.ModuleMenuQueryParam;
+import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.module.service.IIdService;
-import com.zlsrj.wms.module.service.IModuleMenuService;
+import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.saas.service.IModuleMenuService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -60,6 +61,19 @@ public class ModuleMenuRestController {
 		queryWrapperModuleMenu.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
 		queryWrapperModuleMenu.lambda()
 				.eq(moduleMenuQueryParam.getId() != null, ModuleMenu::getId, moduleMenuQueryParam.getId())
+				.eq(moduleMenuQueryParam.getModuleId() != null, ModuleMenu::getModuleId, moduleMenuQueryParam.getModuleId())
+				.eq(moduleMenuQueryParam.getMenuName() != null, ModuleMenu::getMenuName, moduleMenuQueryParam.getMenuName())
+				.eq(moduleMenuQueryParam.getMenuOrder() != null, ModuleMenu::getMenuOrder, moduleMenuQueryParam.getMenuOrder())
+				.eq(moduleMenuQueryParam.getMenuIcon() != null, ModuleMenu::getMenuIcon, moduleMenuQueryParam.getMenuIcon())
+				.eq(moduleMenuQueryParam.getMenuParentId() != null, ModuleMenu::getMenuParentId, moduleMenuQueryParam.getMenuParentId())
+				.eq(moduleMenuQueryParam.getBasicEditionOn() != null, ModuleMenu::getBasicEditionOn, moduleMenuQueryParam.getBasicEditionOn())
+				.eq(moduleMenuQueryParam.getAdvanceEditionOn() != null, ModuleMenu::getAdvanceEditionOn, moduleMenuQueryParam.getAdvanceEditionOn())
+				.eq(moduleMenuQueryParam.getUltimateEditionOn() != null, ModuleMenu::getUltimateEditionOn, moduleMenuQueryParam.getUltimateEditionOn())
+				.eq(moduleMenuQueryParam.getBasicUrl() != null, ModuleMenu::getBasicUrl, moduleMenuQueryParam.getBasicUrl())
+				.eq(moduleMenuQueryParam.getAdvanceUrl() != null, ModuleMenu::getAdvanceUrl, moduleMenuQueryParam.getAdvanceUrl())
+				.eq(moduleMenuQueryParam.getUltimateUrl() != null, ModuleMenu::getUltimateUrl, moduleMenuQueryParam.getUltimateUrl())
+				.eq(moduleMenuQueryParam.getParentId()!=null,ModuleMenu::getMenuParentId, moduleMenuQueryParam.getParentId())
+				.isNull(moduleMenuQueryParam.getParentId()==null, ModuleMenu::getMenuParentId)
 				;
 
 		IPage<ModuleMenu> moduleMenuPage = moduleMenuService.page(pageModuleMenu, queryWrapperModuleMenu);
@@ -115,6 +129,17 @@ public class ModuleMenuRestController {
 		updateWrapperModuleMenu.lambda()//
 				//.eq(ModuleMenu::getId, id)
 				// .set(moduleMenu.getId() != null, ModuleMenu::getId, moduleMenu.getId())
+				.set(moduleMenu.getModuleId() != null, ModuleMenu::getModuleId, moduleMenu.getModuleId())
+				.set(moduleMenu.getMenuName() != null, ModuleMenu::getMenuName, moduleMenu.getMenuName())
+				.set(moduleMenu.getMenuOrder() != null, ModuleMenu::getMenuOrder, moduleMenu.getMenuOrder())
+				.set(moduleMenu.getMenuIcon() != null, ModuleMenu::getMenuIcon, moduleMenu.getMenuIcon())
+				.set(moduleMenu.getMenuParentId() != null, ModuleMenu::getMenuParentId, moduleMenu.getMenuParentId())
+				.set(moduleMenu.getBasicEditionOn() != null, ModuleMenu::getBasicEditionOn, moduleMenu.getBasicEditionOn())
+				.set(moduleMenu.getAdvanceEditionOn() != null, ModuleMenu::getAdvanceEditionOn, moduleMenu.getAdvanceEditionOn())
+				.set(moduleMenu.getUltimateEditionOn() != null, ModuleMenu::getUltimateEditionOn, moduleMenu.getUltimateEditionOn())
+				.set(moduleMenu.getBasicUrl() != null, ModuleMenu::getBasicUrl, moduleMenu.getBasicUrl())
+				.set(moduleMenu.getAdvanceUrl() != null, ModuleMenu::getAdvanceUrl, moduleMenu.getAdvanceUrl())
+				.set(moduleMenu.getUltimateUrl() != null, ModuleMenu::getUltimateUrl, moduleMenu.getUltimateUrl())
 				;
 
 		boolean success = moduleMenuService.update(updateWrapperModuleMenu);

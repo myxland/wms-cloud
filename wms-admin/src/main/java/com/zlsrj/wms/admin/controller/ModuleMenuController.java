@@ -1,8 +1,10 @@
 package com.zlsrj.wms.admin.controller;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
+import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
 import com.zlsrj.wms.api.dto.ModuleMenuQueryParam;
 import com.zlsrj.wms.api.entity.ModuleMenu;
-import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
+import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -51,14 +53,14 @@ public class ModuleMenuController {
 	}
 
 	@ApiOperation(value = "更新模块菜单开放基础版")
-	@RequestMapping(value = "/update/basicOn", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/basicEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateBasicOn(@RequestParam("ids") String ids,
-			@RequestParam("basicOn") Integer basicOn) {
+	public CommonResult<Boolean> updateBasicEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("basicEditionOn") Integer basicEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleMenu moduleMenu = new ModuleMenu();
-			moduleMenu.setBasicOn(basicOn);
+			moduleMenu.setBasicEditionOn(basicEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
 		});
 
@@ -66,14 +68,14 @@ public class ModuleMenuController {
 	}
 
 	@ApiOperation(value = "更新模块菜单开放高级版")
-	@RequestMapping(value = "/update/advanceOn", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/advanceEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateAdvanceOn(@RequestParam("ids") String ids,
-			@RequestParam("advanceOn") Integer advanceOn) {
+	public CommonResult<Boolean> updateAdvanceEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("advanceEditionOn") Integer advanceEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleMenu moduleMenu = new ModuleMenu();
-			moduleMenu.setAdvanceOn(advanceOn);
+			moduleMenu.setAdvanceEditionOn(advanceEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
 		});
 
@@ -81,14 +83,14 @@ public class ModuleMenuController {
 	}
 
 	@ApiOperation(value = "更新模块菜单开放旗舰版")
-	@RequestMapping(value = "/update/ultimateOn", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/ultimateEditionOn", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Boolean> updateUltimateOn(@RequestParam("ids") String ids,
-			@RequestParam("ultimateOn") Integer ultimateOn) {
+	public CommonResult<Boolean> updateUltimateEditionOn(@RequestParam("ids") String ids,
+			@RequestParam("ultimateEditionOn") Integer ultimateEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
 			Long id = Long.parseLong(n);
 			ModuleMenu moduleMenu = new ModuleMenu();
-			moduleMenu.setUltimateOn(ultimateOn);
+			moduleMenu.setUltimateEditionOn(ultimateEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
 		});
 
@@ -139,6 +141,29 @@ public class ModuleMenuController {
 			ModuleInfoVo moduleInfoVo = moduleInfoClientService.getById(moduleMenuVo.getModuleId());
 			if (moduleInfoVo != null) {
 				moduleMenuVo.setModuleName(moduleInfoVo.getModuleName());
+			}
+		}
+		
+//		List<ModuleMenuVo> children = new ArrayList<ModuleMenuVo>();
+//		ModuleMenuVo child = new ModuleMenuVo();
+//		child.setId(100L);
+//		child.setMenuName("XXX");
+//		children.add(child);
+//		
+//		moduleMenuVo.setChildren(children);
+		
+//		if(moduleMenuVo.getId()%2 ==0) {
+//			moduleMenuVo.setHasChildren(true);
+//		}
+		
+		boolean hasChildren = moduleMenuVo.isHasChildren();
+		if(hasChildren == false) {
+			Long parentId = moduleMenuVo.getId();
+			ModuleMenuQueryParam moduleMenuQueryParam = new ModuleMenuQueryParam();
+			moduleMenuQueryParam.setParentId(parentId);
+			Page<ModuleMenuVo> moduleMenuVoPage = moduleMenuClientService.page(moduleMenuQueryParam, 1, 500, "id", "desc");
+			if(moduleMenuVoPage!=null && moduleMenuVoPage.getTotal()>0) {
+				moduleMenuVo.setHasChildren(true);
 			}
 		}
 	}

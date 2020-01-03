@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MODULE", contextId = "ModuleMenu")
+@FeignClient(value = "WMS-SAAS", contextId = "ModuleMenu")
 public interface ModuleMenuClientService {
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.GET)
 	public ModuleMenuVo getById(@PathVariable("id") Long id);

@@ -14,20 +14,14 @@ public class ModuleMenuQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 8170611224391310108L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "")
 	private Long id;
 
-	@ApiModelProperty(value = "父菜单编号")
-	private Long parentMenuId;
-
-	@ApiModelProperty(value = "模块编号")
+	@ApiModelProperty(value = "服务模块ID")
 	private Long moduleId;
 
 	@ApiModelProperty(value = "菜单名称")
 	private String menuName;
-
-	@ApiModelProperty(value = "菜单名称")
-	private String menuNameLike;
 
 	@ApiModelProperty(value = "菜单排序")
 	private Integer menuOrder;
@@ -35,14 +29,17 @@ public class ModuleMenuQueryParam implements Serializable {
 	@ApiModelProperty(value = "菜单图标")
 	private String menuIcon;
 
+	@ApiModelProperty(value = "父菜单ID")
+	private Long menuParentId;
+
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
-	private Integer basicOn;
+	private Integer basicEditionOn;
 
 	@ApiModelProperty(value = "开放高级版（1：开放；0：不开放）")
-	private Integer advanceOn;
+	private Integer advanceEditionOn;
 
 	@ApiModelProperty(value = "开放旗舰版（1：开放；0：不开放）")
-	private Integer ultimateOn;
+	private Integer ultimateEditionOn;
 
 	@ApiModelProperty(value = "基础版链接地址")
 	private String basicUrl;
@@ -52,12 +49,9 @@ public class ModuleMenuQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "旗舰版链接地址")
 	private String ultimateUrl;
-
-	@ApiModelProperty(value = "授权")
-	private String perms;
-
-	@ApiModelProperty(value = "菜单类型（0：目录；1：菜单；2：按钮）")
-	private Integer menuType;
+	
+	@ApiModelProperty(value = "父级ID")
+	private Long parentId;
 
 }
 

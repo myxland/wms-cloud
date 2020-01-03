@@ -1,6 +1,7 @@
 package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
@@ -17,19 +18,15 @@ public class ModuleMenuVo implements Serializable {
 
 	private static final long serialVersionUID = 7147504511413971029L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "父菜单编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long parentMenuId;
-
-	@ApiModelProperty(value = "模块编号")
+	@ApiModelProperty(value = "服务模块ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long moduleId;
 
-	@ApiModelProperty(value = "模块名称")
+	@ApiModelProperty(value = "服务模块ID")
 	private String moduleName;
 
 	@ApiModelProperty(value = "菜单名称")
@@ -41,14 +38,18 @@ public class ModuleMenuVo implements Serializable {
 	@ApiModelProperty(value = "菜单图标")
 	private String menuIcon;
 
+	@ApiModelProperty(value = "父菜单ID")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long menuParentId;
+
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
-	private Integer basicOn;
+	private Integer basicEditionOn;
 
 	@ApiModelProperty(value = "开放高级版（1：开放；0：不开放）")
-	private Integer advanceOn;
+	private Integer advanceEditionOn;
 
 	@ApiModelProperty(value = "开放旗舰版（1：开放；0：不开放）")
-	private Integer ultimateOn;
+	private Integer ultimateEditionOn;
 
 	@ApiModelProperty(value = "基础版链接地址")
 	private String basicUrl;
@@ -59,10 +60,9 @@ public class ModuleMenuVo implements Serializable {
 	@ApiModelProperty(value = "旗舰版链接地址")
 	private String ultimateUrl;
 
-	@ApiModelProperty(value = "授权")
-	private String perms;
-
-	@ApiModelProperty(value = "菜单类型（0：目录；1：菜单；2：按钮）")
-	private Integer menuType;
-
+	@ApiModelProperty(value = "子级菜单列表")
+	private List<ModuleMenuVo> children;
+	
+	@ApiModelProperty(value = "是否包含子级菜单")
+	private boolean hasChildren;
 }

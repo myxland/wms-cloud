@@ -13,7 +13,7 @@ public class TableNameFactory {
 				"tenant_consumption_bill",//
 				"module_info",//
 				"module_price",//
-				"",//
+				"module_menu",//
 				"",//
 				"",//
 				"",//
