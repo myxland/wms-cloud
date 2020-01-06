@@ -59,7 +59,7 @@ public class TenantInfoRestController {
 	) {
 		IPage<TenantInfo> pageTenantInfo = new Page<TenantInfo>(page, rows);
 		QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
-		queryWrapperTenantInfo.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperTenantInfo.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperTenantInfo.lambda()
 				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
 				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())

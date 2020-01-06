@@ -77,7 +77,7 @@ public class ${table.entityName}RestController {
 	) {
 		IPage<${table.entityName}> page${table.entityName} = new Page<${table.entityName}>(page, rows);
 		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
-		queryWrapper${table.entityName}.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapper${table.entityName}.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapper${table.entityName}.lambda()
 		<#list table.columnList as column>
 				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
