@@ -14,7 +14,7 @@ public class TableNameFactory {
 				"module_info",//
 				"module_price",//
 				"module_menu",//
-				"",//
+				"tenant_role",//
 				"",//
 				"",//
 				"",//

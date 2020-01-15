@@ -12,26 +12,29 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantRole对象", description = "租户角色")
+@ApiModel(value = "TenantRole对象", description = "角色信息")
 public class TenantRoleVo implements Serializable {
 
 	private static final long serialVersionUID = 1081181431513799315L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "工作岗位ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
-	@ApiModelProperty(value = "租户名称")
+	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
-	@ApiModelProperty(value = "角色名称")
+	@ApiModelProperty(value = "工作岗位名称")
 	private String roleName;
 
-	@ApiModelProperty(value = "角色说明")
+	@ApiModelProperty(value = "工作岗位说明")
 	private String roleRemark;
+
+	@ApiModelProperty(value = "创建类型（1：平台默认创建；2：租户自建）")
+	private Integer createType;
 
 }

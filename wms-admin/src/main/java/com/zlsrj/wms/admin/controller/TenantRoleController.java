@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "租户角色", tags = { "租户角色操作接口" })
+@Api(value = "角色信息", tags = { "角色信息操作接口" })
 @Controller
 @RequestMapping("/tenantRole")
 @Slf4j
@@ -37,7 +37,7 @@ public class TenantRoleController {
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
 
-	@ApiOperation(value = "根据参数查询租户角色列表")
+	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<CommonPage<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam, int pageNum,
@@ -50,7 +50,7 @@ public class TenantRoleController {
 		return CommonResult.success(tenantRoleCommonPage);
 	}
 
-	@ApiOperation(value = "新增租户角色")
+	@ApiOperation(value = "新增角色信息")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantRoleVo> create(@RequestBody TenantRole tenantRole) {
@@ -59,7 +59,7 @@ public class TenantRoleController {
 		return CommonResult.success(tenantRoleVo);
 	}
 
-	@ApiOperation(value = "根据ID查询租户角色")
+	@ApiOperation(value = "根据ID查询角色信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<TenantRoleVo> getById(@PathVariable("id") Long id) {
@@ -69,7 +69,7 @@ public class TenantRoleController {
 		return CommonResult.success(tenantRoleVo);
 	}
 
-	@ApiOperation(value = "根据参数更新租户角色信息")
+	@ApiOperation(value = "根据参数更新角色信息信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantRoleVo> getById(@RequestBody TenantRole tenantRole) {
@@ -80,7 +80,7 @@ public class TenantRoleController {
 		return CommonResult.success(tenantRoleVo);
 	}
 	
-	@ApiOperation(value = "根据ID删除租户角色")
+	@ApiOperation(value = "根据ID删除角色信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
