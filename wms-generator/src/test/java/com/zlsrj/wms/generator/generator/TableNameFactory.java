@@ -16,7 +16,7 @@ public class TableNameFactory {
 				"module_menu",//
 				"tenant_role",//
 				"tenant_department",//
-				"",//
+				"tenant_employee",//
 				"",//
 				"",//
 				"",//

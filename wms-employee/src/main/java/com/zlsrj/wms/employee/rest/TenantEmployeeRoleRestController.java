@@ -192,12 +192,6 @@ public class TenantEmployeeRoleRestController {
 
 		String jsonString = JSON.toJSONString(tenantEmployeeRole);
 		TenantEmployeeRoleVo tenantEmployeeRoleVo = JSON.parseObject(jsonString, TenantEmployeeRoleVo.class);
-		if (StringUtils.isEmpty(tenantEmployeeRoleVo.getEmpName())) {
-			TenantEmployee tenantEmployee = tenantEmployeeService.getById(tenantEmployeeRoleVo.getEmpId());
-			if (tenantEmployee != null) {
-				tenantEmployeeRoleVo.setEmpName(tenantEmployee.getEmpName());
-			}
-		}
 		if (StringUtils.isEmpty(tenantEmployeeRoleVo.getRoleName())) {
 			TenantRole tenantRole = tenantRoleService.getById(tenantEmployeeRoleVo.getRoleId());
 			if (tenantRole != null) {

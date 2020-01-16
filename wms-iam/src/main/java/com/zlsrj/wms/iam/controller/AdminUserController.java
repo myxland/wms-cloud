@@ -29,9 +29,9 @@ public class AdminUserController {
 		TenantEmployee tenantEmployee = tenantEmployeeService.getByEmpName(username);
 		AdminUser adminUser = AdminUser.builder()//
 				.id(tenantEmployee.getId())//
-				.username(tenantEmployee.getEmpName())//
-				.password(tenantEmployee.getEmpPassword())//
-				.status(tenantEmployee.getEmpStatus())//
+				.username(tenantEmployee.getEmployeeName())//
+				.password(tenantEmployee.getEmployeePassword())//
+				.status(tenantEmployee.getEmployeeStatus())//
 				.icon(null)//
 				.build();
 

@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.saas.rest;
 
 
 import org.junit.After;
@@ -61,17 +61,19 @@ public class TenantEmployeeRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 系统ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
-		// params.add("empName",TestCaseUtil.name());// 员工名称
-		// params.add("empPassword",RandomUtil.randomString(4));// 登录密码
-		// params.add("deptId",RandomUtil.randomLong());// 员工部门
-		// params.add("loginOn",RandomUtil.randomInt(0,1+1));// 可登录系统（1：可登录；0：不能登录）
-		// params.add("empStatus",RandomUtil.randomInt(0,1+1));// 员工状态（1：在职；2：离职；3：禁用）
-		// params.add("empMobile",TestCaseUtil.mobile());// 员工手机号
-		// params.add("empEmail",TestCaseUtil.email(null));// 员工邮箱
-		// params.add("empPersonalWx",RandomUtil.randomString(4));// 员工个人微信号
-		// params.add("empEnterpriceWx",RandomUtil.randomString(4));// 员工企业微信号
+		// params.add("id",TestCaseUtil.id());// 员工ID
+		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("employeeName",TestCaseUtil.name());// 员工名称
+		// params.add("employeePassword",RandomUtil.randomString(4));// 登录密码
+		// params.add("employeeDepartmentId",RandomUtil.randomLong());// 员工所属部门ID
+		// params.add("employeeLoginOn",RandomUtil.randomInt(0,1+1));// 可登录系统（1：可登录；0：不能登录）
+		// params.add("employeeStatus",RandomUtil.randomInt(0,1+1));// 员工状态（1：在职；2：离职；3：禁用）
+		// params.add("employeeMobile",TestCaseUtil.mobile());// 员工手机号
+		// params.add("employeeEmail",TestCaseUtil.email(null));// 员工邮箱
+		// params.add("employeePersonalWx",RandomUtil.randomString(4));// 员工个人微信号
+		// params.add("employeeEnterpriceWx",RandomUtil.randomString(4));// 员工企业微信号
+		// params.add("employeeDingding",RandomUtil.randomString(4));// 钉钉号
+		// params.add("employeeCreateType",RandomUtil.randomInt(0,1+1));// 操作员创建类型（1：平台默认创建；2：租户自建）
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-employees").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -84,8 +86,19 @@ public class TenantEmployeeRestControllerTest {
 	public void saveTest() throws Exception {
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
+				.id(TestCaseUtil.id())// 员工ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.employeeName(TestCaseUtil.name())// 员工名称
+				.employeePassword(RandomUtil.randomString(4))// 登录密码
+				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
+				.employeeMobile(TestCaseUtil.mobile())// 员工手机号
+				.employeeEmail(TestCaseUtil.email(null))// 员工邮箱
+				.employeePersonalWx(RandomUtil.randomString(4))// 员工个人微信号
+				.employeeEnterpriceWx(RandomUtil.randomString(4))// 员工企业微信号
+				.employeeDingding(RandomUtil.randomString(4))// 钉钉号
+				.employeeCreateType(RandomUtil.randomInt(0,1+1))// 操作员创建类型（1：平台默认创建；2：租户自建）
 				.build();
 
 		String responseString = mockMvc
@@ -103,8 +116,19 @@ public class TenantEmployeeRestControllerTest {
 		Long id = 1L;
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
-				//.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
+				//.id(TestCaseUtil.id())// 员工ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.employeeName(TestCaseUtil.name())// 员工名称
+				.employeePassword(RandomUtil.randomString(4))// 登录密码
+				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
+				.employeeMobile(TestCaseUtil.mobile())// 员工手机号
+				.employeeEmail(TestCaseUtil.email(null))// 员工邮箱
+				.employeePersonalWx(RandomUtil.randomString(4))// 员工个人微信号
+				.employeeEnterpriceWx(RandomUtil.randomString(4))// 员工企业微信号
+				.employeeDingding(RandomUtil.randomString(4))// 钉钉号
+				.employeeCreateType(RandomUtil.randomInt(0,1+1))// 操作员创建类型（1：平台默认创建；2：租户自建）
 				.build();
 
 		String responseString = mockMvc
@@ -122,16 +146,18 @@ public class TenantEmployeeRestControllerTest {
 		Long id = 1L;
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户编号
-				//.empName(TestCaseUtil.name())// 员工名称
-				//.empPassword(RandomUtil.randomString(4))// 登录密码
-				//.deptId(RandomUtil.randomLong())// 员工部门
-				//.loginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
-				//.empStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
-				//.empMobile(TestCaseUtil.mobile())// 员工手机号
-				//.empEmail(TestCaseUtil.email(null))// 员工邮箱
-				//.empPersonalWx(RandomUtil.randomString(4))// 员工个人微信号
-				//.empEnterpriceWx(RandomUtil.randomString(4))// 员工企业微信号
+				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.employeeName(TestCaseUtil.name())// 员工名称
+				//.employeePassword(RandomUtil.randomString(4))// 登录密码
+				//.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				//.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
+				//.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
+				//.employeeMobile(TestCaseUtil.mobile())// 员工手机号
+				//.employeeEmail(TestCaseUtil.email(null))// 员工邮箱
+				//.employeePersonalWx(RandomUtil.randomString(4))// 员工个人微信号
+				//.employeeEnterpriceWx(RandomUtil.randomString(4))// 员工企业微信号
+				//.employeeDingding(RandomUtil.randomString(4))// 钉钉号
+				//.employeeCreateType(RandomUtil.randomInt(0,1+1))// 操作员创建类型（1：平台默认创建；2：租户自建）
 				.build();
 
 		String responseString = mockMvc

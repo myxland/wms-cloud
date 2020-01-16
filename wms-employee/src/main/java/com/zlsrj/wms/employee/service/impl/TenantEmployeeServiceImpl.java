@@ -109,15 +109,6 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 			TenantEmployee tenantEmployee = TenantEmployee.builder()//
 					.id(idService.selectId())// 系统ID
 					.tenantId(tenantInfo.getId())// 租户编号
-					.empName(tenantInfo.getTenantLinkman())// 员工名称
-					.empPassword(null)// 登录密码
-					.deptId(tenantDept.getId())// 员工部门
-					.loginOn(1)// 可登录系统（1：可登录；0：不能登录）
-					.empStatus(1)// 员工状态（1：在职；2：离职；3：禁用）
-					.empMobile(tenantInfo.getTenantLinkmanMobile())// 员工手机号
-					.empEmail(tenantInfo.getTenantLinkmanEmail())// 员工邮箱
-					.empPersonalWx(null)// 员工个人微信号
-					.empEnterpriceWx(null)// 员工企业微信号
 					.build();
 			log.info(tenantEmployee.toString());
 			tenantEmployeeList.add(tenantEmployee);

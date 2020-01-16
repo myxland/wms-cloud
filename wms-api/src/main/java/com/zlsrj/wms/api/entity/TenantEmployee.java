@@ -24,58 +24,66 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_tenant_employee")
+@TableName("tenant_employee")
 @ApiModel(value = "TenantEmployee对象", description = "租户员工")
 public class TenantEmployee implements Serializable {
 
 	private static final long serialVersionUID = 1451230121015853219L;
 
-	@ApiModelProperty(value = "系统ID")
-	@TableId(value = "id", type = IdType.INPUT)
+	@ApiModelProperty(value = "员工ID")
+	@TableId(value = "id", type = IdType.AUTO)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
 	@ApiModelProperty(value = "员工名称")
-	@TableField("emp_name")
-	private String empName;
+	@TableField("employee_name")
+	private String employeeName;
 
 	@ApiModelProperty(value = "登录密码")
-	@TableField("emp_password")
-	private String empPassword;
+	@TableField("employee_password")
+	private String employeePassword;
 
-	@ApiModelProperty(value = "员工部门")
-	@TableField("dept_id")
+	@ApiModelProperty(value = "员工所属部门ID")
+	@TableField("employee_department_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long deptId;
+	private Long employeeDepartmentId;
 
 	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
-	@TableField("login_on")
-	private Integer loginOn;
+	@TableField("employee_login_on")
+	private Integer employeeLoginOn;
 
 	@ApiModelProperty(value = "员工状态（1：在职；2：离职；3：禁用）")
-	@TableField("emp_status")
-	private Integer empStatus;
+	@TableField("employee_status")
+	private Integer employeeStatus;
 
 	@ApiModelProperty(value = "员工手机号")
-	@TableField("emp_mobile")
-	private String empMobile;
+	@TableField("employee_mobile")
+	private String employeeMobile;
 
 	@ApiModelProperty(value = "员工邮箱")
-	@TableField("emp_email")
-	private String empEmail;
+	@TableField("employee_email")
+	private String employeeEmail;
 
 	@ApiModelProperty(value = "员工个人微信号")
-	@TableField("emp_personal_wx")
-	private String empPersonalWx;
+	@TableField("employee_personal_wx")
+	private String employeePersonalWx;
 
 	@ApiModelProperty(value = "员工企业微信号")
-	@TableField("emp_enterprice_wx")
-	private String empEnterpriceWx;
+	@TableField("employee_enterprice_wx")
+	private String employeeEnterpriceWx;
+
+	@ApiModelProperty(value = "钉钉号")
+	@TableField("employee_dingding")
+	private String employeeDingding;
+
+	@ApiModelProperty(value = "操作员创建类型（1：平台默认创建；2：租户自建）")
+	@TableField("employee_create_type")
+	private Integer employeeCreateType;
 
 
 }

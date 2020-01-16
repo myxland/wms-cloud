@@ -65,15 +65,6 @@ public class TenantEmployeeRestController {
 		queryWrapperTenantEmployee.lambda()
 				.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
 				.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
-				.eq(tenantEmployeeQueryParam.getEmpName() != null, TenantEmployee::getEmpName, tenantEmployeeQueryParam.getEmpName())
-				.eq(tenantEmployeeQueryParam.getEmpPassword() != null, TenantEmployee::getEmpPassword, tenantEmployeeQueryParam.getEmpPassword())
-				.eq(tenantEmployeeQueryParam.getDeptId() != null, TenantEmployee::getDeptId, tenantEmployeeQueryParam.getDeptId())
-				.eq(tenantEmployeeQueryParam.getLoginOn() != null, TenantEmployee::getLoginOn, tenantEmployeeQueryParam.getLoginOn())
-				.eq(tenantEmployeeQueryParam.getEmpStatus() != null, TenantEmployee::getEmpStatus, tenantEmployeeQueryParam.getEmpStatus())
-				.eq(tenantEmployeeQueryParam.getEmpMobile() != null, TenantEmployee::getEmpMobile, tenantEmployeeQueryParam.getEmpMobile())
-				.eq(tenantEmployeeQueryParam.getEmpEmail() != null, TenantEmployee::getEmpEmail, tenantEmployeeQueryParam.getEmpEmail())
-				.eq(tenantEmployeeQueryParam.getEmpPersonalWx() != null, TenantEmployee::getEmpPersonalWx, tenantEmployeeQueryParam.getEmpPersonalWx())
-				.eq(tenantEmployeeQueryParam.getEmpEnterpriceWx() != null, TenantEmployee::getEmpEnterpriceWx, tenantEmployeeQueryParam.getEmpEnterpriceWx())
 				;
 
 		IPage<TenantEmployee> tenantEmployeePage = tenantEmployeeService.page(pageTenantEmployee, queryWrapperTenantEmployee);
@@ -130,15 +121,6 @@ public class TenantEmployeeRestController {
 				//.eq(TenantEmployee::getId, id)
 				// .set(tenantEmployee.getId() != null, TenantEmployee::getId, tenantEmployee.getId())
 				.set(tenantEmployee.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployee.getTenantId())
-				.set(tenantEmployee.getEmpName() != null, TenantEmployee::getEmpName, tenantEmployee.getEmpName())
-				.set(tenantEmployee.getEmpPassword() != null, TenantEmployee::getEmpPassword, tenantEmployee.getEmpPassword())
-				.set(tenantEmployee.getDeptId() != null, TenantEmployee::getDeptId, tenantEmployee.getDeptId())
-				.set(tenantEmployee.getLoginOn() != null, TenantEmployee::getLoginOn, tenantEmployee.getLoginOn())
-				.set(tenantEmployee.getEmpStatus() != null, TenantEmployee::getEmpStatus, tenantEmployee.getEmpStatus())
-				.set(tenantEmployee.getEmpMobile() != null, TenantEmployee::getEmpMobile, tenantEmployee.getEmpMobile())
-				.set(tenantEmployee.getEmpEmail() != null, TenantEmployee::getEmpEmail, tenantEmployee.getEmpEmail())
-				.set(tenantEmployee.getEmpPersonalWx() != null, TenantEmployee::getEmpPersonalWx, tenantEmployee.getEmpPersonalWx())
-				.set(tenantEmployee.getEmpEnterpriceWx() != null, TenantEmployee::getEmpEnterpriceWx, tenantEmployee.getEmpEnterpriceWx())
 				;
 
 		boolean success = tenantEmployeeService.update(updateWrapperTenantEmployee);
@@ -165,12 +147,6 @@ public class TenantEmployeeRestController {
 
 		String jsonString = JSON.toJSONString(tenantEmployee);
 		TenantEmployeeVo tenantEmployeeVo = JSON.parseObject(jsonString, TenantEmployeeVo.class);
-		if (StringUtils.isEmpty(tenantEmployeeVo.getDeptName())) {
-			TenantDept tenantDept = tenantDeptService.getById(tenantEmployee.getDeptId());
-			if (tenantDept != null) {
-				tenantEmployeeVo.setDeptName(tenantDept.getDeptName());
-			}
-		}
 		return tenantEmployeeVo;
 	}
 

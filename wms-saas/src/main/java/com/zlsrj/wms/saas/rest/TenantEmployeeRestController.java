@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.util.stream.Collectors;
 
@@ -23,9 +23,9 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.service.IIdService;
-import com.zlsrj.wms.mbg.service.ITenantInfoService;
-import com.zlsrj.wms.mbg.service.ITenantEmployeeService;
+import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantEmployeeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,10 +61,21 @@ public class TenantEmployeeRestController {
 	) {
 		IPage<TenantEmployee> pageTenantEmployee = new Page<TenantEmployee>(page, rows);
 		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
-		queryWrapperTenantEmployee.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperTenantEmployee.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperTenantEmployee.lambda()
-						.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
-						.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
+				.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
+				.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
+				.eq(tenantEmployeeQueryParam.getEmployeeName() != null, TenantEmployee::getEmployeeName, tenantEmployeeQueryParam.getEmployeeName())
+				.eq(tenantEmployeeQueryParam.getEmployeePassword() != null, TenantEmployee::getEmployeePassword, tenantEmployeeQueryParam.getEmployeePassword())
+				.eq(tenantEmployeeQueryParam.getEmployeeDepartmentId() != null, TenantEmployee::getEmployeeDepartmentId, tenantEmployeeQueryParam.getEmployeeDepartmentId())
+				.eq(tenantEmployeeQueryParam.getEmployeeLoginOn() != null, TenantEmployee::getEmployeeLoginOn, tenantEmployeeQueryParam.getEmployeeLoginOn())
+				.eq(tenantEmployeeQueryParam.getEmployeeStatus() != null, TenantEmployee::getEmployeeStatus, tenantEmployeeQueryParam.getEmployeeStatus())
+				.eq(tenantEmployeeQueryParam.getEmployeeMobile() != null, TenantEmployee::getEmployeeMobile, tenantEmployeeQueryParam.getEmployeeMobile())
+				.eq(tenantEmployeeQueryParam.getEmployeeEmail() != null, TenantEmployee::getEmployeeEmail, tenantEmployeeQueryParam.getEmployeeEmail())
+				.eq(tenantEmployeeQueryParam.getEmployeePersonalWx() != null, TenantEmployee::getEmployeePersonalWx, tenantEmployeeQueryParam.getEmployeePersonalWx())
+				.eq(tenantEmployeeQueryParam.getEmployeeEnterpriceWx() != null, TenantEmployee::getEmployeeEnterpriceWx, tenantEmployeeQueryParam.getEmployeeEnterpriceWx())
+				.eq(tenantEmployeeQueryParam.getEmployeeDingding() != null, TenantEmployee::getEmployeeDingding, tenantEmployeeQueryParam.getEmployeeDingding())
+				.eq(tenantEmployeeQueryParam.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployeeQueryParam.getEmployeeCreateType())
 				;
 
 		IPage<TenantEmployee> tenantEmployeePage = tenantEmployeeService.page(pageTenantEmployee, queryWrapperTenantEmployee);
@@ -112,11 +123,26 @@ public class TenantEmployeeRestController {
 	@ApiOperation(value = "根据参数更新租户员工信息")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
 	public TenantEmployeeVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantEmployee tenantEmployee) {
+        TenantEmployee tenantEmployeeWhere = TenantEmployee.builder()//
+				.id(id)//
+				.build();
 		UpdateWrapper<TenantEmployee> updateWrapperTenantEmployee = new UpdateWrapper<TenantEmployee>();
+		updateWrapperTenantEmployee.setEntity(tenantEmployeeWhere);
 		updateWrapperTenantEmployee.lambda()//
-				.eq(TenantEmployee::getId, id)
+				//.eq(TenantEmployee::getId, id)
 				// .set(tenantEmployee.getId() != null, TenantEmployee::getId, tenantEmployee.getId())
 				.set(tenantEmployee.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployee.getTenantId())
+				.set(tenantEmployee.getEmployeeName() != null, TenantEmployee::getEmployeeName, tenantEmployee.getEmployeeName())
+				.set(tenantEmployee.getEmployeePassword() != null, TenantEmployee::getEmployeePassword, tenantEmployee.getEmployeePassword())
+				.set(tenantEmployee.getEmployeeDepartmentId() != null, TenantEmployee::getEmployeeDepartmentId, tenantEmployee.getEmployeeDepartmentId())
+				.set(tenantEmployee.getEmployeeLoginOn() != null, TenantEmployee::getEmployeeLoginOn, tenantEmployee.getEmployeeLoginOn())
+				.set(tenantEmployee.getEmployeeStatus() != null, TenantEmployee::getEmployeeStatus, tenantEmployee.getEmployeeStatus())
+				.set(tenantEmployee.getEmployeeMobile() != null, TenantEmployee::getEmployeeMobile, tenantEmployee.getEmployeeMobile())
+				.set(tenantEmployee.getEmployeeEmail() != null, TenantEmployee::getEmployeeEmail, tenantEmployee.getEmployeeEmail())
+				.set(tenantEmployee.getEmployeePersonalWx() != null, TenantEmployee::getEmployeePersonalWx, tenantEmployee.getEmployeePersonalWx())
+				.set(tenantEmployee.getEmployeeEnterpriceWx() != null, TenantEmployee::getEmployeeEnterpriceWx, tenantEmployee.getEmployeeEnterpriceWx())
+				.set(tenantEmployee.getEmployeeDingding() != null, TenantEmployee::getEmployeeDingding, tenantEmployee.getEmployeeDingding())
+				.set(tenantEmployee.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployee.getEmployeeCreateType())
 				;
 
 		boolean success = tenantEmployeeService.update(updateWrapperTenantEmployee);
@@ -137,6 +163,10 @@ public class TenantEmployeeRestController {
 	}
 
 	private TenantEmployeeVo entity2vo(TenantEmployee tenantEmployee) {
+		if (tenantEmployee == null) {
+			return null;
+		}
+
 		String jsonString = JSON.toJSONString(tenantEmployee);
 		TenantEmployeeVo tenantEmployeeVo = JSON.parseObject(jsonString, TenantEmployeeVo.class);
 		if (StringUtils.isEmpty(tenantEmployeeVo.getTenantName())) {
