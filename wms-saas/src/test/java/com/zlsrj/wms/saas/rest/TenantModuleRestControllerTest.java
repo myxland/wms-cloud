@@ -1,4 +1,6 @@
-package com.zlsrj.wms.tenant.rest;
+package com.zlsrj.wms.saas.rest;
+
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -60,21 +62,11 @@ public class TenantModuleRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// String companyShortName = TestCaseUtil.companyShortName();
-
-		// params.add("id",TestCaseUtil.id());// 系统ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
-		// params.add("moduleId",RandomUtil.randomLong());// 模块编号
-		// params.add("moduleDisplayName",companyShortName);// 模块显示名称
-		// params.add("moduleOrder",RandomUtil.randomInt(0,1000+1));// 模块排序
+		// params.add("id",TestCaseUtil.id());// 租户模块ID
+		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("moduleId",RandomUtil.randomLong());// 模块ID
 		// params.add("moduleEdition",RandomUtil.randomInt(0,1000+1));// 开通版本（1：基础版；2：高级版；3：旗舰版）
-		// params.add("moduleStatus",RandomUtil.randomInt(0,1+1));// 模块状态（1：开通；0：未开通）
-		// params.add("modulePriceType",RandomUtil.randomInt(0,1+1));// 价格体系（1：标准价格；2：指定价格）
-		// params.add("moduleOpenDate",new Date());// 开通时间
-		// params.add("moduleEndDate",new Date());// 到期时间
-		// params.add("moduleStartChargeDate",new Date());// 开始计费日期
-		// params.add("moduleArrears",new BigDecimal(0));// 欠费金额
-		// params.add("moduleOverdraft",new BigDecimal(0));// 透支额度
+		// params.add("moduleOpenTime",new Date());// 开通时间
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-modules").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -87,9 +79,11 @@ public class TenantModuleRestControllerTest {
 	public void saveTest() throws Exception {
 
 		TenantModule tenantInfo = TenantModule.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.moduleId(RandomUtil.randomLong())// 模块编号
+				.id(TestCaseUtil.id())// 租户模块ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
+				.moduleOpenTime(new Date())// 开通时间
 				.build();
 
 		String responseString = mockMvc
@@ -107,9 +101,11 @@ public class TenantModuleRestControllerTest {
 		Long id = 1L;
 
 		TenantModule tenantInfo = TenantModule.builder()//
-				//.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.moduleId(RandomUtil.randomLong())// 模块编号
+				//.id(TestCaseUtil.id())// 租户模块ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
+				.moduleOpenTime(new Date())// 开通时间
 				.build();
 
 		String responseString = mockMvc
@@ -125,22 +121,13 @@ public class TenantModuleRestControllerTest {
 	@Test
 	public void updatePatchById() throws Exception {
 		Long id = 1L;
-		// String companyShortName = TestCaseUtil.companyShortName();
-
 
 		TenantModule tenantInfo = TenantModule.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户编号
-				//.moduleId(RandomUtil.randomLong())// 模块编号
-				//.moduleDisplayName(companyShortName)// 模块显示名称
-				//.moduleOrder(RandomUtil.randomInt(0,1000+1))// 模块排序
+				//.id(TestCaseUtil.id())// 租户模块ID
+				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.moduleId(RandomUtil.randomLong())// 模块ID
 				//.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
-				//.moduleStatus(RandomUtil.randomInt(0,1+1))// 模块状态（1：开通；0：未开通）
-				//.modulePriceType(RandomUtil.randomInt(0,1+1))// 价格体系（1：标准价格；2：指定价格）
-				//.moduleOpenDate(new Date())// 开通时间
-				//.moduleEndDate(new Date())// 到期时间
-				//.moduleStartChargeDate(new Date())// 开始计费日期
-				//.moduleArrears(new BigDecimal(0))// 欠费金额
-				//.moduleOverdraft(new BigDecimal(0))// 透支额度
+				//.moduleOpenTime(new Date())// 开通时间
 				.build();
 
 		String responseString = mockMvc

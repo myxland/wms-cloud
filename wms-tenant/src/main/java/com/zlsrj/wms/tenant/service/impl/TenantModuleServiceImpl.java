@@ -39,7 +39,6 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 		QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
 		queryWrapperTenantModule.lambda()//
 				.eq(TenantModule::getTenantId, tenantId)//
-				.eq(TenantModule::getModuleStatus,0)//删除未开通模块,已开通状态不变，模块状态（1：开通；0：未开通）
 		;
 		boolean success = super.remove(queryWrapperTenantModule);
 		// 批量新建租户与模块关系
@@ -54,7 +53,6 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 						.id(idService.selectId())// 系统ID
 						.tenantId(tenantId)// 租户编号
 						.moduleId(moduleId)// 模块编号
-						.moduleStatus(0) //未开通状态
 						.build();
 				try {
 					success = super.save(tenantModule);//插入异常不抛出
@@ -83,7 +81,6 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 		QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
 		queryWrapperTenantModule.lambda()//
 				.eq(TenantModule::getModuleId,moduleId)//
-				.eq(TenantModule::getModuleStatus,0)//删除未开通模块,已开通状态不变，模块状态（1：开通；0：未开通）
 		;
 		boolean success = super.remove(queryWrapperTenantModule);
 		// 批量新建租户与模块关系
@@ -98,7 +95,6 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 						.id(idService.selectId())// 系统ID
 						.tenantId(tenantId)// 租户编号
 						.moduleId(moduleId)// 模块编号
-						.moduleStatus(0) //未开通状态
 						.build();
 				try {
 					success = super.save(tenantModule);//插入异常不抛出

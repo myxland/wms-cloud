@@ -1,7 +1,6 @@
 package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
@@ -25,14 +24,14 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("tenant_module")
-@ApiModel(value = "TenantModule对象", description = "租户开通模块清单")
-public class TenantModule implements Serializable {
+@TableName("tenant_department")
+@ApiModel(value = "TenantDepartment对象", description = "租户部门")
+public class TenantDepartment implements Serializable {
 
-	private static final long serialVersionUID = 3610815111712451512L;
+	private static final long serialVersionUID = 1110411514104661089L;
 
-	@ApiModelProperty(value = "租户模块ID")
-	@TableField("id")
+	@ApiModelProperty(value = "部门ID")
+	@TableId(value = "id", type = IdType.AUTO)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
@@ -41,18 +40,14 @@ public class TenantModule implements Serializable {
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
-	@ApiModelProperty(value = "模块ID")
-	@TableField("module_id")
+	@ApiModelProperty(value = "部门名称")
+	@TableField("department_name")
+	private String departmentName;
+
+	@ApiModelProperty(value = "上级部门ID")
+	@TableField("department_parent_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long moduleId;
-
-	@ApiModelProperty(value = "开通版本（1：基础版；2：高级版；3：旗舰版）")
-	@TableField("module_edition")
-	private Integer moduleEdition;
-
-	@ApiModelProperty(value = "开通时间")
-	@TableField("module_open_time")
-	private Date moduleOpenTime;
+	private Long departmentParentId;
 
 
 }

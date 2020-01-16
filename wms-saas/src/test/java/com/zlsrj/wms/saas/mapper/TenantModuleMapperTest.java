@@ -1,5 +1,6 @@
-package com.zlsrj.wms.tenant.mapper;
+package com.zlsrj.wms.saas.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlsrj.wms.api.entity.TenantModule;
 import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.zlsrj.wms.api.entity.TenantModule;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +43,12 @@ public class TenantModuleMapperTest {
 
 	@Test
 	public void insert() {
-
 		TenantModule tenantModule = TenantModule.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.moduleId(RandomUtil.randomLong())// 模块编号
+				.id(TestCaseUtil.id())// 租户模块ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
+				.moduleOpenTime(new Date())// 开通时间
 				.build();
 				
 		int count = tenantModuleMapper.insert(tenantModule);
