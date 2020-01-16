@@ -201,6 +201,18 @@ public class ${table.entityName}Controller {
 			}
 		}
 		</#if>
+		<#if table.includeParentId>
+		boolean hasChildren = ${table.entityName?uncap_first}Vo.isHasChildren();
+		if(hasChildren == false) {
+			Long parentId = ${table.entityName?uncap_first}Vo.getId();
+			${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam = new ${table.entityName}QueryParam();
+			${table.entityName?uncap_first}QueryParam.setParentId(parentId);
+			Page<${table.entityName}Vo> ${table.entityName?uncap_first}VoPage = ${table.entityName?uncap_first}ClientService.page(${table.entityName?uncap_first}QueryParam, 1, 500, "id", "desc");
+			if(${table.entityName?uncap_first}VoPage!=null && ${table.entityName?uncap_first}VoPage.getTotal()>0) {
+				${table.entityName?uncap_first}Vo.setHasChildren(true);
+			}
+		}
+		</#if>
 	}
 
 	</#if>

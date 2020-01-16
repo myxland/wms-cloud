@@ -26,5 +26,8 @@ public class TenantDepartmentQueryParam implements Serializable {
 	@ApiModelProperty(value = "上级部门ID")
 	private Long departmentParentId;
 
+	@ApiModelProperty(value = "父级ID")
+	private Long parentId;
+	
 }
 

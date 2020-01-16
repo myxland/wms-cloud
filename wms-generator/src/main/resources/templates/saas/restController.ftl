@@ -110,6 +110,14 @@ public class ${table.entityName}RestController {
 				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
 		</#if>
 		</#list>
+		<#if table.includeParentId>
+		<#list table.columnList as column>
+		<#if column.columnName?ends_with("_parent_id")>
+				.eq(${table.entityName?uncap_first}QueryParam.getParentId()!=null,${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.getParentId())
+				.isNull(${table.entityName?uncap_first}QueryParam.getParentId()==null, ${table.entityName}::get${column.propertyName?cap_first})
+		</#if>
+		</#list>
+		</#if>
 				;
 
 		IPage<${table.entityName}> ${table.entityName?uncap_first}Page = ${table.entityName?uncap_first}Service.page(page${table.entityName}, queryWrapper${table.entityName});

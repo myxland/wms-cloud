@@ -67,6 +67,8 @@ public class TenantDepartmentRestController {
 				.eq(tenantDepartmentQueryParam.getTenantId() != null, TenantDepartment::getTenantId, tenantDepartmentQueryParam.getTenantId())
 				.eq(tenantDepartmentQueryParam.getDepartmentName() != null, TenantDepartment::getDepartmentName, tenantDepartmentQueryParam.getDepartmentName())
 				.eq(tenantDepartmentQueryParam.getDepartmentParentId() != null, TenantDepartment::getDepartmentParentId, tenantDepartmentQueryParam.getDepartmentParentId())
+				.eq(tenantDepartmentQueryParam.getParentId()!=null,TenantDepartment::getDepartmentParentId, tenantDepartmentQueryParam.getParentId())
+				.isNull(tenantDepartmentQueryParam.getParentId()==null, TenantDepartment::getDepartmentParentId)
 				;
 
 		IPage<TenantDepartment> tenantDepartmentPage = tenantDepartmentService.page(pageTenantDepartment, queryWrapperTenantDepartment);

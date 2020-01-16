@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 <#if table.includeDate>
 import java.util.Date;
 </#if>
+<#if table.includeParentId>
+import java.util.List;
+</#if>
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
@@ -46,4 +49,12 @@ public class ${table.entityName}Vo implements Serializable {
 
 	</#if>
 	</#list>
+	<#if table.includeParentId>
+	@ApiModelProperty(value = "子级${table.tableComment}列表")
+	private List<${table.entityName}Vo> children;
+	
+	@ApiModelProperty(value = "是否包含子级${table.tableComment}")
+	private boolean hasChildren;
+	
+	</#if>
 }

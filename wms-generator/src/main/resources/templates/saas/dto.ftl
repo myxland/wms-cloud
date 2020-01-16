@@ -38,5 +38,10 @@ public class ${table.entityName}QueryParam implements Serializable {
 
 	</#if>
 	</#list>
+	<#if table.includeParentId>
+	@ApiModelProperty(value = "父级ID")
+	private Long parentId;
+	
+	</#if>
 }
 

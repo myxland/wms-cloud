@@ -211,4 +211,9 @@ public class TableInfo implements Serializable {
 						&& StringUtils.isEmpty(column.getDefaultAddValue()) && "NO".equals(column.getIsNullable()))
 				.collect(Collectors.toList());
 	}
+	
+	@JSONField(serialize = false)
+	public boolean isIncludeParentId() {
+		return columnList.stream().filter(column -> column.getColumnName().endsWith("parent_id")).count() > 0;
+	}
 }

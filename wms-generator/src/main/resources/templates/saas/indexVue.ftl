@@ -115,8 +115,15 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
-                border>
-        <#if table.includeBatchUpdatable>        
+                border
+                <#if table.includeParentId>
+                row-key="id"
+                lazy
+                :load="load"
+                :tree-props="{hasChildren: 'hasChildren'}"
+                </#if>
+      >
+        <#if table.includeBatchUpdatable || table.includeParentId>        
         <el-table-column type="selection" width="60" align="center"></el-table-column>
         </#if>
         <#list table.columnList as column>
@@ -250,6 +257,9 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
+    <#if table.includeParentId>
+    parentId: null,
+    </#if>
     <#list table.columnList as column>
     <#if "datetime"==column.dataType || "date"==column.dataType || "time"==column.dataType>
     ${column.propertyName}: null,
@@ -401,6 +411,17 @@
           this.pageSize = response.data.pageSize;
         });
       },
+      <#if table.includeParentId>
+      load(row, treeNode, resolve) {
+        let parentId = row.id;
+        this.listLoading = true;
+        this.listQuery = Object.assign({},this.listQuery,{"parentId":parentId});
+        fetchList(this.listQuery).then(response => {
+          this.listLoading = false;
+          resolve(response.data.list);
+        });
+      },
+      </#if>
       <#if table.includeSysId>
       getSystemDesignList() {
         fetchSystemDesignList({pageNum:1,pageSize:500}).then(response => {

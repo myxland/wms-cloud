@@ -142,25 +142,25 @@ public class GeneratorTest {
 			for (int i = 0; i < columnList.size(); i++) {
 				TableField column = columnList.get(i);
 				column.setQueryable(true);
-				column.setSelectable(column.isPropertySelect());//是否是下拉列表
-				if("id".equals(column.getColumnName())) {
+				column.setSelectable(column.isPropertySelect());// 是否是下拉列表
+				if ("id".equals(column.getColumnName())) {
 					column.setGridWidth(180);
 				}
-				
-				if("tenant_id".equals(column.getColumnName())) {
+
+				if ("tenant_id".equals(column.getColumnName())) {
 					column.setGridWidth(280);
 				}
-				
-				//手机号码默认宽度120
-				if(column.getColumnName().endsWith("_mobile")) {
+
+				// 手机号码默认宽度120
+				if (column.getColumnName().endsWith("_mobile")) {
 					column.setGridWidth(120);
 				}
-				
-				if("BigDecimal".equals(column.getPropertyType())) {
+
+				if ("BigDecimal".equals(column.getPropertyType())) {
 					column.setGridAlign("right");
 				}
 			}
-			
+
 			for (int i = 0; i < columnList.size(); i++) {
 				TableField column = columnList.get(i);
 				if (column.getColumnName().equals("id") == false// 非id字段
@@ -198,7 +198,7 @@ public class GeneratorTest {
 						"includeSysOne2One", "includeSysOne2Many", "includeModuleId", "includeModuleOne2One",
 						"includeModuleOne2Many", "includeSingleUpdatable", "singleUpdatableColumnList",
 						"includeBatchUpdatable", "batchUpdatableColumnList", "includeNotNullabe",
-						"notNullabeColumnList" };
+						"notNullabeColumnList", "includeParentId" };
 
 				BeanUtil.copyProperties(tableInfoBak, tableInfo, IGNORE_PROPERTIES); // 忽略属性
 				// columnList

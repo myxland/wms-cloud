@@ -96,6 +96,16 @@ public class TenantDepartmentController {
 				tenantDepartmentVo.setTenantName(tenantInfoVo.getTenantName());
 			}
 		}
+		boolean hasChildren = tenantDepartmentVo.isHasChildren();
+		if(hasChildren == false) {
+			Long parentId = tenantDepartmentVo.getId();
+			TenantDepartmentQueryParam tenantDepartmentQueryParam = new TenantDepartmentQueryParam();
+			tenantDepartmentQueryParam.setParentId(parentId);
+			Page<TenantDepartmentVo> tenantDepartmentVoPage = tenantDepartmentClientService.page(tenantDepartmentQueryParam, 1, 500, "id", "desc");
+			if(tenantDepartmentVoPage!=null && tenantDepartmentVoPage.getTotal()>0) {
+				tenantDepartmentVo.setHasChildren(true);
+			}
+		}
 	}
 
 }
