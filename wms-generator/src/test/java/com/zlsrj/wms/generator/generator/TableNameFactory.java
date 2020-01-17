@@ -29,7 +29,7 @@ public class TableNameFactory {
 				"tenant_customer",//
 				"tenant_meter",//
 				"tenant_customer_type",//
-				"",//
+				"tenant_meter_read_log_current",//
 				"",//
 				"",//
 				"",//
