@@ -48,6 +48,7 @@ public class TenantCaliberMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
+			tenantInfo = TenantInfo.builder().id(1L).build();
 			
 			TenantCaliber tenantCaliber = TenantCaliber.builder()//
 					.id(TestCaseUtil.id())// 口径ID
