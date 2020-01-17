@@ -15,20 +15,20 @@ public class TenantPriceItemQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 2133415811411181314L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "费用项目ID")
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	private Long tenantId;
 
 	@ApiModelProperty(value = "费用项目名称")
 	private String priceItemName;
 
 	@ApiModelProperty(value = "税率")
-	private BigDecimal taxRate;
+	private BigDecimal priceItemTaxRate;
 
 	@ApiModelProperty(value = "对应税控项目编号")
-	private String taxId;
+	private String priceItemTaxId;
 
 }
 

@@ -1,6 +1,7 @@
 package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
@@ -12,20 +13,20 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantPriceType对象", description = "价格类别")
+@ApiModel(value = "TenantPriceType对象", description = "水价分类")
 public class TenantPriceTypeVo implements Serializable {
 
 	private static final long serialVersionUID = 3147913149142125141L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "价格类别ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
-	@ApiModelProperty(value = "租户名称")
+	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "价格类别名称")
@@ -35,27 +36,27 @@ public class TenantPriceTypeVo implements Serializable {
 	private Integer bottomOn;
 
 	@ApiModelProperty(value = "保底水量")
-	private Integer bottomNum;
+	private BigDecimal bottomWaters;
 
 	@ApiModelProperty(value = "启用封顶水量（1：启用；0：不启用）")
 	private Integer topOn;
 
 	@ApiModelProperty(value = "封顶水量")
-	private Integer topNum;
+	private BigDecimal topWaters;
 
 	@ApiModelProperty(value = "启用固定减免（1：启用；0：不启用）")
 	private Integer reduceOn;
 
 	@ApiModelProperty(value = "固定减免水量")
-	private Integer reduceNum;
+	private BigDecimal reduceWaters;
 
-	@ApiModelProperty(value = "减免起始水量")
-	private Integer reduceLowerLimit;
+	@ApiModelProperty(value = "固定减免水量下限")
+	private BigDecimal reduceLowerlimit;
 
 	@ApiModelProperty(value = "启用固定水量征收（1：启用；0：不启用）")
 	private Integer fixedOn;
 
 	@ApiModelProperty(value = "固定征收水量")
-	private Integer fixedNum;
+	private BigDecimal fixedWaters;
 
 }

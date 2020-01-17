@@ -50,8 +50,6 @@ public class TenantPriceServiceImpl implements ITenantPriceService {
 					.id(IdUtil.createSnowflake(1L, 1L).nextId())// 系统ID
 					.tenantId(tenantInfo.getId())// 租户编号
 					.priceItemName(i.getText())// 费用项目名称
-					.taxRate(new BigDecimal(i.getRate()))// 税率
-					.taxId(null)// 对应税控项目编号
 					.build();
 
 			tenantPriceItemService.getBaseMapper().insert(tenantPriceItem);
@@ -67,14 +65,6 @@ public class TenantPriceServiceImpl implements ITenantPriceService {
 					.tenantId(tenantInfo.getId())// 租户编号
 					.priceTypeName(t.getText())// 价格类别名称
 					.bottomOn(0)// 启用保底水量（启用/不启用）
-					.bottomNum(null)// 保底水量
-					.topOn(0)// 启用封顶水量（启用/不启用）
-					.topNum(null)// 封顶水量
-					.reduceOn(0)// 启用固定减免（启用/不启用）
-					.reduceNum(null)// 固定减免水量
-					.reduceLowerLimit(null)// 减免起始水量（当月多少吨以上才可以减免）
-					.fixedOn(0)// 启用固定水量征收（启用/不启用）
-					.fixedNum(null)// 固定征收水量
 					.build();
 
 			tenantPriceTypeService.getBaseMapper().insert(tenantPriceType);

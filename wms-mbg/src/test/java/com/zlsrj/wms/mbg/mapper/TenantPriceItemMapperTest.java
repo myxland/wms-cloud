@@ -47,8 +47,6 @@ public class TenantPriceItemMapperTest {
 				.id(TestCaseUtil.id())// 系统ID
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
-				.taxRate(new BigDecimal(0))// 税率
-				.taxId(RandomUtil.randomString(4))// 对应税控项目编号
 				.build();
 				
 		int count = tenantPriceItemMapper.insert(tenantPriceItem);

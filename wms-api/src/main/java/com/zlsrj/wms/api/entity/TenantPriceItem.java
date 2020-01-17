@@ -25,18 +25,18 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_tenant_price_item")
+@TableName("tenant_price_item")
 @ApiModel(value = "TenantPriceItem对象", description = "费用项目")
 public class TenantPriceItem implements Serializable {
 
 	private static final long serialVersionUID = 1261572142661071112L;
 
-	@ApiModelProperty(value = "系统ID")
-	@TableId(value = "id", type = IdType.INPUT)
+	@ApiModelProperty(value = "费用项目ID")
+	@TableId(value = "id", type = IdType.AUTO)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
@@ -46,12 +46,12 @@ public class TenantPriceItem implements Serializable {
 	private String priceItemName;
 
 	@ApiModelProperty(value = "税率")
-	@TableField("tax_rate")
-	private BigDecimal taxRate;
+	@TableField("price_item_tax_rate")
+	private BigDecimal priceItemTaxRate;
 
 	@ApiModelProperty(value = "对应税控项目编号")
-	@TableField("tax_id")
-	private String taxId;
+	@TableField("price_item_tax_id")
+	private String priceItemTaxId;
 
 
 }

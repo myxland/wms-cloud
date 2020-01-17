@@ -66,8 +66,6 @@ public class TenantPriceItemRestController {
 						.eq(tenantPriceItemQueryParam.getId() != null, TenantPriceItem::getId, tenantPriceItemQueryParam.getId())
 						.eq(tenantPriceItemQueryParam.getTenantId() != null, TenantPriceItem::getTenantId, tenantPriceItemQueryParam.getTenantId())
 						.eq(tenantPriceItemQueryParam.getPriceItemName() != null, TenantPriceItem::getPriceItemName, tenantPriceItemQueryParam.getPriceItemName())
-						.eq(tenantPriceItemQueryParam.getTaxRate() != null, TenantPriceItem::getTaxRate, tenantPriceItemQueryParam.getTaxRate())
-						.eq(tenantPriceItemQueryParam.getTaxId() != null, TenantPriceItem::getTaxId, tenantPriceItemQueryParam.getTaxId())
 				;
 
 		IPage<TenantPriceItem> tenantPriceItemPage = tenantPriceItemService.page(pageTenantPriceItem, queryWrapperTenantPriceItem);
@@ -121,8 +119,6 @@ public class TenantPriceItemRestController {
 				// .set(tenantPriceItem.getId() != null, TenantPriceItem::getId, tenantPriceItem.getId())
 				.set(tenantPriceItem.getTenantId() != null, TenantPriceItem::getTenantId, tenantPriceItem.getTenantId())
 				.set(tenantPriceItem.getPriceItemName() != null, TenantPriceItem::getPriceItemName, tenantPriceItem.getPriceItemName())
-				.set(tenantPriceItem.getTaxRate() != null, TenantPriceItem::getTaxRate, tenantPriceItem.getTaxRate())
-				.set(tenantPriceItem.getTaxId() != null, TenantPriceItem::getTaxId, tenantPriceItem.getTaxId())
 				;
 
 		boolean success = tenantPriceItemService.update(updateWrapperTenantPriceItem);

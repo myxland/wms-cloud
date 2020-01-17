@@ -67,14 +67,6 @@ public class TenantPriceTypeRestController {
 						.eq(tenantPriceTypeQueryParam.getTenantId() != null, TenantPriceType::getTenantId, tenantPriceTypeQueryParam.getTenantId())
 						.eq(tenantPriceTypeQueryParam.getPriceTypeName() != null, TenantPriceType::getPriceTypeName, tenantPriceTypeQueryParam.getPriceTypeName())
 						.eq(tenantPriceTypeQueryParam.getBottomOn() != null, TenantPriceType::getBottomOn, tenantPriceTypeQueryParam.getBottomOn())
-						.eq(tenantPriceTypeQueryParam.getBottomNum() != null, TenantPriceType::getBottomNum, tenantPriceTypeQueryParam.getBottomNum())
-						.eq(tenantPriceTypeQueryParam.getTopOn() != null, TenantPriceType::getTopOn, tenantPriceTypeQueryParam.getTopOn())
-						.eq(tenantPriceTypeQueryParam.getTopNum() != null, TenantPriceType::getTopNum, tenantPriceTypeQueryParam.getTopNum())
-						.eq(tenantPriceTypeQueryParam.getReduceOn() != null, TenantPriceType::getReduceOn, tenantPriceTypeQueryParam.getReduceOn())
-						.eq(tenantPriceTypeQueryParam.getReduceNum() != null, TenantPriceType::getReduceNum, tenantPriceTypeQueryParam.getReduceNum())
-						.eq(tenantPriceTypeQueryParam.getReduceLowerLimit() != null, TenantPriceType::getReduceLowerLimit, tenantPriceTypeQueryParam.getReduceLowerLimit())
-						.eq(tenantPriceTypeQueryParam.getFixedOn() != null, TenantPriceType::getFixedOn, tenantPriceTypeQueryParam.getFixedOn())
-						.eq(tenantPriceTypeQueryParam.getFixedNum() != null, TenantPriceType::getFixedNum, tenantPriceTypeQueryParam.getFixedNum())
 				;
 
 		IPage<TenantPriceType> tenantPriceTypePage = tenantPriceTypeService.page(pageTenantPriceType, queryWrapperTenantPriceType);
@@ -129,14 +121,6 @@ public class TenantPriceTypeRestController {
 				.set(tenantPriceType.getTenantId() != null, TenantPriceType::getTenantId, tenantPriceType.getTenantId())
 				.set(tenantPriceType.getPriceTypeName() != null, TenantPriceType::getPriceTypeName, tenantPriceType.getPriceTypeName())
 				.set(tenantPriceType.getBottomOn() != null, TenantPriceType::getBottomOn, tenantPriceType.getBottomOn())
-				.set(tenantPriceType.getBottomNum() != null, TenantPriceType::getBottomNum, tenantPriceType.getBottomNum())
-				.set(tenantPriceType.getTopOn() != null, TenantPriceType::getTopOn, tenantPriceType.getTopOn())
-				.set(tenantPriceType.getTopNum() != null, TenantPriceType::getTopNum, tenantPriceType.getTopNum())
-				.set(tenantPriceType.getReduceOn() != null, TenantPriceType::getReduceOn, tenantPriceType.getReduceOn())
-				.set(tenantPriceType.getReduceNum() != null, TenantPriceType::getReduceNum, tenantPriceType.getReduceNum())
-				.set(tenantPriceType.getReduceLowerLimit() != null, TenantPriceType::getReduceLowerLimit, tenantPriceType.getReduceLowerLimit())
-				.set(tenantPriceType.getFixedOn() != null, TenantPriceType::getFixedOn, tenantPriceType.getFixedOn())
-				.set(tenantPriceType.getFixedNum() != null, TenantPriceType::getFixedNum, tenantPriceType.getFixedNum())
 				;
 
 		boolean success = tenantPriceTypeService.update(updateWrapperTenantPriceType);

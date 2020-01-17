@@ -30,14 +30,6 @@ public class ITenantPriceTypeServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
-				.bottomNum(RandomUtil.randomInt(0,1000+1))// 保底水量
-				.topOn(RandomUtil.randomInt(0,1+1))// 启用封顶水量（1：启用；0：不启用）
-				.topNum(RandomUtil.randomInt(0,1000+1))// 封顶水量
-				.reduceOn(RandomUtil.randomInt(0,1+1))// 启用固定减免（1：启用；0：不启用）
-				.reduceNum(RandomUtil.randomInt(0,1000+1))// 固定减免水量
-				.reduceLowerLimit(RandomUtil.randomInt(0,1000+1))// 减免起始水量
-				.fixedOn(RandomUtil.randomInt(0,1+1))// 启用固定水量征收（1：启用；0：不启用）
-				.fixedNum(RandomUtil.randomInt(0,1000+1))// 固定征收水量
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantPriceType, ToStringStyle.MULTI_LINE_STYLE));
@@ -56,14 +48,6 @@ public class ITenantPriceTypeServiceTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
-				.bottomNum(RandomUtil.randomInt(0,1000+1))// 保底水量
-				.topOn(RandomUtil.randomInt(0,1+1))// 启用封顶水量（1：启用；0：不启用）
-				.topNum(RandomUtil.randomInt(0,1000+1))// 封顶水量
-				.reduceOn(RandomUtil.randomInt(0,1+1))// 启用固定减免（1：启用；0：不启用）
-				.reduceNum(RandomUtil.randomInt(0,1000+1))// 固定减免水量
-				.reduceLowerLimit(RandomUtil.randomInt(0,1000+1))// 减免起始水量
-				.fixedOn(RandomUtil.randomInt(0,1+1))// 启用固定水量征收（1：启用；0：不启用）
-				.fixedNum(RandomUtil.randomInt(0,1000+1))// 固定征收水量
 				.build();
 		tenantPriceType.setId(id);
 

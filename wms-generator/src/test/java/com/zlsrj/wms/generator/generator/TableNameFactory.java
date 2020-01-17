@@ -17,13 +17,13 @@ public class TableNameFactory {
 				"tenant_role",//
 				"tenant_department",//
 				"tenant_employee",//
-				"",//
-				"",//
-				"",//
-				"",//
-				"",//
-				"",//
-				"",//
+				"tenant_water_area",//
+				"tenant_price_item",//
+				"tenant_price_type",//
+				"tenant_water_type",//
+				"tenant_manufactor",//
+				"tenant_caliber",//
+				"tenant_meter_status",//
 				"",//
 				"",//
 				"",//

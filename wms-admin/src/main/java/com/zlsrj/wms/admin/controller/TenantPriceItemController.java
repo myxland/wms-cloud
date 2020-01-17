@@ -1,5 +1,6 @@
 package com.zlsrj.wms.admin.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantPriceItemClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.TenantPriceItemQueryParam;
 import com.zlsrj.wms.api.entity.TenantPriceItem;
 import com.zlsrj.wms.api.vo.TenantPriceItemVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -31,6 +34,8 @@ public class TenantPriceItemController {
 
 	@Autowired
 	private TenantPriceItemClientService tenantPriceItemClientService;
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
 
 	@ApiOperation(value = "根据参数查询费用项目列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -38,6 +43,7 @@ public class TenantPriceItemController {
 	public CommonResult<CommonPage<TenantPriceItemVo>> list(TenantPriceItemQueryParam tenantPriceItemQueryParam, int pageNum,
 			int pageSize) {
 		Page<TenantPriceItemVo> tenantPriceItemVoPage = tenantPriceItemClientService.page(tenantPriceItemQueryParam, pageNum, pageSize, "id", "desc");
+		tenantPriceItemVoPage.getRecords().stream().forEach(v->wrappperVo(v));
 
 		CommonPage<TenantPriceItemVo> tenantPriceItemCommonPage = CommonPage.restPage(tenantPriceItemVoPage);
 
@@ -58,6 +64,7 @@ public class TenantPriceItemController {
 	@ResponseBody
 	public CommonResult<TenantPriceItemVo> getById(@PathVariable("id") Long id) {
 		TenantPriceItemVo tenantPriceItemVo = tenantPriceItemClientService.getById(id);
+		wrappperVo(tenantPriceItemVo);
 
 		return CommonResult.success(tenantPriceItemVo);
 	}
@@ -68,6 +75,7 @@ public class TenantPriceItemController {
 	public CommonResult<TenantPriceItemVo> getById(@RequestBody TenantPriceItem tenantPriceItem) {
 		Long id = tenantPriceItem.getId();
 		TenantPriceItemVo tenantPriceItemVo = tenantPriceItemClientService.updatePatchById(id, tenantPriceItem);
+		wrappperVo(tenantPriceItemVo);
 
 		return CommonResult.success(tenantPriceItemVo);
 	}
@@ -79,6 +87,15 @@ public class TenantPriceItemController {
 		CommonResult<Object> commonResult = tenantPriceItemClientService.removeById(id);
 
 		return commonResult;
+	}
+
+	private void wrappperVo(TenantPriceItemVo tenantPriceItemVo) {
+		if (StringUtils.isEmpty(tenantPriceItemVo.getTenantName())) {
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantPriceItemVo.getTenantId());
+			if (tenantInfoVo != null) {
+				tenantPriceItemVo.setTenantName(tenantInfoVo.getTenantName());
+			}
+		}
 	}
 
 }

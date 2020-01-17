@@ -24,18 +24,18 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_tenant_water_type")
-@ApiModel(value = "TenantWaterType对象", description = "用水类型")
+@TableName("tenant_water_type")
+@ApiModel(value = "TenantWaterType对象", description = "用水分类")
 public class TenantWaterType implements Serializable {
 
 	private static final long serialVersionUID = 6741896111511451214L;
 
-	@ApiModelProperty(value = "系统ID")
-	@TableId(value = "id", type = IdType.INPUT)
+	@ApiModelProperty(value = "用水类别ID")
+	@TableId(value = "id", type = IdType.AUTO)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
@@ -43,6 +43,16 @@ public class TenantWaterType implements Serializable {
 	@ApiModelProperty(value = "用水类别名称")
 	@TableField("water_type_name")
 	private String waterTypeName;
+
+	@ApiModelProperty(value = "上级用水类别编号")
+	@TableField("water_type_parent_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long waterTypeParentId;
+
+	@ApiModelProperty(value = "默认价格分类ID")
+	@TableField("default_price_type_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long defaultPriceTypeId;
 
 
 }
