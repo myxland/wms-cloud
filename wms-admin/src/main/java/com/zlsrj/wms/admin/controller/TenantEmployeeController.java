@@ -1,22 +1,21 @@
 package com.zlsrj.wms.admin.controller;
 
 import org.apache.commons.lang3.StringUtils;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.client.service.TenantDepartmentClientService;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.api.vo.TenantDepartmentVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
@@ -36,6 +35,8 @@ public class TenantEmployeeController {
 	private TenantEmployeeClientService tenantEmployeeClientService;
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
+	@Autowired
+	private TenantDepartmentClientService tenantDepartmentClientService;
 
 	@ApiOperation(value = "根据参数查询租户员工列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -94,6 +95,12 @@ public class TenantEmployeeController {
 			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantEmployeeVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantEmployeeVo.setTenantName(tenantInfoVo.getTenantName());
+			}
+		}
+		if (StringUtils.isEmpty(tenantEmployeeVo.getEmployeeDepartmentName())) {
+			TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.getById(tenantEmployeeVo.getEmployeeDepartmentId());
+			if (tenantDepartmentVo != null) {
+				tenantEmployeeVo.setEmployeeDepartmentName(tenantDepartmentVo.getDepartmentName());
 			}
 		}
 	}
