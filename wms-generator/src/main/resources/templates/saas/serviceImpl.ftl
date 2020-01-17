@@ -38,12 +38,7 @@ import ${domainName}.${projectNameApi}.entity.TenantInfo;
 <#if table.includeModuleOne2One || table.includeModuleOne2Many>
 import ${domainName}.${projectNameApi}.entity.ModuleInfo;
 </#if>
-<#if table.includeTenantOne2One || table.includeTenantOne2Many>
-import ${domainName}.${projectNameApi}.enums.${table.entityName?replace("Tenant","")}Enum;
-</#if>
-<#if table.includeModuleOne2One || table.includeModuleOne2Many>
-import ${domainName}.${projectNameApi}.enums.${table.entityName?replace("Module","")}Enum;
-</#if>
+
 import ${domainName}.${projectName}.mapper.${table.entityName}Mapper;
 <#if table.includeTenantOne2One || table.includeTenantOne2Many || table.includeModuleOne2One || table.includeModuleOne2Many>
 import ${domainName}.${projectName}.service.IIdService;

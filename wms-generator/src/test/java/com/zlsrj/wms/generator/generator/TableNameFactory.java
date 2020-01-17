@@ -24,11 +24,11 @@ public class TableNameFactory {
 				"tenant_manufactor",//
 				"tenant_caliber",//
 				"tenant_meter_status",//
-				"",//
-				"",//
-				"",//
-				"",//
-				"",//
+				"tenant_customer_meter_install",//
+				"tenant_booklet",//
+				"tenant_customer",//
+				"tenant_meter",//
+				"tenant_customer_type",//
 				"",//
 				"",//
 				"",//
