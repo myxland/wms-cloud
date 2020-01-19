@@ -8,37 +8,42 @@ import org.apache.commons.lang3.StringUtils;
 
 public class TableNameFactory {
 	public static String build() {
-		List<String> list = Arrays.asList(
-				"tenant_info",//
-				"tenant_consumption_bill",//
-				"module_info",//
-				"module_price",//
-				"module_menu",//
-				"tenant_role",//
-				"tenant_department",//
-				"tenant_employee",//
-				"tenant_water_area",//
-				"tenant_price_item",//
-				"tenant_price_type",//
-				"tenant_price_step",//
-				"tenant_water_type",//
-				"tenant_manufactor",//
-				"tenant_caliber",//
-				"tenant_meter_status",//
-				"tenant_customer_meter_install",//
-				"tenant_booklet",//
-				"tenant_customer",//
-				"tenant_meter",//
-				"tenant_customer_type",//
-				"tenant_meter_read_log_current",//
-				"tenant_config_sms",//
-				"tenant_customer_meter_change_log",//
-				"tenant_receivable",//
-				"tenant_receivable_detail",//
-				"tenant_payment",//
-				"tenant_payment_detail",//
-				""
-				);
+		List<String> list = Arrays.asList(//
+				"tenant_info", //
+				"tenant_consumption_bill", //
+				"module_info", //
+				"module_price", //
+				"module_menu", //
+				"tenant_role", //
+				"tenant_department", //
+				"tenant_employee", //
+				"tenant_water_area", //
+				"tenant_price_item", //
+				"tenant_price_type", //
+				"tenant_price_step", //
+				"tenant_water_type", //
+				"tenant_manufactor", //
+				"tenant_caliber", //
+				"tenant_meter_status", //
+				"tenant_customer_meter_install", //
+				"tenant_booklet", //
+				"tenant_meter", //
+				"tenant_customer_type", //
+				"tenant_meter_read_log_current", //
+				"tenant_config_sms", //
+				"tenant_customer_meter_change_log", //
+				"tenant_receivable", //
+				"tenant_receivable_detail", //
+				"tenant_payment", //
+				"tenant_payment_detail", //
+				"tenant_customer_linkman", //
+				"tenant_customer", //
+				"tenant_receivable", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"");
 		
 		List<String> filterList = list.stream().filter(s->StringUtils.isNotEmpty(s)).collect(Collectors.toList());
 		

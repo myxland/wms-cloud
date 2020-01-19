@@ -86,8 +86,16 @@ public class TenantCustomerRestController {
 				.eq(tenantCustomerQueryParam.getInvoiceBankAccountNo() != null, TenantCustomer::getInvoiceBankAccountNo, tenantCustomerQueryParam.getInvoiceBankAccountNo())
 				.eq(tenantCustomerQueryParam.getCustomerBalanceMoney() != null, TenantCustomer::getCustomerBalanceMoney, tenantCustomerQueryParam.getCustomerBalanceMoney())
 				.eq(tenantCustomerQueryParam.getCustomerArrearsMoney() != null, TenantCustomer::getCustomerArrearsMoney, tenantCustomerQueryParam.getCustomerArrearsMoney())
+				.and(StringUtils.isNotEmpty(tenantCustomerQueryParam.getKeyword()), 
+						wrapper -> wrapper.like(TenantCustomer::getCustomerCode, tenantCustomerQueryParam.getKeyword())
+						.or().like(TenantCustomer::getCustomerName, tenantCustomerQueryParam.getKeyword())
+						.or().like(TenantCustomer::getCustomerAddress, tenantCustomerQueryParam.getKeyword())
+				)
 				;
 
+		
+		
+		
 		IPage<TenantCustomer> tenantCustomerPage = tenantCustomerService.page(pageTenantCustomer, queryWrapperTenantCustomer);
 
 		Page<TenantCustomerVo> tenantCustomerVoPage = new Page<TenantCustomerVo>(page, rows);

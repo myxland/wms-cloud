@@ -79,5 +79,7 @@ public class TenantCustomerQueryParam implements Serializable {
 	@ApiModelProperty(value = "用户欠费金额")
 	private BigDecimal customerArrearsMoney;
 
+	@ApiModelProperty(value = "关键字")
+	private String keyword;
 }
 
