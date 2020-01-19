@@ -39,8 +39,8 @@ public class TableNameFactory {
 				"tenant_customer_linkman", //
 				"tenant_customer", //
 				"tenant_receivable", //
-				"", //
-				"", //
+				"tenant_meter", //
+				"tenant_customer_meter_change_log", //
 				"", //
 				"", //
 				"");
