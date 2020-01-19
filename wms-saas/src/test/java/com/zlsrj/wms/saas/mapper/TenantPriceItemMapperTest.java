@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantPriceItem;
 
 import cn.hutool.core.util.RandomUtil;
@@ -24,6 +25,8 @@ public class TenantPriceItemMapperTest {
 
 	@Resource
 	private TenantPriceItemMapper tenantPriceItemMapper;
+	@Resource
+	private TenantInfoMapper tenantInfoMapper;
 
 	@Test
 	public void selectByIdTest() {
@@ -43,17 +46,24 @@ public class TenantPriceItemMapperTest {
 
 	@Test
 	public void insert() {
-		TenantPriceItem tenantPriceItem = TenantPriceItem.builder()//
-				.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.priceItemName(TestCaseUtil.name())// 费用项目名称
-				.priceItemTaxRate(new BigDecimal(0))// 税率
-				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
-				.build();
-				
-		int count = tenantPriceItemMapper.insert(tenantPriceItem);
-		log.info("count={}",count);
-		log.info("tenantPriceItem={}",tenantPriceItem);
+		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
+		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
+			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
+			tenantInfo = TenantInfo.builder().id(1L).build();
+			
+			TenantPriceItem tenantPriceItem = TenantPriceItem.builder()//
+					.id(TestCaseUtil.id())// 费用项目ID
+					.tenantId(tenantInfo.getId())// 租户ID
+					.priceItemName("费用项目_"+RandomUtil.randomString(4))// 费用项目名称
+					.priceItemTaxRate(TestCaseUtil.rate())// 税率
+					.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
+					.build();
+					
+			int count = tenantPriceItemMapper.insert(tenantPriceItem);
+			log.info("count={}",count);
+			log.info("tenantPriceItem={}",tenantPriceItem);
+		}
+		
 	}
 	
 }

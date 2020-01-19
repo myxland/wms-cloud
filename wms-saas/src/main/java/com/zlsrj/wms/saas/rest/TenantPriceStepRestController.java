@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.util.stream.Collectors;
 
@@ -20,22 +20,18 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantPriceStepQueryParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
-import com.zlsrj.wms.api.entity.TenantPriceItem;
 import com.zlsrj.wms.api.entity.TenantPriceStep;
-import com.zlsrj.wms.api.entity.TenantPriceType;
 import com.zlsrj.wms.api.vo.TenantPriceStepVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.mbg.service.IIdService;
-import com.zlsrj.wms.mbg.service.ITenantInfoService;
-import com.zlsrj.wms.mbg.service.ITenantPriceItemService;
-import com.zlsrj.wms.mbg.service.ITenantPriceStepService;
-import com.zlsrj.wms.mbg.service.ITenantPriceTypeService;
+import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantPriceStepService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "价格阶梯", tags = { "价格阶梯操作接口" })
+@Api(value = "水价阶梯", tags = { "水价阶梯操作接口" })
 @RestController
 @Slf4j
 public class TenantPriceStepRestController {
@@ -45,13 +41,9 @@ public class TenantPriceStepRestController {
 	@Autowired
 	private ITenantInfoService tenantInfoService;
 	@Autowired
-	private ITenantPriceTypeService tenantPriceTypeService;
-	@Autowired
-	private ITenantPriceItemService tenantPriceItemService;
-	@Autowired
 	private IIdService idService;
 
-	@ApiOperation(value = "根据ID查询价格阶梯")
+	@ApiOperation(value = "根据ID查询水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.GET)
 	public TenantPriceStepVo getById(@PathVariable("id") Long id) {
 		TenantPriceStep tenantPriceStep = tenantPriceStepService.getById(id);
@@ -59,7 +51,7 @@ public class TenantPriceStepRestController {
 		return entity2vo(tenantPriceStep);
 	}
 
-	@ApiOperation(value = "根据参数查询价格阶梯列表")
+	@ApiOperation(value = "根据参数查询水价阶梯列表")
 	@RequestMapping(value = "/tenant-price-steps", method = RequestMethod.GET)
 	public Page<TenantPriceStepVo> page(@RequestBody TenantPriceStepQueryParam tenantPriceStepQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -69,12 +61,16 @@ public class TenantPriceStepRestController {
 	) {
 		IPage<TenantPriceStep> pageTenantPriceStep = new Page<TenantPriceStep>(page, rows);
 		QueryWrapper<TenantPriceStep> queryWrapperTenantPriceStep = new QueryWrapper<TenantPriceStep>();
-		queryWrapperTenantPriceStep.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperTenantPriceStep.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperTenantPriceStep.lambda()
-						.eq(tenantPriceStepQueryParam.getId() != null, TenantPriceStep::getId, tenantPriceStepQueryParam.getId())
-						.eq(tenantPriceStepQueryParam.getTenantId() != null, TenantPriceStep::getTenantId, tenantPriceStepQueryParam.getTenantId())
-						.eq(tenantPriceStepQueryParam.getPriceTypeId() != null, TenantPriceStep::getPriceTypeId, tenantPriceStepQueryParam.getPriceTypeId())
-						.eq(tenantPriceStepQueryParam.getPriceItemId() != null, TenantPriceStep::getPriceItemId, tenantPriceStepQueryParam.getPriceItemId())
+				.eq(tenantPriceStepQueryParam.getId() != null, TenantPriceStep::getId, tenantPriceStepQueryParam.getId())
+				.eq(tenantPriceStepQueryParam.getTenantId() != null, TenantPriceStep::getTenantId, tenantPriceStepQueryParam.getTenantId())
+				.eq(tenantPriceStepQueryParam.getPriceTypeId() != null, TenantPriceStep::getPriceTypeId, tenantPriceStepQueryParam.getPriceTypeId())
+				.eq(tenantPriceStepQueryParam.getPriceItemId() != null, TenantPriceStep::getPriceItemId, tenantPriceStepQueryParam.getPriceItemId())
+				.eq(tenantPriceStepQueryParam.getStepNo() != null, TenantPriceStep::getStepNo, tenantPriceStepQueryParam.getStepNo())
+				.eq(tenantPriceStepQueryParam.getStartWaters() != null, TenantPriceStep::getStartWaters, tenantPriceStepQueryParam.getStartWaters())
+				.eq(tenantPriceStepQueryParam.getEndWaters() != null, TenantPriceStep::getEndWaters, tenantPriceStepQueryParam.getEndWaters())
+				.eq(tenantPriceStepQueryParam.getStepPrice() != null, TenantPriceStep::getStepPrice, tenantPriceStepQueryParam.getStepPrice())
 				;
 
 		IPage<TenantPriceStep> tenantPriceStepPage = tenantPriceStepService.page(pageTenantPriceStep, queryWrapperTenantPriceStep);
@@ -91,7 +87,7 @@ public class TenantPriceStepRestController {
 		return tenantPriceStepVoPage;
 	}
 
-	@ApiOperation(value = "新增价格阶梯")
+	@ApiOperation(value = "新增水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps", method = RequestMethod.POST)
 	public TenantPriceStepVo save(@RequestBody TenantPriceStep tenantPriceStep) {
 		if (tenantPriceStep.getId() == null || tenantPriceStep.getId().compareTo(0L) <= 0) {
@@ -106,7 +102,7 @@ public class TenantPriceStepRestController {
 		return null;
 	}
 
-	@ApiOperation(value = "更新价格阶梯全部信息")
+	@ApiOperation(value = "更新水价阶梯全部信息")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.PUT)
 	public TenantPriceStepVo updateById(@PathVariable("id") Long id, @RequestBody TenantPriceStep tenantPriceStep) {
 		tenantPriceStep.setId(id);
@@ -119,16 +115,24 @@ public class TenantPriceStepRestController {
 		return null;
 	}
 
-	@ApiOperation(value = "根据参数更新价格阶梯信息")
+	@ApiOperation(value = "根据参数更新水价阶梯信息")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.PATCH)
 	public TenantPriceStepVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPriceStep tenantPriceStep) {
+        TenantPriceStep tenantPriceStepWhere = TenantPriceStep.builder()//
+				.id(id)//
+				.build();
 		UpdateWrapper<TenantPriceStep> updateWrapperTenantPriceStep = new UpdateWrapper<TenantPriceStep>();
+		updateWrapperTenantPriceStep.setEntity(tenantPriceStepWhere);
 		updateWrapperTenantPriceStep.lambda()//
-				.eq(TenantPriceStep::getId, id)
+				//.eq(TenantPriceStep::getId, id)
 				// .set(tenantPriceStep.getId() != null, TenantPriceStep::getId, tenantPriceStep.getId())
 				.set(tenantPriceStep.getTenantId() != null, TenantPriceStep::getTenantId, tenantPriceStep.getTenantId())
 				.set(tenantPriceStep.getPriceTypeId() != null, TenantPriceStep::getPriceTypeId, tenantPriceStep.getPriceTypeId())
 				.set(tenantPriceStep.getPriceItemId() != null, TenantPriceStep::getPriceItemId, tenantPriceStep.getPriceItemId())
+				.set(tenantPriceStep.getStepNo() != null, TenantPriceStep::getStepNo, tenantPriceStep.getStepNo())
+				.set(tenantPriceStep.getStartWaters() != null, TenantPriceStep::getStartWaters, tenantPriceStep.getStartWaters())
+				.set(tenantPriceStep.getEndWaters() != null, TenantPriceStep::getEndWaters, tenantPriceStep.getEndWaters())
+				.set(tenantPriceStep.getStepPrice() != null, TenantPriceStep::getStepPrice, tenantPriceStep.getStepPrice())
 				;
 
 		boolean success = tenantPriceStepService.update(updateWrapperTenantPriceStep);
@@ -141,7 +145,7 @@ public class TenantPriceStepRestController {
 		return null;
 	}
 
-	@ApiOperation(value = "根据ID删除价格阶梯")
+	@ApiOperation(value = "根据ID删除水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
 		boolean success = tenantPriceStepService.removeById(id);
@@ -149,6 +153,10 @@ public class TenantPriceStepRestController {
 	}
 
 	private TenantPriceStepVo entity2vo(TenantPriceStep tenantPriceStep) {
+		if (tenantPriceStep == null) {
+			return null;
+		}
+
 		String jsonString = JSON.toJSONString(tenantPriceStep);
 		TenantPriceStepVo tenantPriceStepVo = JSON.parseObject(jsonString, TenantPriceStepVo.class);
 		if (StringUtils.isEmpty(tenantPriceStepVo.getTenantName())) {

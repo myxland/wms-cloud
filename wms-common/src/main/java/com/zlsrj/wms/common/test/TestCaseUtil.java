@@ -553,6 +553,13 @@ public class TestCaseUtil {
 	public static BigDecimal rate() {
 		return RandomUtil.randomBigDecimal().setScale(2, RoundingMode.HALF_UP);
 	}
+	
+	/**
+	 * @return 水量
+	 */
+	public static BigDecimal water() {
+		return new BigDecimal(RandomUtil.randomInt(1000));
+	}
 
 //	public static void main(String[] args) {
 //		System.out.println("公司名：" + TestCaseUtil.companyName());

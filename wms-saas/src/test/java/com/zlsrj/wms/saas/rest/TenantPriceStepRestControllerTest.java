@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.math.BigDecimal;
 
@@ -62,14 +62,14 @@ public class TenantPriceStepRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 系统ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
-		// params.add("priceTypeId",RandomUtil.randomLong());// 价格类别
-		// params.add("priceItemId",RandomUtil.randomLong());// 费用项目
-		// params.add("stepId",RandomUtil.randomLong());// 阶梯号
-		// params.add("startNum",RandomUtil.randomInt(0,1000+1));// 起始量
-		// params.add("endNum",RandomUtil.randomInt(0,1000+1));// 终止量
-		// params.add("price",new BigDecimal(0));// 价格
+		// params.add("id",TestCaseUtil.id());// 价格阶梯ID
+		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("priceTypeId",RandomUtil.randomLong());// 价格类别ID
+		// params.add("priceItemId",RandomUtil.randomLong());// 费用项目ID
+		// params.add("stepNo",RandomUtil.randomInt(0,1000+1));// 阶梯号
+		// params.add("startWaters",new BigDecimal(0));// 起始量
+		// params.add("endWaters",new BigDecimal(0));// 终止量
+		// params.add("stepPrice",new BigDecimal(0));// 价格
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-steps").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -82,10 +82,14 @@ public class TenantPriceStepRestControllerTest {
 	public void saveTest() throws Exception {
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+				.id(TestCaseUtil.id())// 价格阶梯ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
+				.startWaters(new BigDecimal(0))// 起始量
+				.endWaters(new BigDecimal(0))// 终止量
+				.stepPrice(new BigDecimal(0))// 价格
 				.build();
 
 		String responseString = mockMvc
@@ -103,10 +107,14 @@ public class TenantPriceStepRestControllerTest {
 		Long id = 1L;
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+				//.id(TestCaseUtil.id())// 价格阶梯ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
+				.startWaters(new BigDecimal(0))// 起始量
+				.endWaters(new BigDecimal(0))// 终止量
+				.stepPrice(new BigDecimal(0))// 价格
 				.build();
 
 		String responseString = mockMvc
@@ -124,13 +132,13 @@ public class TenantPriceStepRestControllerTest {
 		Long id = 1L;
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户编号
-				//.priceTypeId(RandomUtil.randomLong())// 价格类别
-				//.priceItemId(RandomUtil.randomLong())// 费用项目
-				//.stepId(RandomUtil.randomLong())// 阶梯号
-				//.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
-				//.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
-				//.price(new BigDecimal(0))// 价格
+				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.priceTypeId(RandomUtil.randomLong())// 价格类别ID
+				//.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				//.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
+				//.startWaters(new BigDecimal(0))// 起始量
+				//.endWaters(new BigDecimal(0))// 终止量
+				//.stepPrice(new BigDecimal(0))// 价格
 				.build();
 
 		String responseString = mockMvc

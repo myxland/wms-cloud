@@ -25,48 +25,47 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_tenant_price_step")
-@ApiModel(value = "TenantPriceStep对象", description = "价格阶梯")
+@TableName("tenant_price_step")
+@ApiModel(value = "TenantPriceStep对象", description = "水价阶梯")
 public class TenantPriceStep implements Serializable {
 
 	private static final long serialVersionUID = 1113721127569712549L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "价格阶梯ID")
 	@TableId(value = "id", type = IdType.INPUT)
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long tenantId;
 
-	@ApiModelProperty(value = "价格类别")
+	@ApiModelProperty(value = "价格类别ID")
 	@TableField("price_type_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long priceTypeId;
 
-	@ApiModelProperty(value = "费用项目")
+	@ApiModelProperty(value = "费用项目ID")
 	@TableField("price_item_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long priceItemId;
 
 	@ApiModelProperty(value = "阶梯号")
-	@TableField("step_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long stepId;
+	@TableField("step_no")
+	private Integer stepNo;
 
 	@ApiModelProperty(value = "起始量")
-	@TableField("start_num")
-	private Integer startNum;
+	@TableField("start_waters")
+	private BigDecimal startWaters;
 
 	@ApiModelProperty(value = "终止量")
-	@TableField("end_num")
-	private Integer endNum;
+	@TableField("end_waters")
+	private BigDecimal endWaters;
 
 	@ApiModelProperty(value = "价格")
-	@TableField("price")
-	private BigDecimal price;
+	@TableField("step_price")
+	private BigDecimal stepPrice;
 
 
 }

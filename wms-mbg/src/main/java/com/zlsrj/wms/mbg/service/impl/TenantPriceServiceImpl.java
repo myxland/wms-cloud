@@ -84,10 +84,6 @@ public class TenantPriceServiceImpl implements ITenantPriceService {
 					.tenantId(tenantInfo.getId())// 租户编号
 					.priceTypeId(denizenPriceTypeId)// 价格类别
 					.priceItemId(waterPriceItemId)// 费用项目
-					.stepId(new Long(i + 1))// 阶梯号
-					.startNum(min)// 起始量
-					.endNum(max)// 终止量
-					.price(new BigDecimal(0))// 价格
 					.build();
 
 			tenantPriceStepService.getBaseMapper().insert(tenantPriceStep);

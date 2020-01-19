@@ -13,7 +13,7 @@ import com.zlsrj.wms.api.entity.TenantPriceStep;
 import com.zlsrj.wms.api.vo.TenantPriceStepVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-@FeignClient(value = "WMS-MBG", contextId = "TenantPriceStep")
+@FeignClient(value = "WMS-SAAS", contextId = "TenantPriceStep")
 public interface TenantPriceStepClientService {
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.GET)
 	public TenantPriceStepVo getById(@PathVariable("id") Long id);

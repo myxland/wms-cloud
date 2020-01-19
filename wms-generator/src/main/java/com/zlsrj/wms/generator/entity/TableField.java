@@ -59,6 +59,9 @@ public class TableField implements Serializable {
 	private int gridWidth = 100;/* Grid宽度值 */
 	private String gridAlign = "left";/* Grid对齐方式，left,center,right */
 
+	private String refEntityName;/*id字段引用表 TenantDepartment*/
+	//private String refEntityId;/*id字段引用表ID id*/
+	//private String refEntityText;/*id字段引用表名称 departmentName*/
 	/**
 	 * @return aaa_bbb_cc -> aaaBbbCc 数据库列名转java驼峰属性值
 	 */

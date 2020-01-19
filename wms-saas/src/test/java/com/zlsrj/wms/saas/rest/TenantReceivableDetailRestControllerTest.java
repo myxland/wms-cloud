@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.rest;
+package com.zlsrj.wms.saas.rest;
 
 import java.math.BigDecimal;
 
@@ -20,7 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
-import com.zlsrj.wms.api.entity.TenantPriceStep;
+import com.zlsrj.wms.api.entity.TenantReceivableDetail;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class TenantPriceStepRestControllerTest {
+public class TenantReceivableDetailRestControllerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
@@ -47,7 +47,7 @@ public class TenantPriceStepRestControllerTest {
 	@Test
 	public void getByIdTest() throws Exception {
 		Long id = 1L;
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-steps" + "/" + id))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-receivable-details" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
@@ -62,16 +62,18 @@ public class TenantPriceStepRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 系统ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户编号
-		// params.add("priceTypeId",RandomUtil.randomLong());// 价格类别
-		// params.add("priceItemId",RandomUtil.randomLong());// 费用项目
-		// params.add("stepId",RandomUtil.randomLong());// 阶梯号
-		// params.add("startNum",RandomUtil.randomInt(0,1000+1));// 起始量
-		// params.add("endNum",RandomUtil.randomInt(0,1000+1));// 终止量
-		// params.add("price",new BigDecimal(0));// 价格
+		// params.add("id",TestCaseUtil.id());// 应收明细账ID
+		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("receivableId",RandomUtil.randomLong());// 应收总账ID
+		// params.add("priceStepId",RandomUtil.randomLong());// 价格阶梯ID
+		// params.add("receivableWaters",new BigDecimal(0));// 应收水量
+		// params.add("arrearsWaters",new BigDecimal(0));// 欠费水量
+		// params.add("priceItemId",RandomUtil.randomLong());// 费用项目ID
+		// params.add("detailPrice",new BigDecimal(0));// 价格
+		// params.add("receivableMoney",new BigDecimal(0));// 应收金额
+		// params.add("arrearsMoney",new BigDecimal(0));// 欠费金额
 
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-steps").params(params))
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-receivable-details").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString();
@@ -81,15 +83,21 @@ public class TenantPriceStepRestControllerTest {
 	@Test
 	public void saveTest() throws Exception {
 
-		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
+				.id(TestCaseUtil.id())// 应收明细账ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.receivableId(RandomUtil.randomLong())// 应收总账ID
+				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.receivableWaters(new BigDecimal(0))// 应收水量
+				.arrearsWaters(new BigDecimal(0))// 欠费水量
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.detailPrice(new BigDecimal(0))// 价格
+				.receivableMoney(new BigDecimal(0))// 应收金额
+				.arrearsMoney(new BigDecimal(0))// 欠费金额
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.post("/tenant-price-steps").content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.post("/tenant-receivable-details").content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -102,15 +110,21 @@ public class TenantPriceStepRestControllerTest {
 	public void updateByIdTest() throws Exception {
 		Long id = 1L;
 
-		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
+				//.id(TestCaseUtil.id())// 应收明细账ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.receivableId(RandomUtil.randomLong())// 应收总账ID
+				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.receivableWaters(new BigDecimal(0))// 应收水量
+				.arrearsWaters(new BigDecimal(0))// 欠费水量
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.detailPrice(new BigDecimal(0))// 价格
+				.receivableMoney(new BigDecimal(0))// 应收金额
+				.arrearsMoney(new BigDecimal(0))// 欠费金额
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.put("/tenant-price-steps" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.put("/tenant-receivable-details" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -123,18 +137,20 @@ public class TenantPriceStepRestControllerTest {
 	public void updatePatchById() throws Exception {
 		Long id = 1L;
 
-		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户编号
-				//.priceTypeId(RandomUtil.randomLong())// 价格类别
-				//.priceItemId(RandomUtil.randomLong())// 费用项目
-				//.stepId(RandomUtil.randomLong())// 阶梯号
-				//.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
-				//.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
-				//.price(new BigDecimal(0))// 价格
+		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
+				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.receivableId(RandomUtil.randomLong())// 应收总账ID
+				//.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				//.receivableWaters(new BigDecimal(0))// 应收水量
+				//.arrearsWaters(new BigDecimal(0))// 欠费水量
+				//.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				//.detailPrice(new BigDecimal(0))// 价格
+				//.receivableMoney(new BigDecimal(0))// 应收金额
+				//.arrearsMoney(new BigDecimal(0))// 欠费金额
 				.build();
 
 		String responseString = mockMvc
-				.perform(MockMvcRequestBuilders.patch("/tenant-price-steps" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
+				.perform(MockMvcRequestBuilders.patch("/tenant-receivable-details" + "/" + id).content(JSON.toJSONString(tenantInfo)) //
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -147,7 +163,7 @@ public class TenantPriceStepRestControllerTest {
 	public void removeById() throws Exception {
 		Long id = 1L;
 
-		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-price-steps" + "/" + id)) //
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-receivable-details" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
 				.andReturn().getResponse().getContentAsString(); // 将相应的数据转换为字符

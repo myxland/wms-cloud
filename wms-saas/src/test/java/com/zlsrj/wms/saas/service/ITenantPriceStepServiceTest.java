@@ -1,4 +1,4 @@
-package com.zlsrj.wms.mbg.service;
+package com.zlsrj.wms.saas.service;
 
 import java.math.BigDecimal;
 
@@ -27,10 +27,14 @@ public class ITenantPriceStepServiceTest {
 	@Test
 	public void insertTest() {
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-				.id(TestCaseUtil.id())// 系统ID
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+				.id(TestCaseUtil.id())// 价格阶梯ID
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
+				.startWaters(new BigDecimal(0))// 起始量
+				.endWaters(new BigDecimal(0))// 终止量
+				.stepPrice(new BigDecimal(0))// 价格
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantPriceStep, ToStringStyle.MULTI_LINE_STYLE));
@@ -46,9 +50,13 @@ public class ITenantPriceStepServiceTest {
 		Long id = 1L;
 
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户编号
-				.priceTypeId(RandomUtil.randomLong())// 价格类别
-				.priceItemId(RandomUtil.randomLong())// 费用项目
+				.tenantId(RandomUtil.randomLong())// 租户ID
+				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
+				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
+				.startWaters(new BigDecimal(0))// 起始量
+				.endWaters(new BigDecimal(0))// 终止量
+				.stepPrice(new BigDecimal(0))// 价格
 				.build();
 		tenantPriceStep.setId(id);
 

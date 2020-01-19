@@ -48,10 +48,6 @@ public class TenantPriceStepMapperTest {
 				.tenantId(RandomUtil.randomLong())// 租户编号
 				.priceTypeId(RandomUtil.randomLong())// 价格类别
 				.priceItemId(RandomUtil.randomLong())// 费用项目
-				.stepId(RandomUtil.randomLong())// 阶梯号
-				.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
-				.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
-				.price(new BigDecimal(0))// 价格
 				.build();
 				
 		int count = tenantPriceStepMapper.insert(tenantPriceStep);

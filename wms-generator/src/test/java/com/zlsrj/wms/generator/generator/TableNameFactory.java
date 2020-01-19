@@ -20,6 +20,7 @@ public class TableNameFactory {
 				"tenant_water_area",//
 				"tenant_price_item",//
 				"tenant_price_type",//
+				"tenant_price_step",//
 				"tenant_water_type",//
 				"tenant_manufactor",//
 				"tenant_caliber",//
@@ -32,11 +33,10 @@ public class TableNameFactory {
 				"tenant_meter_read_log_current",//
 				"tenant_config_sms",//
 				"tenant_customer_meter_change_log",//
-				"",//
-				"",//
-				"",//
-				"",//
-				"",//
+				"tenant_receivable",//
+				"tenant_receivable_detail",//
+				"tenant_payment",//
+				"tenant_payment_detail",//
 				""
 				);
 		
