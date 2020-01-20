@@ -13,6 +13,8 @@ import com.zlsrj.wms.api.entity.TenantReceivable;
 import com.zlsrj.wms.api.vo.TenantReceivableVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
+import io.swagger.annotations.ApiOperation;
+
 @FeignClient(value = "WMS-SAAS", contextId = "TenantReceivable")
 public interface TenantReceivableClientService {
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.GET)
@@ -25,6 +27,9 @@ public interface TenantReceivableClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	@RequestMapping(value = "/tenant-receivables/aggregation", method = RequestMethod.GET)
+	public TenantReceivableVo aggregation(@RequestBody TenantReceivableQueryParam tenantReceivableQueryParam);
 
 	@RequestMapping(value = "/tenant-receivables", method = RequestMethod.POST)
 	public TenantReceivableVo save(@RequestBody TenantReceivable tenantReceivable);

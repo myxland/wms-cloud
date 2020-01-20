@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -110,6 +109,49 @@ public class TenantReceivableRestController {
 				.collect(Collectors.toList()));
 
 		return tenantReceivableVoPage;
+	}
+	
+	@ApiOperation(value = "根据参数查询应收明细统计")
+	@RequestMapping(value = "/tenant-receivables/aggregation", method = RequestMethod.GET)
+	public TenantReceivableVo aggregation(@RequestBody TenantReceivableQueryParam tenantReceivableQueryParam) {
+		QueryWrapper<TenantReceivable> queryWrapperTenantReceivable = new QueryWrapper<TenantReceivable>();
+		queryWrapperTenantReceivable.lambda()
+				.eq(tenantReceivableQueryParam.getId() != null, TenantReceivable::getId, tenantReceivableQueryParam.getId())
+				.eq(tenantReceivableQueryParam.getTenantId() != null, TenantReceivable::getTenantId, tenantReceivableQueryParam.getTenantId())
+				.eq(tenantReceivableQueryParam.getReceivableStatus() != null, TenantReceivable::getReceivableStatus, tenantReceivableQueryParam.getReceivableStatus())
+				.eq(tenantReceivableQueryParam.getReceivableType() != null, TenantReceivable::getReceivableType, tenantReceivableQueryParam.getReceivableType())
+				.eq(tenantReceivableQueryParam.getDepartmentId() != null, TenantReceivable::getDepartmentId, tenantReceivableQueryParam.getDepartmentId())
+				.eq(tenantReceivableQueryParam.getBookletId() != null, TenantReceivable::getBookletId, tenantReceivableQueryParam.getBookletId())
+				.eq(tenantReceivableQueryParam.getBookletCode() != null, TenantReceivable::getBookletCode, tenantReceivableQueryParam.getBookletCode())
+				.eq(tenantReceivableQueryParam.getCustomerId() != null, TenantReceivable::getCustomerId, tenantReceivableQueryParam.getCustomerId())
+				.eq(tenantReceivableQueryParam.getCustomerCode() != null, TenantReceivable::getCustomerCode, tenantReceivableQueryParam.getCustomerCode())
+				.eq(tenantReceivableQueryParam.getCustomerName() != null, TenantReceivable::getCustomerName, tenantReceivableQueryParam.getCustomerName())
+				.eq(tenantReceivableQueryParam.getCustomerAddress() != null, TenantReceivable::getCustomerAddress, tenantReceivableQueryParam.getCustomerAddress())
+				.eq(tenantReceivableQueryParam.getMeterId() != null, TenantReceivable::getMeterId, tenantReceivableQueryParam.getMeterId())
+				.eq(tenantReceivableQueryParam.getMeterCode() != null, TenantReceivable::getMeterCode, tenantReceivableQueryParam.getMeterCode())
+				.eq(tenantReceivableQueryParam.getMeterAddress() != null, TenantReceivable::getMeterAddress, tenantReceivableQueryParam.getMeterAddress())
+				.eq(tenantReceivableQueryParam.getReadEmployeeId() != null, TenantReceivable::getReadEmployeeId, tenantReceivableQueryParam.getReadEmployeeId())
+				.eq(tenantReceivableQueryParam.getReceivableTime() != null, TenantReceivable::getReceivableTime, tenantReceivableQueryParam.getReceivableTime())
+				.ge(tenantReceivableQueryParam.getReceivableTimeStart() != null, TenantReceivable::getReceivableTime,tenantReceivableQueryParam.getReceivableTimeStart() == null ? null: DateUtil.beginOfDay(tenantReceivableQueryParam.getReceivableTimeStart()))
+				.le(tenantReceivableQueryParam.getReceivableTimeEnd() != null, TenantReceivable::getReceivableTime,tenantReceivableQueryParam.getReceivableTimeEnd() == null ? null: DateUtil.endOfDay(tenantReceivableQueryParam.getReceivableTimeEnd()))
+				.eq(tenantReceivableQueryParam.getSettleStartTime() != null, TenantReceivable::getSettleStartTime, tenantReceivableQueryParam.getSettleStartTime())
+				.ge(tenantReceivableQueryParam.getSettleStartTimeStart() != null, TenantReceivable::getSettleStartTime,tenantReceivableQueryParam.getSettleStartTimeStart() == null ? null: DateUtil.beginOfDay(tenantReceivableQueryParam.getSettleStartTimeStart()))
+				.le(tenantReceivableQueryParam.getSettleStartTimeEnd() != null, TenantReceivable::getSettleStartTime,tenantReceivableQueryParam.getSettleStartTimeEnd() == null ? null: DateUtil.endOfDay(tenantReceivableQueryParam.getSettleStartTimeEnd()))
+				.eq(tenantReceivableQueryParam.getSettleStartPointer() != null, TenantReceivable::getSettleStartPointer, tenantReceivableQueryParam.getSettleStartPointer())
+				.eq(tenantReceivableQueryParam.getSettleEndTime() != null, TenantReceivable::getSettleEndTime, tenantReceivableQueryParam.getSettleEndTime())
+				.ge(tenantReceivableQueryParam.getSettleEndTimeStart() != null, TenantReceivable::getSettleEndTime,tenantReceivableQueryParam.getSettleEndTimeStart() == null ? null: DateUtil.beginOfDay(tenantReceivableQueryParam.getSettleEndTimeStart()))
+				.le(tenantReceivableQueryParam.getSettleEndTimeEnd() != null, TenantReceivable::getSettleEndTime,tenantReceivableQueryParam.getSettleEndTimeEnd() == null ? null: DateUtil.endOfDay(tenantReceivableQueryParam.getSettleEndTimeEnd()))
+				.eq(tenantReceivableQueryParam.getSettleEndPointer() != null, TenantReceivable::getSettleEndPointer, tenantReceivableQueryParam.getSettleEndPointer())
+				.eq(tenantReceivableQueryParam.getSettleWaters() != null, TenantReceivable::getSettleWaters, tenantReceivableQueryParam.getSettleWaters())
+				.eq(tenantReceivableQueryParam.getPriceTypeId() != null, TenantReceivable::getPriceTypeId, tenantReceivableQueryParam.getPriceTypeId())
+				.eq(tenantReceivableQueryParam.getReceivableWaters() != null, TenantReceivable::getReceivableWaters, tenantReceivableQueryParam.getReceivableWaters())
+				.eq(tenantReceivableQueryParam.getReceivableMoney() != null, TenantReceivable::getReceivableMoney, tenantReceivableQueryParam.getReceivableMoney())
+				.eq(tenantReceivableQueryParam.getArrearsMoney() != null, TenantReceivable::getArrearsMoney, tenantReceivableQueryParam.getArrearsMoney())
+				;
+
+		TenantReceivable tenantReceivable = tenantReceivableService.getAggregation(queryWrapperTenantReceivable);
+		
+		return entity2vo(tenantReceivable);
 	}
 
 	@ApiOperation(value = "新增应收明细")

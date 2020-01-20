@@ -44,8 +44,10 @@ public class TenantReceivableController {
 			int pageSize) {
 		Page<TenantReceivableVo> tenantReceivableVoPage = tenantReceivableClientService.page(tenantReceivableQueryParam, pageNum, pageSize, "id", "desc");
 		tenantReceivableVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+		
+		TenantReceivableVo tenantReceivableVoAggregation = tenantReceivableClientService.aggregation(tenantReceivableQueryParam);
 
-		CommonPage<TenantReceivableVo> tenantReceivableCommonPage = CommonPage.restPage(tenantReceivableVoPage);
+		CommonPage<TenantReceivableVo> tenantReceivableCommonPage = CommonPage.restPage(tenantReceivableVoPage,tenantReceivableVoAggregation);
 
 		return CommonResult.success(tenantReceivableCommonPage);
 	}

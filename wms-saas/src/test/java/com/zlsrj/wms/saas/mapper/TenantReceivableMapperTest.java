@@ -137,4 +137,15 @@ public class TenantReceivableMapperTest {
 		
 	}
 	
+	@Test
+	public void selectAggregation() {
+		QueryWrapper<TenantReceivable> queryWrapper = new QueryWrapper<TenantReceivable>();
+		queryWrapper.lambda()//
+				.eq(TenantReceivable::getTenantId, 1L)//
+		;
+		TenantReceivable tenantReceivableAggregation = tenantReceivableMapper.selectAggregation(queryWrapper);
+		
+		log.info("tenantReceivableAggregation={}", tenantReceivableAggregation);
+	}
+	
 }

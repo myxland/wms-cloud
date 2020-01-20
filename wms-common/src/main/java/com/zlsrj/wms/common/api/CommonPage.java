@@ -10,6 +10,7 @@ public class CommonPage<T> {
 	private Long totalPage;
 	private Long total;
 	private List<T> list;
+	private T footer;
 
 //	/**
 //	 * 将PageHelper分页后的list转为分页信息
@@ -45,6 +46,18 @@ public class CommonPage<T> {
 		result.setPageSize(page.getSize());
 		result.setTotal(page.getTotal());
 		result.setList(page.getRecords());
+		
+		return result;
+	}
+	
+	public static <T> CommonPage<T> restPage(IPage<T> page,T footer) {
+		CommonPage<T> result = new CommonPage<T>();
+		result.setTotalPage(page.getPages());
+		result.setPageNum(page.getCurrent());
+		result.setPageSize(page.getSize());
+		result.setTotal(page.getTotal());
+		result.setList(page.getRecords());
+		result.setFooter(footer);
 		
 		return result;
 	}
@@ -87,5 +100,13 @@ public class CommonPage<T> {
 
 	public void setTotal(Long total) {
 		this.total = total;
+	}
+	
+	public T getFooter() {
+		return footer;
+	}
+	
+	public void setFooter(T footer) {
+		this.footer = footer;
 	}
 }
