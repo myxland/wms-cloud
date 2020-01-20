@@ -216,4 +216,18 @@ public class TableInfo implements Serializable {
 	public boolean isIncludeParentId() {
 		return columnList.stream().filter(column -> column.getColumnName().endsWith("parent_id")).count() > 0;
 	}
+	
+	@JSONField(serialize = false)
+	public boolean isIncludeAggregation() {
+		return columnList.stream().filter(column -> ("BigDecimal".equals(column.getPropertyType()))
+				|| ("Integer".equals(column.getPropertyType()) && (column.getPropertyOptionList().size()==0))).count() > 0;
+	}
+	
+	@JSONField(serialize = false)
+	public List<TableField> getAggregationColumnList() {
+		return columnList.stream()
+				.filter(column -> ("BigDecimal".equals(column.getPropertyType()))
+						|| ("Integer".equals(column.getPropertyType()) && (column.getPropertyOptionList().size()==0)))
+				.collect(Collectors.toList());
+	}
 }

@@ -198,7 +198,7 @@ public class GeneratorTest {
 						"includeSysOne2One", "includeSysOne2Many", "includeModuleId", "includeModuleOne2One",
 						"includeModuleOne2Many", "includeSingleUpdatable", "singleUpdatableColumnList",
 						"includeBatchUpdatable", "batchUpdatableColumnList", "includeNotNullabe",
-						"notNullabeColumnList", "includeParentId" };
+						"notNullabeColumnList", "includeParentId", "includeAggregation", "aggregationColumnList" };
 
 				BeanUtil.copyProperties(tableInfoBak, tableInfo, IGNORE_PROPERTIES); // 忽略属性
 				// columnList
