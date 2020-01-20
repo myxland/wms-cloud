@@ -33,6 +33,10 @@ public class TenantMeterReadLogCurrentVo implements Serializable {
 	@ApiModelProperty(value = "结算月份")
 	private Date readMonth;
 
+	@ApiModelProperty(value = "用户ID")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long customerId;
+
 	@ApiModelProperty(value = "水表ID")
 	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long meterId;

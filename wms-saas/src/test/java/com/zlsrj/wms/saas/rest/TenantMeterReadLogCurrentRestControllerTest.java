@@ -66,6 +66,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 		// params.add("id",TestCaseUtil.id());// 抄表计划
 		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
 		// params.add("readMonth",new Date());// 结算月份
+		// params.add("customerId",RandomUtil.randomLong());// 用户ID
 		// params.add("meterId",RandomUtil.randomLong());// 水表ID
 		// params.add("meterYearTotalWatersBefore",new BigDecimal(0));// 结算前水表当年累计水量
 		// params.add("settleStartTime",new Date());// 结算开始时间
@@ -98,6 +99,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 				.id(TestCaseUtil.id())// 抄表计划
 				.tenantId(RandomUtil.randomLong())// 租户ID
 				.readMonth(new Date())// 结算月份
+				.customerId(RandomUtil.randomLong())// 用户ID
 				.meterId(RandomUtil.randomLong())// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间
@@ -135,6 +137,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 				//.id(TestCaseUtil.id())// 抄表计划
 				.tenantId(RandomUtil.randomLong())// 租户ID
 				.readMonth(new Date())// 结算月份
+				.customerId(RandomUtil.randomLong())// 用户ID
 				.meterId(RandomUtil.randomLong())// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间
@@ -171,6 +174,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 		TenantMeterReadLogCurrent tenantInfo = TenantMeterReadLogCurrent.builder()//
 				//.tenantId(RandomUtil.randomLong())// 租户ID
 				//.readMonth(new Date())// 结算月份
+				//.customerId(RandomUtil.randomLong())// 用户ID
 				//.meterId(RandomUtil.randomLong())// 水表ID
 				//.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				//.settleStartTime(new Date())// 结算开始时间

@@ -31,6 +31,7 @@ public class ITenantMeterReadLogCurrentServiceTest {
 				.id(TestCaseUtil.id())// 抄表计划
 				.tenantId(RandomUtil.randomLong())// 租户ID
 				.readMonth(new Date())// 结算月份
+				.customerId(RandomUtil.randomLong())// 用户ID
 				.meterId(RandomUtil.randomLong())// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间
@@ -65,6 +66,7 @@ public class ITenantMeterReadLogCurrentServiceTest {
 		TenantMeterReadLogCurrent tenantMeterReadLogCurrent = TenantMeterReadLogCurrent.builder()//
 				.tenantId(RandomUtil.randomLong())// 租户ID
 				.readMonth(new Date())// 结算月份
+				.customerId(RandomUtil.randomLong())// 用户ID
 				.meterId(RandomUtil.randomLong())// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间

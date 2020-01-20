@@ -46,6 +46,11 @@ public class TenantMeterReadLogCurrent implements Serializable {
 	@TableField("read_month")
 	private Date readMonth;
 
+	@ApiModelProperty(value = "用户ID")
+	@TableField("customer_id")
+	@JSONField(serializeUsing = ToStringSerializer.class)
+	private Long customerId;
+
 	@ApiModelProperty(value = "水表ID")
 	@TableField("meter_id")
 	@JSONField(serializeUsing = ToStringSerializer.class)

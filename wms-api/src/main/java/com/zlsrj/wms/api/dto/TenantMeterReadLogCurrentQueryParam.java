@@ -31,6 +31,9 @@ public class TenantMeterReadLogCurrentQueryParam implements Serializable {
 	@ApiModelProperty(value = "结算月份结束")
 	private Date readMonthEnd;
 
+	@ApiModelProperty(value = "用户ID")
+	private Long customerId;
+
 	@ApiModelProperty(value = "水表ID")
 	private Long meterId;
 
