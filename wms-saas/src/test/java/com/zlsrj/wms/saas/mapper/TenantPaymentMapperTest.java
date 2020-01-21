@@ -56,7 +56,7 @@ public class TenantPaymentMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			//tenantInfo = TenantInfo.builder().id(1L).build();
 			
 			TenantCustomer tenantCustomer = null;
 			List<TenantCustomer> tenantCustomerList = tenantCustomerMapper.selectList(new QueryWrapper<TenantCustomer>().lambda().eq(TenantCustomer::getTenantId, tenantInfo.getId()));
@@ -75,7 +75,7 @@ public class TenantPaymentMapperTest {
 					.tenantId(tenantInfo.getId())// 租户ID
 					.outTransno(RandomUtil.randomString(4))// 内部生成的订单号
 					.inTransno(RandomUtil.randomString(4))// 外部如微信支付宝传入的订单号
-					.payTime(new Date())// 付款时间
+					.payTime(TestCaseUtil.dateBefore())// 付款时间
 					.paymentStatus(RandomUtil.randomInt(1,3+1))// 实收账状态（1：正常；2：被退款；3：退款记录）
 					.customerId(tenantCustomer!=null?tenantCustomer.getId():null)// 用户ID
 					.chargeDepartmentId(tenantDepartment!=null?tenantDepartment.getId():null)// 收款部门ID
@@ -95,6 +95,17 @@ public class TenantPaymentMapperTest {
 			log.info("tenantPayment={}",tenantPayment);
 		}
 		
+	}
+	
+	@Test
+	public void selectAggregation() {
+		QueryWrapper<TenantPayment> wrapper = new QueryWrapper<TenantPayment>();
+		wrapper.lambda()//
+				.eq(TenantPayment::getTenantId, 1L)//
+		;
+		TenantPayment tenantPaymentAggregation = tenantPaymentMapper.selectAggregation(wrapper);
+		
+		log.info("tenantPaymentAggregation={}", tenantPaymentAggregation);
 	}
 	
 }

@@ -99,6 +99,37 @@ public class TenantPaymentRestController {
 
 		return tenantPaymentVoPage;
 	}
+	
+	@ApiOperation(value = "根据参数查询实收总账，记录每次缴费的总信息统计")
+	@RequestMapping(value = "/tenant-payments/aggregation", method = RequestMethod.GET)
+	public TenantPaymentVo aggregation(@RequestBody TenantPaymentQueryParam tenantPaymentQueryParam) {
+		QueryWrapper<TenantPayment> queryWrapperTenantPayment = new QueryWrapper<TenantPayment>();
+		queryWrapperTenantPayment.lambda()
+				.eq(tenantPaymentQueryParam.getId() != null, TenantPayment::getId, tenantPaymentQueryParam.getId())
+				.eq(tenantPaymentQueryParam.getTenantId() != null, TenantPayment::getTenantId, tenantPaymentQueryParam.getTenantId())
+				.eq(tenantPaymentQueryParam.getOutTransno() != null, TenantPayment::getOutTransno, tenantPaymentQueryParam.getOutTransno())
+				.eq(tenantPaymentQueryParam.getInTransno() != null, TenantPayment::getInTransno, tenantPaymentQueryParam.getInTransno())
+				.eq(tenantPaymentQueryParam.getPayTime() != null, TenantPayment::getPayTime, tenantPaymentQueryParam.getPayTime())
+				.ge(tenantPaymentQueryParam.getPayTimeStart() != null, TenantPayment::getPayTime,tenantPaymentQueryParam.getPayTimeStart() == null ? null: DateUtil.beginOfDay(tenantPaymentQueryParam.getPayTimeStart()))
+				.le(tenantPaymentQueryParam.getPayTimeEnd() != null, TenantPayment::getPayTime,tenantPaymentQueryParam.getPayTimeEnd() == null ? null: DateUtil.endOfDay(tenantPaymentQueryParam.getPayTimeEnd()))
+				.eq(tenantPaymentQueryParam.getPaymentStatus() != null, TenantPayment::getPaymentStatus, tenantPaymentQueryParam.getPaymentStatus())
+				.eq(tenantPaymentQueryParam.getCustomerId() != null, TenantPayment::getCustomerId, tenantPaymentQueryParam.getCustomerId())
+				.eq(tenantPaymentQueryParam.getChargeDepartmentId() != null, TenantPayment::getChargeDepartmentId, tenantPaymentQueryParam.getChargeDepartmentId())
+				.eq(tenantPaymentQueryParam.getChargeEmployeeId() != null, TenantPayment::getChargeEmployeeId, tenantPaymentQueryParam.getChargeEmployeeId())
+				.eq(tenantPaymentQueryParam.getPayChannels() != null, TenantPayment::getPayChannels, tenantPaymentQueryParam.getPayChannels())
+				.eq(tenantPaymentQueryParam.getPayMethod() != null, TenantPayment::getPayMethod, tenantPaymentQueryParam.getPayMethod())
+				.eq(tenantPaymentQueryParam.getCustomerBalanceMoneyBefore() != null, TenantPayment::getCustomerBalanceMoneyBefore, tenantPaymentQueryParam.getCustomerBalanceMoneyBefore())
+				.eq(tenantPaymentQueryParam.getCustomerPayMoney() != null, TenantPayment::getCustomerPayMoney, tenantPaymentQueryParam.getCustomerPayMoney())
+				.eq(tenantPaymentQueryParam.getCustomerBalanceMoneyHappen() != null, TenantPayment::getCustomerBalanceMoneyHappen, tenantPaymentQueryParam.getCustomerBalanceMoneyHappen())
+				.eq(tenantPaymentQueryParam.getPayTheArrearsMoney() != null, TenantPayment::getPayTheArrearsMoney, tenantPaymentQueryParam.getPayTheArrearsMoney())
+				.eq(tenantPaymentQueryParam.getPayTheLateFeeMoney() != null, TenantPayment::getPayTheLateFeeMoney, tenantPaymentQueryParam.getPayTheLateFeeMoney())
+				.eq(tenantPaymentQueryParam.getCustomerBalanceMoneyAfter() != null, TenantPayment::getCustomerBalanceMoneyAfter, tenantPaymentQueryParam.getCustomerBalanceMoneyAfter())
+				;
+
+		TenantPayment tenantPayment = tenantPaymentService.getAggregation(queryWrapperTenantPayment);
+		
+		return entity2vo(tenantPayment);
+	}
 
 	@ApiOperation(value = "新增实收总账，记录每次缴费的总信息")
 	@RequestMapping(value = "/tenant-payments", method = RequestMethod.POST)

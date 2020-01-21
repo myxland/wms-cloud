@@ -25,6 +25,9 @@ public interface TenantPaymentClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	@RequestMapping(value = "/tenant-payments/aggregation", method = RequestMethod.GET)
+	public TenantPaymentVo aggregation(@RequestBody TenantPaymentQueryParam tenantPaymentQueryParam);
 
 	@RequestMapping(value = "/tenant-payments", method = RequestMethod.POST)
 	public TenantPaymentVo save(@RequestBody TenantPayment tenantPayment);

@@ -77,7 +77,7 @@ public class TenantPayment implements Serializable {
 	@TableField("pay_channels")
 	private Integer payChannels;
 
-	@ApiModelProperty(value = "付款方式（1：现金；2：支票；3：刷卡；4：电汇；5：代扣；6：托收；7：微信生活缴费；8：支付宝生活缴费；9：微信公众号；10：微信扫码[用户被扫]；11：支付宝扫码[用户被扫]；12：微信扫码[用户主扫]；13：支付宝扫码[用户主扫]；0：预存抵扣）")
+	@ApiModelProperty(value = "付款方式（0：预存抵扣；1：现金；2：支票；3：刷卡；4：电汇；5：代扣；6：托收；7：微信生活缴费；8：支付宝生活缴费；9：微信公众号；10：微信扫码[用户被扫]；11：支付宝扫码[用户被扫]；12：微信扫码[用户主扫]；13：支付宝扫码[用户主扫]）")
 	@TableField("pay_method")
 	private Integer payMethod;
 

@@ -45,8 +45,9 @@ public class TenantPaymentController {
 		Page<TenantPaymentVo> tenantPaymentVoPage = tenantPaymentClientService.page(tenantPaymentQueryParam, pageNum, pageSize, "id", "desc");
 		tenantPaymentVoPage.getRecords().stream().forEach(v->wrappperVo(v));
 
-		CommonPage<TenantPaymentVo> tenantPaymentCommonPage = CommonPage.restPage(tenantPaymentVoPage);
+		TenantPaymentVo tenantPaymentVoAggregation = tenantPaymentClientService.aggregation(tenantPaymentQueryParam);
 
+		CommonPage<TenantPaymentVo> tenantPaymentCommonPage = CommonPage.restPage(tenantPaymentVoPage,tenantPaymentVoAggregation);
 		return CommonResult.success(tenantPaymentCommonPage);
 	}
 

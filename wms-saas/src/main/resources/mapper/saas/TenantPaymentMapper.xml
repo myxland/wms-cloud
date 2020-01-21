@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zlsrj.wms.saas.mapper.TenantPaymentMapper">
-
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantPayment">
+		SELECT
+			count(id) as id,
+			sum(customer_balance_money_before) as customer_balance_money_before,
+			sum(customer_pay_money) as customer_pay_money,
+			sum(customer_balance_money_happen) as customer_balance_money_happen,
+			sum(pay_the_arrears_money) as pay_the_arrears_money,
+			sum(pay_the_late_fee_money) as pay_the_late_fee_money,
+			sum(customer_balance_money_after) as customer_balance_money_after
+		FROM tenant_payment
+		${ew.customSqlSegment} 
+	</select>
 </mapper>
