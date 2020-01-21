@@ -164,4 +164,19 @@ public class ${table.entityName}MapperTest {
 		
 	}
 	
+	<#if table.includeAggregation>
+	@Test
+	public void selectAggregation() {
+		QueryWrapper<${table.entityName}> wrapper = new QueryWrapper<${table.entityName}>();
+		wrapper.lambda()//
+				<#if table.includeTenantId>
+				.eq(${table.entityName}::getTenantId, 1L)//
+				</#if>
+		;
+		${table.entityName} ${table.entityName?uncap_first}Aggregation = ${table.entityName?uncap_first}Mapper.selectAggregation(wrapper);
+		
+		log.info("${table.entityName?uncap_first}Aggregation={}", ${table.entityName?uncap_first}Aggregation);
+	}
+	
+	</#if>
 }

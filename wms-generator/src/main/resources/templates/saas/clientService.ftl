@@ -35,7 +35,12 @@ public interface ${table.entityName}ClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	<#if table.includeAggregation>
+	@RequestMapping(value = "/${table.restSegment}s/aggregation", method = RequestMethod.GET)
+	public ${table.entityName}Vo aggregation(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam);
 
+	</#if>
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.POST)
 	public ${table.entityName}Vo save(@RequestBody ${table.entityName} ${table.entityName?uncap_first});
 

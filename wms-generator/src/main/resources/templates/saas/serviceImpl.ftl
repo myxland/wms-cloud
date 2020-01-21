@@ -22,27 +22,17 @@ import org.springframework.stereotype.Service;
 
 <#if table.selectable>
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 </#if>
-<#if table.includeTenantOne2Many || table.includeModuleOne2Many>
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+<#if table.selectable || table.includeAggregation>
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 </#if>
 <#if table.selectable>
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 </#if>
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
-<#if table.includeTenantOne2One || table.includeTenantOne2Many>
-import ${domainName}.${projectNameApi}.entity.TenantInfo;
-</#if>
-<#if table.includeModuleOne2One || table.includeModuleOne2Many>
-import ${domainName}.${projectNameApi}.entity.ModuleInfo;
-</#if>
 
 import ${domainName}.${projectName}.mapper.${table.entityName}Mapper;
-<#if table.includeTenantOne2One || table.includeTenantOne2Many || table.includeModuleOne2One || table.includeModuleOne2Many>
-import ${domainName}.${projectName}.service.IIdService;
-</#if>
 import ${domainName}.${projectName}.service.I${table.entityName}Service;
 <#if table.selectable>
 import ${domainName}.${projectName}.service.RedisService;
@@ -60,10 +50,6 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 	<#if table.selectable>
 	@Resource
 	private RedisService<String, String> redisService;
-	</#if>
-	<#if table.includeTenantOne2One || table.includeTenantOne2Many || table.includeModuleOne2One || table.includeModuleOne2Many>
-	@Resource
-	private IIdService idService;
 	</#if>
 
 	<#if table.selectable>
@@ -115,6 +101,13 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 			}
 		}
 		return success;
+	}
+	
+	</#if>
+	<#if table.includeAggregation>
+	@Override
+	public ${table.entityName} getAggregation(Wrapper<${table.entityName}> wrapper) {
+		return baseMapper.selectAggregation(wrapper);
 	}
 	
 	</#if>

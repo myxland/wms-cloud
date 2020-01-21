@@ -133,7 +133,39 @@ public class ${table.entityName}RestController {
 
 		return ${table.entityName?uncap_first}VoPage;
 	}
+	
+	<#if table.includeAggregation>
+	@ApiOperation(value = "根据参数查询${table.tableComment}统计")
+	@RequestMapping(value = "/${table.restSegment}s/aggregation", method = RequestMethod.GET)
+	public ${table.entityName}Vo aggregation(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam) {
+		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
+		queryWrapper${table.entityName}.lambda()
+		<#list table.columnList as column>
+				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#if column.likeable>
+				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
+		</#if>
+		<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
+				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
+		</#if>
+		</#list>
+		<#if table.includeParentId>
+		<#list table.columnList as column>
+		<#if column.columnName?ends_with("_parent_id")>
+				.eq(${table.entityName?uncap_first}QueryParam.getParentId()!=null,${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.getParentId())
+				.isNull(${table.entityName?uncap_first}QueryParam.getParentId()==null, ${table.entityName}::get${column.propertyName?cap_first})
+		</#if>
+		</#list>
+		</#if>
+				;
 
+		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Service.getAggregation(queryWrapper${table.entityName});
+		
+		return entity2vo(${table.entityName?uncap_first});
+	}
+
+	</#if>
 	@ApiOperation(value = "新增${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.POST)
 	public ${table.entityName}Vo save(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {

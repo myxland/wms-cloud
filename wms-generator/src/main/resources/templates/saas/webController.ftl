@@ -75,8 +75,13 @@ public class ${table.entityName}Controller {
 		${table.entityName?uncap_first}VoPage.getRecords().stream().forEach(v->wrappperVo(v));
 		</#if>
 
-		CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage);
+		<#if table.includeAggregation>
+		${table.entityName}Vo ${table.entityName?uncap_first}VoAggregation = ${table.entityName?uncap_first}ClientService.aggregation(${table.entityName?uncap_first}QueryParam);
 
+		CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage,${table.entityName?uncap_first}VoAggregation);
+		<#else>
+		CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage);
+		</#if>
 		return CommonResult.success(${table.entityName?uncap_first}CommonPage);
 	}
 
