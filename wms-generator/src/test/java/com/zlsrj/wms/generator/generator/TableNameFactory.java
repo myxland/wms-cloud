@@ -43,6 +43,26 @@ public class TableNameFactory {
 				"tenant_customer_meter_change_log", //
 				"tenant_payment", //
 				"tenant_meter_read_log_current", //
+				"", //
+				"tenant_config_sms", //
+				"tenant_config_wx", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
 				"");
 		
 		List<String> filterList = list.stream().filter(s->StringUtils.isNotEmpty(s)).collect(Collectors.toList());
