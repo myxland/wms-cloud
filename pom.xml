@@ -32,6 +32,7 @@
 		<module>wms-flyway</module>
 		<module>wms-saas</module>
 		<module>wms-docker</module>
+		<module>wms-mq</module>
 	</modules>
 
 	<properties>
