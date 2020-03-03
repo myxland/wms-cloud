@@ -51,6 +51,8 @@
 
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<spring.data.redis.version>2.0.8.RELEASE</spring.data.redis.version>
+		
+		<rocketmq.client.version>4.6.1</rocketmq.client.version>
 	</properties>
 
 	<dependencyManagement>
