@@ -8,4 +8,4 @@ spring:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/newsaas
     username: root_top
-    password: root_Top
+    password: ENC(DqlW5ueDybAoWWQSoPGwX9Qq1SQfERao)

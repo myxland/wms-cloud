@@ -2,7 +2,7 @@ spring:
   datasource: 
     url: jdbc:mysql://localhost:3306/wop
     username: root
-    password: Abc123#$%123
+    password: ENC(uQlNcXwafbkFVHVbLnVihVnv/RK4nz55)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 eureka:
