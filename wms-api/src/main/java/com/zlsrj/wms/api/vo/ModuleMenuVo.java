@@ -35,7 +35,7 @@ public class ModuleMenuVo implements Serializable {
 	private String menuIcon;
 
 	@ApiModelProperty(value = "父菜单ID")
-	private Long menuParentId;
+	private String menuParentId;
 
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")
 	private Integer basicEditionOn;

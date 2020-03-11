@@ -29,7 +29,7 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private String customerId;
 
 	@ApiModelProperty(value = "新用户ID")
-	private Long csutomerIdNew;
+	private String csutomerIdNew;
 
 	@ApiModelProperty(value = "用户名称")
 	private String customerName;

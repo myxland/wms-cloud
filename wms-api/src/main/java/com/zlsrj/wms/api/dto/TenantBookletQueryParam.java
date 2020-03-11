@@ -22,10 +22,10 @@ public class TenantBookletQueryParam implements Serializable {
 	private String tenantId;
 
 	@ApiModelProperty(value = "所属部门ID")
-	private Long bookletDepartmentId;
+	private String bookletDepartmentId;
 
 	@ApiModelProperty(value = "所属供水区域ID")
-	private Long bookletWaterAreaId;
+	private String bookletWaterAreaId;
 
 	@ApiModelProperty(value = "表册代码")
 	private String bookletCode;
@@ -34,10 +34,10 @@ public class TenantBookletQueryParam implements Serializable {
 	private String bookletName;
 
 	@ApiModelProperty(value = "抄表员ID")
-	private Long bookletReadEmployeeId;
+	private String bookletReadEmployeeId;
 
 	@ApiModelProperty(value = "收费员ID")
-	private Long bookletChargeEmployeeId;
+	private String bookletChargeEmployeeId;
 
 	@ApiModelProperty(value = "结算间隔周期[月]")
 	private Integer bookletSettleCycleInterval;
