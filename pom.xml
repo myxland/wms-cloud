@@ -9,30 +9,18 @@
 	</parent>
 	<groupId>com.zlsrj.wms</groupId>
 	<artifactId>wms-cloud</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Water Manage System Cloud</name>
 	<modules>
 		<module>wms-common</module>
 		<module>wms-api</module>
 		<module>wms-eureka</module>
-		<module>wms-generator</module>
-		<module>wms-mbg</module>
 		<module>wms-iam</module>
 		<module>wms-admin</module>
 		<module>wms-gateway</module>
-		<module>wms-system</module>
-		<module>wms-cust</module>
 		<module>wms-monitor</module>
-		<module>wms-account</module>
-		<module>wms-dev</module>
-		<module>wms-tenant</module>
-		<module>wms-employee</module>
-		<module>wms-module</module>
-		<module>wms-flyway</module>
 		<module>wms-saas</module>
-		<module>wms-docker</module>
-		<module>wms-mq</module>
 	</modules>
 
 	<properties>

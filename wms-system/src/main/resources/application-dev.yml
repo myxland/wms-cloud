@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/newsaas
-    username: root_top
-    password: root_Top
