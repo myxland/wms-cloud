@@ -6,7 +6,7 @@ eureka:
 spring:
   datasource:
    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-   url: jdbc:p6spy:mysql://mysql:3306/newsaas
+   url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/guiyuandb
    username: root
    password: ENC(DNsJoa9UB5/WCdU2k946tQ==)
   redis:
