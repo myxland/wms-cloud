@@ -45,7 +45,7 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "根据ID查询租户员工")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
-	public TenantEmployeeVo getById(@PathVariable("id") Long id) {
+	public TenantEmployeeVo getById(@PathVariable("id") String id) {
 		TenantEmployee tenantEmployee = tenantEmployeeService.getById(id);
 
 		return entity2vo(tenantEmployee);
@@ -95,7 +95,7 @@ public class TenantEmployeeRestController {
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
 	public TenantEmployeeVo save(@RequestBody TenantEmployee tenantEmployee) {
-		if (tenantEmployee.getId() == null || tenantEmployee.getId().compareTo(0L) <= 0) {
+		if (tenantEmployee.getId() == null || tenantEmployee.getId().trim().length() <= 0) {
 			tenantEmployee.setId(idService.selectId());
 		}
 		boolean success = tenantEmployeeService.save(tenantEmployee);
@@ -109,7 +109,7 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "更新租户员工全部信息")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PUT)
-	public TenantEmployeeVo updateById(@PathVariable("id") Long id, @RequestBody TenantEmployee tenantEmployee) {
+	public TenantEmployeeVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee) {
 		tenantEmployee.setId(id);
 		boolean success = tenantEmployeeService.updateById(tenantEmployee);
 		if (success) {
@@ -122,7 +122,7 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "根据参数更新租户员工信息")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
-	public TenantEmployeeVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantEmployee tenantEmployee) {
+	public TenantEmployeeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee) {
         TenantEmployee tenantEmployeeWhere = TenantEmployee.builder()//
 				.id(id)//
 				.build();
@@ -157,7 +157,7 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "根据ID删除租户员工")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantEmployeeService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

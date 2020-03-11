@@ -50,7 +50,7 @@ public class TenantSmsController {
 	public CommonResult<Boolean> updateSmsReadSendOn(@RequestParam("ids") String ids,
 			@RequestParam("smsReadSendOn") Integer smsReadSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			TenantSms tenantSms = new TenantSms();
 			tenantSms.setSmsReadSendOn(smsReadSendOn);
 			tenantSmsClientService.updatePatchById(id, tenantSms);
@@ -65,7 +65,7 @@ public class TenantSmsController {
 	public CommonResult<Boolean> updateSmsChargeSendOn(@RequestParam("ids") String ids,
 			@RequestParam("smsChargeSendOn") Integer smsChargeSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			TenantSms tenantSms = new TenantSms();
 			tenantSms.setSmsChargeSendOn(smsChargeSendOn);
 			tenantSmsClientService.updatePatchById(id, tenantSms);
@@ -80,7 +80,7 @@ public class TenantSmsController {
 	public CommonResult<Boolean> updateSmsQfSendOn(@RequestParam("ids") String ids,
 			@RequestParam("smsQfSendOn") Integer smsQfSendOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			TenantSms tenantSms = new TenantSms();
 			tenantSms.setSmsQfSendOn(smsQfSendOn);
 			tenantSmsClientService.updatePatchById(id, tenantSms);
@@ -101,7 +101,7 @@ public class TenantSmsController {
 	@ApiOperation(value = "根据ID查询租户短信配置")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantSmsVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantSmsVo> getById(@PathVariable("id") String id) {
 		TenantSmsVo tenantSmsVo = tenantSmsClientService.getById(id);
 
 		return CommonResult.success(tenantSmsVo);
@@ -110,7 +110,7 @@ public class TenantSmsController {
 	@ApiOperation(value = "根据租户ID查询租户短信配置")
 	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantSmsVo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+	public CommonResult<TenantSmsVo> getByTenantId(@PathVariable("tenantId") String tenantId) {
 		TenantSmsVo tenantSmsVo = tenantSmsClientService.getByTenantId(tenantId);
 
 		return CommonResult.success(tenantSmsVo);
@@ -120,7 +120,7 @@ public class TenantSmsController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantSmsVo> getById(@RequestBody TenantSms tenantSms) {
-		Long id = tenantSms.getId();
+		String id = tenantSms.getId();
 		TenantSmsVo tenantSmsVo = tenantSmsClientService.updatePatchById(id, tenantSms);
 
 		return CommonResult.success(tenantSmsVo);
@@ -129,7 +129,7 @@ public class TenantSmsController {
 	@ApiOperation(value = "根据ID删除租户短信配置")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantSmsClientService.removeById(id);
 
 		return commonResult;

@@ -26,7 +26,7 @@ public class TenantRoleMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantRole tenantRole = tenantRoleMapper.selectById(id);
 		log.info(tenantRole.toString());
 	}
@@ -44,7 +44,7 @@ public class TenantRoleMapperTest {
 	public void insert() {
 		TenantRole tenantRole = TenantRole.builder()//
 				.id(TestCaseUtil.id())// 工作岗位ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.roleName(TestCaseUtil.name())// 工作岗位名称
 				.roleRemark(RandomUtil.randomString(4))// 工作岗位说明
 				.createType(RandomUtil.randomInt(0,1+1))// 创建类型（1：平台默认创建；2：租户自建）

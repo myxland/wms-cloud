@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantConfigSms")
 public interface TenantConfigSmsClientService {
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.GET)
-	public TenantConfigSmsVo getById(@PathVariable("id") Long id);
+	public TenantConfigSmsVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-config-smss", method = RequestMethod.GET)
 	public Page<TenantConfigSmsVo> page(@RequestBody TenantConfigSmsQueryParam tenantConfigSmsQueryParam,
@@ -30,12 +30,12 @@ public interface TenantConfigSmsClientService {
 	public TenantConfigSmsVo save(@RequestBody TenantConfigSms tenantConfigSms);
 
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.PUT)
-	public TenantConfigSmsVo updateById(@PathVariable("id") Long id, @RequestBody TenantConfigSms tenantConfigSms);
+	public TenantConfigSmsVo updateById(@PathVariable("id") String id, @RequestBody TenantConfigSms tenantConfigSms);
 
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.PATCH)
-	public TenantConfigSmsVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConfigSms tenantConfigSms);
+	public TenantConfigSmsVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConfigSms tenantConfigSms);
 
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

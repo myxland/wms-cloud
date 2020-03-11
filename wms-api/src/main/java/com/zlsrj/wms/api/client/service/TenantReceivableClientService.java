@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiOperation;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantReceivable")
 public interface TenantReceivableClientService {
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.GET)
-	public TenantReceivableVo getById(@PathVariable("id") Long id);
+	public TenantReceivableVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-receivables", method = RequestMethod.GET)
 	public Page<TenantReceivableVo> page(@RequestBody TenantReceivableQueryParam tenantReceivableQueryParam,
@@ -35,12 +35,12 @@ public interface TenantReceivableClientService {
 	public TenantReceivableVo save(@RequestBody TenantReceivable tenantReceivable);
 
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.PUT)
-	public TenantReceivableVo updateById(@PathVariable("id") Long id, @RequestBody TenantReceivable tenantReceivable);
+	public TenantReceivableVo updateById(@PathVariable("id") String id, @RequestBody TenantReceivable tenantReceivable);
 
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.PATCH)
-	public TenantReceivableVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantReceivable tenantReceivable);
+	public TenantReceivableVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantReceivable tenantReceivable);
 
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

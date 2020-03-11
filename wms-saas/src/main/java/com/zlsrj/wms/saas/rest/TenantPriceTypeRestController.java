@@ -45,7 +45,7 @@ public class TenantPriceTypeRestController {
 
 	@ApiOperation(value = "根据ID查询水价分类")
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.GET)
-	public TenantPriceTypeVo getById(@PathVariable("id") Long id) {
+	public TenantPriceTypeVo getById(@PathVariable("id") String id) {
 		TenantPriceType tenantPriceType = tenantPriceTypeService.getById(id);
 
 		return entity2vo(tenantPriceType);
@@ -94,7 +94,7 @@ public class TenantPriceTypeRestController {
 	@ApiOperation(value = "新增水价分类")
 	@RequestMapping(value = "/tenant-price-types", method = RequestMethod.POST)
 	public TenantPriceTypeVo save(@RequestBody TenantPriceType tenantPriceType) {
-		if (tenantPriceType.getId() == null || tenantPriceType.getId().compareTo(0L) <= 0) {
+		if (tenantPriceType.getId() == null || tenantPriceType.getId().trim().length() <= 0) {
 			tenantPriceType.setId(idService.selectId());
 		}
 		boolean success = tenantPriceTypeService.save(tenantPriceType);
@@ -108,7 +108,7 @@ public class TenantPriceTypeRestController {
 
 	@ApiOperation(value = "更新水价分类全部信息")
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.PUT)
-	public TenantPriceTypeVo updateById(@PathVariable("id") Long id, @RequestBody TenantPriceType tenantPriceType) {
+	public TenantPriceTypeVo updateById(@PathVariable("id") String id, @RequestBody TenantPriceType tenantPriceType) {
 		tenantPriceType.setId(id);
 		boolean success = tenantPriceTypeService.updateById(tenantPriceType);
 		if (success) {
@@ -121,7 +121,7 @@ public class TenantPriceTypeRestController {
 
 	@ApiOperation(value = "根据参数更新水价分类信息")
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.PATCH)
-	public TenantPriceTypeVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPriceType tenantPriceType) {
+	public TenantPriceTypeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPriceType tenantPriceType) {
         TenantPriceType tenantPriceTypeWhere = TenantPriceType.builder()//
 				.id(id)//
 				.build();
@@ -155,7 +155,7 @@ public class TenantPriceTypeRestController {
 
 	@ApiOperation(value = "根据ID删除水价分类")
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantPriceTypeService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

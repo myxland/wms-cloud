@@ -28,7 +28,7 @@ public class TenantConsumptionBillMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantConsumptionBill tenantConsumptionBill = tenantConsumptionBillMapper.selectById(id);
 		log.info(tenantConsumptionBill.toString());
 	}
@@ -46,7 +46,7 @@ public class TenantConsumptionBillMapperTest {
 	public void insert() {
 		TenantConsumptionBill tenantConsumptionBill = TenantConsumptionBill.builder()//
 				.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]

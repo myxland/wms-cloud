@@ -47,7 +47,7 @@ public class TenantCustomerRestController {
 
 	@ApiOperation(value = "根据ID查询用户信息")
 	@RequestMapping(value = "/tenant-customers/{id}", method = RequestMethod.GET)
-	public TenantCustomerVo getById(@PathVariable("id") Long id) {
+	public TenantCustomerVo getById(@PathVariable("id") String id) {
 		TenantCustomer tenantCustomer = tenantCustomerService.getById(id);
 
 		return entity2vo(tenantCustomer);
@@ -113,7 +113,7 @@ public class TenantCustomerRestController {
 	@ApiOperation(value = "新增用户信息")
 	@RequestMapping(value = "/tenant-customers", method = RequestMethod.POST)
 	public TenantCustomerVo save(@RequestBody TenantCustomer tenantCustomer) {
-		if (tenantCustomer.getId() == null || tenantCustomer.getId().compareTo(0L) <= 0) {
+		if (tenantCustomer.getId() == null || tenantCustomer.getId().trim().length() <= 0) {
 			tenantCustomer.setId(idService.selectId());
 		}
 		boolean success = tenantCustomerService.save(tenantCustomer);
@@ -127,7 +127,7 @@ public class TenantCustomerRestController {
 
 	@ApiOperation(value = "更新用户信息全部信息")
 	@RequestMapping(value = "/tenant-customers/{id}", method = RequestMethod.PUT)
-	public TenantCustomerVo updateById(@PathVariable("id") Long id, @RequestBody TenantCustomer tenantCustomer) {
+	public TenantCustomerVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomer tenantCustomer) {
 		tenantCustomer.setId(id);
 		boolean success = tenantCustomerService.updateById(tenantCustomer);
 		if (success) {
@@ -140,7 +140,7 @@ public class TenantCustomerRestController {
 
 	@ApiOperation(value = "根据参数更新用户信息信息")
 	@RequestMapping(value = "/tenant-customers/{id}", method = RequestMethod.PATCH)
-	public TenantCustomerVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantCustomer tenantCustomer) {
+	public TenantCustomerVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCustomer tenantCustomer) {
         TenantCustomer tenantCustomerWhere = TenantCustomer.builder()//
 				.id(id)//
 				.build();
@@ -181,7 +181,7 @@ public class TenantCustomerRestController {
 
 	@ApiOperation(value = "根据ID删除用户信息")
 	@RequestMapping(value = "/tenant-customers/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantCustomerService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

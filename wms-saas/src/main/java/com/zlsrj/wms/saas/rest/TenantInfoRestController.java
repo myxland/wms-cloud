@@ -43,7 +43,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "根据ID查询租户表")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
-	public TenantInfoVo getById(@PathVariable("id") Long id) {
+	public TenantInfoVo getById(@PathVariable("id") String id) {
 		TenantInfo tenantInfo = tenantInfoService.getById(id);
 
 		return entity2vo(tenantInfo);
@@ -107,7 +107,7 @@ public class TenantInfoRestController {
 	@ApiOperation(value = "新增租户表")
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.POST)
 	public TenantInfoVo save(@RequestBody TenantInfo tenantInfo) {
-		if (tenantInfo.getId() == null || tenantInfo.getId().compareTo(0L) <= 0) {
+		if (tenantInfo.getId() == null || tenantInfo.getId().trim().length() <= 0) {
 			tenantInfo.setId(idService.selectId());
 		}
 		boolean success = tenantInfoService.save(tenantInfo);
@@ -121,7 +121,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "更新租户表全部信息")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.PUT)
-	public TenantInfoVo updateById(@PathVariable("id") Long id, @RequestBody TenantInfo tenantInfo) {
+	public TenantInfoVo updateById(@PathVariable("id") String id, @RequestBody TenantInfo tenantInfo) {
 		tenantInfo.setId(id);
 		boolean success = tenantInfoService.updateById(tenantInfo);
 		if (success) {
@@ -134,7 +134,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "根据参数更新租户表信息")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.PATCH)
-	public TenantInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantInfo tenantInfo) {
+	public TenantInfoVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantInfo tenantInfo) {
         TenantInfo tenantInfoWhere = TenantInfo.builder()//
 				.id(id)//
 				.build();
@@ -181,7 +181,7 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "根据ID删除租户表")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantInfoService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

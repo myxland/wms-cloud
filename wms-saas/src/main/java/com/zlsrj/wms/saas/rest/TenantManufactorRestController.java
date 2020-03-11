@@ -45,7 +45,7 @@ public class TenantManufactorRestController {
 
 	@ApiOperation(value = "根据ID查询水表厂商")
 	@RequestMapping(value = "/tenant-manufactors/{id}", method = RequestMethod.GET)
-	public TenantManufactorVo getById(@PathVariable("id") Long id) {
+	public TenantManufactorVo getById(@PathVariable("id") String id) {
 		TenantManufactor tenantManufactor = tenantManufactorService.getById(id);
 
 		return entity2vo(tenantManufactor);
@@ -86,7 +86,7 @@ public class TenantManufactorRestController {
 	@ApiOperation(value = "新增水表厂商")
 	@RequestMapping(value = "/tenant-manufactors", method = RequestMethod.POST)
 	public TenantManufactorVo save(@RequestBody TenantManufactor tenantManufactor) {
-		if (tenantManufactor.getId() == null || tenantManufactor.getId().compareTo(0L) <= 0) {
+		if (tenantManufactor.getId() == null || tenantManufactor.getId().trim().length() <= 0) {
 			tenantManufactor.setId(idService.selectId());
 		}
 		boolean success = tenantManufactorService.save(tenantManufactor);
@@ -100,7 +100,7 @@ public class TenantManufactorRestController {
 
 	@ApiOperation(value = "更新水表厂商全部信息")
 	@RequestMapping(value = "/tenant-manufactors/{id}", method = RequestMethod.PUT)
-	public TenantManufactorVo updateById(@PathVariable("id") Long id, @RequestBody TenantManufactor tenantManufactor) {
+	public TenantManufactorVo updateById(@PathVariable("id") String id, @RequestBody TenantManufactor tenantManufactor) {
 		tenantManufactor.setId(id);
 		boolean success = tenantManufactorService.updateById(tenantManufactor);
 		if (success) {
@@ -113,7 +113,7 @@ public class TenantManufactorRestController {
 
 	@ApiOperation(value = "根据参数更新水表厂商信息")
 	@RequestMapping(value = "/tenant-manufactors/{id}", method = RequestMethod.PATCH)
-	public TenantManufactorVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantManufactor tenantManufactor) {
+	public TenantManufactorVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantManufactor tenantManufactor) {
         TenantManufactor tenantManufactorWhere = TenantManufactor.builder()//
 				.id(id)//
 				.build();
@@ -139,7 +139,7 @@ public class TenantManufactorRestController {
 
 	@ApiOperation(value = "根据ID删除水表厂商")
 	@RequestMapping(value = "/tenant-manufactors/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantManufactorService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

@@ -62,7 +62,7 @@ public class DevRecListController {
 	@ApiOperation(value = "根据ID查询应收流水")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<DevRecListVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<DevRecListVo> getById(@PathVariable("id") String id) {
 		DevRecListVo devRecListVo = devRecListClientService.getById(id);
 		wrappperVo(devRecListVo);
 		
@@ -73,7 +73,7 @@ public class DevRecListController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<DevRecListVo> getById(@RequestBody DevRecList devRecList) {
-		Long id = devRecList.getId();
+		String id = devRecList.getId();
 		DevRecListVo devRecListVo = devRecListClientService.updatePatchById(id, devRecList);
 
 		return CommonResult.success(devRecListVo);
@@ -82,7 +82,7 @@ public class DevRecListController {
 	@ApiOperation(value = "根据ID删除应收流水")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = devRecListClientService.removeById(id);
 
 		return commonResult;

@@ -58,7 +58,7 @@ public class ModuleMenuController {
 	public CommonResult<Boolean> updateBasicEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("basicEditionOn") Integer basicEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleMenu moduleMenu = new ModuleMenu();
 			moduleMenu.setBasicEditionOn(basicEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
@@ -73,7 +73,7 @@ public class ModuleMenuController {
 	public CommonResult<Boolean> updateAdvanceEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("advanceEditionOn") Integer advanceEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleMenu moduleMenu = new ModuleMenu();
 			moduleMenu.setAdvanceEditionOn(advanceEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
@@ -88,7 +88,7 @@ public class ModuleMenuController {
 	public CommonResult<Boolean> updateUltimateEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("ultimateEditionOn") Integer ultimateEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleMenu moduleMenu = new ModuleMenu();
 			moduleMenu.setUltimateEditionOn(ultimateEditionOn);
 			moduleMenuClientService.updatePatchById(id, moduleMenu);
@@ -109,7 +109,7 @@ public class ModuleMenuController {
 	@ApiOperation(value = "根据ID查询模块菜单")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<ModuleMenuVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<ModuleMenuVo> getById(@PathVariable("id") String id) {
 		ModuleMenuVo moduleMenuVo = moduleMenuClientService.getById(id);
 		wrappperVo(moduleMenuVo);
 
@@ -120,7 +120,7 @@ public class ModuleMenuController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<ModuleMenuVo> getById(@RequestBody ModuleMenu moduleMenu) {
-		Long id = moduleMenu.getId();
+		String id = moduleMenu.getId();
 		ModuleMenuVo moduleMenuVo = moduleMenuClientService.updatePatchById(id, moduleMenu);
 		wrappperVo(moduleMenuVo);
 
@@ -130,7 +130,7 @@ public class ModuleMenuController {
 	@ApiOperation(value = "根据ID删除模块菜单")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = moduleMenuClientService.removeById(id);
 
 		return commonResult;
@@ -158,7 +158,7 @@ public class ModuleMenuController {
 		
 		boolean hasChildren = moduleMenuVo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = moduleMenuVo.getId();
+			String parentId = moduleMenuVo.getId();
 			ModuleMenuQueryParam moduleMenuQueryParam = new ModuleMenuQueryParam();
 			moduleMenuQueryParam.setParentId(parentId);
 			Page<ModuleMenuVo> moduleMenuVoPage = moduleMenuClientService.page(moduleMenuQueryParam, 1, 500, "id", "desc");

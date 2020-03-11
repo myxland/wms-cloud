@@ -46,7 +46,7 @@ public class TenantReceivableDetailRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-receivable-details" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -85,12 +85,12 @@ public class TenantReceivableDetailRestControllerTest {
 
 		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
 				.id(TestCaseUtil.id())// 应收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.priceStepId(RandomUtil.randomString(32))// 价格阶梯ID
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.arrearsWaters(new BigDecimal(0))// 欠费水量
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.detailPrice(new BigDecimal(0))// 价格
 				.receivableMoney(new BigDecimal(0))// 应收金额
 				.arrearsMoney(new BigDecimal(0))// 欠费金额
@@ -108,16 +108,16 @@ public class TenantReceivableDetailRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
 				//.id(TestCaseUtil.id())// 应收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.priceStepId(RandomUtil.randomString(32))// 价格阶梯ID
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.arrearsWaters(new BigDecimal(0))// 欠费水量
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.detailPrice(new BigDecimal(0))// 价格
 				.receivableMoney(new BigDecimal(0))// 应收金额
 				.arrearsMoney(new BigDecimal(0))// 欠费金额
@@ -135,15 +135,15 @@ public class TenantReceivableDetailRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantReceivableDetail tenantInfo = TenantReceivableDetail.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.receivableId(RandomUtil.randomLong())// 应收总账ID
-				//.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				//.priceStepId(RandomUtil.randomString(32))// 价格阶梯ID
 				//.receivableWaters(new BigDecimal(0))// 应收水量
 				//.arrearsWaters(new BigDecimal(0))// 欠费水量
-				//.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				//.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				//.detailPrice(new BigDecimal(0))// 价格
 				//.receivableMoney(new BigDecimal(0))// 应收金额
 				//.arrearsMoney(new BigDecimal(0))// 欠费金额
@@ -161,7 +161,7 @@ public class TenantReceivableDetailRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-receivable-details" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

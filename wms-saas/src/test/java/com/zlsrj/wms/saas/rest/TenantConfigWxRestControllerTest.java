@@ -46,7 +46,7 @@ public class TenantConfigWxRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-config-wxs" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -95,7 +95,7 @@ public class TenantConfigWxRestControllerTest {
 
 		TenantConfigWx tenantInfo = TenantConfigWx.builder()//
 				.id(TestCaseUtil.id())// 微信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.wxAppid(RandomUtil.randomString(4))// 微信公众号APPID
 				.wxAppsecret(RandomUtil.randomString(4))// 微信公众号AppSecret
 				.wxAccountId(RandomUtil.randomString(4))// 微信商户ID
@@ -128,11 +128,11 @@ public class TenantConfigWxRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigWx tenantInfo = TenantConfigWx.builder()//
 				//.id(TestCaseUtil.id())// 微信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.wxAppid(RandomUtil.randomString(4))// 微信公众号APPID
 				.wxAppsecret(RandomUtil.randomString(4))// 微信公众号AppSecret
 				.wxAccountId(RandomUtil.randomString(4))// 微信商户ID
@@ -165,10 +165,10 @@ public class TenantConfigWxRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigWx tenantInfo = TenantConfigWx.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.wxAppid(RandomUtil.randomString(4))// 微信公众号APPID
 				//.wxAppsecret(RandomUtil.randomString(4))// 微信公众号AppSecret
 				//.wxAccountId(RandomUtil.randomString(4))// 微信商户ID
@@ -201,7 +201,7 @@ public class TenantConfigWxRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-config-wxs" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

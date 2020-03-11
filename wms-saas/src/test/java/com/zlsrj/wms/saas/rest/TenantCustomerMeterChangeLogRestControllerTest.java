@@ -46,7 +46,7 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-customer-meter-change-logs" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -122,15 +122,15 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 
 		TenantCustomerMeterChangeLog tenantInfo = TenantCustomerMeterChangeLog.builder()//
 				.id(TestCaseUtil.id())// 变更日志ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.csutomerIdNew(RandomUtil.randomLong())// 新用户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.csutomerIdNew(RandomUtil.randomString(32))// 新用户ID
 				.customerName(TestCaseUtil.name())// 用户名称
 				.customerNameNew(RandomUtil.randomString(4))// 新用户名称
 				.customerAddress(TestCaseUtil.address())// 用户地址
 				.customerAddressNew(RandomUtil.randomString(4))// 新用户地址
-				.customerTypeId(RandomUtil.randomLong())// 用户类别ID
-				.customerTypeIdNew(RandomUtil.randomLong())// 新用户类别ID
+				.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
+				.customerTypeIdNew(RandomUtil.randomString(32))// 新用户类别ID
 				.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 				.customerStatusNew(RandomUtil.randomInt(0,1000+1))// 新用户状态（1：正常；2：暂停；3：消户）
 				.customerPaymentMethod(RandomUtil.randomInt(0,1000+1))// 收费方式（1：坐收；2：走收；3：代扣；4：托收）
@@ -151,17 +151,17 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 				.invoiceBankNameNew(RandomUtil.randomString(4))// 新开户行名称
 				.invoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户行账号
 				.invoiceBankAccountNoNew(RandomUtil.randomString(4))// 新开户行账号
-				.meterId(RandomUtil.randomLong())// 水表ID
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceTypeIdNew(RandomUtil.randomLong())// 新价格分类ID
+				.meterId(RandomUtil.randomString(32))// 水表ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceTypeIdNew(RandomUtil.randomString(32))// 新价格分类ID
 				.meterLastSettlePointer(new BigDecimal(0))// 水表止码
 				.meterLastSettlePointerNew(new BigDecimal(0))// 新水表止码
-				.manufactorId(RandomUtil.randomLong())// 水表厂商ID
-				.manufactorIdNew(RandomUtil.randomLong())// 新水表厂商ID
+				.manufactorId(RandomUtil.randomString(32))// 水表厂商ID
+				.manufactorIdNew(RandomUtil.randomString(32))// 新水表厂商ID
 				.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
 				.meterTypeNew(RandomUtil.randomInt(0,1000+1))// 新水表类型（1：机械表；2：远传表；3：IC卡表）
-				.caliberId(RandomUtil.randomLong())// 水表口径ID
-				.caliberIdNew(RandomUtil.randomLong())// 新水表口径ID
+				.caliberId(RandomUtil.randomString(32))// 水表口径ID
+				.caliberIdNew(RandomUtil.randomString(32))// 新水表口径ID
 				.meterMachineCode(RandomUtil.randomString(4))// 水表表身码
 				.meterMachineCodeNew(RandomUtil.randomString(4))// 新水表表身码
 				.meterIotCode(RandomUtil.randomString(4))// 远传系统编号
@@ -182,19 +182,19 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerMeterChangeLog tenantInfo = TenantCustomerMeterChangeLog.builder()//
 				//.id(TestCaseUtil.id())// 变更日志ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.csutomerIdNew(RandomUtil.randomLong())// 新用户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.csutomerIdNew(RandomUtil.randomString(32))// 新用户ID
 				.customerName(TestCaseUtil.name())// 用户名称
 				.customerNameNew(RandomUtil.randomString(4))// 新用户名称
 				.customerAddress(TestCaseUtil.address())// 用户地址
 				.customerAddressNew(RandomUtil.randomString(4))// 新用户地址
-				.customerTypeId(RandomUtil.randomLong())// 用户类别ID
-				.customerTypeIdNew(RandomUtil.randomLong())// 新用户类别ID
+				.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
+				.customerTypeIdNew(RandomUtil.randomString(32))// 新用户类别ID
 				.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 				.customerStatusNew(RandomUtil.randomInt(0,1000+1))// 新用户状态（1：正常；2：暂停；3：消户）
 				.customerPaymentMethod(RandomUtil.randomInt(0,1000+1))// 收费方式（1：坐收；2：走收；3：代扣；4：托收）
@@ -215,17 +215,17 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 				.invoiceBankNameNew(RandomUtil.randomString(4))// 新开户行名称
 				.invoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户行账号
 				.invoiceBankAccountNoNew(RandomUtil.randomString(4))// 新开户行账号
-				.meterId(RandomUtil.randomLong())// 水表ID
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceTypeIdNew(RandomUtil.randomLong())// 新价格分类ID
+				.meterId(RandomUtil.randomString(32))// 水表ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceTypeIdNew(RandomUtil.randomString(32))// 新价格分类ID
 				.meterLastSettlePointer(new BigDecimal(0))// 水表止码
 				.meterLastSettlePointerNew(new BigDecimal(0))// 新水表止码
-				.manufactorId(RandomUtil.randomLong())// 水表厂商ID
-				.manufactorIdNew(RandomUtil.randomLong())// 新水表厂商ID
+				.manufactorId(RandomUtil.randomString(32))// 水表厂商ID
+				.manufactorIdNew(RandomUtil.randomString(32))// 新水表厂商ID
 				.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
 				.meterTypeNew(RandomUtil.randomInt(0,1000+1))// 新水表类型（1：机械表；2：远传表；3：IC卡表）
-				.caliberId(RandomUtil.randomLong())// 水表口径ID
-				.caliberIdNew(RandomUtil.randomLong())// 新水表口径ID
+				.caliberId(RandomUtil.randomString(32))// 水表口径ID
+				.caliberIdNew(RandomUtil.randomString(32))// 新水表口径ID
 				.meterMachineCode(RandomUtil.randomString(4))// 水表表身码
 				.meterMachineCodeNew(RandomUtil.randomString(4))// 新水表表身码
 				.meterIotCode(RandomUtil.randomString(4))// 远传系统编号
@@ -246,18 +246,18 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerMeterChangeLog tenantInfo = TenantCustomerMeterChangeLog.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.customerId(RandomUtil.randomLong())// 用户ID
-				//.csutomerIdNew(RandomUtil.randomLong())// 新用户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.customerId(RandomUtil.randomString(32))// 用户ID
+				//.csutomerIdNew(RandomUtil.randomString(32))// 新用户ID
 				//.customerName(TestCaseUtil.name())// 用户名称
 				//.customerNameNew(RandomUtil.randomString(4))// 新用户名称
 				//.customerAddress(TestCaseUtil.address())// 用户地址
 				//.customerAddressNew(RandomUtil.randomString(4))// 新用户地址
-				//.customerTypeId(RandomUtil.randomLong())// 用户类别ID
-				//.customerTypeIdNew(RandomUtil.randomLong())// 新用户类别ID
+				//.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
+				//.customerTypeIdNew(RandomUtil.randomString(32))// 新用户类别ID
 				//.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 				//.customerStatusNew(RandomUtil.randomInt(0,1000+1))// 新用户状态（1：正常；2：暂停；3：消户）
 				//.customerPaymentMethod(RandomUtil.randomInt(0,1000+1))// 收费方式（1：坐收；2：走收；3：代扣；4：托收）
@@ -278,17 +278,17 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 				//.invoiceBankNameNew(RandomUtil.randomString(4))// 新开户行名称
 				//.invoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户行账号
 				//.invoiceBankAccountNoNew(RandomUtil.randomString(4))// 新开户行账号
-				//.meterId(RandomUtil.randomLong())// 水表ID
-				//.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				//.priceTypeIdNew(RandomUtil.randomLong())// 新价格分类ID
+				//.meterId(RandomUtil.randomString(32))// 水表ID
+				//.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				//.priceTypeIdNew(RandomUtil.randomString(32))// 新价格分类ID
 				//.meterLastSettlePointer(new BigDecimal(0))// 水表止码
 				//.meterLastSettlePointerNew(new BigDecimal(0))// 新水表止码
-				//.manufactorId(RandomUtil.randomLong())// 水表厂商ID
-				//.manufactorIdNew(RandomUtil.randomLong())// 新水表厂商ID
+				//.manufactorId(RandomUtil.randomString(32))// 水表厂商ID
+				//.manufactorIdNew(RandomUtil.randomString(32))// 新水表厂商ID
 				//.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
 				//.meterTypeNew(RandomUtil.randomInt(0,1000+1))// 新水表类型（1：机械表；2：远传表；3：IC卡表）
-				//.caliberId(RandomUtil.randomLong())// 水表口径ID
-				//.caliberIdNew(RandomUtil.randomLong())// 新水表口径ID
+				//.caliberId(RandomUtil.randomString(32))// 水表口径ID
+				//.caliberIdNew(RandomUtil.randomString(32))// 新水表口径ID
 				//.meterMachineCode(RandomUtil.randomString(4))// 水表表身码
 				//.meterMachineCodeNew(RandomUtil.randomString(4))// 新水表表身码
 				//.meterIotCode(RandomUtil.randomString(4))// 远传系统编号
@@ -309,7 +309,7 @@ public class TenantCustomerMeterChangeLogRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-customer-meter-change-logs" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

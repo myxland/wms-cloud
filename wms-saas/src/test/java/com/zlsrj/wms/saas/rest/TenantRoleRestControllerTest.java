@@ -45,7 +45,7 @@ public class TenantRoleRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-roles" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -79,7 +79,7 @@ public class TenantRoleRestControllerTest {
 
 		TenantRole tenantInfo = TenantRole.builder()//
 				.id(TestCaseUtil.id())// 工作岗位ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.roleName(TestCaseUtil.name())// 工作岗位名称
 				.roleRemark(RandomUtil.randomString(4))// 工作岗位说明
 				.createType(RandomUtil.randomInt(0,1+1))// 创建类型（1：平台默认创建；2：租户自建）
@@ -97,11 +97,11 @@ public class TenantRoleRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantRole tenantInfo = TenantRole.builder()//
 				//.id(TestCaseUtil.id())// 工作岗位ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.roleName(TestCaseUtil.name())// 工作岗位名称
 				.roleRemark(RandomUtil.randomString(4))// 工作岗位说明
 				.createType(RandomUtil.randomInt(0,1+1))// 创建类型（1：平台默认创建；2：租户自建）
@@ -119,10 +119,10 @@ public class TenantRoleRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantRole tenantInfo = TenantRole.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.roleName(TestCaseUtil.name())// 工作岗位名称
 				//.roleRemark(RandomUtil.randomString(4))// 工作岗位说明
 				//.createType(RandomUtil.randomInt(0,1+1))// 创建类型（1：平台默认创建；2：租户自建）
@@ -140,7 +140,7 @@ public class TenantRoleRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-roles" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

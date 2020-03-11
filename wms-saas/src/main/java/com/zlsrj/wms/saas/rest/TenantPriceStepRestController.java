@@ -45,7 +45,7 @@ public class TenantPriceStepRestController {
 
 	@ApiOperation(value = "根据ID查询水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.GET)
-	public TenantPriceStepVo getById(@PathVariable("id") Long id) {
+	public TenantPriceStepVo getById(@PathVariable("id") String id) {
 		TenantPriceStep tenantPriceStep = tenantPriceStepService.getById(id);
 
 		return entity2vo(tenantPriceStep);
@@ -90,7 +90,7 @@ public class TenantPriceStepRestController {
 	@ApiOperation(value = "新增水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps", method = RequestMethod.POST)
 	public TenantPriceStepVo save(@RequestBody TenantPriceStep tenantPriceStep) {
-		if (tenantPriceStep.getId() == null || tenantPriceStep.getId().compareTo(0L) <= 0) {
+		if (tenantPriceStep.getId() == null || tenantPriceStep.getId().trim().length() <= 0) {
 			tenantPriceStep.setId(idService.selectId());
 		}
 		boolean success = tenantPriceStepService.save(tenantPriceStep);
@@ -104,7 +104,7 @@ public class TenantPriceStepRestController {
 
 	@ApiOperation(value = "更新水价阶梯全部信息")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.PUT)
-	public TenantPriceStepVo updateById(@PathVariable("id") Long id, @RequestBody TenantPriceStep tenantPriceStep) {
+	public TenantPriceStepVo updateById(@PathVariable("id") String id, @RequestBody TenantPriceStep tenantPriceStep) {
 		tenantPriceStep.setId(id);
 		boolean success = tenantPriceStepService.updateById(tenantPriceStep);
 		if (success) {
@@ -117,7 +117,7 @@ public class TenantPriceStepRestController {
 
 	@ApiOperation(value = "根据参数更新水价阶梯信息")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.PATCH)
-	public TenantPriceStepVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPriceStep tenantPriceStep) {
+	public TenantPriceStepVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPriceStep tenantPriceStep) {
         TenantPriceStep tenantPriceStepWhere = TenantPriceStep.builder()//
 				.id(id)//
 				.build();
@@ -147,7 +147,7 @@ public class TenantPriceStepRestController {
 
 	@ApiOperation(value = "根据ID删除水价阶梯")
 	@RequestMapping(value = "/tenant-price-steps/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantPriceStepService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

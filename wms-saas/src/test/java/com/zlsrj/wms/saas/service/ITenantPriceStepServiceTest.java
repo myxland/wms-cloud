@@ -28,9 +28,9 @@ public class ITenantPriceStepServiceTest {
 	public void insertTest() {
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
 				.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.startWaters(new BigDecimal(0))// 起始量
 				.endWaters(new BigDecimal(0))// 终止量
@@ -47,12 +47,12 @@ public class ITenantPriceStepServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.startWaters(new BigDecimal(0))// 起始量
 				.endWaters(new BigDecimal(0))// 终止量

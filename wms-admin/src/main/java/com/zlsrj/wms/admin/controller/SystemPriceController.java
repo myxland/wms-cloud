@@ -56,7 +56,7 @@ public class SystemPriceController {
 	@ApiOperation(value = "根据ID查询模块各版本价格定义表")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<SystemPriceVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<SystemPriceVo> getById(@PathVariable("id") String id) {
 		SystemPriceVo systemPriceVo = systemPriceClientService.getById(id);
 
 		return CommonResult.success(systemPriceVo);
@@ -66,7 +66,7 @@ public class SystemPriceController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<SystemPriceVo> getById(@RequestBody SystemPrice systemPrice) {
-		Long id = systemPrice.getId();
+		String id = systemPrice.getId();
 		SystemPriceVo systemPriceVo = systemPriceClientService.updatePatchById(id, systemPrice);
 
 		return CommonResult.success(systemPriceVo);
@@ -75,7 +75,7 @@ public class SystemPriceController {
 	@ApiOperation(value = "根据ID删除模块各版本价格定义表")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = systemPriceClientService.removeById(id);
 
 		return commonResult;

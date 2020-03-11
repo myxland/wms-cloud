@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -32,13 +30,11 @@ public class TenantWaterType implements Serializable {
 
 	@ApiModelProperty(value = "用水类别ID")
 	@TableId(value = "id", type = IdType.AUTO)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用水类别名称")
 	@TableField("water_type_name")
@@ -46,13 +42,11 @@ public class TenantWaterType implements Serializable {
 
 	@ApiModelProperty(value = "上级用水类别编号")
 	@TableField("water_type_parent_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long waterTypeParentId;
+	private String waterTypeParentId;
 
 	@ApiModelProperty(value = "默认价格分类ID")
 	@TableField("default_price_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long defaultPriceTypeId;
+	private String defaultPriceTypeId;
 
 
 }

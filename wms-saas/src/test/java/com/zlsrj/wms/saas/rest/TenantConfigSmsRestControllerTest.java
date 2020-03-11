@@ -46,7 +46,7 @@ public class TenantConfigSmsRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-config-smss" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -90,7 +90,7 @@ public class TenantConfigSmsRestControllerTest {
 
 		TenantConfigSms tenantInfo = TenantConfigSms.builder()//
 				.id(TestCaseUtil.id())// 短信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsReceivableNoticeOn(RandomUtil.randomInt(0,1+1))// 开启出账短信通知（1：开启；0：不开启）
 				.smsPaymentNoticeOn(RandomUtil.randomInt(0,1+1))// 开启付款短信通知（1：开启；0：不开启）
@@ -118,11 +118,11 @@ public class TenantConfigSmsRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigSms tenantInfo = TenantConfigSms.builder()//
 				//.id(TestCaseUtil.id())// 短信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsReceivableNoticeOn(RandomUtil.randomInt(0,1+1))// 开启出账短信通知（1：开启；0：不开启）
 				.smsPaymentNoticeOn(RandomUtil.randomInt(0,1+1))// 开启付款短信通知（1：开启；0：不开启）
@@ -150,10 +150,10 @@ public class TenantConfigSmsRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigSms tenantInfo = TenantConfigSms.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.smsSignature(RandomUtil.randomString(4))// 短信签名
 				//.smsReceivableNoticeOn(RandomUtil.randomInt(0,1+1))// 开启出账短信通知（1：开启；0：不开启）
 				//.smsPaymentNoticeOn(RandomUtil.randomInt(0,1+1))// 开启付款短信通知（1：开启；0：不开启）
@@ -181,7 +181,7 @@ public class TenantConfigSmsRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-config-smss" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

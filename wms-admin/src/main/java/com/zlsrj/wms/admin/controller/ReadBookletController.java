@@ -62,7 +62,7 @@ public class ReadBookletController {
 	@ApiOperation(value = "根据ID查询表册信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<ReadBookletVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<ReadBookletVo> getById(@PathVariable("id") String id) {
 		ReadBookletVo readBookletVo = readBookletClientService.getById(id);
 		wrappperVo(readBookletVo);
 		
@@ -73,7 +73,7 @@ public class ReadBookletController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<ReadBookletVo> getById(@RequestBody ReadBooklet readBooklet) {
-		Long id = readBooklet.getId();
+		String id = readBooklet.getId();
 		ReadBookletVo readBookletVo = readBookletClientService.updatePatchById(id, readBooklet);
 
 		return CommonResult.success(readBookletVo);
@@ -82,7 +82,7 @@ public class ReadBookletController {
 	@ApiOperation(value = "根据ID删除表册信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = readBookletClientService.removeById(id);
 
 		return commonResult;

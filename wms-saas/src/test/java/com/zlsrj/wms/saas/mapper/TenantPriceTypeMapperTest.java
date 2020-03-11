@@ -27,7 +27,7 @@ public class TenantPriceTypeMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantPriceType tenantPriceType = tenantPriceTypeMapper.selectById(id);
 		log.info(tenantPriceType.toString());
 	}
@@ -45,7 +45,7 @@ public class TenantPriceTypeMapperTest {
 	public void insert() {
 		TenantPriceType tenantPriceType = TenantPriceType.builder()//
 				.id(TestCaseUtil.id())// 价格类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
 				.bottomWaters(new BigDecimal(0))// 保底水量

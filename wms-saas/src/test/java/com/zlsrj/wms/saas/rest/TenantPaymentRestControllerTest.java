@@ -47,7 +47,7 @@ public class TenantPaymentRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-payments" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -93,14 +93,14 @@ public class TenantPaymentRestControllerTest {
 
 		TenantPayment tenantInfo = TenantPayment.builder()//
 				.id(TestCaseUtil.id())// 实收账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.outTransno(RandomUtil.randomString(4))// 内部生成的订单号
 				.inTransno(RandomUtil.randomString(4))// 外部如微信支付宝传入的订单号
 				.payTime(new Date())// 付款时间
 				.paymentStatus(RandomUtil.randomInt(0,1+1))// 实收账状态（1：正常；2：被退款；3：退款记录）
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.chargeDepartmentId(RandomUtil.randomLong())// 收款部门ID
-				.chargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.chargeDepartmentId(RandomUtil.randomString(32))// 收款部门ID
+				.chargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.payChannels(RandomUtil.randomInt(0,1000+1))// 付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）
 				.payMethod(RandomUtil.randomInt(0,1000+1))// 付款方式（0：预存抵扣；1：现金；2：支票；3：刷卡；4：电汇；5：代扣；6：托收；7：微信生活缴费；8：支付宝生活缴费；9：微信公众号；10：微信扫码[用户被扫]；11：支付宝扫码[用户被扫]；12：微信扫码[用户主扫]；13：支付宝扫码[用户主扫]）
 				.customerBalanceMoneyBefore(new BigDecimal(0))// 用户上期预存余额
@@ -123,18 +123,18 @@ public class TenantPaymentRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPayment tenantInfo = TenantPayment.builder()//
 				//.id(TestCaseUtil.id())// 实收账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.outTransno(RandomUtil.randomString(4))// 内部生成的订单号
 				.inTransno(RandomUtil.randomString(4))// 外部如微信支付宝传入的订单号
 				.payTime(new Date())// 付款时间
 				.paymentStatus(RandomUtil.randomInt(0,1+1))// 实收账状态（1：正常；2：被退款；3：退款记录）
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.chargeDepartmentId(RandomUtil.randomLong())// 收款部门ID
-				.chargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.chargeDepartmentId(RandomUtil.randomString(32))// 收款部门ID
+				.chargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.payChannels(RandomUtil.randomInt(0,1000+1))// 付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）
 				.payMethod(RandomUtil.randomInt(0,1000+1))// 付款方式（0：预存抵扣；1：现金；2：支票；3：刷卡；4：电汇；5：代扣；6：托收；7：微信生活缴费；8：支付宝生活缴费；9：微信公众号；10：微信扫码[用户被扫]；11：支付宝扫码[用户被扫]；12：微信扫码[用户主扫]；13：支付宝扫码[用户主扫]）
 				.customerBalanceMoneyBefore(new BigDecimal(0))// 用户上期预存余额
@@ -157,17 +157,17 @@ public class TenantPaymentRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPayment tenantInfo = TenantPayment.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.outTransno(RandomUtil.randomString(4))// 内部生成的订单号
 				//.inTransno(RandomUtil.randomString(4))// 外部如微信支付宝传入的订单号
 				//.payTime(new Date())// 付款时间
 				//.paymentStatus(RandomUtil.randomInt(0,1+1))// 实收账状态（1：正常；2：被退款；3：退款记录）
-				//.customerId(RandomUtil.randomLong())// 用户ID
-				//.chargeDepartmentId(RandomUtil.randomLong())// 收款部门ID
-				//.chargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				//.customerId(RandomUtil.randomString(32))// 用户ID
+				//.chargeDepartmentId(RandomUtil.randomString(32))// 收款部门ID
+				//.chargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				//.payChannels(RandomUtil.randomInt(0,1000+1))// 付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）
 				//.payMethod(RandomUtil.randomInt(0,1000+1))// 付款方式（0：预存抵扣；1：现金；2：支票；3：刷卡；4：电汇；5：代扣；6：托收；7：微信生活缴费；8：支付宝生活缴费；9：微信公众号；10：微信扫码[用户被扫]；11：支付宝扫码[用户被扫]；12：微信扫码[用户主扫]；13：支付宝扫码[用户主扫]）
 				//.customerBalanceMoneyBefore(new BigDecimal(0))// 用户上期预存余额
@@ -190,7 +190,7 @@ public class TenantPaymentRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-payments" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

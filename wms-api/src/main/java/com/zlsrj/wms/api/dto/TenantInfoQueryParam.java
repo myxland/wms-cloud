@@ -17,7 +17,7 @@ public class TenantInfoQueryParam implements Serializable {
 	private static final long serialVersionUID = 5784121514767265731L;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;

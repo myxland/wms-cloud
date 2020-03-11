@@ -17,10 +17,10 @@ public class TenantCustomerQueryParam implements Serializable {
 	private static final long serialVersionUID = 1031297111514412421L;
 
 	@ApiModelProperty(value = "")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户代码")
 	private String customerCode;
@@ -32,7 +32,7 @@ public class TenantCustomerQueryParam implements Serializable {
 	private String customerAddress;
 
 	@ApiModelProperty(value = "用户类别ID")
-	private Long customerTypeId;
+	private String customerTypeId;
 
 	@ApiModelProperty(value = "建档时间")
 	private Date customerRegisterTime;

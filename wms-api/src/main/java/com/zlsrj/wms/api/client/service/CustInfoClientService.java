@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-CUST", contextId = "CustInfo")
 public interface CustInfoClientService {
 	@RequestMapping(value = "/cust-infos/{id}", method = RequestMethod.GET)
-	public CustInfoVo getById(@PathVariable("id") Long id);
+	public CustInfoVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/cust-infos", method = RequestMethod.GET)
 	public Page<CustInfoVo> page(@RequestBody CustInfoQueryParam custInfoQueryParam,
@@ -30,12 +30,12 @@ public interface CustInfoClientService {
 	public CustInfoVo save(@RequestBody CustInfo custInfo);
 
 	@RequestMapping(value = "/cust-infos/{id}", method = RequestMethod.PUT)
-	public CustInfoVo updateById(@PathVariable("id") Long id, @RequestBody CustInfo custInfo);
+	public CustInfoVo updateById(@PathVariable("id") String id, @RequestBody CustInfo custInfo);
 
 	@RequestMapping(value = "/cust-infos/{id}", method = RequestMethod.PATCH)
-	public CustInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody CustInfo custInfo);
+	public CustInfoVo updatePatchById(@PathVariable("id") String id, @RequestBody CustInfo custInfo);
 
 	@RequestMapping(value = "/cust-infos/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

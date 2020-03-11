@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-MBG", contextId = "TenantRoleSystem")
 public interface TenantRoleSystemClientService {
 	@RequestMapping(value = "/tenant-role-systems/{id}", method = RequestMethod.GET)
-	public TenantRoleSystemVo getById(@PathVariable("id") Long id);
+	public TenantRoleSystemVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-role-systems", method = RequestMethod.GET)
 	public Page<TenantRoleSystemVo> page(@RequestBody TenantRoleSystemQueryParam tenantRoleSystemQueryParam,
@@ -30,12 +30,12 @@ public interface TenantRoleSystemClientService {
 	public TenantRoleSystemVo save(@RequestBody TenantRoleSystem tenantRoleSystem);
 
 	@RequestMapping(value = "/tenant-role-systems/{id}", method = RequestMethod.PUT)
-	public TenantRoleSystemVo updateById(@PathVariable("id") Long id, @RequestBody TenantRoleSystem tenantRoleSystem);
+	public TenantRoleSystemVo updateById(@PathVariable("id") String id, @RequestBody TenantRoleSystem tenantRoleSystem);
 
 	@RequestMapping(value = "/tenant-role-systems/{id}", method = RequestMethod.PATCH)
-	public TenantRoleSystemVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantRoleSystem tenantRoleSystem);
+	public TenantRoleSystemVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantRoleSystem tenantRoleSystem);
 
 	@RequestMapping(value = "/tenant-role-systems/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

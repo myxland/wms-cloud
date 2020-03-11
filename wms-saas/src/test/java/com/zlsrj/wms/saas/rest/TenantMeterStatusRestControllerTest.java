@@ -45,7 +45,7 @@ public class TenantMeterStatusRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-meter-statuss" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -80,7 +80,7 @@ public class TenantMeterStatusRestControllerTest {
 
 		TenantMeterStatus tenantInfo = TenantMeterStatus.builder()//
 				.id(TestCaseUtil.id())// 表况ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.meterStatusName(TestCaseUtil.name())// 表况名称
 				.usenumCalcType(RandomUtil.randomInt(0,1+1))// 水量计算方式（1：自动计算；2：手工输入）
 				.workBillType(RandomUtil.randomInt(0,1+1))// 生成工单类型（0：不生成；1：故障换表；3：周期换表）
@@ -99,11 +99,11 @@ public class TenantMeterStatusRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantMeterStatus tenantInfo = TenantMeterStatus.builder()//
 				//.id(TestCaseUtil.id())// 表况ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.meterStatusName(TestCaseUtil.name())// 表况名称
 				.usenumCalcType(RandomUtil.randomInt(0,1+1))// 水量计算方式（1：自动计算；2：手工输入）
 				.workBillType(RandomUtil.randomInt(0,1+1))// 生成工单类型（0：不生成；1：故障换表；3：周期换表）
@@ -122,10 +122,10 @@ public class TenantMeterStatusRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantMeterStatus tenantInfo = TenantMeterStatus.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.meterStatusName(TestCaseUtil.name())// 表况名称
 				//.usenumCalcType(RandomUtil.randomInt(0,1+1))// 水量计算方式（1：自动计算；2：手工输入）
 				//.workBillType(RandomUtil.randomInt(0,1+1))// 生成工单类型（0：不生成；1：故障换表；3：周期换表）
@@ -144,7 +144,7 @@ public class TenantMeterStatusRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-meter-statuss" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

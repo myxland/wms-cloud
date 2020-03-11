@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,26 +17,22 @@ public class TenantPriceDetailVo implements Serializable {
 	private static final long serialVersionUID = 1471181314102121211L;
 
 	@ApiModelProperty(value = "系统ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
 
 	@ApiModelProperty(value = "价格类别")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 	
 	@ApiModelProperty(value = "价格类别名称")
 	private String priceTypeName;
 
 	@ApiModelProperty(value = "费用项目")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 	
 	@ApiModelProperty(value = "费用项目名称")
 	private String priceItemName;

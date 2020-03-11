@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-CUST", contextId = "DevReadCurrHis")
 public interface DevReadCurrHisClientService {
 	@RequestMapping(value = "/dev-read-curr-hiss/{id}", method = RequestMethod.GET)
-	public DevReadCurrHisVo getById(@PathVariable("id") Long id);
+	public DevReadCurrHisVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/dev-read-curr-hiss", method = RequestMethod.GET)
 	public Page<DevReadCurrHisVo> page(@RequestBody DevReadCurrHisQueryParam devReadCurrHisQueryParam,
@@ -30,12 +30,12 @@ public interface DevReadCurrHisClientService {
 	public DevReadCurrHisVo save(@RequestBody DevReadCurrHis devReadCurrHis);
 
 	@RequestMapping(value = "/dev-read-curr-hiss/{id}", method = RequestMethod.PUT)
-	public DevReadCurrHisVo updateById(@PathVariable("id") Long id, @RequestBody DevReadCurrHis devReadCurrHis);
+	public DevReadCurrHisVo updateById(@PathVariable("id") String id, @RequestBody DevReadCurrHis devReadCurrHis);
 
 	@RequestMapping(value = "/dev-read-curr-hiss/{id}", method = RequestMethod.PATCH)
-	public DevReadCurrHisVo updatePatchById(@PathVariable("id") Long id, @RequestBody DevReadCurrHis devReadCurrHis);
+	public DevReadCurrHisVo updatePatchById(@PathVariable("id") String id, @RequestBody DevReadCurrHis devReadCurrHis);
 
 	@RequestMapping(value = "/dev-read-curr-hiss/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

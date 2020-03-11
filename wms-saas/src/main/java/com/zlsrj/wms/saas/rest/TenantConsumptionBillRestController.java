@@ -47,7 +47,7 @@ public class TenantConsumptionBillRestController {
 
 	@ApiOperation(value = "根据ID查询租户账单")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.GET)
-	public TenantConsumptionBillVo getById(@PathVariable("id") Long id) {
+	public TenantConsumptionBillVo getById(@PathVariable("id") String id) {
 		TenantConsumptionBill tenantConsumptionBill = tenantConsumptionBillService.getById(id);
 
 		return entity2vo(tenantConsumptionBill);
@@ -94,7 +94,7 @@ public class TenantConsumptionBillRestController {
 	@ApiOperation(value = "新增租户账单")
 	@RequestMapping(value = "/tenant-consumption-bills", method = RequestMethod.POST)
 	public TenantConsumptionBillVo save(@RequestBody TenantConsumptionBill tenantConsumptionBill) {
-		if (tenantConsumptionBill.getId() == null || tenantConsumptionBill.getId().compareTo(0L) <= 0) {
+		if (tenantConsumptionBill.getId() == null || tenantConsumptionBill.getId().trim().length() <= 0) {
 			tenantConsumptionBill.setId(idService.selectId());
 		}
 		boolean success = tenantConsumptionBillService.save(tenantConsumptionBill);
@@ -108,7 +108,7 @@ public class TenantConsumptionBillRestController {
 
 	@ApiOperation(value = "更新租户账单全部信息")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.PUT)
-	public TenantConsumptionBillVo updateById(@PathVariable("id") Long id, @RequestBody TenantConsumptionBill tenantConsumptionBill) {
+	public TenantConsumptionBillVo updateById(@PathVariable("id") String id, @RequestBody TenantConsumptionBill tenantConsumptionBill) {
 		tenantConsumptionBill.setId(id);
 		boolean success = tenantConsumptionBillService.updateById(tenantConsumptionBill);
 		if (success) {
@@ -121,7 +121,7 @@ public class TenantConsumptionBillRestController {
 
 	@ApiOperation(value = "根据参数更新租户账单信息")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.PATCH)
-	public TenantConsumptionBillVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConsumptionBill tenantConsumptionBill) {
+	public TenantConsumptionBillVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConsumptionBill tenantConsumptionBill) {
         TenantConsumptionBill tenantConsumptionBillWhere = TenantConsumptionBill.builder()//
 				.id(id)//
 				.build();
@@ -151,7 +151,7 @@ public class TenantConsumptionBillRestController {
 
 	@ApiOperation(value = "根据ID删除租户账单")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantConsumptionBillService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

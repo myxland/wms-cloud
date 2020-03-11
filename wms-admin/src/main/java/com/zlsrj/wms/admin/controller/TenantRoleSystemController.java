@@ -56,7 +56,7 @@ public class TenantRoleSystemController {
 	@ApiOperation(value = "根据ID查询角色模块")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantRoleSystemVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantRoleSystemVo> getById(@PathVariable("id") String id) {
 		TenantRoleSystemVo tenantRoleSystemVo = tenantRoleSystemClientService.getById(id);
 
 		return CommonResult.success(tenantRoleSystemVo);
@@ -66,7 +66,7 @@ public class TenantRoleSystemController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantRoleSystemVo> getById(@RequestBody TenantRoleSystem tenantRoleSystem) {
-		Long id = tenantRoleSystem.getId();
+		String id = tenantRoleSystem.getId();
 		TenantRoleSystemVo tenantRoleSystemVo = tenantRoleSystemClientService.updatePatchById(id, tenantRoleSystem);
 
 		return CommonResult.success(tenantRoleSystemVo);
@@ -75,7 +75,7 @@ public class TenantRoleSystemController {
 	@ApiOperation(value = "根据ID删除角色模块")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantRoleSystemClientService.removeById(id);
 
 		return commonResult;

@@ -28,7 +28,7 @@ public class ITenantConfigWxServiceTest {
 	public void insertTest() {
 		TenantConfigWx tenantConfigWx = TenantConfigWx.builder()//
 				.id(TestCaseUtil.id())// 微信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.wxAppid(RandomUtil.randomString(4))// 微信公众号APPID
 				.wxAppsecret(RandomUtil.randomString(4))// 微信公众号AppSecret
 				.wxAccountId(RandomUtil.randomString(4))// 微信商户ID
@@ -59,10 +59,10 @@ public class ITenantConfigWxServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigWx tenantConfigWx = TenantConfigWx.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.wxAppid(RandomUtil.randomString(4))// 微信公众号APPID
 				.wxAppsecret(RandomUtil.randomString(4))// 微信公众号AppSecret
 				.wxAccountId(RandomUtil.randomString(4))// 微信商户ID

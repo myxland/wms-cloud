@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.iam.mapper.TenantEmployeeMapper;
 import com.zlsrj.wms.iam.service.ITenantEmployeeService;
 
@@ -23,14 +24,7 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 	 * @return
 	 */
 	public boolean initByTenant(TenantInfo tenantInfo) {
-		TenantEmployee tenantEmployee = TenantEmployee.builder()//
-				.id(IdUtil.createSnowflake(1L, 1L).nextId())// 系统ID
-				.tenantId(tenantInfo.getId())// 租户编号
-				.build();
-
-		boolean success = retBool(baseMapper.insert(tenantEmployee));
-
-		return success;
+		return false;
 	}
 
 	@Override

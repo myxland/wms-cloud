@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantPriceType")
 public interface TenantPriceTypeClientService {
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.GET)
-	public TenantPriceTypeVo getById(@PathVariable("id") Long id);
+	public TenantPriceTypeVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-price-types", method = RequestMethod.GET)
 	public Page<TenantPriceTypeVo> page(@RequestBody TenantPriceTypeQueryParam tenantPriceTypeQueryParam,
@@ -30,12 +30,12 @@ public interface TenantPriceTypeClientService {
 	public TenantPriceTypeVo save(@RequestBody TenantPriceType tenantPriceType);
 
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.PUT)
-	public TenantPriceTypeVo updateById(@PathVariable("id") Long id, @RequestBody TenantPriceType tenantPriceType);
+	public TenantPriceTypeVo updateById(@PathVariable("id") String id, @RequestBody TenantPriceType tenantPriceType);
 
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.PATCH)
-	public TenantPriceTypeVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPriceType tenantPriceType);
+	public TenantPriceTypeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPriceType tenantPriceType);
 
 	@RequestMapping(value = "/tenant-price-types/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

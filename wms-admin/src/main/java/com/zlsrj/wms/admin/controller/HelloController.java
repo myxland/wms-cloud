@@ -31,9 +31,9 @@ public class HelloController {
 
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public TenantInfoVo hello() {
-//		Long id = idClientService.select();
+//		String id = idClientService.select();
 //		CommonResult<TenantEmployee> tenantEmployeeCommonResult = tenantEmployeeClientService.getByEmpName("董天宇");
-		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(1192794842716049408L);
+		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById("640D27A93BA4421495434CA7EE796E64");
 		log.info(ToStringBuilder.reflectionToString(tenantInfoVo, ToStringStyle.MULTI_LINE_STYLE));
 		// return ToStringBuilder.reflectionToString(tenantInfoVo,
 		// ToStringStyle.MULTI_LINE_STYLE);
@@ -42,7 +42,7 @@ public class HelloController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public Long delete() {
-		CommonResult<Object> commonResult = tenantInfoClientService.removeById(1190481958942150656L);
+		CommonResult<Object> commonResult = tenantInfoClientService.removeById("640D27A93BA4421495434CA7EE790000");
 		return commonResult.getCode();
 	}
 

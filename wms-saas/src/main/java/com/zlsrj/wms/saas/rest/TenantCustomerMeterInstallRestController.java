@@ -47,7 +47,7 @@ public class TenantCustomerMeterInstallRestController {
 
 	@ApiOperation(value = "根据ID查询用户水表立户")
 	@RequestMapping(value = "/tenant-customer-meter-installs/{id}", method = RequestMethod.GET)
-	public TenantCustomerMeterInstallVo getById(@PathVariable("id") Long id) {
+	public TenantCustomerMeterInstallVo getById(@PathVariable("id") String id) {
 		TenantCustomerMeterInstall tenantCustomerMeterInstall = tenantCustomerMeterInstallService.getById(id);
 
 		return entity2vo(tenantCustomerMeterInstall);
@@ -112,7 +112,7 @@ public class TenantCustomerMeterInstallRestController {
 	@ApiOperation(value = "新增用户水表立户")
 	@RequestMapping(value = "/tenant-customer-meter-installs", method = RequestMethod.POST)
 	public TenantCustomerMeterInstallVo save(@RequestBody TenantCustomerMeterInstall tenantCustomerMeterInstall) {
-		if (tenantCustomerMeterInstall.getId() == null || tenantCustomerMeterInstall.getId().compareTo(0L) <= 0) {
+		if (tenantCustomerMeterInstall.getId() == null || tenantCustomerMeterInstall.getId().trim().length() <= 0) {
 			tenantCustomerMeterInstall.setId(idService.selectId());
 		}
 		boolean success = tenantCustomerMeterInstallService.save(tenantCustomerMeterInstall);
@@ -126,7 +126,7 @@ public class TenantCustomerMeterInstallRestController {
 
 	@ApiOperation(value = "更新用户水表立户全部信息")
 	@RequestMapping(value = "/tenant-customer-meter-installs/{id}", method = RequestMethod.PUT)
-	public TenantCustomerMeterInstallVo updateById(@PathVariable("id") Long id, @RequestBody TenantCustomerMeterInstall tenantCustomerMeterInstall) {
+	public TenantCustomerMeterInstallVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomerMeterInstall tenantCustomerMeterInstall) {
 		tenantCustomerMeterInstall.setId(id);
 		boolean success = tenantCustomerMeterInstallService.updateById(tenantCustomerMeterInstall);
 		if (success) {
@@ -139,7 +139,7 @@ public class TenantCustomerMeterInstallRestController {
 
 	@ApiOperation(value = "根据参数更新用户水表立户信息")
 	@RequestMapping(value = "/tenant-customer-meter-installs/{id}", method = RequestMethod.PATCH)
-	public TenantCustomerMeterInstallVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantCustomerMeterInstall tenantCustomerMeterInstall) {
+	public TenantCustomerMeterInstallVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCustomerMeterInstall tenantCustomerMeterInstall) {
         TenantCustomerMeterInstall tenantCustomerMeterInstallWhere = TenantCustomerMeterInstall.builder()//
 				.id(id)//
 				.build();
@@ -183,7 +183,7 @@ public class TenantCustomerMeterInstallRestController {
 
 	@ApiOperation(value = "根据ID删除用户水表立户")
 	@RequestMapping(value = "/tenant-customer-meter-installs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantCustomerMeterInstallService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

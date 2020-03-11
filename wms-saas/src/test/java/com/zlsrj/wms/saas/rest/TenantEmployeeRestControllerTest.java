@@ -45,7 +45,7 @@ public class TenantEmployeeRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-employees" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -87,10 +87,10 @@ public class TenantEmployeeRestControllerTest {
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
 				.id(TestCaseUtil.id())// 员工ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.employeeName(TestCaseUtil.name())// 员工名称
 				.employeePassword(RandomUtil.randomString(4))// 登录密码
-				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeDepartmentId(RandomUtil.randomString(32))// 员工所属部门ID
 				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
 				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.employeeMobile(TestCaseUtil.mobile())// 员工手机号
@@ -113,14 +113,14 @@ public class TenantEmployeeRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
 				//.id(TestCaseUtil.id())// 员工ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.employeeName(TestCaseUtil.name())// 员工名称
 				.employeePassword(RandomUtil.randomString(4))// 登录密码
-				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeDepartmentId(RandomUtil.randomString(32))// 员工所属部门ID
 				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
 				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.employeeMobile(TestCaseUtil.mobile())// 员工手机号
@@ -143,13 +143,13 @@ public class TenantEmployeeRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantEmployee tenantInfo = TenantEmployee.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.employeeName(TestCaseUtil.name())// 员工名称
 				//.employeePassword(RandomUtil.randomString(4))// 登录密码
-				//.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				//.employeeDepartmentId(RandomUtil.randomString(32))// 员工所属部门ID
 				//.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
 				//.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				//.employeeMobile(TestCaseUtil.mobile())// 员工手机号
@@ -172,7 +172,7 @@ public class TenantEmployeeRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-employees" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

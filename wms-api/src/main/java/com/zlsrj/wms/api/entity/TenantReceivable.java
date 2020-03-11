@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "应收账ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "应收账状态（1：正常；2：被冲正；3：冲正负记录）")
 	@TableField("receivable_status")
@@ -52,13 +48,11 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "部门ID")
 	@TableField("department_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long departmentId;
+	private String departmentId;
 
 	@ApiModelProperty(value = "表册ID")
 	@TableField("booklet_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "表册代码")
 	@TableField("booklet_code")
@@ -66,8 +60,7 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "用户ID")
 	@TableField("customer_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "用户代码")
 	@TableField("customer_code")
@@ -83,8 +76,7 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "水表ID")
 	@TableField("meter_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "水表代码")
 	@TableField("meter_code")
@@ -96,8 +88,7 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "抄表员ID")
 	@TableField("read_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long readEmployeeId;
+	private String readEmployeeId;
 
 	@ApiModelProperty(value = "应收账时间")
 	@TableField("receivable_time")
@@ -125,8 +116,7 @@ public class TenantReceivable implements Serializable {
 
 	@ApiModelProperty(value = "价格类别ID")
 	@TableField("price_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "应收水量")
 	@TableField("receivable_waters")

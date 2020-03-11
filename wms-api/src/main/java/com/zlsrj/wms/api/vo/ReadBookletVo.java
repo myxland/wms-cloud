@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,12 +17,10 @@ public class ReadBookletVo implements Serializable {
 	private static final long serialVersionUID = 1082581191514669131L;
 
 	@ApiModelProperty(value = "系统编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
@@ -36,11 +32,9 @@ public class ReadBookletVo implements Serializable {
 	private Integer bookletType;
 
 	@ApiModelProperty(value = "抄表负责人编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long readEmpId;
 
 	@ApiModelProperty(value = "收费负责人编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long payEmpId;
 
 	@ApiModelProperty(value = "抄表间隔周期_月")

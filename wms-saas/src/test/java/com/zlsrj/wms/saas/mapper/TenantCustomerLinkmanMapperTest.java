@@ -33,7 +33,7 @@ public class TenantCustomerLinkmanMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantCustomerLinkman tenantCustomerLinkman = tenantCustomerLinkmanMapper.selectById(id);
 		log.info(tenantCustomerLinkman.toString());
 	}
@@ -52,7 +52,7 @@ public class TenantCustomerLinkmanMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantCustomer tenantCustomer = null;
 			List<TenantCustomer> tenantCustomerList = tenantCustomerMapper.selectList(new QueryWrapper<TenantCustomer>().lambda().eq(TenantCustomer::getTenantId, tenantInfo.getId()));

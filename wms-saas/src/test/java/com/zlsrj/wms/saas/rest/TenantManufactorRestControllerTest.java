@@ -45,7 +45,7 @@ public class TenantManufactorRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-manufactors" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -78,7 +78,7 @@ public class TenantManufactorRestControllerTest {
 
 		TenantManufactor tenantInfo = TenantManufactor.builder()//
 				.id(TestCaseUtil.id())// 制造商ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.manufactorName(TestCaseUtil.name())// 制造商名称
 				.manufactorApikey(RandomUtil.randomString(4))// 远传表接入APIKEY
 				.build();
@@ -95,11 +95,11 @@ public class TenantManufactorRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantManufactor tenantInfo = TenantManufactor.builder()//
 				//.id(TestCaseUtil.id())// 制造商ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.manufactorName(TestCaseUtil.name())// 制造商名称
 				.manufactorApikey(RandomUtil.randomString(4))// 远传表接入APIKEY
 				.build();
@@ -116,10 +116,10 @@ public class TenantManufactorRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantManufactor tenantInfo = TenantManufactor.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.manufactorName(TestCaseUtil.name())// 制造商名称
 				//.manufactorApikey(RandomUtil.randomString(4))// 远传表接入APIKEY
 				.build();
@@ -136,7 +136,7 @@ public class TenantManufactorRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-manufactors" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

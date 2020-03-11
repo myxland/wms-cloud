@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,12 +18,10 @@ public class TenantCustomerVo implements Serializable {
 	private static final long serialVersionUID = 1400131412151141400L;
 
 	@ApiModelProperty(value = "")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
@@ -40,8 +36,7 @@ public class TenantCustomerVo implements Serializable {
 	private String customerAddress;
 
 	@ApiModelProperty(value = "用户类别ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerTypeId;
+	private String customerTypeId;
 
 	@ApiModelProperty(value = "建档时间")
 	private Date customerRegisterTime;

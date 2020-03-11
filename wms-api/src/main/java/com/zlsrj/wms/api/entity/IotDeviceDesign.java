@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "系统编号")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "父级系统编号")
 	@TableField("parent_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long parentId;
+	private String parentId;
 
 	@ApiModelProperty(value = "表具用途（1：贸易结算；2：数据监测）")
 	@TableField("dev_type")
@@ -68,7 +64,6 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "用户编号")
 	@TableField("cust_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long custId;
 
 	@ApiModelProperty(value = "安装地址")
@@ -89,12 +84,10 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "供应商编号（租户编号）")
 	@TableField("fact_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long factId;
 
 	@ApiModelProperty(value = "使用方编号（租户编号）")
 	@TableField("user_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long userId;
 
 	@ApiModelProperty(value = "设备当前状态")
@@ -107,7 +100,6 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "注册人")
 	@TableField("dev_register")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devRegister;
 
 	@ApiModelProperty(value = "注册数据来源")
@@ -120,12 +112,10 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "发货人")
 	@TableField("dev_sendouter")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devSendouter;
 
 	@ApiModelProperty(value = "发货批次")
 	@TableField("dev_sendout_batch")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devSendoutBatch;
 
 	@ApiModelProperty(value = "发货数据来源")
@@ -138,7 +128,6 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "入库人")
 	@TableField("dev_putiner")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devPutiner;
 
 	@ApiModelProperty(value = "入库数据来源")
@@ -151,7 +140,6 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "安装人")
 	@TableField("dev_inster")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devInster;
 
 	@ApiModelProperty(value = "安装数据来源")
@@ -164,13 +152,11 @@ public class IotDeviceDesign implements Serializable {
 
 	@ApiModelProperty(value = "最后一次上传ID")
 	@TableField("dev_last_up_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long devLastUpId;
 
 	@ApiModelProperty(value = "表册编号")
 	@TableField("booklet_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "最后一次计费日期")
 	@TableField("last_calc_date")

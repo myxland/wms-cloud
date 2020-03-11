@@ -47,7 +47,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-meter-read-log-currents" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -97,24 +97,24 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 
 		TenantMeterReadLogCurrent tenantInfo = TenantMeterReadLogCurrent.builder()//
 				.id(TestCaseUtil.id())// 抄表计划
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.readMonth(new Date())// 结算月份
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.meterId(RandomUtil.randomLong())// 水表ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.meterId(RandomUtil.randomString(32))// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间
 				.settleStartPointer(new BigDecimal(0))// 结算开始指针
 				.currentReadTime(new Date())// 本次抄表时间
 				.currentReadPointer(new BigDecimal(0))// 本次抄表指针
-				.readEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.meterStatusId(RandomUtil.randomLong())// 表次抄表状况
+				.readEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.meterStatusId(RandomUtil.randomString(32))// 表次抄表状况
 				.settleWaters(new BigDecimal(0))// 应结算水量
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.readSource(RandomUtil.randomInt(0,1000+1))// 抄表来源（1：移动抄表；2：人工入账；3：远传表导入；4：远传表接口）
 				.readStatus(RandomUtil.randomInt(0,1+1))// 抄表状态（0：未抄；1：已抄）
 				.checkResult(RandomUtil.randomInt(0,1000+1))// 检查结果（0：正常；1：异常）
 				.processReault(RandomUtil.randomInt(0,1000+1))// 处理结果（1：已处理；2：未处理）
-				.processEmployeeId(RandomUtil.randomLong())// 处理人
+				.processEmployeeId(RandomUtil.randomString(32))// 处理人
 				.processTime(new Date())// 处理时间
 				.processType(RandomUtil.randomInt(0,1+1))// 处理方式（1：重新抄表；2：通过）
 				.build();
@@ -131,28 +131,28 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantMeterReadLogCurrent tenantInfo = TenantMeterReadLogCurrent.builder()//
 				//.id(TestCaseUtil.id())// 抄表计划
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.readMonth(new Date())// 结算月份
-				.customerId(RandomUtil.randomLong())// 用户ID
-				.meterId(RandomUtil.randomLong())// 水表ID
+				.customerId(RandomUtil.randomString(32))// 用户ID
+				.meterId(RandomUtil.randomString(32))// 水表ID
 				.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				.settleStartTime(new Date())// 结算开始时间
 				.settleStartPointer(new BigDecimal(0))// 结算开始指针
 				.currentReadTime(new Date())// 本次抄表时间
 				.currentReadPointer(new BigDecimal(0))// 本次抄表指针
-				.readEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.meterStatusId(RandomUtil.randomLong())// 表次抄表状况
+				.readEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.meterStatusId(RandomUtil.randomString(32))// 表次抄表状况
 				.settleWaters(new BigDecimal(0))// 应结算水量
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.readSource(RandomUtil.randomInt(0,1000+1))// 抄表来源（1：移动抄表；2：人工入账；3：远传表导入；4：远传表接口）
 				.readStatus(RandomUtil.randomInt(0,1+1))// 抄表状态（0：未抄；1：已抄）
 				.checkResult(RandomUtil.randomInt(0,1000+1))// 检查结果（0：正常；1：异常）
 				.processReault(RandomUtil.randomInt(0,1000+1))// 处理结果（1：已处理；2：未处理）
-				.processEmployeeId(RandomUtil.randomLong())// 处理人
+				.processEmployeeId(RandomUtil.randomString(32))// 处理人
 				.processTime(new Date())// 处理时间
 				.processType(RandomUtil.randomInt(0,1+1))// 处理方式（1：重新抄表；2：通过）
 				.build();
@@ -169,27 +169,27 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantMeterReadLogCurrent tenantInfo = TenantMeterReadLogCurrent.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.readMonth(new Date())// 结算月份
-				//.customerId(RandomUtil.randomLong())// 用户ID
-				//.meterId(RandomUtil.randomLong())// 水表ID
+				//.customerId(RandomUtil.randomString(32))// 用户ID
+				//.meterId(RandomUtil.randomString(32))// 水表ID
 				//.meterYearTotalWatersBefore(new BigDecimal(0))// 结算前水表当年累计水量
 				//.settleStartTime(new Date())// 结算开始时间
 				//.settleStartPointer(new BigDecimal(0))// 结算开始指针
 				//.currentReadTime(new Date())// 本次抄表时间
 				//.currentReadPointer(new BigDecimal(0))// 本次抄表指针
-				//.readEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				//.meterStatusId(RandomUtil.randomLong())// 表次抄表状况
+				//.readEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				//.meterStatusId(RandomUtil.randomString(32))// 表次抄表状况
 				//.settleWaters(new BigDecimal(0))// 应结算水量
 				//.receivableWaters(new BigDecimal(0))// 应收水量
 				//.readSource(RandomUtil.randomInt(0,1000+1))// 抄表来源（1：移动抄表；2：人工入账；3：远传表导入；4：远传表接口）
 				//.readStatus(RandomUtil.randomInt(0,1+1))// 抄表状态（0：未抄；1：已抄）
 				//.checkResult(RandomUtil.randomInt(0,1000+1))// 检查结果（0：正常；1：异常）
 				//.processReault(RandomUtil.randomInt(0,1000+1))// 处理结果（1：已处理；2：未处理）
-				//.processEmployeeId(RandomUtil.randomLong())// 处理人
+				//.processEmployeeId(RandomUtil.randomString(32))// 处理人
 				//.processTime(new Date())// 处理时间
 				//.processType(RandomUtil.randomInt(0,1+1))// 处理方式（1：重新抄表；2：通过）
 				.build();
@@ -206,7 +206,7 @@ public class TenantMeterReadLogCurrentRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-meter-read-log-currents" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

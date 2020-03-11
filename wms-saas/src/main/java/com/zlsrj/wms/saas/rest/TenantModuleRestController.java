@@ -47,7 +47,7 @@ public class TenantModuleRestController {
 
 	@ApiOperation(value = "根据ID查询租户开通模块清单")
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.GET)
-	public TenantModuleVo getById(@PathVariable("id") Long id) {
+	public TenantModuleVo getById(@PathVariable("id") String id) {
 		TenantModule tenantModule = tenantModuleService.getById(id);
 
 		return entity2vo(tenantModule);
@@ -98,7 +98,7 @@ public class TenantModuleRestController {
 	@ApiOperation(value = "新增租户开通模块清单")
 	@RequestMapping(value = "/tenant-modules", method = RequestMethod.POST)
 	public TenantModuleVo save(@RequestBody TenantModule tenantModule) {
-		if (tenantModule.getId() == null || tenantModule.getId().compareTo(0L) <= 0) {
+		if (tenantModule.getId() == null || tenantModule.getId().trim().length() <= 0) {
 			tenantModule.setId(idService.selectId());
 		}
 		boolean success = tenantModuleService.save(tenantModule);
@@ -120,7 +120,7 @@ public class TenantModuleRestController {
 
 	@ApiOperation(value = "更新租户开通模块清单全部信息")
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.PUT)
-	public TenantModuleVo updateById(@PathVariable("id") Long id, @RequestBody TenantModule tenantModule) {
+	public TenantModuleVo updateById(@PathVariable("id") String id, @RequestBody TenantModule tenantModule) {
 		tenantModule.setId(id);
 		boolean success = tenantModuleService.updateById(tenantModule);
 		if (success) {
@@ -134,7 +134,7 @@ public class TenantModuleRestController {
 
 	@ApiOperation(value = "根据参数更新租户开通模块清单信息")
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.PATCH)
-	public TenantModuleVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantModule tenantModule) {
+	public TenantModuleVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantModule tenantModule) {
 		TenantModule tenantModuleWhere = TenantModule.builder()//
 				.id(id)//
 				.build();
@@ -162,7 +162,7 @@ public class TenantModuleRestController {
 
 	@ApiOperation(value = "根据ID删除租户开通模块清单")
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantModuleService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

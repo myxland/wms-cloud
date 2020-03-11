@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-ACCOUNT", contextId = "DevRecList")
 public interface DevRecListClientService {
 	@RequestMapping(value = "/dev-rec-lists/{id}", method = RequestMethod.GET)
-	public DevRecListVo getById(@PathVariable("id") Long id);
+	public DevRecListVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/dev-rec-lists", method = RequestMethod.GET)
 	public Page<DevRecListVo> page(@RequestBody DevRecListQueryParam devRecListQueryParam,
@@ -30,12 +30,12 @@ public interface DevRecListClientService {
 	public DevRecListVo save(@RequestBody DevRecList devRecList);
 
 	@RequestMapping(value = "/dev-rec-lists/{id}", method = RequestMethod.PUT)
-	public DevRecListVo updateById(@PathVariable("id") Long id, @RequestBody DevRecList devRecList);
+	public DevRecListVo updateById(@PathVariable("id") String id, @RequestBody DevRecList devRecList);
 
 	@RequestMapping(value = "/dev-rec-lists/{id}", method = RequestMethod.PATCH)
-	public DevRecListVo updatePatchById(@PathVariable("id") Long id, @RequestBody DevRecList devRecList);
+	public DevRecListVo updatePatchById(@PathVariable("id") String id, @RequestBody DevRecList devRecList);
 
 	@RequestMapping(value = "/dev-rec-lists/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

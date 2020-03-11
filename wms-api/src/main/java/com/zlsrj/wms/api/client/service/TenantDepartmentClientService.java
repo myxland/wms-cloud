@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantDepartment")
 public interface TenantDepartmentClientService {
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.GET)
-	public TenantDepartmentVo getById(@PathVariable("id") Long id);
+	public TenantDepartmentVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-departments", method = RequestMethod.GET)
 	public Page<TenantDepartmentVo> page(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam,
@@ -30,12 +30,12 @@ public interface TenantDepartmentClientService {
 	public TenantDepartmentVo save(@RequestBody TenantDepartment tenantDepartment);
 
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PUT)
-	public TenantDepartmentVo updateById(@PathVariable("id") Long id, @RequestBody TenantDepartment tenantDepartment);
+	public TenantDepartmentVo updateById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment);
 
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PATCH)
-	public TenantDepartmentVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantDepartment tenantDepartment);
+	public TenantDepartmentVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment);
 
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

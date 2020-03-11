@@ -17,10 +17,10 @@ public class TenantReceivableQueryParam implements Serializable {
 	private static final long serialVersionUID = 1446101210512991311L;
 
 	@ApiModelProperty(value = "应收账ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "应收账状态（1：正常；2：被冲正；3：冲正负记录）")
 	private Integer receivableStatus;
@@ -29,16 +29,16 @@ public class TenantReceivableQueryParam implements Serializable {
 	private Integer receivableType;
 
 	@ApiModelProperty(value = "部门ID")
-	private Long departmentId;
+	private String departmentId;
 
 	@ApiModelProperty(value = "表册ID")
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "表册代码")
 	private String bookletCode;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "用户代码")
 	private String customerCode;
@@ -50,7 +50,7 @@ public class TenantReceivableQueryParam implements Serializable {
 	private String customerAddress;
 
 	@ApiModelProperty(value = "水表ID")
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "水表代码")
 	private String meterCode;
@@ -59,7 +59,7 @@ public class TenantReceivableQueryParam implements Serializable {
 	private String meterAddress;
 
 	@ApiModelProperty(value = "抄表员ID")
-	private Long readEmployeeId;
+	private String readEmployeeId;
 
 	@ApiModelProperty(value = "应收账时间")
 	private Date receivableTime;
@@ -98,7 +98,7 @@ public class TenantReceivableQueryParam implements Serializable {
 	private BigDecimal settleWaters;
 
 	@ApiModelProperty(value = "价格类别ID")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "应收水量")
 	private BigDecimal receivableWaters;

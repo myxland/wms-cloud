@@ -28,13 +28,13 @@ public class ITenantBookletServiceTest {
 	public void insertTest() {
 		TenantBooklet tenantBooklet = TenantBooklet.builder()//
 				.id(TestCaseUtil.id())// 表册ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.bookletDepartmentId(RandomUtil.randomLong())// 所属部门ID
-				.bookletWaterAreaId(RandomUtil.randomLong())// 所属供水区域ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.bookletDepartmentId(RandomUtil.randomString(32))// 所属部门ID
+				.bookletWaterAreaId(RandomUtil.randomString(32))// 所属供水区域ID
 				.bookletCode(RandomUtil.randomString(4))// 表册代码
 				.bookletName(TestCaseUtil.name())// 表册名称
-				.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 				.bookletLastSettleMonth(new Date())// 最后一次结算月份
 				.bookletNextSettleMonth(new Date())// 下次计划结算月份
@@ -52,16 +52,16 @@ public class ITenantBookletServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantBooklet tenantBooklet = TenantBooklet.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.bookletDepartmentId(RandomUtil.randomLong())// 所属部门ID
-				.bookletWaterAreaId(RandomUtil.randomLong())// 所属供水区域ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.bookletDepartmentId(RandomUtil.randomString(32))// 所属部门ID
+				.bookletWaterAreaId(RandomUtil.randomString(32))// 所属供水区域ID
 				.bookletCode(RandomUtil.randomString(4))// 表册代码
 				.bookletName(TestCaseUtil.name())// 表册名称
-				.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 				.bookletLastSettleMonth(new Date())// 最后一次结算月份
 				.bookletNextSettleMonth(new Date())// 下次计划结算月份

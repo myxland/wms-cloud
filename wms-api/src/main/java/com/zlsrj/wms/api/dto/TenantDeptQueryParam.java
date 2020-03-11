@@ -15,13 +15,13 @@ public class TenantDeptQueryParam implements Serializable {
 	private static final long serialVersionUID = 1011415711713012511L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "上级部门")
 	private Long parentDeptId;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "部门名称")
 	private String deptName;

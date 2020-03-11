@@ -15,10 +15,10 @@ public class TenantCaliberQueryParam implements Serializable {
 	private static final long serialVersionUID = 1314941414101367378L;
 
 	@ApiModelProperty(value = "口径ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "口径名称")
 	private String caliberName;

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,30 +18,25 @@ public class TenantPaymentDetailVo implements Serializable {
 	private static final long serialVersionUID = 1013151310147161614L;
 
 	@ApiModelProperty(value = "实收明细账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "实收总账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long paymentId;
+	private String paymentId;
 
 	@ApiModelProperty(value = "对应的应收账时间")
 	private Date receivableTime;
 
 	@ApiModelProperty(value = "应收总账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableId;
+	private String receivableId;
 
 	@ApiModelProperty(value = "应收明细账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableDetailId;
+	private String receivableDetailId;
 
 	@ApiModelProperty(value = "阶梯号")
 	private Integer stepNo;
@@ -52,12 +45,10 @@ public class TenantPaymentDetailVo implements Serializable {
 	private BigDecimal payWaters;
 
 	@ApiModelProperty(value = "价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "费用项目ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "价格")
 	private BigDecimal payPrice;

@@ -45,7 +45,7 @@ public class TenantCaliberRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-calibers" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -77,7 +77,7 @@ public class TenantCaliberRestControllerTest {
 
 		TenantCaliber tenantInfo = TenantCaliber.builder()//
 				.id(TestCaseUtil.id())// 口径ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.caliberName(TestCaseUtil.name())// 口径名称
 				.build();
 
@@ -93,11 +93,11 @@ public class TenantCaliberRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCaliber tenantInfo = TenantCaliber.builder()//
 				//.id(TestCaseUtil.id())// 口径ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.caliberName(TestCaseUtil.name())// 口径名称
 				.build();
 
@@ -113,10 +113,10 @@ public class TenantCaliberRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCaliber tenantInfo = TenantCaliber.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.caliberName(TestCaseUtil.name())// 口径名称
 				.build();
 
@@ -132,7 +132,7 @@ public class TenantCaliberRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-calibers" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

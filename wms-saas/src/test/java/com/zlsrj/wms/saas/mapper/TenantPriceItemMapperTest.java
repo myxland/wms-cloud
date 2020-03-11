@@ -30,7 +30,7 @@ public class TenantPriceItemMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantPriceItem tenantPriceItem = tenantPriceItemMapper.selectById(id);
 		log.info(tenantPriceItem.toString());
 	}
@@ -49,7 +49,7 @@ public class TenantPriceItemMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantPriceItem tenantPriceItem = TenantPriceItem.builder()//
 					.id(TestCaseUtil.id())// 费用项目ID

@@ -46,7 +46,7 @@ public class TenantPriceItemRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-items" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -80,7 +80,7 @@ public class TenantPriceItemRestControllerTest {
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
 				.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
 				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
@@ -98,11 +98,11 @@ public class TenantPriceItemRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
 				//.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
 				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
@@ -120,10 +120,10 @@ public class TenantPriceItemRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.priceItemName(TestCaseUtil.name())// 费用项目名称
 				//.priceItemTaxRate(new BigDecimal(0))// 税率
 				//.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
@@ -141,7 +141,7 @@ public class TenantPriceItemRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-price-items" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

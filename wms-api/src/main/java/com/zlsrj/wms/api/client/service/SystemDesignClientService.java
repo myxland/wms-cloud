@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SYSTEM", contextId = "SystemDesign")
 public interface SystemDesignClientService {
 	@RequestMapping(value = "/system-designs/{id}", method = RequestMethod.GET)
-	public SystemDesignVo getById(@PathVariable("id") Long id);
+	public SystemDesignVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/system-designs", method = RequestMethod.GET)
 	public Page<SystemDesignVo> page(@RequestBody SystemDesignQueryParam systemDesignQueryParam,
@@ -30,12 +30,12 @@ public interface SystemDesignClientService {
 	public SystemDesignVo save(@RequestBody SystemDesign systemDesign);
 
 	@RequestMapping(value = "/system-designs/{id}", method = RequestMethod.PUT)
-	public SystemDesignVo updateById(@PathVariable("id") Long id, @RequestBody SystemDesign systemDesign);
+	public SystemDesignVo updateById(@PathVariable("id") String id, @RequestBody SystemDesign systemDesign);
 
 	@RequestMapping(value = "/system-designs/{id}", method = RequestMethod.PATCH)
-	public SystemDesignVo updatePatchById(@PathVariable("id") Long id, @RequestBody SystemDesign systemDesign);
+	public SystemDesignVo updatePatchById(@PathVariable("id") String id, @RequestBody SystemDesign systemDesign);
 
 	@RequestMapping(value = "/system-designs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

@@ -16,10 +16,10 @@ public class ReadBookletQueryParam implements Serializable {
 	private static final long serialVersionUID = 2915125326613514995L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "表册名称")
 	private String bookletName;

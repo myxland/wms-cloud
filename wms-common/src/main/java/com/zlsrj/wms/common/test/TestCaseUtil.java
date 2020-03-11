@@ -262,8 +262,9 @@ public class TestCaseUtil {
 				+ RandomUtil.randomString(RandomUtil.BASE_NUMBER, RandomUtil.randomInt(6, 7 + 1));/// ^1[3456789]\d{9}$/;
 	};
 
-	public static Long id() {
-		return IdUtil.createSnowflake(1L, 1L).nextId();
+	public static String id() {
+		//return IdUtil.createSnowflake(1L, 1L).nextId();
+		return IdUtil.fastSimpleUUID();//id生成器由之前的Long变更为String，数字变成UUID
 	}
 
 	// 企业营业执照

@@ -17,13 +17,13 @@ public class TenantPaymentDetailQueryParam implements Serializable {
 	private static final long serialVersionUID = 1011151154210891078L;
 
 	@ApiModelProperty(value = "实收明细账ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "实收总账ID")
-	private Long paymentId;
+	private String paymentId;
 
 	@ApiModelProperty(value = "对应的应收账时间")
 	private Date receivableTime;
@@ -35,10 +35,10 @@ public class TenantPaymentDetailQueryParam implements Serializable {
 	private Date receivableTimeEnd;
 
 	@ApiModelProperty(value = "应收总账ID")
-	private Long receivableId;
+	private String receivableId;
 
 	@ApiModelProperty(value = "应收明细账ID")
-	private Long receivableDetailId;
+	private String receivableDetailId;
 
 	@ApiModelProperty(value = "阶梯号")
 	private Integer stepNo;
@@ -47,10 +47,10 @@ public class TenantPaymentDetailQueryParam implements Serializable {
 	private BigDecimal payWaters;
 
 	@ApiModelProperty(value = "价格分类ID")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "费用项目ID")
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "价格")
 	private BigDecimal payPrice;

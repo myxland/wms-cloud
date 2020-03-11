@@ -58,7 +58,7 @@ public class ModuleInfoController {
 	public CommonResult<Boolean> updateBasicEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("basicEditionOn") Integer basicEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleInfo moduleInfo = new ModuleInfo();
 			moduleInfo.setBasicEditionOn(basicEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
@@ -73,7 +73,7 @@ public class ModuleInfoController {
 	public CommonResult<Boolean> updateAdvanceEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("advanceEditionOn") Integer advanceEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleInfo moduleInfo = new ModuleInfo();
 			moduleInfo.setAdvanceEditionOn(advanceEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
@@ -88,7 +88,7 @@ public class ModuleInfoController {
 	public CommonResult<Boolean> updateUltimateEditionOn(@RequestParam("ids") String ids,
 			@RequestParam("ultimateEditionOn") Integer ultimateEditionOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleInfo moduleInfo = new ModuleInfo();
 			moduleInfo.setUltimateEditionOn(ultimateEditionOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
@@ -103,7 +103,7 @@ public class ModuleInfoController {
 	public CommonResult<Boolean> updateModuleOn(@RequestParam("ids") String ids,
 			@RequestParam("moduleOn") Integer moduleOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			ModuleInfo moduleInfo = new ModuleInfo();
 			moduleInfo.setModuleOn(moduleOn);
 			moduleInfoClientService.updatePatchById(id, moduleInfo);
@@ -124,7 +124,7 @@ public class ModuleInfoController {
 	@ApiOperation(value = "根据ID查询模块信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<ModuleInfoVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<ModuleInfoVo> getById(@PathVariable("id") String id) {
 		ModuleInfoVo moduleInfoVo = moduleInfoClientService.getById(id);
 		wrappperVo(moduleInfoVo);
 
@@ -135,7 +135,7 @@ public class ModuleInfoController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<ModuleInfoVo> getById(@RequestBody ModuleInfo moduleInfo) {
-		Long id = moduleInfo.getId();
+		String id = moduleInfo.getId();
 		ModuleInfoVo moduleInfoVo = moduleInfoClientService.updatePatchById(id, moduleInfo);
 		wrappperVo(moduleInfoVo);
 
@@ -145,7 +145,7 @@ public class ModuleInfoController {
 	@ApiOperation(value = "根据ID删除模块信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = moduleInfoClientService.removeById(id);
 
 		return commonResult;

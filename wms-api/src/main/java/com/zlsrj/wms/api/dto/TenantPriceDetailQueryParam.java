@@ -16,16 +16,16 @@ public class TenantPriceDetailQueryParam implements Serializable {
 	private static final long serialVersionUID = 1911109532111161510L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "价格类别")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "费用项目")
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "计算方法（1：固定单价；2：固定金额；3：阶梯价格）")
 	private Integer calcType;

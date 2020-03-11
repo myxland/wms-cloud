@@ -17,10 +17,10 @@ public class TenantPaymentQueryParam implements Serializable {
 	private static final long serialVersionUID = 1911013213144111335L;
 
 	@ApiModelProperty(value = "实收账ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "内部生成的订单号")
 	private String outTransno;
@@ -41,13 +41,13 @@ public class TenantPaymentQueryParam implements Serializable {
 	private Integer paymentStatus;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "收款部门ID")
-	private Long chargeDepartmentId;
+	private String chargeDepartmentId;
 
 	@ApiModelProperty(value = "收费员ID")
-	private Long chargeEmployeeId;
+	private String chargeEmployeeId;
 
 	@ApiModelProperty(value = "付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）")
 	private Integer payChannels;

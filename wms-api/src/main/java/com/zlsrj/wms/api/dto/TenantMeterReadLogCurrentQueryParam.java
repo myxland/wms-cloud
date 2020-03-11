@@ -17,10 +17,10 @@ public class TenantMeterReadLogCurrentQueryParam implements Serializable {
 	private static final long serialVersionUID = 3151015911273760114L;
 
 	@ApiModelProperty(value = "抄表计划")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "结算月份")
 	private Date readMonth;
@@ -32,10 +32,10 @@ public class TenantMeterReadLogCurrentQueryParam implements Serializable {
 	private Date readMonthEnd;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表ID")
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "结算前水表当年累计水量")
 	private BigDecimal meterYearTotalWatersBefore;
@@ -65,10 +65,10 @@ public class TenantMeterReadLogCurrentQueryParam implements Serializable {
 	private BigDecimal currentReadPointer;
 
 	@ApiModelProperty(value = "抄表员ID")
-	private Long readEmployeeId;
+	private String readEmployeeId;
 
 	@ApiModelProperty(value = "表次抄表状况")
-	private Long meterStatusId;
+	private String meterStatusId;
 
 	@ApiModelProperty(value = "应结算水量")
 	private BigDecimal settleWaters;
@@ -89,7 +89,7 @@ public class TenantMeterReadLogCurrentQueryParam implements Serializable {
 	private Integer processReault;
 
 	@ApiModelProperty(value = "处理人")
-	private Long processEmployeeId;
+	private String processEmployeeId;
 
 	@ApiModelProperty(value = "处理时间")
 	private Date processTime;

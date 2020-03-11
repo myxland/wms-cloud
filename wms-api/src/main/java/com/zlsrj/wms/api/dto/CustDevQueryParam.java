@@ -16,19 +16,19 @@ public class CustDevQueryParam implements Serializable {
 	private static final long serialVersionUID = 1031281237111063140L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "表具编号")
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "价格类别编号")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "用水类别编号")
-	private Long waterTypeId;
+	private String waterTypeId;
 
 	@ApiModelProperty(value = "排序")
 	private Integer devOrder;

@@ -27,7 +27,7 @@ public class TenantModuleMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantModule tenantModule = tenantModuleMapper.selectById(id);
 		log.info(tenantModule.toString());
 	}
@@ -45,8 +45,8 @@ public class TenantModuleMapperTest {
 	public void insert() {
 		TenantModule tenantModule = TenantModule.builder()//
 				.id(TestCaseUtil.id())// 租户模块ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
 				.moduleOpenTime(new Date())// 开通时间
 				.build();

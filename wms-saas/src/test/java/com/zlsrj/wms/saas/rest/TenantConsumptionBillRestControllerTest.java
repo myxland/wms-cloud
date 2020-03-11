@@ -47,7 +47,7 @@ public class TenantConsumptionBillRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-consumption-bills" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -84,7 +84,7 @@ public class TenantConsumptionBillRestControllerTest {
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
 				.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -105,11 +105,11 @@ public class TenantConsumptionBillRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
 				//.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -130,10 +130,10 @@ public class TenantConsumptionBillRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				//.consumptionBillTime(new Date())// 账单时间
 				//.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -154,7 +154,7 @@ public class TenantConsumptionBillRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-consumption-bills" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

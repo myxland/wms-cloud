@@ -62,7 +62,7 @@ public class TenantCustomerTypeController {
 	@ApiOperation(value = "根据ID查询用户分类")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantCustomerTypeVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantCustomerTypeVo> getById(@PathVariable("id") String id) {
 		TenantCustomerTypeVo tenantCustomerTypeVo = tenantCustomerTypeClientService.getById(id);
 		wrappperVo(tenantCustomerTypeVo);
 
@@ -73,7 +73,7 @@ public class TenantCustomerTypeController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustomerTypeVo> getById(@RequestBody TenantCustomerType tenantCustomerType) {
-		Long id = tenantCustomerType.getId();
+		String id = tenantCustomerType.getId();
 		TenantCustomerTypeVo tenantCustomerTypeVo = tenantCustomerTypeClientService.updatePatchById(id, tenantCustomerType);
 		wrappperVo(tenantCustomerTypeVo);
 
@@ -83,7 +83,7 @@ public class TenantCustomerTypeController {
 	@ApiOperation(value = "根据ID删除用户分类")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantCustomerTypeClientService.removeById(id);
 
 		return commonResult;
@@ -98,7 +98,7 @@ public class TenantCustomerTypeController {
 		}
 		boolean hasChildren = tenantCustomerTypeVo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = tenantCustomerTypeVo.getId();
+			String parentId = tenantCustomerTypeVo.getId();
 			TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam = new TenantCustomerTypeQueryParam();
 			tenantCustomerTypeQueryParam.setParentId(parentId);
 			Page<TenantCustomerTypeVo> tenantCustomerTypeVoPage = tenantCustomerTypeClientService.page(tenantCustomerTypeQueryParam, 1, 500, "id", "desc");

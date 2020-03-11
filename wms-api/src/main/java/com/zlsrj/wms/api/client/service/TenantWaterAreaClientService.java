@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantWaterArea")
 public interface TenantWaterAreaClientService {
 	@RequestMapping(value = "/tenant-water-areas/{id}", method = RequestMethod.GET)
-	public TenantWaterAreaVo getById(@PathVariable("id") Long id);
+	public TenantWaterAreaVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-water-areas", method = RequestMethod.GET)
 	public Page<TenantWaterAreaVo> page(@RequestBody TenantWaterAreaQueryParam tenantWaterAreaQueryParam,
@@ -30,12 +30,12 @@ public interface TenantWaterAreaClientService {
 	public TenantWaterAreaVo save(@RequestBody TenantWaterArea tenantWaterArea);
 
 	@RequestMapping(value = "/tenant-water-areas/{id}", method = RequestMethod.PUT)
-	public TenantWaterAreaVo updateById(@PathVariable("id") Long id, @RequestBody TenantWaterArea tenantWaterArea);
+	public TenantWaterAreaVo updateById(@PathVariable("id") String id, @RequestBody TenantWaterArea tenantWaterArea);
 
 	@RequestMapping(value = "/tenant-water-areas/{id}", method = RequestMethod.PATCH)
-	public TenantWaterAreaVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantWaterArea tenantWaterArea);
+	public TenantWaterAreaVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantWaterArea tenantWaterArea);
 
 	@RequestMapping(value = "/tenant-water-areas/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

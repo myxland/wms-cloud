@@ -47,7 +47,7 @@ public class TenantPaymentDetailRestController {
 
 	@ApiOperation(value = "根据ID查询实收明细账，记录本次所销账的欠费明细情况")
 	@RequestMapping(value = "/tenant-payment-details/{id}", method = RequestMethod.GET)
-	public TenantPaymentDetailVo getById(@PathVariable("id") Long id) {
+	public TenantPaymentDetailVo getById(@PathVariable("id") String id) {
 		TenantPaymentDetail tenantPaymentDetail = tenantPaymentDetailService.getById(id);
 
 		return entity2vo(tenantPaymentDetail);
@@ -98,7 +98,7 @@ public class TenantPaymentDetailRestController {
 	@ApiOperation(value = "新增实收明细账，记录本次所销账的欠费明细情况")
 	@RequestMapping(value = "/tenant-payment-details", method = RequestMethod.POST)
 	public TenantPaymentDetailVo save(@RequestBody TenantPaymentDetail tenantPaymentDetail) {
-		if (tenantPaymentDetail.getId() == null || tenantPaymentDetail.getId().compareTo(0L) <= 0) {
+		if (tenantPaymentDetail.getId() == null || tenantPaymentDetail.getId().trim().length() <= 0) {
 			tenantPaymentDetail.setId(idService.selectId());
 		}
 		boolean success = tenantPaymentDetailService.save(tenantPaymentDetail);
@@ -112,7 +112,7 @@ public class TenantPaymentDetailRestController {
 
 	@ApiOperation(value = "更新实收明细账，记录本次所销账的欠费明细情况全部信息")
 	@RequestMapping(value = "/tenant-payment-details/{id}", method = RequestMethod.PUT)
-	public TenantPaymentDetailVo updateById(@PathVariable("id") Long id, @RequestBody TenantPaymentDetail tenantPaymentDetail) {
+	public TenantPaymentDetailVo updateById(@PathVariable("id") String id, @RequestBody TenantPaymentDetail tenantPaymentDetail) {
 		tenantPaymentDetail.setId(id);
 		boolean success = tenantPaymentDetailService.updateById(tenantPaymentDetail);
 		if (success) {
@@ -125,7 +125,7 @@ public class TenantPaymentDetailRestController {
 
 	@ApiOperation(value = "根据参数更新实收明细账，记录本次所销账的欠费明细情况信息")
 	@RequestMapping(value = "/tenant-payment-details/{id}", method = RequestMethod.PATCH)
-	public TenantPaymentDetailVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPaymentDetail tenantPaymentDetail) {
+	public TenantPaymentDetailVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPaymentDetail tenantPaymentDetail) {
         TenantPaymentDetail tenantPaymentDetailWhere = TenantPaymentDetail.builder()//
 				.id(id)//
 				.build();
@@ -159,7 +159,7 @@ public class TenantPaymentDetailRestController {
 
 	@ApiOperation(value = "根据ID删除实收明细账，记录本次所销账的欠费明细情况")
 	@RequestMapping(value = "/tenant-payment-details/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantPaymentDetailService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

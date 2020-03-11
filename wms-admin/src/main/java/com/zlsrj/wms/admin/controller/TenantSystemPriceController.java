@@ -56,7 +56,7 @@ public class TenantSystemPriceController {
 	@ApiOperation(value = "根据ID查询租户模块价格")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantSystemPriceVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantSystemPriceVo> getById(@PathVariable("id") String id) {
 		TenantSystemPriceVo tenantSystemPriceVo = tenantSystemPriceClientService.getById(id);
 
 		return CommonResult.success(tenantSystemPriceVo);
@@ -66,7 +66,7 @@ public class TenantSystemPriceController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantSystemPriceVo> getById(@RequestBody TenantSystemPrice tenantSystemPrice) {
-		Long id = tenantSystemPrice.getId();
+		String id = tenantSystemPrice.getId();
 		TenantSystemPriceVo tenantSystemPriceVo = tenantSystemPriceClientService.updatePatchById(id, tenantSystemPrice);
 
 		return CommonResult.success(tenantSystemPriceVo);
@@ -75,7 +75,7 @@ public class TenantSystemPriceController {
 	@ApiOperation(value = "根据ID删除租户模块价格")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantSystemPriceClientService.removeById(id);
 
 		return commonResult;

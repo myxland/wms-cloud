@@ -26,7 +26,7 @@ public class TenantMeterStatusMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantMeterStatus tenantMeterStatus = tenantMeterStatusMapper.selectById(id);
 		log.info(tenantMeterStatus.toString());
 	}
@@ -44,7 +44,7 @@ public class TenantMeterStatusMapperTest {
 	public void insert() {
 		TenantMeterStatus tenantMeterStatus = TenantMeterStatus.builder()//
 				.id(TestCaseUtil.id())// 表况ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.meterStatusName(TestCaseUtil.name())// 表况名称
 				.usenumCalcType(RandomUtil.randomInt(0,1+1))// 水量计算方式（1：自动计算；2：手工输入）
 				.workBillType(RandomUtil.randomInt(0,1+1))// 生成工单类型（0：不生成；1：故障换表；3：周期换表）

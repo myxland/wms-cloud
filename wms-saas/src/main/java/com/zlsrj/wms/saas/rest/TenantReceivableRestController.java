@@ -46,7 +46,7 @@ public class TenantReceivableRestController {
 
 	@ApiOperation(value = "根据ID查询应收明细")
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.GET)
-	public TenantReceivableVo getById(@PathVariable("id") Long id) {
+	public TenantReceivableVo getById(@PathVariable("id") String id) {
 		TenantReceivable tenantReceivable = tenantReceivableService.getById(id);
 
 		return entity2vo(tenantReceivable);
@@ -157,7 +157,7 @@ public class TenantReceivableRestController {
 	@ApiOperation(value = "新增应收明细")
 	@RequestMapping(value = "/tenant-receivables", method = RequestMethod.POST)
 	public TenantReceivableVo save(@RequestBody TenantReceivable tenantReceivable) {
-		if (tenantReceivable.getId() == null || tenantReceivable.getId().compareTo(0L) <= 0) {
+		if (tenantReceivable.getId() == null || tenantReceivable.getId().trim().length() <= 0) {
 			tenantReceivable.setId(idService.selectId());
 		}
 		boolean success = tenantReceivableService.save(tenantReceivable);
@@ -171,7 +171,7 @@ public class TenantReceivableRestController {
 
 	@ApiOperation(value = "更新应收明细全部信息")
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.PUT)
-	public TenantReceivableVo updateById(@PathVariable("id") Long id, @RequestBody TenantReceivable tenantReceivable) {
+	public TenantReceivableVo updateById(@PathVariable("id") String id, @RequestBody TenantReceivable tenantReceivable) {
 		tenantReceivable.setId(id);
 		boolean success = tenantReceivableService.updateById(tenantReceivable);
 		if (success) {
@@ -184,7 +184,7 @@ public class TenantReceivableRestController {
 
 	@ApiOperation(value = "根据参数更新应收明细信息")
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.PATCH)
-	public TenantReceivableVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantReceivable tenantReceivable) {
+	public TenantReceivableVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantReceivable tenantReceivable) {
         TenantReceivable tenantReceivableWhere = TenantReceivable.builder()//
 				.id(id)//
 				.build();
@@ -231,7 +231,7 @@ public class TenantReceivableRestController {
 
 	@ApiOperation(value = "根据ID删除应收明细")
 	@RequestMapping(value = "/tenant-receivables/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantReceivableService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

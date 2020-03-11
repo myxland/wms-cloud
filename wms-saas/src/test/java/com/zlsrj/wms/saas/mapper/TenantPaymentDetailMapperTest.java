@@ -49,7 +49,7 @@ public class TenantPaymentDetailMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantPaymentDetail tenantPaymentDetail = tenantPaymentDetailMapper.selectById(id);
 		log.info(tenantPaymentDetail.toString());
 	}
@@ -68,7 +68,7 @@ public class TenantPaymentDetailMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantPayment tenantPayment = null;
 			List<TenantPayment> tenantPaymentList = tenantPaymentMapper.selectList(new QueryWrapper<TenantPayment>().lambda().eq(TenantPayment::getTenantId, tenantInfo.getId()));

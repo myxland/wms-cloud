@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class DevReadCurr implements Serializable {
 
 	@ApiModelProperty(value = "系统编号")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "抄表月份")
 	@TableField("read_month")
@@ -48,12 +44,10 @@ public class DevReadCurr implements Serializable {
 
 	@ApiModelProperty(value = "表具系统编号")
 	@TableField("dev_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "父表具编号")
 	@TableField("parent_dev_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long parentDevId;
 
 	@ApiModelProperty(value = "本次计费前当年累计水量")
@@ -70,7 +64,6 @@ public class DevReadCurr implements Serializable {
 
 	@ApiModelProperty(value = "抄表人编号")
 	@TableField("curr_read_emp_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long currReadEmpId;
 
 	@ApiModelProperty(value = "本次抄表日期")
@@ -111,7 +104,6 @@ public class DevReadCurr implements Serializable {
 
 	@ApiModelProperty(value = "审核人")
 	@TableField("proc_man")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long procMan;
 
 	@ApiModelProperty(value = "审核时间")

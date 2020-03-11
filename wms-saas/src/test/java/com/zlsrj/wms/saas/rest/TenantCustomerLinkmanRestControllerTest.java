@@ -46,7 +46,7 @@ public class TenantCustomerLinkmanRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-customer-linkmans" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -89,8 +89,8 @@ public class TenantCustomerLinkmanRestControllerTest {
 
 		TenantCustomerLinkman tenantInfo = TenantCustomerLinkman.builder()//
 				.id(TestCaseUtil.id())// 联系人ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 客户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 客户ID
 				.linkmanName(TestCaseUtil.name())// 联系人姓名
 				.linkmanAddress(TestCaseUtil.address())// 联系人地址
 				.linkmanMainOn(RandomUtil.randomInt(0,1+1))// 主联系人（1：是；0：否）
@@ -116,12 +116,12 @@ public class TenantCustomerLinkmanRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerLinkman tenantInfo = TenantCustomerLinkman.builder()//
 				//.id(TestCaseUtil.id())// 联系人ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 客户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 客户ID
 				.linkmanName(TestCaseUtil.name())// 联系人姓名
 				.linkmanAddress(TestCaseUtil.address())// 联系人地址
 				.linkmanMainOn(RandomUtil.randomInt(0,1+1))// 主联系人（1：是；0：否）
@@ -147,11 +147,11 @@ public class TenantCustomerLinkmanRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerLinkman tenantInfo = TenantCustomerLinkman.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.customerId(RandomUtil.randomLong())// 客户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.customerId(RandomUtil.randomString(32))// 客户ID
 				//.linkmanName(TestCaseUtil.name())// 联系人姓名
 				//.linkmanAddress(TestCaseUtil.address())// 联系人地址
 				//.linkmanMainOn(RandomUtil.randomInt(0,1+1))// 主联系人（1：是；0：否）
@@ -177,7 +177,7 @@ public class TenantCustomerLinkmanRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-customer-linkmans" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

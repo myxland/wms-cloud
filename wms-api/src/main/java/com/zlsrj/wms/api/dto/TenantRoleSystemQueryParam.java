@@ -15,10 +15,10 @@ public class TenantRoleSystemQueryParam implements Serializable {
 	private static final long serialVersionUID = 1312977151291871514L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "角色编号")
 	private Long roleId;

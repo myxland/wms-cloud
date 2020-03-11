@@ -27,9 +27,9 @@ public class ITenantDepartmentServiceTest {
 	public void insertTest() {
 		TenantDepartment tenantDepartment = TenantDepartment.builder()//
 				.id(TestCaseUtil.id())// 部门ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.departmentName(TestCaseUtil.name())// 部门名称
-				.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantDepartment, ToStringStyle.MULTI_LINE_STYLE));
@@ -42,12 +42,12 @@ public class ITenantDepartmentServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantDepartment tenantDepartment = TenantDepartment.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.departmentName(TestCaseUtil.name())// 部门名称
-				.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 		tenantDepartment.setId(id);
 

@@ -42,7 +42,7 @@ public class ModuleInfoRestController {
 
 	@ApiOperation(value = "根据ID查询模块信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.GET)
-	public ModuleInfoVo getById(@PathVariable("id") Long id) {
+	public ModuleInfoVo getById(@PathVariable("id") String id) {
 		ModuleInfo moduleInfo = moduleInfoService.getById(id);
 
 		return entity2vo(moduleInfo);
@@ -91,7 +91,7 @@ public class ModuleInfoRestController {
 	@ApiOperation(value = "新增模块信息")
 	@RequestMapping(value = "/module-infos", method = RequestMethod.POST)
 	public ModuleInfoVo save(@RequestBody ModuleInfo moduleInfo) {
-		if (moduleInfo.getId() == null || moduleInfo.getId().compareTo(0L) <= 0) {
+		if (moduleInfo.getId() == null || moduleInfo.getId().trim().length() <= 0) {
 			moduleInfo.setId(idService.selectId());
 		}
 		boolean success = moduleInfoService.save(moduleInfo);
@@ -105,7 +105,7 @@ public class ModuleInfoRestController {
 
 	@ApiOperation(value = "更新模块信息全部信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.PUT)
-	public ModuleInfoVo updateById(@PathVariable("id") Long id, @RequestBody ModuleInfo moduleInfo) {
+	public ModuleInfoVo updateById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo) {
 		moduleInfo.setId(id);
 		boolean success = moduleInfoService.updateById(moduleInfo);
 		if (success) {
@@ -118,7 +118,7 @@ public class ModuleInfoRestController {
 
 	@ApiOperation(value = "根据参数更新模块信息信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.PATCH)
-	public ModuleInfoVo updatePatchById(@PathVariable("id") Long id, @RequestBody ModuleInfo moduleInfo) {
+	public ModuleInfoVo updatePatchById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo) {
         ModuleInfo moduleInfoWhere = ModuleInfo.builder()//
 				.id(id)//
 				.basicEditionOn(moduleInfo.getBasicEditionOn())//
@@ -158,7 +158,7 @@ public class ModuleInfoRestController {
 
 	@ApiOperation(value = "根据ID删除模块信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = moduleInfoService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

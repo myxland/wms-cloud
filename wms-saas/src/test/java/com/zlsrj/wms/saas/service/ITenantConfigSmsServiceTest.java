@@ -28,7 +28,7 @@ public class ITenantConfigSmsServiceTest {
 	public void insertTest() {
 		TenantConfigSms tenantConfigSms = TenantConfigSms.builder()//
 				.id(TestCaseUtil.id())// 短信配置ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsReceivableNoticeOn(RandomUtil.randomInt(0,1+1))// 开启出账短信通知（1：开启；0：不开启）
 				.smsPaymentNoticeOn(RandomUtil.randomInt(0,1+1))// 开启付款短信通知（1：开启；0：不开启）
@@ -54,10 +54,10 @@ public class ITenantConfigSmsServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantConfigSms tenantConfigSms = TenantConfigSms.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.smsSignature(RandomUtil.randomString(4))// 短信签名
 				.smsReceivableNoticeOn(RandomUtil.randomInt(0,1+1))// 开启出账短信通知（1：开启；0：不开启）
 				.smsPaymentNoticeOn(RandomUtil.randomInt(0,1+1))// 开启付款短信通知（1：开启；0：不开启）

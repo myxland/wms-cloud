@@ -27,7 +27,7 @@ public class ITenantManufactorServiceTest {
 	public void insertTest() {
 		TenantManufactor tenantManufactor = TenantManufactor.builder()//
 				.id(TestCaseUtil.id())// 制造商ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.manufactorName(TestCaseUtil.name())// 制造商名称
 				.manufactorApikey(RandomUtil.randomString(4))// 远传表接入APIKEY
 				.build();
@@ -42,10 +42,10 @@ public class ITenantManufactorServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantManufactor tenantManufactor = TenantManufactor.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.manufactorName(TestCaseUtil.name())// 制造商名称
 				.manufactorApikey(RandomUtil.randomString(4))// 远传表接入APIKEY
 				.build();

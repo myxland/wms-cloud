@@ -11,6 +11,6 @@ public interface IAdminService {
 
 	AdminUser getAdminByUsername(String username);
 
-	List<AdminPermission> getPermissionList(Long adminId);
+	List<AdminPermission> getPermissionList(String adminId);
 
 }

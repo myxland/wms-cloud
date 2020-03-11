@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,18 +32,15 @@ public class TenantPaymentDetail implements Serializable {
 
 	@ApiModelProperty(value = "实收明细账ID")
 	@TableId(value = "id", type = IdType.AUTO)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "实收总账ID")
 	@TableField("payment_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long paymentId;
+	private String paymentId;
 
 	@ApiModelProperty(value = "对应的应收账时间")
 	@TableField("receivable_time")
@@ -53,13 +48,11 @@ public class TenantPaymentDetail implements Serializable {
 
 	@ApiModelProperty(value = "应收总账ID")
 	@TableField("receivable_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableId;
+	private String receivableId;
 
 	@ApiModelProperty(value = "应收明细账ID")
 	@TableField("receivable_detail_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableDetailId;
+	private String receivableDetailId;
 
 	@ApiModelProperty(value = "阶梯号")
 	@TableField("step_no")
@@ -71,13 +64,11 @@ public class TenantPaymentDetail implements Serializable {
 
 	@ApiModelProperty(value = "价格分类ID")
 	@TableField("price_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "费用项目ID")
 	@TableField("price_item_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "价格")
 	@TableField("pay_price")

@@ -16,10 +16,10 @@ public class TenantConfigWxQueryParam implements Serializable {
 	private static final long serialVersionUID = 5914814441412014131L;
 
 	@ApiModelProperty(value = "微信配置ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "微信公众号APPID")
 	private String wxAppid;

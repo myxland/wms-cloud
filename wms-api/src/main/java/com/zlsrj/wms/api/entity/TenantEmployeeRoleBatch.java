@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,8 +24,7 @@ public class TenantEmployeeRoleBatch implements Serializable {
 	private static final long serialVersionUID = 2864687254877305847L;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "员工编号批量，以英文逗号,分隔")
 	private String empIds;

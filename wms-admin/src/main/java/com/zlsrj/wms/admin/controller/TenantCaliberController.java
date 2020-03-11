@@ -62,7 +62,7 @@ public class TenantCaliberController {
 	@ApiOperation(value = "根据ID查询水表口径")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantCaliberVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantCaliberVo> getById(@PathVariable("id") String id) {
 		TenantCaliberVo tenantCaliberVo = tenantCaliberClientService.getById(id);
 		wrappperVo(tenantCaliberVo);
 
@@ -73,7 +73,7 @@ public class TenantCaliberController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCaliberVo> getById(@RequestBody TenantCaliber tenantCaliber) {
-		Long id = tenantCaliber.getId();
+		String id = tenantCaliber.getId();
 		TenantCaliberVo tenantCaliberVo = tenantCaliberClientService.updatePatchById(id, tenantCaliber);
 		wrappperVo(tenantCaliberVo);
 
@@ -83,7 +83,7 @@ public class TenantCaliberController {
 	@ApiOperation(value = "根据ID删除水表口径")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantCaliberClientService.removeById(id);
 
 		return commonResult;

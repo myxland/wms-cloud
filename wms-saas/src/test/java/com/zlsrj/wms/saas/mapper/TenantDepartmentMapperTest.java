@@ -26,7 +26,7 @@ public class TenantDepartmentMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantDepartment tenantDepartment = tenantDepartmentMapper.selectById(id);
 		log.info(tenantDepartment.toString());
 	}
@@ -44,9 +44,9 @@ public class TenantDepartmentMapperTest {
 	public void insert() {
 		TenantDepartment tenantDepartment = TenantDepartment.builder()//
 				.id(TestCaseUtil.id())// 部门ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.departmentName(TestCaseUtil.name())// 部门名称
-				.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 				
 		int count = tenantDepartmentMapper.insert(tenantDepartment);

@@ -29,17 +29,17 @@ public class ITenantCustomerMeterInstallServiceTest {
 	public void insertTest() {
 		TenantCustomerMeterInstall tenantCustomerMeterInstall = TenantCustomerMeterInstall.builder()//
 				.id(TestCaseUtil.id())// 水表立户ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.meterId(RandomUtil.randomLong())// 已经立户的水表ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.meterId(RandomUtil.randomString(32))// 已经立户的水表ID
 				.meterCode(RandomUtil.randomString(4))// 已经立户的水表代码
 				.custName(TestCaseUtil.name())// 用户名称
 				.meterAddress(TestCaseUtil.address())// 水表地址
 				.meterMachineCode(RandomUtil.randomString(4))// 表身号码[钢印号等]
-				.manufactorId(RandomUtil.randomLong())// 厂商ID
+				.manufactorId(RandomUtil.randomString(32))// 厂商ID
 				.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
-				.caliberId(RandomUtil.randomLong())// 水表口径ID
-				.waterTypeId(RandomUtil.randomLong())// 用水分类ID
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
+				.caliberId(RandomUtil.randomString(32))// 水表口径ID
+				.waterTypeId(RandomUtil.randomString(32))// 用水分类ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
 				.meterIotCode(RandomUtil.randomString(4))// 采集系统编号
 				.meterInstallDate(new Date())// 水表安装日期
 				.meterLastSettleTime(new Date())// 最后一次结算时间
@@ -62,20 +62,20 @@ public class ITenantCustomerMeterInstallServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerMeterInstall tenantCustomerMeterInstall = TenantCustomerMeterInstall.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.meterId(RandomUtil.randomLong())// 已经立户的水表ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.meterId(RandomUtil.randomString(32))// 已经立户的水表ID
 				.meterCode(RandomUtil.randomString(4))// 已经立户的水表代码
 				.custName(TestCaseUtil.name())// 用户名称
 				.meterAddress(TestCaseUtil.address())// 水表地址
 				.meterMachineCode(RandomUtil.randomString(4))// 表身号码[钢印号等]
-				.manufactorId(RandomUtil.randomLong())// 厂商ID
+				.manufactorId(RandomUtil.randomString(32))// 厂商ID
 				.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
-				.caliberId(RandomUtil.randomLong())// 水表口径ID
-				.waterTypeId(RandomUtil.randomLong())// 用水分类ID
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
+				.caliberId(RandomUtil.randomString(32))// 水表口径ID
+				.waterTypeId(RandomUtil.randomString(32))// 用水分类ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
 				.meterIotCode(RandomUtil.randomString(4))// 采集系统编号
 				.meterInstallDate(new Date())// 水表安装日期
 				.meterLastSettleTime(new Date())// 最后一次结算时间

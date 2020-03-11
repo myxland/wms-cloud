@@ -45,7 +45,7 @@ public class TenantDepartmentRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-departments" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -78,9 +78,9 @@ public class TenantDepartmentRestControllerTest {
 
 		TenantDepartment tenantInfo = TenantDepartment.builder()//
 				.id(TestCaseUtil.id())// 部门ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.departmentName(TestCaseUtil.name())// 部门名称
-				.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 
 		String responseString = mockMvc
@@ -95,13 +95,13 @@ public class TenantDepartmentRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantDepartment tenantInfo = TenantDepartment.builder()//
 				//.id(TestCaseUtil.id())// 部门ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.departmentName(TestCaseUtil.name())// 部门名称
-				.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 
 		String responseString = mockMvc
@@ -116,12 +116,12 @@ public class TenantDepartmentRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantDepartment tenantInfo = TenantDepartment.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.departmentName(TestCaseUtil.name())// 部门名称
-				//.departmentParentId(RandomUtil.randomLong())// 上级部门ID
+				//.departmentParentId(RandomUtil.randomString(32))// 上级部门ID
 				.build();
 
 		String responseString = mockMvc
@@ -136,7 +136,7 @@ public class TenantDepartmentRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-departments" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

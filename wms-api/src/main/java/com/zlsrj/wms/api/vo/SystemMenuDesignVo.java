@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,15 +16,12 @@ public class SystemMenuDesignVo implements Serializable {
 	private static final long serialVersionUID = 6161211931281270315L;
 
 	@ApiModelProperty(value = "系统ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "父菜单编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long parentMenuId;
 
 	@ApiModelProperty(value = "模块编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long sysId;
 
 	@ApiModelProperty(value = "模块名称")

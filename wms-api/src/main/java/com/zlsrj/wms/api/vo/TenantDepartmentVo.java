@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,12 +17,10 @@ public class TenantDepartmentVo implements Serializable {
 	private static final long serialVersionUID = 1151213112571588529L;
 
 	@ApiModelProperty(value = "部门ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
@@ -33,8 +29,7 @@ public class TenantDepartmentVo implements Serializable {
 	private String departmentName;
 
 	@ApiModelProperty(value = "上级部门ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long departmentParentId;
+	private String departmentParentId;
 
 	@ApiModelProperty(value = "子级租户部门列表")
 	private List<TenantDepartmentVo> children;

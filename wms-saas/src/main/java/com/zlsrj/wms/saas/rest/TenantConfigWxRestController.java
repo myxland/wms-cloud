@@ -47,7 +47,7 @@ public class TenantConfigWxRestController {
 
 	@ApiOperation(value = "根据ID查询微信参数设置")
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.GET)
-	public TenantConfigWxVo getById(@PathVariable("id") Long id) {
+	public TenantConfigWxVo getById(@PathVariable("id") String id) {
 		TenantConfigWx tenantConfigWx = tenantConfigWxService.getById(id);
 
 		return entity2vo(tenantConfigWx);
@@ -144,7 +144,7 @@ public class TenantConfigWxRestController {
 	@ApiOperation(value = "新增微信参数设置")
 	@RequestMapping(value = "/tenant-config-wxs", method = RequestMethod.POST)
 	public TenantConfigWxVo save(@RequestBody TenantConfigWx tenantConfigWx) {
-		if (tenantConfigWx.getId() == null || tenantConfigWx.getId().compareTo(0L) <= 0) {
+		if (tenantConfigWx.getId() == null || tenantConfigWx.getId().trim().length() <= 0) {
 			tenantConfigWx.setId(idService.selectId());
 		}
 		boolean success = tenantConfigWxService.save(tenantConfigWx);
@@ -158,7 +158,7 @@ public class TenantConfigWxRestController {
 
 	@ApiOperation(value = "更新微信参数设置全部信息")
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.PUT)
-	public TenantConfigWxVo updateById(@PathVariable("id") Long id, @RequestBody TenantConfigWx tenantConfigWx) {
+	public TenantConfigWxVo updateById(@PathVariable("id") String id, @RequestBody TenantConfigWx tenantConfigWx) {
 		tenantConfigWx.setId(id);
 		boolean success = tenantConfigWxService.updateById(tenantConfigWx);
 		if (success) {
@@ -171,7 +171,7 @@ public class TenantConfigWxRestController {
 
 	@ApiOperation(value = "根据参数更新微信参数设置信息")
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.PATCH)
-	public TenantConfigWxVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConfigWx tenantConfigWx) {
+	public TenantConfigWxVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConfigWx tenantConfigWx) {
         TenantConfigWx tenantConfigWxWhere = TenantConfigWx.builder()//
 				.id(id)//
 				.build();
@@ -213,7 +213,7 @@ public class TenantConfigWxRestController {
 
 	@ApiOperation(value = "根据ID删除微信参数设置")
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantConfigWxService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

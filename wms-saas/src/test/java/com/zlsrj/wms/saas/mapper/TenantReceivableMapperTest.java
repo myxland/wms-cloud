@@ -45,7 +45,7 @@ public class TenantReceivableMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantReceivable tenantReceivable = tenantReceivableMapper.selectById(id);
 		log.info(tenantReceivable.toString());
 	}
@@ -64,7 +64,7 @@ public class TenantReceivableMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantDepartment tenantDepartment = null;
 			List<TenantDepartment> tenantDepartmentList = tenantDepartmentMapper.selectList(new QueryWrapper<TenantDepartment>().lambda().eq(TenantDepartment::getTenantId, tenantInfo.getId()));
@@ -113,7 +113,7 @@ public class TenantReceivableMapperTest {
 					.meterId(tenantMeter!=null?tenantMeter.getId():null)// 水表ID
 					.meterCode(tenantMeter!=null?tenantMeter.getMeterCode():null)// 水表代码
 					.meterAddress(tenantMeter!=null?tenantMeter.getMeterAddress():null)// 表具地址
-					.readEmployeeId(RandomUtil.randomLong())// 抄表员ID
+					.readEmployeeId(RandomUtil.randomString(32))// 抄表员ID
 					.receivableTime(TestCaseUtil.dateBefore())// 应收账时间
 					.settleStartTime(TestCaseUtil.dateBefore())// 结算开始时间
 					.settleStartPointer(new BigDecimal(RandomUtil.randomInt(1000)))// 结算开始指针

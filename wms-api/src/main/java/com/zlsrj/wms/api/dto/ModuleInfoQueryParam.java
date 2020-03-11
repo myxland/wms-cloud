@@ -15,7 +15,7 @@ public class ModuleInfoQueryParam implements Serializable {
 	private static final long serialVersionUID = 8134426111269101561L;
 
 	@ApiModelProperty(value = "服务模块ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "服务模块名称")
 	private String moduleName;
@@ -27,7 +27,7 @@ public class ModuleInfoQueryParam implements Serializable {
 	private Integer runEnv;
 
 	@ApiModelProperty(value = "依赖模块ID")
-	private Long relyModuleId;
+	private String relyModuleId;
 
 	@ApiModelProperty(value = "计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）")
 	private Integer billingMode;

@@ -62,7 +62,7 @@ public class TenantDepartmentController {
 	@ApiOperation(value = "根据ID查询租户部门")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantDepartmentVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantDepartmentVo> getById(@PathVariable("id") String id) {
 		TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.getById(id);
 		wrappperVo(tenantDepartmentVo);
 
@@ -73,7 +73,7 @@ public class TenantDepartmentController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantDepartmentVo> getById(@RequestBody TenantDepartment tenantDepartment) {
-		Long id = tenantDepartment.getId();
+		String id = tenantDepartment.getId();
 		TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.updatePatchById(id, tenantDepartment);
 		wrappperVo(tenantDepartmentVo);
 
@@ -83,7 +83,7 @@ public class TenantDepartmentController {
 	@ApiOperation(value = "根据ID删除租户部门")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantDepartmentClientService.removeById(id);
 
 		return commonResult;
@@ -98,7 +98,7 @@ public class TenantDepartmentController {
 		}
 		boolean hasChildren = tenantDepartmentVo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = tenantDepartmentVo.getId();
+			String parentId = tenantDepartmentVo.getId();
 			TenantDepartmentQueryParam tenantDepartmentQueryParam = new TenantDepartmentQueryParam();
 			tenantDepartmentQueryParam.setParentId(parentId);
 			Page<TenantDepartmentVo> tenantDepartmentVoPage = tenantDepartmentClientService.page(tenantDepartmentQueryParam, 1, 500, "id", "desc");

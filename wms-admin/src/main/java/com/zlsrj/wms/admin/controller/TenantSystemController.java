@@ -50,7 +50,7 @@ public class TenantSystemController {
 	public CommonResult<Boolean> updateSysStatus(@RequestParam("ids") String ids,
 			@RequestParam("sysStatus") Integer sysStatus) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			TenantSystem tenantSystem = new TenantSystem();
 			tenantSystem.setSysStatus(sysStatus);
 			tenantSystemClientService.updatePatchById(id, tenantSystem);
@@ -71,7 +71,7 @@ public class TenantSystemController {
 	@ApiOperation(value = "根据ID查询租户模块")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantSystemVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantSystemVo> getById(@PathVariable("id") String id) {
 		TenantSystemVo tenantSystemVo = tenantSystemClientService.getById(id);
 
 		return CommonResult.success(tenantSystemVo);
@@ -81,7 +81,7 @@ public class TenantSystemController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantSystemVo> getById(@RequestBody TenantSystem tenantSystem) {
-		Long id = tenantSystem.getId();
+		String id = tenantSystem.getId();
 		TenantSystemVo tenantSystemVo = tenantSystemClientService.updatePatchById(id, tenantSystem);
 
 		return CommonResult.success(tenantSystemVo);
@@ -90,7 +90,7 @@ public class TenantSystemController {
 	@ApiOperation(value = "根据ID删除租户模块")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantSystemClientService.removeById(id);
 
 		return commonResult;

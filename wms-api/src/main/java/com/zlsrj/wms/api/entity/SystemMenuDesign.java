@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -32,17 +30,14 @@ public class SystemMenuDesign implements Serializable {
 
 	@ApiModelProperty(value = "系统ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "父菜单编号")
 	@TableField("parent_menu_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long parentMenuId;
 
 	@ApiModelProperty(value = "模块编号")
 	@TableField("sys_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long sysId;
 
 	@ApiModelProperty(value = "菜单名称")

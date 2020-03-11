@@ -29,11 +29,11 @@ public class ITenantCustomerServiceTest {
 	public void insertTest() {
 		TenantCustomer tenantCustomer = TenantCustomer.builder()//
 				.id(TestCaseUtil.id())// 
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.customerCode(RandomUtil.randomString(4))// 用户代码
 				.customerName(TestCaseUtil.name())// 用户名称
 				.customerAddress(TestCaseUtil.address())// 用户地址
-				.customerTypeId(RandomUtil.randomLong())// 用户类别ID
+				.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
 				.customerRegisterTime(new Date())// 建档时间
 				.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 				.customerPaymentMethod(RandomUtil.randomInt(0,1000+1))// 用户缴费方式（1：坐收；2：走收；3：代扣；4：托收）
@@ -59,14 +59,14 @@ public class ITenantCustomerServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomer tenantCustomer = TenantCustomer.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.customerCode(RandomUtil.randomString(4))// 用户代码
 				.customerName(TestCaseUtil.name())// 用户名称
 				.customerAddress(TestCaseUtil.address())// 用户地址
-				.customerTypeId(RandomUtil.randomLong())// 用户类别ID
+				.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
 				.customerRegisterTime(new Date())// 建档时间
 				.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 				.customerPaymentMethod(RandomUtil.randomInt(0,1000+1))// 用户缴费方式（1：坐收；2：走收；3：代扣；4：托收）

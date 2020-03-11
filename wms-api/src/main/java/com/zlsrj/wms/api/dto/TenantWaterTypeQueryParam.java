@@ -15,22 +15,22 @@ public class TenantWaterTypeQueryParam implements Serializable {
 	private static final long serialVersionUID = 1361410124141212701L;
 
 	@ApiModelProperty(value = "用水类别ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用水类别名称")
 	private String waterTypeName;
 
 	@ApiModelProperty(value = "上级用水类别编号")
-	private Long waterTypeParentId;
+	private String waterTypeParentId;
 
 	@ApiModelProperty(value = "默认价格分类ID")
-	private Long defaultPriceTypeId;
+	private String defaultPriceTypeId;
 
 	@ApiModelProperty(value = "父级ID")
-	private Long parentId;
+	private String parentId;
 	
 }
 

@@ -50,7 +50,7 @@ public class SystemMenuDesignController {
 	public CommonResult<Boolean> updateBasicOn(@RequestParam("ids") String ids,
 			@RequestParam("basicOn") Integer basicOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
 			systemMenuDesign.setBasicOn(basicOn);
 			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
@@ -65,7 +65,7 @@ public class SystemMenuDesignController {
 	public CommonResult<Boolean> updateAdvanceOn(@RequestParam("ids") String ids,
 			@RequestParam("advanceOn") Integer advanceOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
 			systemMenuDesign.setAdvanceOn(advanceOn);
 			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
@@ -80,7 +80,7 @@ public class SystemMenuDesignController {
 	public CommonResult<Boolean> updateUltimateOn(@RequestParam("ids") String ids,
 			@RequestParam("ultimateOn") Integer ultimateOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemMenuDesign systemMenuDesign = new SystemMenuDesign();
 			systemMenuDesign.setUltimateOn(ultimateOn);
 			systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
@@ -101,7 +101,7 @@ public class SystemMenuDesignController {
 	@ApiOperation(value = "根据ID查询模块菜单")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<SystemMenuDesignVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<SystemMenuDesignVo> getById(@PathVariable("id") String id) {
 		SystemMenuDesignVo systemMenuDesignVo = systemMenuDesignClientService.getById(id);
 
 		return CommonResult.success(systemMenuDesignVo);
@@ -111,7 +111,7 @@ public class SystemMenuDesignController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<SystemMenuDesignVo> getById(@RequestBody SystemMenuDesign systemMenuDesign) {
-		Long id = systemMenuDesign.getId();
+		String id = systemMenuDesign.getId();
 		SystemMenuDesignVo systemMenuDesignVo = systemMenuDesignClientService.updatePatchById(id, systemMenuDesign);
 
 		return CommonResult.success(systemMenuDesignVo);
@@ -120,7 +120,7 @@ public class SystemMenuDesignController {
 	@ApiOperation(value = "根据ID删除模块菜单")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = systemMenuDesignClientService.removeById(id);
 
 		return commonResult;

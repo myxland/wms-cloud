@@ -15,7 +15,7 @@ public class SystemMenuDesignQueryParam implements Serializable {
 	private static final long serialVersionUID = 4714715231510115861L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "父菜单编号")
 	private Long parentMenuId;

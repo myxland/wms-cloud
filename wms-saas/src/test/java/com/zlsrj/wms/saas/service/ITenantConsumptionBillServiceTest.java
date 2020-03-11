@@ -29,7 +29,7 @@ public class ITenantConsumptionBillServiceTest {
 	public void insertTest() {
 		TenantConsumptionBill tenantConsumptionBill = TenantConsumptionBill.builder()//
 				.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -48,10 +48,10 @@ public class ITenantConsumptionBillServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantConsumptionBill tenantConsumptionBill = TenantConsumptionBill.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]

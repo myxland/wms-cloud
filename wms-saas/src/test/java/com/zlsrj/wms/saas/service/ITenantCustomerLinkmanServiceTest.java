@@ -28,8 +28,8 @@ public class ITenantCustomerLinkmanServiceTest {
 	public void insertTest() {
 		TenantCustomerLinkman tenantCustomerLinkman = TenantCustomerLinkman.builder()//
 				.id(TestCaseUtil.id())// 联系人ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 客户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 客户ID
 				.linkmanName(TestCaseUtil.name())// 联系人姓名
 				.linkmanAddress(TestCaseUtil.address())// 联系人地址
 				.linkmanMainOn(RandomUtil.randomInt(0,1+1))// 主联系人（1：是；0：否）
@@ -53,11 +53,11 @@ public class ITenantCustomerLinkmanServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerLinkman tenantCustomerLinkman = TenantCustomerLinkman.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.customerId(RandomUtil.randomLong())// 客户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.customerId(RandomUtil.randomString(32))// 客户ID
 				.linkmanName(TestCaseUtil.name())// 联系人姓名
 				.linkmanAddress(TestCaseUtil.address())// 联系人地址
 				.linkmanMainOn(RandomUtil.randomInt(0,1+1))// 主联系人（1：是；0：否）

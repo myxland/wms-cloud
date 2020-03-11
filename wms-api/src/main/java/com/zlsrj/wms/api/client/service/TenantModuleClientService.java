@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantModule")
 public interface TenantModuleClientService {
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.GET)
-	public TenantModuleVo getById(@PathVariable("id") Long id);
+	public TenantModuleVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-modules", method = RequestMethod.GET)
 	public Page<TenantModuleVo> page(@RequestBody TenantModuleQueryParam tenantModuleQueryParam,
@@ -37,12 +37,12 @@ public interface TenantModuleClientService {
 	public CommonResult<Object> saveBatch(@RequestBody List<TenantModule> tenantModuleList);
 
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.PUT)
-	public TenantModuleVo updateById(@PathVariable("id") Long id, @RequestBody TenantModule tenantModule);
+	public TenantModuleVo updateById(@PathVariable("id") String id, @RequestBody TenantModule tenantModule);
 
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.PATCH)
-	public TenantModuleVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantModule tenantModule);
+	public TenantModuleVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantModule tenantModule);
 
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

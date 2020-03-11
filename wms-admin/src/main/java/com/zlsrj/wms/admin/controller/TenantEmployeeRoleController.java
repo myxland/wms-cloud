@@ -87,7 +87,7 @@ public class TenantEmployeeRoleController {
 	@ApiOperation(value = "根据ID查询员工角色")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantEmployeeRoleVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantEmployeeRoleVo> getById(@PathVariable("id") String id) {
 		TenantEmployeeRoleVo tenantEmployeeRoleVo = tenantEmployeeRoleClientService.getById(id);
 		wrappperVo(tenantEmployeeRoleVo);
 
@@ -98,7 +98,7 @@ public class TenantEmployeeRoleController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantEmployeeRoleVo> getById(@RequestBody TenantEmployeeRole tenantEmployeeRole) {
-		Long id = tenantEmployeeRole.getId();
+		String id = tenantEmployeeRole.getId();
 		TenantEmployeeRoleVo tenantEmployeeRoleVo = tenantEmployeeRoleClientService.updatePatchById(id, tenantEmployeeRole);
 		wrappperVo(tenantEmployeeRoleVo);
 
@@ -108,7 +108,7 @@ public class TenantEmployeeRoleController {
 	@ApiOperation(value = "根据ID删除员工角色")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantEmployeeRoleClientService.removeById(id);
 
 		return commonResult;

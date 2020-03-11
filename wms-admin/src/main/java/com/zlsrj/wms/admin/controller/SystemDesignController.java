@@ -50,7 +50,7 @@ public class SystemDesignController {
 	public CommonResult<Boolean> updateBasicOn(@RequestParam("ids") String ids,
 			@RequestParam("basicOn") Integer basicOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemDesign systemDesign = new SystemDesign();
 			systemDesign.setBasicOn(basicOn);
 			systemDesignClientService.updatePatchById(id, systemDesign);
@@ -65,7 +65,7 @@ public class SystemDesignController {
 	public CommonResult<Boolean> updateAdvanceOn(@RequestParam("ids") String ids,
 			@RequestParam("advanceOn") Integer advanceOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemDesign systemDesign = new SystemDesign();
 			systemDesign.setAdvanceOn(advanceOn);
 			systemDesignClientService.updatePatchById(id, systemDesign);
@@ -80,7 +80,7 @@ public class SystemDesignController {
 	public CommonResult<Boolean> updateUltimateOn(@RequestParam("ids") String ids,
 			@RequestParam("ultimateOn") Integer ultimateOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemDesign systemDesign = new SystemDesign();
 			systemDesign.setUltimateOn(ultimateOn);
 			systemDesignClientService.updatePatchById(id, systemDesign);
@@ -95,7 +95,7 @@ public class SystemDesignController {
 	public CommonResult<Boolean> updateModuleReleaseOn(@RequestParam("ids") String ids,
 			@RequestParam("moduleReleaseOn") Integer moduleReleaseOn) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			SystemDesign systemDesign = new SystemDesign();
 			systemDesign.setModuleReleaseOn(moduleReleaseOn);
 			systemDesignClientService.updatePatchById(id, systemDesign);
@@ -116,7 +116,7 @@ public class SystemDesignController {
 	@ApiOperation(value = "根据ID查询系统定义")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<SystemDesignVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<SystemDesignVo> getById(@PathVariable("id") String id) {
 		SystemDesignVo systemDesignVo = systemDesignClientService.getById(id);
 
 		return CommonResult.success(systemDesignVo);
@@ -126,7 +126,7 @@ public class SystemDesignController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<SystemDesignVo> getById(@RequestBody SystemDesign systemDesign) {
-		Long id = systemDesign.getId();
+		String id = systemDesign.getId();
 		SystemDesignVo systemDesignVo = systemDesignClientService.updatePatchById(id, systemDesign);
 
 		return CommonResult.success(systemDesignVo);
@@ -135,7 +135,7 @@ public class SystemDesignController {
 	@ApiOperation(value = "根据ID删除系统定义")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = systemDesignClientService.removeById(id);
 
 		return commonResult;

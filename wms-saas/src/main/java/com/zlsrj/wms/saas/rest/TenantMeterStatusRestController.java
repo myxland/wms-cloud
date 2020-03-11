@@ -45,7 +45,7 @@ public class TenantMeterStatusRestController {
 
 	@ApiOperation(value = "根据ID查询水表状况")
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.GET)
-	public TenantMeterStatusVo getById(@PathVariable("id") Long id) {
+	public TenantMeterStatusVo getById(@PathVariable("id") String id) {
 		TenantMeterStatus tenantMeterStatus = tenantMeterStatusService.getById(id);
 
 		return entity2vo(tenantMeterStatus);
@@ -88,7 +88,7 @@ public class TenantMeterStatusRestController {
 	@ApiOperation(value = "新增水表状况")
 	@RequestMapping(value = "/tenant-meter-statuss", method = RequestMethod.POST)
 	public TenantMeterStatusVo save(@RequestBody TenantMeterStatus tenantMeterStatus) {
-		if (tenantMeterStatus.getId() == null || tenantMeterStatus.getId().compareTo(0L) <= 0) {
+		if (tenantMeterStatus.getId() == null || tenantMeterStatus.getId().trim().length() <= 0) {
 			tenantMeterStatus.setId(idService.selectId());
 		}
 		boolean success = tenantMeterStatusService.save(tenantMeterStatus);
@@ -102,7 +102,7 @@ public class TenantMeterStatusRestController {
 
 	@ApiOperation(value = "更新水表状况全部信息")
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.PUT)
-	public TenantMeterStatusVo updateById(@PathVariable("id") Long id, @RequestBody TenantMeterStatus tenantMeterStatus) {
+	public TenantMeterStatusVo updateById(@PathVariable("id") String id, @RequestBody TenantMeterStatus tenantMeterStatus) {
 		tenantMeterStatus.setId(id);
 		boolean success = tenantMeterStatusService.updateById(tenantMeterStatus);
 		if (success) {
@@ -115,7 +115,7 @@ public class TenantMeterStatusRestController {
 
 	@ApiOperation(value = "根据参数更新水表状况信息")
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.PATCH)
-	public TenantMeterStatusVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantMeterStatus tenantMeterStatus) {
+	public TenantMeterStatusVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantMeterStatus tenantMeterStatus) {
         TenantMeterStatus tenantMeterStatusWhere = TenantMeterStatus.builder()//
 				.id(id)//
 				.build();
@@ -143,7 +143,7 @@ public class TenantMeterStatusRestController {
 
 	@ApiOperation(value = "根据ID删除水表状况")
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantMeterStatusService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,8 +31,7 @@ public class ModuleInfo implements Serializable {
 
 	@ApiModelProperty(value = "服务模块ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "服务模块名称")
 	@TableField("module_name")
@@ -50,8 +47,7 @@ public class ModuleInfo implements Serializable {
 
 	@ApiModelProperty(value = "依赖模块ID")
 	@TableField("rely_module_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long relyModuleId;
+	private String relyModuleId;
 
 	@ApiModelProperty(value = "计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）")
 	@TableField("billing_mode")

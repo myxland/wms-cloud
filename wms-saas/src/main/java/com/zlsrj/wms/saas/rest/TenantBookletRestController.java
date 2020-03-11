@@ -47,7 +47,7 @@ public class TenantBookletRestController {
 
 	@ApiOperation(value = "根据ID查询租户表册")
 	@RequestMapping(value = "/tenant-booklets/{id}", method = RequestMethod.GET)
-	public TenantBookletVo getById(@PathVariable("id") Long id) {
+	public TenantBookletVo getById(@PathVariable("id") String id) {
 		TenantBooklet tenantBooklet = tenantBookletService.getById(id);
 
 		return entity2vo(tenantBooklet);
@@ -101,7 +101,7 @@ public class TenantBookletRestController {
 	@ApiOperation(value = "新增租户表册")
 	@RequestMapping(value = "/tenant-booklets", method = RequestMethod.POST)
 	public TenantBookletVo save(@RequestBody TenantBooklet tenantBooklet) {
-		if (tenantBooklet.getId() == null || tenantBooklet.getId().compareTo(0L) <= 0) {
+		if (tenantBooklet.getId() == null || tenantBooklet.getId().trim().length() <= 0) {
 			tenantBooklet.setId(idService.selectId());
 		}
 		boolean success = tenantBookletService.save(tenantBooklet);
@@ -115,7 +115,7 @@ public class TenantBookletRestController {
 
 	@ApiOperation(value = "更新租户表册全部信息")
 	@RequestMapping(value = "/tenant-booklets/{id}", method = RequestMethod.PUT)
-	public TenantBookletVo updateById(@PathVariable("id") Long id, @RequestBody TenantBooklet tenantBooklet) {
+	public TenantBookletVo updateById(@PathVariable("id") String id, @RequestBody TenantBooklet tenantBooklet) {
 		tenantBooklet.setId(id);
 		boolean success = tenantBookletService.updateById(tenantBooklet);
 		if (success) {
@@ -128,7 +128,7 @@ public class TenantBookletRestController {
 
 	@ApiOperation(value = "根据参数更新租户表册信息")
 	@RequestMapping(value = "/tenant-booklets/{id}", method = RequestMethod.PATCH)
-	public TenantBookletVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantBooklet tenantBooklet) {
+	public TenantBookletVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantBooklet tenantBooklet) {
         TenantBooklet tenantBookletWhere = TenantBooklet.builder()//
 				.id(id)//
 				.build();
@@ -163,7 +163,7 @@ public class TenantBookletRestController {
 
 	@ApiOperation(value = "根据ID删除租户表册")
 	@RequestMapping(value = "/tenant-booklets/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantBookletService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

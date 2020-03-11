@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,19 +18,16 @@ public class TenantCustomerMeterInstallVo implements Serializable {
 	private static final long serialVersionUID = 1113120136311821151L;
 
 	@ApiModelProperty(value = "水表立户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "已经立户的水表ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "已经立户的水表代码")
 	private String meterCode;
@@ -47,23 +42,19 @@ public class TenantCustomerMeterInstallVo implements Serializable {
 	private String meterMachineCode;
 
 	@ApiModelProperty(value = "厂商ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long manufactorId;
+	private String manufactorId;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
 
 	@ApiModelProperty(value = "水表口径ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "用水分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long waterTypeId;
+	private String waterTypeId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "采集系统编号")
 	private String meterIotCode;

@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,23 +17,19 @@ public class TenantPriceStepVo implements Serializable {
 	private static final long serialVersionUID = 1471110365931151053L;
 
 	@ApiModelProperty(value = "价格阶梯ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "价格类别ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "费用项目ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "阶梯号")
 	private Integer stepNo;

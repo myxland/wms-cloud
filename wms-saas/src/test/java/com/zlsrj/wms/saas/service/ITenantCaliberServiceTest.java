@@ -27,7 +27,7 @@ public class ITenantCaliberServiceTest {
 	public void insertTest() {
 		TenantCaliber tenantCaliber = TenantCaliber.builder()//
 				.id(TestCaseUtil.id())// 口径ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.caliberName(TestCaseUtil.name())// 口径名称
 				.build();
 
@@ -41,10 +41,10 @@ public class ITenantCaliberServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantCaliber tenantCaliber = TenantCaliber.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.caliberName(TestCaseUtil.name())// 口径名称
 				.build();
 		tenantCaliber.setId(id);

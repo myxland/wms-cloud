@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,30 +17,25 @@ public class CustDevVo implements Serializable {
 	private static final long serialVersionUID = 6234812091313121375L;
 
 	@ApiModelProperty(value = "系统编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
 
 	@ApiModelProperty(value = "表具编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "价格类别编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 	
 	@ApiModelProperty(value = "价格类别名称")
 	private String priceTypeName;
 
 	@ApiModelProperty(value = "用水类别编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long waterTypeId;
+	private String waterTypeId;
 	
 	@ApiModelProperty(value = "用水类别名称")
 	private String waterTypeName;

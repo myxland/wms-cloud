@@ -16,10 +16,10 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-TENANT", contextId = "TenantConfig")
 public interface TenantConfigClientService {
 	@RequestMapping(value = "/tenant-configs/{id}", method = RequestMethod.GET)
-	public TenantConfigVo getById(@PathVariable("id") Long id);
+	public TenantConfigVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-configs/tenant-id/{tenant-id}", method = RequestMethod.GET)
-	public TenantConfigVo getByTenantId(@PathVariable("tenant-id") Long tenantId);
+	public TenantConfigVo getByTenantId(@PathVariable("tenant-id") String tenantId);
 
 	@RequestMapping(value = "/tenant-configs", method = RequestMethod.GET)
 	public Page<TenantConfigVo> page(@RequestBody TenantConfigQueryParam tenantConfigQueryParam,
@@ -33,12 +33,12 @@ public interface TenantConfigClientService {
 	public TenantConfigVo save(@RequestBody TenantConfig tenantConfig);
 
 	@RequestMapping(value = "/tenant-configs/{id}", method = RequestMethod.PUT)
-	public TenantConfigVo updateById(@PathVariable("id") Long id, @RequestBody TenantConfig tenantConfig);
+	public TenantConfigVo updateById(@PathVariable("id") String id, @RequestBody TenantConfig tenantConfig);
 
 	@RequestMapping(value = "/tenant-configs/{id}", method = RequestMethod.PATCH)
-	public TenantConfigVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConfig tenantConfig);
+	public TenantConfigVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConfig tenantConfig);
 
 	@RequestMapping(value = "/tenant-configs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

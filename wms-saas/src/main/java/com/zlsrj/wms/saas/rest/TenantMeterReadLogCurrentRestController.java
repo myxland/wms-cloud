@@ -47,7 +47,7 @@ public class TenantMeterReadLogCurrentRestController {
 
 	@ApiOperation(value = "根据ID查询当期抄表计划")
 	@RequestMapping(value = "/tenant-meter-read-log-currents/{id}", method = RequestMethod.GET)
-	public TenantMeterReadLogCurrentVo getById(@PathVariable("id") Long id) {
+	public TenantMeterReadLogCurrentVo getById(@PathVariable("id") String id) {
 		TenantMeterReadLogCurrent tenantMeterReadLogCurrent = tenantMeterReadLogCurrentService.getById(id);
 
 		return entity2vo(tenantMeterReadLogCurrent);
@@ -113,7 +113,7 @@ public class TenantMeterReadLogCurrentRestController {
 	@ApiOperation(value = "新增当期抄表计划")
 	@RequestMapping(value = "/tenant-meter-read-log-currents", method = RequestMethod.POST)
 	public TenantMeterReadLogCurrentVo save(@RequestBody TenantMeterReadLogCurrent tenantMeterReadLogCurrent) {
-		if (tenantMeterReadLogCurrent.getId() == null || tenantMeterReadLogCurrent.getId().compareTo(0L) <= 0) {
+		if (tenantMeterReadLogCurrent.getId() == null || tenantMeterReadLogCurrent.getId().trim().length() <= 0) {
 			tenantMeterReadLogCurrent.setId(idService.selectId());
 		}
 		boolean success = tenantMeterReadLogCurrentService.save(tenantMeterReadLogCurrent);
@@ -127,7 +127,7 @@ public class TenantMeterReadLogCurrentRestController {
 
 	@ApiOperation(value = "更新当期抄表计划全部信息")
 	@RequestMapping(value = "/tenant-meter-read-log-currents/{id}", method = RequestMethod.PUT)
-	public TenantMeterReadLogCurrentVo updateById(@PathVariable("id") Long id, @RequestBody TenantMeterReadLogCurrent tenantMeterReadLogCurrent) {
+	public TenantMeterReadLogCurrentVo updateById(@PathVariable("id") String id, @RequestBody TenantMeterReadLogCurrent tenantMeterReadLogCurrent) {
 		tenantMeterReadLogCurrent.setId(id);
 		boolean success = tenantMeterReadLogCurrentService.updateById(tenantMeterReadLogCurrent);
 		if (success) {
@@ -140,7 +140,7 @@ public class TenantMeterReadLogCurrentRestController {
 
 	@ApiOperation(value = "根据参数更新当期抄表计划信息")
 	@RequestMapping(value = "/tenant-meter-read-log-currents/{id}", method = RequestMethod.PATCH)
-	public TenantMeterReadLogCurrentVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantMeterReadLogCurrent tenantMeterReadLogCurrent) {
+	public TenantMeterReadLogCurrentVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantMeterReadLogCurrent tenantMeterReadLogCurrent) {
         TenantMeterReadLogCurrent tenantMeterReadLogCurrentWhere = TenantMeterReadLogCurrent.builder()//
 				.id(id)//
 				.build();
@@ -183,7 +183,7 @@ public class TenantMeterReadLogCurrentRestController {
 
 	@ApiOperation(value = "根据ID删除当期抄表计划")
 	@RequestMapping(value = "/tenant-meter-read-log-currents/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantMeterReadLogCurrentService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

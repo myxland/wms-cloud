@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 @FeignClient(value = "WMS-EMPLOYEE", contextId = "TenantEmployeeRole")
 public interface TenantEmployeeRoleClientService {
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.GET)
-	public TenantEmployeeRoleVo getById(@PathVariable("id") Long id);
+	public TenantEmployeeRoleVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-employee-roles", method = RequestMethod.GET)
 	public Page<TenantEmployeeRoleVo> page(@RequestBody TenantEmployeeRoleQueryParam tenantEmployeeRoleQueryParam,
@@ -44,12 +44,12 @@ public interface TenantEmployeeRoleClientService {
 	public CommonResult<Object> saveBatchByRoleId(@PathVariable("roleId") Long roleId,@RequestBody TenantEmployeeRoleBatch tenantEmployeeRoleBatch);
 
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.PUT)
-	public TenantEmployeeRoleVo updateById(@PathVariable("id") Long id, @RequestBody TenantEmployeeRole tenantEmployeeRole);
+	public TenantEmployeeRoleVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployeeRole tenantEmployeeRole);
 
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.PATCH)
-	public TenantEmployeeRoleVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantEmployeeRole tenantEmployeeRole);
+	public TenantEmployeeRoleVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployeeRole tenantEmployeeRole);
 
 	@RequestMapping(value = "/tenant-employee-roles/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

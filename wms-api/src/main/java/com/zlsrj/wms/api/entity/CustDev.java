@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,28 +31,23 @@ public class CustDev implements Serializable {
 
 	@ApiModelProperty(value = "系统编号")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "表具编号")
 	@TableField("dev_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "价格类别编号")
 	@TableField("price_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "用水类别编号")
 	@TableField("water_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long waterTypeId;
+	private String waterTypeId;
 
 	@ApiModelProperty(value = "排序")
 	@TableField("dev_order")

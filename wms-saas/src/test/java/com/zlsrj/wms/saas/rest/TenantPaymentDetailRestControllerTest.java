@@ -47,7 +47,7 @@ public class TenantPaymentDetailRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-payment-details" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -88,15 +88,15 @@ public class TenantPaymentDetailRestControllerTest {
 
 		TenantPaymentDetail tenantInfo = TenantPaymentDetail.builder()//
 				.id(TestCaseUtil.id())// 实收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.paymentId(RandomUtil.randomLong())// 实收总账ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.paymentId(RandomUtil.randomString(32))// 实收总账ID
 				.receivableTime(new Date())// 对应的应收账时间
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.receivableDetailId(RandomUtil.randomLong())// 应收明细账ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.receivableDetailId(RandomUtil.randomString(32))// 应收明细账ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.payWaters(new BigDecimal(0))// 收费水量
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.payPrice(new BigDecimal(0))// 价格
 				.payMoney(new BigDecimal(0))// 收费金额
 				.build();
@@ -113,19 +113,19 @@ public class TenantPaymentDetailRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPaymentDetail tenantInfo = TenantPaymentDetail.builder()//
 				//.id(TestCaseUtil.id())// 实收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.paymentId(RandomUtil.randomLong())// 实收总账ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.paymentId(RandomUtil.randomString(32))// 实收总账ID
 				.receivableTime(new Date())// 对应的应收账时间
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.receivableDetailId(RandomUtil.randomLong())// 应收明细账ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.receivableDetailId(RandomUtil.randomString(32))// 应收明细账ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.payWaters(new BigDecimal(0))// 收费水量
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.payPrice(new BigDecimal(0))// 价格
 				.payMoney(new BigDecimal(0))// 收费金额
 				.build();
@@ -142,18 +142,18 @@ public class TenantPaymentDetailRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPaymentDetail tenantInfo = TenantPaymentDetail.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.paymentId(RandomUtil.randomLong())// 实收总账ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.paymentId(RandomUtil.randomString(32))// 实收总账ID
 				//.receivableTime(new Date())// 对应的应收账时间
-				//.receivableId(RandomUtil.randomLong())// 应收总账ID
-				//.receivableDetailId(RandomUtil.randomLong())// 应收明细账ID
+				//.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				//.receivableDetailId(RandomUtil.randomString(32))// 应收明细账ID
 				//.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				//.payWaters(new BigDecimal(0))// 收费水量
-				//.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				//.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				//.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				//.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				//.payPrice(new BigDecimal(0))// 价格
 				//.payMoney(new BigDecimal(0))// 收费金额
 				.build();
@@ -170,7 +170,7 @@ public class TenantPaymentDetailRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-payment-details" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

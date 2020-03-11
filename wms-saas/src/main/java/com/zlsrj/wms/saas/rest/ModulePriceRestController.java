@@ -42,7 +42,7 @@ public class ModulePriceRestController {
 
 	@ApiOperation(value = "根据ID查询模块价格")
 	@RequestMapping(value = "/module-prices/{id}", method = RequestMethod.GET)
-	public ModulePriceVo getById(@PathVariable("id") Long id) {
+	public ModulePriceVo getById(@PathVariable("id") String id) {
 		ModulePrice modulePrice = modulePriceService.getById(id);
 
 		return entity2vo(modulePrice);
@@ -85,7 +85,7 @@ public class ModulePriceRestController {
 	@ApiOperation(value = "新增模块价格")
 	@RequestMapping(value = "/module-prices", method = RequestMethod.POST)
 	public ModulePriceVo save(@RequestBody ModulePrice modulePrice) {
-		if (modulePrice.getId() == null || modulePrice.getId().compareTo(0L) <= 0) {
+		if (modulePrice.getId() == null || modulePrice.getId().trim().length() <= 0) {
 			modulePrice.setId(idService.selectId());
 		}
 		boolean success = modulePriceService.save(modulePrice);
@@ -99,7 +99,7 @@ public class ModulePriceRestController {
 
 	@ApiOperation(value = "更新模块价格全部信息")
 	@RequestMapping(value = "/module-prices/{id}", method = RequestMethod.PUT)
-	public ModulePriceVo updateById(@PathVariable("id") Long id, @RequestBody ModulePrice modulePrice) {
+	public ModulePriceVo updateById(@PathVariable("id") String id, @RequestBody ModulePrice modulePrice) {
 		modulePrice.setId(id);
 		boolean success = modulePriceService.updateById(modulePrice);
 		if (success) {
@@ -112,7 +112,7 @@ public class ModulePriceRestController {
 
 	@ApiOperation(value = "根据参数更新模块价格信息")
 	@RequestMapping(value = "/module-prices/{id}", method = RequestMethod.PATCH)
-	public ModulePriceVo updatePatchById(@PathVariable("id") Long id, @RequestBody ModulePrice modulePrice) {
+	public ModulePriceVo updatePatchById(@PathVariable("id") String id, @RequestBody ModulePrice modulePrice) {
         ModulePrice modulePriceWhere = ModulePrice.builder()//
 				.id(id)//
 				.build();
@@ -140,7 +140,7 @@ public class ModulePriceRestController {
 
 	@ApiOperation(value = "根据ID删除模块价格")
 	@RequestMapping(value = "/module-prices/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = modulePriceService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

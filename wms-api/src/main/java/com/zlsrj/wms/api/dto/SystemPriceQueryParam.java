@@ -16,7 +16,7 @@ public class SystemPriceQueryParam implements Serializable {
 	private static final long serialVersionUID = 5714205221521010136L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "模块编号")
 	private Long sysId;

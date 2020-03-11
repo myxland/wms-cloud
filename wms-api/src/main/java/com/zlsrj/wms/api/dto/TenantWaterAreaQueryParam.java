@@ -15,19 +15,19 @@ public class TenantWaterAreaQueryParam implements Serializable {
 	private static final long serialVersionUID = 1006121171211151480L;
 
 	@ApiModelProperty(value = "供水区域ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "供水区域名称")
 	private String waterAreaName;
 
 	@ApiModelProperty(value = "上级供水区域ID")
-	private Long waterAreaParentId;
+	private String waterAreaParentId;
 
 	@ApiModelProperty(value = "父级ID")
-	private Long parentId;
+	private String parentId;
 	
 }
 

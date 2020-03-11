@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,12 +17,10 @@ public class CustInfoChangeVo implements Serializable {
 	private static final long serialVersionUID = 1331128111310104110L;
 
 	@ApiModelProperty(value = "系统编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
@@ -36,7 +32,6 @@ public class CustInfoChangeVo implements Serializable {
 	private Date changeDate;
 
 	@ApiModelProperty(value = "变更人")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long changer;
 
 	@ApiModelProperty(value = "用户信息变更（1：是；0：否）")
@@ -61,12 +56,10 @@ public class CustInfoChangeVo implements Serializable {
 	private String custAddressHis;
 
 	@ApiModelProperty(value = "用户类别编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long custTypeId;
+	private String custTypeId;
 
 	@ApiModelProperty(value = "变更前用户类别编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long custTypeIdHis;
+	private String custTypeIdHis;
 
 	@ApiModelProperty(value = "立户日期")
 	private Date custRegistDate;

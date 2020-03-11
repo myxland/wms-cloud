@@ -62,7 +62,7 @@ public class TenantMeterController {
 	@ApiOperation(value = "根据ID查询水表信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantMeterVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantMeterVo> getById(@PathVariable("id") String id) {
 		TenantMeterVo tenantMeterVo = tenantMeterClientService.getById(id);
 		wrappperVo(tenantMeterVo);
 
@@ -73,7 +73,7 @@ public class TenantMeterController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantMeterVo> getById(@RequestBody TenantMeter tenantMeter) {
-		Long id = tenantMeter.getId();
+		String id = tenantMeter.getId();
 		TenantMeterVo tenantMeterVo = tenantMeterClientService.updatePatchById(id, tenantMeter);
 		wrappperVo(tenantMeterVo);
 
@@ -83,7 +83,7 @@ public class TenantMeterController {
 	@ApiOperation(value = "根据ID删除水表信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantMeterClientService.removeById(id);
 
 		return commonResult;
@@ -98,7 +98,7 @@ public class TenantMeterController {
 		}
 		boolean hasChildren = tenantMeterVo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = tenantMeterVo.getId();
+			String parentId = tenantMeterVo.getId();
 			TenantMeterQueryParam tenantMeterQueryParam = new TenantMeterQueryParam();
 			tenantMeterQueryParam.setParentId(parentId);
 			Page<TenantMeterVo> tenantMeterVoPage = tenantMeterClientService.page(tenantMeterQueryParam, 1, 500, "id", "desc");

@@ -27,9 +27,9 @@ public class ITenantCustomerTypeServiceTest {
 	public void insertTest() {
 		TenantCustomerType tenantCustomerType = TenantCustomerType.builder()//
 				.id(TestCaseUtil.id())// 用户类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.customerTypeName(TestCaseUtil.name())// 用户类别名称
-				.customerTypeParentId(RandomUtil.randomLong())// 上级用户类别ID
+				.customerTypeParentId(RandomUtil.randomString(32))// 上级用户类别ID
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantCustomerType, ToStringStyle.MULTI_LINE_STYLE));
@@ -42,12 +42,12 @@ public class ITenantCustomerTypeServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerType tenantCustomerType = TenantCustomerType.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.customerTypeName(TestCaseUtil.name())// 用户类别名称
-				.customerTypeParentId(RandomUtil.randomLong())// 上级用户类别ID
+				.customerTypeParentId(RandomUtil.randomString(32))// 上级用户类别ID
 				.build();
 		tenantCustomerType.setId(id);
 

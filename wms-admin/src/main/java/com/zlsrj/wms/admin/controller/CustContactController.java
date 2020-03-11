@@ -62,7 +62,7 @@ public class CustContactController {
 	@ApiOperation(value = "根据ID查询用户联系人")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CustContactVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<CustContactVo> getById(@PathVariable("id") String id) {
 		CustContactVo custContactVo = custContactClientService.getById(id);
 		wrappperVo(custContactVo);
 		
@@ -73,7 +73,7 @@ public class CustContactController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<CustContactVo> getById(@RequestBody CustContact custContact) {
-		Long id = custContact.getId();
+		String id = custContact.getId();
 		CustContactVo custContactVo = custContactClientService.updatePatchById(id, custContact);
 
 		return CommonResult.success(custContactVo);
@@ -82,7 +82,7 @@ public class CustContactController {
 	@ApiOperation(value = "根据ID删除用户联系人")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = custContactClientService.removeById(id);
 
 		return commonResult;

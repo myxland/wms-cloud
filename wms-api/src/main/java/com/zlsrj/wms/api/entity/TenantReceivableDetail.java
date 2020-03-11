@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,23 +31,19 @@ public class TenantReceivableDetail implements Serializable {
 
 	@ApiModelProperty(value = "应收明细账ID")
 	@TableId(value = "id", type = IdType.AUTO)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "应收总账ID")
 	@TableField("receivable_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableId;
+	private String receivableId;
 
 	@ApiModelProperty(value = "价格阶梯ID")
 	@TableField("price_step_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceStepId;
+	private String priceStepId;
 
 	@ApiModelProperty(value = "应收水量")
 	@TableField("receivable_waters")
@@ -61,8 +55,7 @@ public class TenantReceivableDetail implements Serializable {
 
 	@ApiModelProperty(value = "费用项目ID")
 	@TableField("price_item_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "价格")
 	@TableField("detail_price")

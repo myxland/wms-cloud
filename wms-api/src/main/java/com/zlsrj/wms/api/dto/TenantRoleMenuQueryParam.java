@@ -15,16 +15,16 @@ public class TenantRoleMenuQueryParam implements Serializable {
 	private static final long serialVersionUID = 1421115110184410581L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "角色编号")
 	private Long roleId;
 
 	@ApiModelProperty(value = "模块编号")
-	private Long moduleId;
+	private String moduleId;
 
 	@ApiModelProperty(value = "菜单编号")
 	private Long menuId;

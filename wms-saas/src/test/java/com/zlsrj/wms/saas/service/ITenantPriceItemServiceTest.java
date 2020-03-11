@@ -28,7 +28,7 @@ public class ITenantPriceItemServiceTest {
 	public void insertTest() {
 		TenantPriceItem tenantPriceItem = TenantPriceItem.builder()//
 				.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
 				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
@@ -44,10 +44,10 @@ public class ITenantPriceItemServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceItem tenantPriceItem = TenantPriceItem.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
 				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号

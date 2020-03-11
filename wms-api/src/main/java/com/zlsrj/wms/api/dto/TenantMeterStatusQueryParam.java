@@ -15,10 +15,10 @@ public class TenantMeterStatusQueryParam implements Serializable {
 	private static final long serialVersionUID = 7103121541415246137L;
 
 	@ApiModelProperty(value = "表况ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "表况名称")
 	private String meterStatusName;

@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-EMPLOYEE", contextId = "TenantRoleMenu")
 public interface TenantRoleMenuClientService {
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.GET)
-	public TenantRoleMenuVo getById(@PathVariable("id") Long id);
+	public TenantRoleMenuVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-role-menus", method = RequestMethod.GET)
 	public Page<TenantRoleMenuVo> page(@RequestBody TenantRoleMenuQueryParam tenantRoleMenuQueryParam,
@@ -30,12 +30,12 @@ public interface TenantRoleMenuClientService {
 	public TenantRoleMenuVo save(@RequestBody TenantRoleMenu tenantRoleMenu);
 
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.PUT)
-	public TenantRoleMenuVo updateById(@PathVariable("id") Long id, @RequestBody TenantRoleMenu tenantRoleMenu);
+	public TenantRoleMenuVo updateById(@PathVariable("id") String id, @RequestBody TenantRoleMenu tenantRoleMenu);
 
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.PATCH)
-	public TenantRoleMenuVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantRoleMenu tenantRoleMenu);
+	public TenantRoleMenuVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantRoleMenu tenantRoleMenu);
 
 	@RequestMapping(value = "/tenant-role-menus/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

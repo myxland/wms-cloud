@@ -27,10 +27,10 @@ public class ITenantEmployeeServiceTest {
 	public void insertTest() {
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
 				.id(TestCaseUtil.id())// 员工ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.employeeName(TestCaseUtil.name())// 员工名称
 				.employeePassword(RandomUtil.randomString(4))// 登录密码
-				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeDepartmentId(RandomUtil.randomString(32))// 员工所属部门ID
 				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
 				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.employeeMobile(TestCaseUtil.mobile())// 员工手机号
@@ -51,13 +51,13 @@ public class ITenantEmployeeServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantEmployee tenantEmployee = TenantEmployee.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.employeeName(TestCaseUtil.name())// 员工名称
 				.employeePassword(RandomUtil.randomString(4))// 登录密码
-				.employeeDepartmentId(RandomUtil.randomLong())// 员工所属部门ID
+				.employeeDepartmentId(RandomUtil.randomString(32))// 员工所属部门ID
 				.employeeLoginOn(RandomUtil.randomInt(0,1+1))// 可登录系统（1：可登录；0：不能登录）
 				.employeeStatus(RandomUtil.randomInt(0,1+1))// 员工状态（1：在职；2：离职；3：禁用）
 				.employeeMobile(TestCaseUtil.mobile())// 员工手机号

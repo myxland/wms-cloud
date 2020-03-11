@@ -69,7 +69,7 @@ public class ITenantInfoServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		String companyShortName = TestCaseUtil.companyShortName();
 

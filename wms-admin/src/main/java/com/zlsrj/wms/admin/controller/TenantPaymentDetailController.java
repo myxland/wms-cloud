@@ -62,7 +62,7 @@ public class TenantPaymentDetailController {
 	@ApiOperation(value = "根据ID查询实收明细账，记录本次所销账的欠费明细情况")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantPaymentDetailVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantPaymentDetailVo> getById(@PathVariable("id") String id) {
 		TenantPaymentDetailVo tenantPaymentDetailVo = tenantPaymentDetailClientService.getById(id);
 		wrappperVo(tenantPaymentDetailVo);
 
@@ -73,7 +73,7 @@ public class TenantPaymentDetailController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantPaymentDetailVo> getById(@RequestBody TenantPaymentDetail tenantPaymentDetail) {
-		Long id = tenantPaymentDetail.getId();
+		String id = tenantPaymentDetail.getId();
 		TenantPaymentDetailVo tenantPaymentDetailVo = tenantPaymentDetailClientService.updatePatchById(id, tenantPaymentDetail);
 		wrappperVo(tenantPaymentDetailVo);
 
@@ -83,7 +83,7 @@ public class TenantPaymentDetailController {
 	@ApiOperation(value = "根据ID删除实收明细账，记录本次所销账的欠费明细情况")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantPaymentDetailClientService.removeById(id);
 
 		return commonResult;

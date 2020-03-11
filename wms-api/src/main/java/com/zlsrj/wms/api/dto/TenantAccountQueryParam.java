@@ -16,10 +16,10 @@ public class TenantAccountQueryParam implements Serializable {
 	private static final long serialVersionUID = 1413852148013633147L;
 
 	@ApiModelProperty(value = "编号ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "账户余额")
 	private BigDecimal accountBalance;

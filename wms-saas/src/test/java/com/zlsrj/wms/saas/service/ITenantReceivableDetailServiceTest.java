@@ -28,12 +28,12 @@ public class ITenantReceivableDetailServiceTest {
 	public void insertTest() {
 		TenantReceivableDetail tenantReceivableDetail = TenantReceivableDetail.builder()//
 				.id(TestCaseUtil.id())// 应收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.priceStepId(RandomUtil.randomString(32))// 价格阶梯ID
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.arrearsWaters(new BigDecimal(0))// 欠费水量
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.detailPrice(new BigDecimal(0))// 价格
 				.receivableMoney(new BigDecimal(0))// 应收金额
 				.arrearsMoney(new BigDecimal(0))// 欠费金额
@@ -49,15 +49,15 @@ public class ITenantReceivableDetailServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantReceivableDetail tenantReceivableDetail = TenantReceivableDetail.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.priceStepId(RandomUtil.randomLong())// 价格阶梯ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.priceStepId(RandomUtil.randomString(32))// 价格阶梯ID
 				.receivableWaters(new BigDecimal(0))// 应收水量
 				.arrearsWaters(new BigDecimal(0))// 欠费水量
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.detailPrice(new BigDecimal(0))// 价格
 				.receivableMoney(new BigDecimal(0))// 应收金额
 				.arrearsMoney(new BigDecimal(0))// 欠费金额

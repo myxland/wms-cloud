@@ -45,7 +45,7 @@ public class TenantWaterTypeRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-water-types" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -79,10 +79,10 @@ public class TenantWaterTypeRestControllerTest {
 
 		TenantWaterType tenantInfo = TenantWaterType.builder()//
 				.id(TestCaseUtil.id())// 用水类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterTypeName(TestCaseUtil.name())// 用水类别名称
-				.waterTypeParentId(RandomUtil.randomLong())// 上级用水类别编号
-				.defaultPriceTypeId(RandomUtil.randomLong())// 默认价格分类ID
+				.waterTypeParentId(RandomUtil.randomString(32))// 上级用水类别编号
+				.defaultPriceTypeId(RandomUtil.randomString(32))// 默认价格分类ID
 				.build();
 
 		String responseString = mockMvc
@@ -97,14 +97,14 @@ public class TenantWaterTypeRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterType tenantInfo = TenantWaterType.builder()//
 				//.id(TestCaseUtil.id())// 用水类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterTypeName(TestCaseUtil.name())// 用水类别名称
-				.waterTypeParentId(RandomUtil.randomLong())// 上级用水类别编号
-				.defaultPriceTypeId(RandomUtil.randomLong())// 默认价格分类ID
+				.waterTypeParentId(RandomUtil.randomString(32))// 上级用水类别编号
+				.defaultPriceTypeId(RandomUtil.randomString(32))// 默认价格分类ID
 				.build();
 
 		String responseString = mockMvc
@@ -119,13 +119,13 @@ public class TenantWaterTypeRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterType tenantInfo = TenantWaterType.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.waterTypeName(TestCaseUtil.name())// 用水类别名称
-				//.waterTypeParentId(RandomUtil.randomLong())// 上级用水类别编号
-				//.defaultPriceTypeId(RandomUtil.randomLong())// 默认价格分类ID
+				//.waterTypeParentId(RandomUtil.randomString(32))// 上级用水类别编号
+				//.defaultPriceTypeId(RandomUtil.randomString(32))// 默认价格分类ID
 				.build();
 
 		String responseString = mockMvc
@@ -140,7 +140,7 @@ public class TenantWaterTypeRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-water-types" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

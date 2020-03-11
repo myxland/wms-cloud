@@ -62,7 +62,7 @@ public class TenantWaterAreaController {
 	@ApiOperation(value = "根据ID查询供水区域")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantWaterAreaVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantWaterAreaVo> getById(@PathVariable("id") String id) {
 		TenantWaterAreaVo tenantWaterAreaVo = tenantWaterAreaClientService.getById(id);
 		wrappperVo(tenantWaterAreaVo);
 
@@ -73,7 +73,7 @@ public class TenantWaterAreaController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantWaterAreaVo> getById(@RequestBody TenantWaterArea tenantWaterArea) {
-		Long id = tenantWaterArea.getId();
+		String id = tenantWaterArea.getId();
 		TenantWaterAreaVo tenantWaterAreaVo = tenantWaterAreaClientService.updatePatchById(id, tenantWaterArea);
 		wrappperVo(tenantWaterAreaVo);
 
@@ -83,7 +83,7 @@ public class TenantWaterAreaController {
 	@ApiOperation(value = "根据ID删除供水区域")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantWaterAreaClientService.removeById(id);
 
 		return commonResult;
@@ -98,7 +98,7 @@ public class TenantWaterAreaController {
 		}
 		boolean hasChildren = tenantWaterAreaVo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = tenantWaterAreaVo.getId();
+			String parentId = tenantWaterAreaVo.getId();
 			TenantWaterAreaQueryParam tenantWaterAreaQueryParam = new TenantWaterAreaQueryParam();
 			tenantWaterAreaQueryParam.setParentId(parentId);
 			Page<TenantWaterAreaVo> tenantWaterAreaVoPage = tenantWaterAreaClientService.page(tenantWaterAreaQueryParam, 1, 500, "id", "desc");

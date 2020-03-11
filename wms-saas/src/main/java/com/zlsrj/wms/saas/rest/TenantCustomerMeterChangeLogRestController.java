@@ -45,7 +45,7 @@ public class TenantCustomerMeterChangeLogRestController {
 
 	@ApiOperation(value = "根据ID查询信息变更")
 	@RequestMapping(value = "/tenant-customer-meter-change-logs/{id}", method = RequestMethod.GET)
-	public TenantCustomerMeterChangeLogVo getById(@PathVariable("id") Long id) {
+	public TenantCustomerMeterChangeLogVo getById(@PathVariable("id") String id) {
 		TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog = tenantCustomerMeterChangeLogService.getById(id);
 
 		return entity2vo(tenantCustomerMeterChangeLog);
@@ -129,7 +129,7 @@ public class TenantCustomerMeterChangeLogRestController {
 	@ApiOperation(value = "新增信息变更")
 	@RequestMapping(value = "/tenant-customer-meter-change-logs", method = RequestMethod.POST)
 	public TenantCustomerMeterChangeLogVo save(@RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
-		if (tenantCustomerMeterChangeLog.getId() == null || tenantCustomerMeterChangeLog.getId().compareTo(0L) <= 0) {
+		if (tenantCustomerMeterChangeLog.getId() == null || tenantCustomerMeterChangeLog.getId().trim().length() <= 0) {
 			tenantCustomerMeterChangeLog.setId(idService.selectId());
 		}
 		boolean success = tenantCustomerMeterChangeLogService.save(tenantCustomerMeterChangeLog);
@@ -143,7 +143,7 @@ public class TenantCustomerMeterChangeLogRestController {
 
 	@ApiOperation(value = "更新信息变更全部信息")
 	@RequestMapping(value = "/tenant-customer-meter-change-logs/{id}", method = RequestMethod.PUT)
-	public TenantCustomerMeterChangeLogVo updateById(@PathVariable("id") Long id, @RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
+	public TenantCustomerMeterChangeLogVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
 		tenantCustomerMeterChangeLog.setId(id);
 		boolean success = tenantCustomerMeterChangeLogService.updateById(tenantCustomerMeterChangeLog);
 		if (success) {
@@ -156,7 +156,7 @@ public class TenantCustomerMeterChangeLogRestController {
 
 	@ApiOperation(value = "根据参数更新信息变更信息")
 	@RequestMapping(value = "/tenant-customer-meter-change-logs/{id}", method = RequestMethod.PATCH)
-	public TenantCustomerMeterChangeLogVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
+	public TenantCustomerMeterChangeLogVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
         TenantCustomerMeterChangeLog tenantCustomerMeterChangeLogWhere = TenantCustomerMeterChangeLog.builder()//
 				.id(id)//
 				.build();
@@ -225,7 +225,7 @@ public class TenantCustomerMeterChangeLogRestController {
 
 	@ApiOperation(value = "根据ID删除信息变更")
 	@RequestMapping(value = "/tenant-customer-meter-change-logs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantCustomerMeterChangeLogService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

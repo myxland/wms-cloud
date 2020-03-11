@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,23 +31,19 @@ public class TenantBooklet implements Serializable {
 
 	@ApiModelProperty(value = "表册ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "所属部门ID")
 	@TableField("booklet_department_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletDepartmentId;
+	private String bookletDepartmentId;
 
 	@ApiModelProperty(value = "所属供水区域ID")
 	@TableField("booklet_water_area_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletWaterAreaId;
+	private String bookletWaterAreaId;
 
 	@ApiModelProperty(value = "表册代码")
 	@TableField("booklet_code")
@@ -61,13 +55,11 @@ public class TenantBooklet implements Serializable {
 
 	@ApiModelProperty(value = "抄表员ID")
 	@TableField("booklet_read_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletReadEmployeeId;
+	private String bookletReadEmployeeId;
 
 	@ApiModelProperty(value = "收费员ID")
 	@TableField("booklet_charge_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletChargeEmployeeId;
+	private String bookletChargeEmployeeId;
 
 	@ApiModelProperty(value = "结算间隔周期[月]")
 	@TableField("booklet_settle_cycle_interval")

@@ -16,13 +16,13 @@ public class TenantCustomerLinkmanQueryParam implements Serializable {
 	private static final long serialVersionUID = 1581551013711145111L;
 
 	@ApiModelProperty(value = "联系人ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "客户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "联系人姓名")
 	private String linkmanName;

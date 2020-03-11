@@ -29,7 +29,7 @@ public class TenantCustomerTypeMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantCustomerType tenantCustomerType = tenantCustomerTypeMapper.selectById(id);
 		log.info(tenantCustomerType.toString());
 	}
@@ -48,7 +48,7 @@ public class TenantCustomerTypeMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			//tenantInfo = TenantInfo.builder().id(1L).build();
+			//tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantCustomerType tenantCustomerTypeParent = null;
 			List<TenantCustomerType> tenantCustomerTypeList = tenantCustomerTypeMapper.selectList(new QueryWrapper<TenantCustomerType>().lambda().eq(TenantCustomerType::getTenantId,tenantInfo.getId()));

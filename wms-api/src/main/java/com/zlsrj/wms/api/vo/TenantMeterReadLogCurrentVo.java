@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,12 +18,10 @@ public class TenantMeterReadLogCurrentVo implements Serializable {
 	private static final long serialVersionUID = 2014121245559121372L;
 
 	@ApiModelProperty(value = "抄表计划")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
@@ -34,12 +30,10 @@ public class TenantMeterReadLogCurrentVo implements Serializable {
 	private Date readMonth;
 
 	@ApiModelProperty(value = "用户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "结算前水表当年累计水量")
 	private BigDecimal meterYearTotalWatersBefore;
@@ -57,12 +51,10 @@ public class TenantMeterReadLogCurrentVo implements Serializable {
 	private BigDecimal currentReadPointer;
 
 	@ApiModelProperty(value = "抄表员ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long readEmployeeId;
+	private String readEmployeeId;
 
 	@ApiModelProperty(value = "表次抄表状况")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterStatusId;
+	private String meterStatusId;
 
 	@ApiModelProperty(value = "应结算水量")
 	private BigDecimal settleWaters;
@@ -83,8 +75,7 @@ public class TenantMeterReadLogCurrentVo implements Serializable {
 	private Integer processReault;
 
 	@ApiModelProperty(value = "处理人")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long processEmployeeId;
+	private String processEmployeeId;
 
 	@ApiModelProperty(value = "处理时间")
 	private Date processTime;

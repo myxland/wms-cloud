@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class TenantMeterReadLogCurrent implements Serializable {
 
 	@ApiModelProperty(value = "抄表计划")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "结算月份")
 	@TableField("read_month")
@@ -48,13 +44,11 @@ public class TenantMeterReadLogCurrent implements Serializable {
 
 	@ApiModelProperty(value = "用户ID")
 	@TableField("customer_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表ID")
 	@TableField("meter_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "结算前水表当年累计水量")
 	@TableField("meter_year_total_waters_before")
@@ -78,13 +72,11 @@ public class TenantMeterReadLogCurrent implements Serializable {
 
 	@ApiModelProperty(value = "抄表员ID")
 	@TableField("read_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long readEmployeeId;
+	private String readEmployeeId;
 
 	@ApiModelProperty(value = "表次抄表状况")
 	@TableField("meter_status_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterStatusId;
+	private String meterStatusId;
 
 	@ApiModelProperty(value = "应结算水量")
 	@TableField("settle_waters")
@@ -112,8 +104,7 @@ public class TenantMeterReadLogCurrent implements Serializable {
 
 	@ApiModelProperty(value = "处理人")
 	@TableField("process_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long processEmployeeId;
+	private String processEmployeeId;
 
 	@ApiModelProperty(value = "处理时间")
 	@TableField("process_time")

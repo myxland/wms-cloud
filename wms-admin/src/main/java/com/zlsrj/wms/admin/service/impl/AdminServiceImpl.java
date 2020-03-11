@@ -52,7 +52,7 @@ public class AdminServiceImpl implements IAdminService {
 		return admin;
 	}
 
-	public List<AdminPermission> getPermissionList(Long adminId) {
+	public List<AdminPermission> getPermissionList(String adminId) {
 		List<AdminPermission> permissionList = new ArrayList<AdminPermission>();
 
 		AdminPermission permission = AdminPermission.builder()//

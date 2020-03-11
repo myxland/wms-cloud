@@ -45,7 +45,7 @@ public class TenantCaliberRestController {
 
 	@ApiOperation(value = "根据ID查询水表口径")
 	@RequestMapping(value = "/tenant-calibers/{id}", method = RequestMethod.GET)
-	public TenantCaliberVo getById(@PathVariable("id") Long id) {
+	public TenantCaliberVo getById(@PathVariable("id") String id) {
 		TenantCaliber tenantCaliber = tenantCaliberService.getById(id);
 
 		return entity2vo(tenantCaliber);
@@ -85,7 +85,7 @@ public class TenantCaliberRestController {
 	@ApiOperation(value = "新增水表口径")
 	@RequestMapping(value = "/tenant-calibers", method = RequestMethod.POST)
 	public TenantCaliberVo save(@RequestBody TenantCaliber tenantCaliber) {
-		if (tenantCaliber.getId() == null || tenantCaliber.getId().compareTo(0L) <= 0) {
+		if (tenantCaliber.getId() == null || tenantCaliber.getId().trim().length() <= 0) {
 			tenantCaliber.setId(idService.selectId());
 		}
 		boolean success = tenantCaliberService.save(tenantCaliber);
@@ -99,7 +99,7 @@ public class TenantCaliberRestController {
 
 	@ApiOperation(value = "更新水表口径全部信息")
 	@RequestMapping(value = "/tenant-calibers/{id}", method = RequestMethod.PUT)
-	public TenantCaliberVo updateById(@PathVariable("id") Long id, @RequestBody TenantCaliber tenantCaliber) {
+	public TenantCaliberVo updateById(@PathVariable("id") String id, @RequestBody TenantCaliber tenantCaliber) {
 		tenantCaliber.setId(id);
 		boolean success = tenantCaliberService.updateById(tenantCaliber);
 		if (success) {
@@ -112,7 +112,7 @@ public class TenantCaliberRestController {
 
 	@ApiOperation(value = "根据参数更新水表口径信息")
 	@RequestMapping(value = "/tenant-calibers/{id}", method = RequestMethod.PATCH)
-	public TenantCaliberVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantCaliber tenantCaliber) {
+	public TenantCaliberVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCaliber tenantCaliber) {
         TenantCaliber tenantCaliberWhere = TenantCaliber.builder()//
 				.id(id)//
 				.build();
@@ -137,7 +137,7 @@ public class TenantCaliberRestController {
 
 	@ApiOperation(value = "根据ID删除水表口径")
 	@RequestMapping(value = "/tenant-calibers/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantCaliberService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

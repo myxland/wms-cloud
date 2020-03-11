@@ -40,7 +40,7 @@ public class TenantMeterReadLogCurrentMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantMeterReadLogCurrent tenantMeterReadLogCurrent = tenantMeterReadLogCurrentMapper.selectById(id);
 		log.info(tenantMeterReadLogCurrent.toString());
 	}
@@ -59,7 +59,7 @@ public class TenantMeterReadLogCurrentMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantCustomer tenantCustomer = null;
 			List<TenantCustomer> tenantCustomerList = tenantCustomerMapper.selectList(new QueryWrapper<TenantCustomer>().lambda().eq(TenantCustomer::getTenantId, tenantInfo.getId()));
@@ -90,7 +90,7 @@ public class TenantMeterReadLogCurrentMapperTest {
 					.settleStartPointer(TestCaseUtil.water())// 结算开始指针
 					.currentReadTime(TestCaseUtil.dateBefore())// 本次抄表时间
 					.currentReadPointer(TestCaseUtil.water())// 本次抄表指针
-					.readEmployeeId(RandomUtil.randomLong())// 抄表员ID
+					.readEmployeeId(RandomUtil.randomString(32))// 抄表员ID
 					.meterStatusId(tenantMeterStatus!=null?tenantMeterStatus.getId():null)// 表次抄表状况
 					.settleWaters(TestCaseUtil.water())// 应结算水量
 					.receivableWaters(TestCaseUtil.water())// 应收水量
@@ -98,7 +98,7 @@ public class TenantMeterReadLogCurrentMapperTest {
 					.readStatus(RandomUtil.randomInt(0,1+1))// 抄表状态（0：未抄；1：已抄）
 					.checkResult(RandomUtil.randomInt(0,1+1))// 检查结果（0：正常；1：异常）
 					.processReault(RandomUtil.randomInt(0,1000+1))// 处理结果（1：已处理；2：未处理）
-					.processEmployeeId(RandomUtil.randomLong())// 处理人
+					.processEmployeeId(RandomUtil.randomString(32))// 处理人
 					.processTime(TestCaseUtil.dateBefore())// 处理时间
 					.processType(RandomUtil.randomInt(1,2+1))// 处理方式（1：重新抄表；2：通过）
 					.build();

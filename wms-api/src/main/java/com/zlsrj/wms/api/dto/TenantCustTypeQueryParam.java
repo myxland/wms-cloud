@@ -15,10 +15,10 @@ public class TenantCustTypeQueryParam implements Serializable {
 	private static final long serialVersionUID = 4214114101312131615L;
 
 	@ApiModelProperty(value = "用户类型")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户类别名称")
 	private String custTypeName;

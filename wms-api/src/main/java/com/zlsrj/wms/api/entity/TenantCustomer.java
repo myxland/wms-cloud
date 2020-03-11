@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class TenantCustomer implements Serializable {
 
 	@ApiModelProperty(value = "")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户代码")
 	@TableField("customer_code")
@@ -56,8 +52,7 @@ public class TenantCustomer implements Serializable {
 
 	@ApiModelProperty(value = "用户类别ID")
 	@TableField("customer_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerTypeId;
+	private String customerTypeId;
 
 	@ApiModelProperty(value = "建档时间")
 	@TableField("customer_register_time")

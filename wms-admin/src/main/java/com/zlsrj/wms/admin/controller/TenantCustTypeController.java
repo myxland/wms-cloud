@@ -56,7 +56,7 @@ public class TenantCustTypeController {
 	@ApiOperation(value = "根据ID查询用户类型")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantCustTypeVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantCustTypeVo> getById(@PathVariable("id") String id) {
 		TenantCustTypeVo tenantCustTypeVo = tenantCustTypeClientService.getById(id);
 
 		return CommonResult.success(tenantCustTypeVo);
@@ -66,7 +66,7 @@ public class TenantCustTypeController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustTypeVo> getById(@RequestBody TenantCustType tenantCustType) {
-		Long id = tenantCustType.getId();
+		String id = tenantCustType.getId();
 		TenantCustTypeVo tenantCustTypeVo = tenantCustTypeClientService.updatePatchById(id, tenantCustType);
 
 		return CommonResult.success(tenantCustTypeVo);
@@ -75,7 +75,7 @@ public class TenantCustTypeController {
 	@ApiOperation(value = "根据ID删除用户类型")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantCustTypeClientService.removeById(id);
 
 		return commonResult;

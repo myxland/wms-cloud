@@ -62,7 +62,7 @@ public class TenantCustomerMeterChangeLogController {
 	@ApiOperation(value = "根据ID查询信息变更")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantCustomerMeterChangeLogVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantCustomerMeterChangeLogVo> getById(@PathVariable("id") String id) {
 		TenantCustomerMeterChangeLogVo tenantCustomerMeterChangeLogVo = tenantCustomerMeterChangeLogClientService.getById(id);
 		wrappperVo(tenantCustomerMeterChangeLogVo);
 
@@ -73,7 +73,7 @@ public class TenantCustomerMeterChangeLogController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustomerMeterChangeLogVo> getById(@RequestBody TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog) {
-		Long id = tenantCustomerMeterChangeLog.getId();
+		String id = tenantCustomerMeterChangeLog.getId();
 		TenantCustomerMeterChangeLogVo tenantCustomerMeterChangeLogVo = tenantCustomerMeterChangeLogClientService.updatePatchById(id, tenantCustomerMeterChangeLog);
 		wrappperVo(tenantCustomerMeterChangeLogVo);
 
@@ -83,7 +83,7 @@ public class TenantCustomerMeterChangeLogController {
 	@ApiOperation(value = "根据ID删除信息变更")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantCustomerMeterChangeLogClientService.removeById(id);
 
 		return commonResult;

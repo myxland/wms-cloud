@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,12 +17,10 @@ public class TenantWaterTypeVo implements Serializable {
 	private static final long serialVersionUID = 6011721018121484133L;
 
 	@ApiModelProperty(value = "用水类别ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
@@ -33,12 +29,10 @@ public class TenantWaterTypeVo implements Serializable {
 	private String waterTypeName;
 
 	@ApiModelProperty(value = "上级用水类别编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long waterTypeParentId;
+	private String waterTypeParentId;
 
 	@ApiModelProperty(value = "默认价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long defaultPriceTypeId;
+	private String defaultPriceTypeId;
 
 	@ApiModelProperty(value = "子级用水分类列表")
 	private List<TenantWaterTypeVo> children;

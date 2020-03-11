@@ -46,7 +46,7 @@ public class TenantPriceTypeRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-types" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -87,7 +87,7 @@ public class TenantPriceTypeRestControllerTest {
 
 		TenantPriceType tenantInfo = TenantPriceType.builder()//
 				.id(TestCaseUtil.id())// 价格类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
 				.bottomWaters(new BigDecimal(0))// 保底水量
@@ -112,11 +112,11 @@ public class TenantPriceTypeRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceType tenantInfo = TenantPriceType.builder()//
 				//.id(TestCaseUtil.id())// 价格类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
 				.bottomWaters(new BigDecimal(0))// 保底水量
@@ -141,10 +141,10 @@ public class TenantPriceTypeRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceType tenantInfo = TenantPriceType.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.priceTypeName(TestCaseUtil.name())// 价格类别名称
 				//.bottomOn(RandomUtil.randomInt(0,1+1))// 启用保底水量（1：启用；0：不启用）
 				//.bottomWaters(new BigDecimal(0))// 保底水量
@@ -169,7 +169,7 @@ public class TenantPriceTypeRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-price-types" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

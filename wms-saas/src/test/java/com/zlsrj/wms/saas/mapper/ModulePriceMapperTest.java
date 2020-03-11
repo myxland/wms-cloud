@@ -27,7 +27,7 @@ public class ModulePriceMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		ModulePrice modulePrice = modulePriceMapper.selectById(id);
 		log.info(modulePrice.toString());
 	}
@@ -45,7 +45,7 @@ public class ModulePriceMapperTest {
 	public void insert() {
 		ModulePrice modulePrice = ModulePrice.builder()//
 				.id(TestCaseUtil.id())// 模块价格ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 模块版本（1：基础版；2：高级版；3：旗舰版）
 				.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
 				.endNum(RandomUtil.randomInt(0,1000+1))// 终止量

@@ -46,7 +46,7 @@ public class TenantModuleRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-modules" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -80,8 +80,8 @@ public class TenantModuleRestControllerTest {
 
 		TenantModule tenantInfo = TenantModule.builder()//
 				.id(TestCaseUtil.id())// 租户模块ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
 				.moduleOpenTime(new Date())// 开通时间
 				.build();
@@ -98,12 +98,12 @@ public class TenantModuleRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantModule tenantInfo = TenantModule.builder()//
 				//.id(TestCaseUtil.id())// 租户模块ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
 				.moduleOpenTime(new Date())// 开通时间
 				.build();
@@ -120,12 +120,12 @@ public class TenantModuleRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantModule tenantInfo = TenantModule.builder()//
 				//.id(TestCaseUtil.id())// 租户模块ID
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.moduleId(RandomUtil.randomLong())// 模块ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.moduleId(RandomUtil.randomString(32))// 模块ID
 				//.moduleEdition(RandomUtil.randomInt(0,1000+1))// 开通版本（1：基础版；2：高级版；3：旗舰版）
 				//.moduleOpenTime(new Date())// 开通时间
 				.build();
@@ -142,7 +142,7 @@ public class TenantModuleRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-modules" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

@@ -16,10 +16,10 @@ public class TenantConfigQueryParam implements Serializable {
 	private static final long serialVersionUID = 2151086113661436515L;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "是否启用部分缴费（1：启用；0：不启用）")
 	private Integer partChargeOn;

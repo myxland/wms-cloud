@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantMeterStatus")
 public interface TenantMeterStatusClientService {
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.GET)
-	public TenantMeterStatusVo getById(@PathVariable("id") Long id);
+	public TenantMeterStatusVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-meter-statuss", method = RequestMethod.GET)
 	public Page<TenantMeterStatusVo> page(@RequestBody TenantMeterStatusQueryParam tenantMeterStatusQueryParam,
@@ -30,12 +30,12 @@ public interface TenantMeterStatusClientService {
 	public TenantMeterStatusVo save(@RequestBody TenantMeterStatus tenantMeterStatus);
 
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.PUT)
-	public TenantMeterStatusVo updateById(@PathVariable("id") Long id, @RequestBody TenantMeterStatus tenantMeterStatus);
+	public TenantMeterStatusVo updateById(@PathVariable("id") String id, @RequestBody TenantMeterStatus tenantMeterStatus);
 
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.PATCH)
-	public TenantMeterStatusVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantMeterStatus tenantMeterStatus);
+	public TenantMeterStatusVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantMeterStatus tenantMeterStatus);
 
 	@RequestMapping(value = "/tenant-meter-statuss/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

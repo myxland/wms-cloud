@@ -46,7 +46,7 @@ public class TenantPriceStepRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-steps" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -83,9 +83,9 @@ public class TenantPriceStepRestControllerTest {
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
 				.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.startWaters(new BigDecimal(0))// 起始量
 				.endWaters(new BigDecimal(0))// 终止量
@@ -104,13 +104,13 @@ public class TenantPriceStepRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
 				//.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.priceTypeId(RandomUtil.randomLong())// 价格类别ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.startWaters(new BigDecimal(0))// 起始量
 				.endWaters(new BigDecimal(0))// 终止量
@@ -129,12 +129,12 @@ public class TenantPriceStepRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.priceTypeId(RandomUtil.randomLong())// 价格类别ID
-				//.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
+				//.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				//.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				//.startWaters(new BigDecimal(0))// 起始量
 				//.endWaters(new BigDecimal(0))// 终止量
@@ -153,7 +153,7 @@ public class TenantPriceStepRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-price-steps" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

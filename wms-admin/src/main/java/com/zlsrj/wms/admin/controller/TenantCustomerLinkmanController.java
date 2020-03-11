@@ -62,7 +62,7 @@ public class TenantCustomerLinkmanController {
 	@ApiOperation(value = "根据ID查询用户联系人")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantCustomerLinkmanVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantCustomerLinkmanVo> getById(@PathVariable("id") String id) {
 		TenantCustomerLinkmanVo tenantCustomerLinkmanVo = tenantCustomerLinkmanClientService.getById(id);
 		wrappperVo(tenantCustomerLinkmanVo);
 
@@ -73,7 +73,7 @@ public class TenantCustomerLinkmanController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantCustomerLinkmanVo> getById(@RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
-		Long id = tenantCustomerLinkman.getId();
+		String id = tenantCustomerLinkman.getId();
 		TenantCustomerLinkmanVo tenantCustomerLinkmanVo = tenantCustomerLinkmanClientService.updatePatchById(id, tenantCustomerLinkman);
 		wrappperVo(tenantCustomerLinkmanVo);
 
@@ -83,7 +83,7 @@ public class TenantCustomerLinkmanController {
 	@ApiOperation(value = "根据ID删除用户联系人")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantCustomerLinkmanClientService.removeById(id);
 
 		return commonResult;

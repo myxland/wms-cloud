@@ -45,7 +45,7 @@ public class TenantDepartmentRestController {
 
 	@ApiOperation(value = "根据ID查询租户部门")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.GET)
-	public TenantDepartmentVo getById(@PathVariable("id") Long id) {
+	public TenantDepartmentVo getById(@PathVariable("id") String id) {
 		TenantDepartment tenantDepartment = tenantDepartmentService.getById(id);
 
 		return entity2vo(tenantDepartment);
@@ -88,7 +88,7 @@ public class TenantDepartmentRestController {
 	@ApiOperation(value = "新增租户部门")
 	@RequestMapping(value = "/tenant-departments", method = RequestMethod.POST)
 	public TenantDepartmentVo save(@RequestBody TenantDepartment tenantDepartment) {
-		if (tenantDepartment.getId() == null || tenantDepartment.getId().compareTo(0L) <= 0) {
+		if (tenantDepartment.getId() == null || tenantDepartment.getId().trim().length() <= 0) {
 			tenantDepartment.setId(idService.selectId());
 		}
 		boolean success = tenantDepartmentService.save(tenantDepartment);
@@ -102,7 +102,7 @@ public class TenantDepartmentRestController {
 
 	@ApiOperation(value = "更新租户部门全部信息")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PUT)
-	public TenantDepartmentVo updateById(@PathVariable("id") Long id, @RequestBody TenantDepartment tenantDepartment) {
+	public TenantDepartmentVo updateById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment) {
 		tenantDepartment.setId(id);
 		boolean success = tenantDepartmentService.updateById(tenantDepartment);
 		if (success) {
@@ -115,7 +115,7 @@ public class TenantDepartmentRestController {
 
 	@ApiOperation(value = "根据参数更新租户部门信息")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PATCH)
-	public TenantDepartmentVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantDepartment tenantDepartment) {
+	public TenantDepartmentVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment) {
         TenantDepartment tenantDepartmentWhere = TenantDepartment.builder()//
 				.id(id)//
 				.build();
@@ -141,7 +141,7 @@ public class TenantDepartmentRestController {
 
 	@ApiOperation(value = "根据ID删除租户部门")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantDepartmentService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

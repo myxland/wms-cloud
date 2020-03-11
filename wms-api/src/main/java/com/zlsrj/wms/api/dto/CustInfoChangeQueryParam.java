@@ -16,10 +16,10 @@ public class CustInfoChangeQueryParam implements Serializable {
 	private static final long serialVersionUID = 8136551242118156661L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户编号")
 	private String custId;
@@ -58,10 +58,10 @@ public class CustInfoChangeQueryParam implements Serializable {
 	private String custAddressHis;
 
 	@ApiModelProperty(value = "用户类别编号")
-	private Long custTypeId;
+	private String custTypeId;
 
 	@ApiModelProperty(value = "变更前用户类别编号")
-	private Long custTypeIdHis;
+	private String custTypeIdHis;
 
 	@ApiModelProperty(value = "立户日期")
 	private Date custRegistDate;

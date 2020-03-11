@@ -16,13 +16,13 @@ public class TenantCustomerMeterChangeLogQueryParam implements Serializable {
 	private static final long serialVersionUID = 1101476116251114210L;
 
 	@ApiModelProperty(value = "变更日志ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "新用户ID")
 	private Long csutomerIdNew;
@@ -40,10 +40,10 @@ public class TenantCustomerMeterChangeLogQueryParam implements Serializable {
 	private String customerAddressNew;
 
 	@ApiModelProperty(value = "用户类别ID")
-	private Long customerTypeId;
+	private String customerTypeId;
 
 	@ApiModelProperty(value = "新用户类别ID")
-	private Long customerTypeIdNew;
+	private String customerTypeIdNew;
 
 	@ApiModelProperty(value = "用户状态（1：正常；2：暂停；3：消户）")
 	private Integer customerStatus;
@@ -106,13 +106,13 @@ public class TenantCustomerMeterChangeLogQueryParam implements Serializable {
 	private String invoiceBankAccountNoNew;
 
 	@ApiModelProperty(value = "水表ID")
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "新价格分类ID")
-	private Long priceTypeIdNew;
+	private String priceTypeIdNew;
 
 	@ApiModelProperty(value = "水表止码")
 	private BigDecimal meterLastSettlePointer;
@@ -121,10 +121,10 @@ public class TenantCustomerMeterChangeLogQueryParam implements Serializable {
 	private BigDecimal meterLastSettlePointerNew;
 
 	@ApiModelProperty(value = "水表厂商ID")
-	private Long manufactorId;
+	private String manufactorId;
 
 	@ApiModelProperty(value = "新水表厂商ID")
-	private Long manufactorIdNew;
+	private String manufactorIdNew;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
@@ -133,10 +133,10 @@ public class TenantCustomerMeterChangeLogQueryParam implements Serializable {
 	private Integer meterTypeNew;
 
 	@ApiModelProperty(value = "水表口径ID")
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "新水表口径ID")
-	private Long caliberIdNew;
+	private String caliberIdNew;
 
 	@ApiModelProperty(value = "水表表身码")
 	private String meterMachineCode;

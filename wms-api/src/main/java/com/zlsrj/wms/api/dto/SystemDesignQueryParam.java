@@ -15,7 +15,7 @@ public class SystemDesignQueryParam implements Serializable {
 	private static final long serialVersionUID = 7111201581492615110L;
 
 	@ApiModelProperty(value = "系统ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "依赖模块编码")
 	private Long relyId;

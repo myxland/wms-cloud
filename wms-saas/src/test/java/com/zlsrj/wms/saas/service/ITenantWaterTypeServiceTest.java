@@ -27,10 +27,10 @@ public class ITenantWaterTypeServiceTest {
 	public void insertTest() {
 		TenantWaterType tenantWaterType = TenantWaterType.builder()//
 				.id(TestCaseUtil.id())// 用水类别ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterTypeName(TestCaseUtil.name())// 用水类别名称
-				.waterTypeParentId(RandomUtil.randomLong())// 上级用水类别编号
-				.defaultPriceTypeId(RandomUtil.randomLong())// 默认价格分类ID
+				.waterTypeParentId(RandomUtil.randomString(32))// 上级用水类别编号
+				.defaultPriceTypeId(RandomUtil.randomString(32))// 默认价格分类ID
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantWaterType, ToStringStyle.MULTI_LINE_STYLE));
@@ -43,13 +43,13 @@ public class ITenantWaterTypeServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterType tenantWaterType = TenantWaterType.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterTypeName(TestCaseUtil.name())// 用水类别名称
-				.waterTypeParentId(RandomUtil.randomLong())// 上级用水类别编号
-				.defaultPriceTypeId(RandomUtil.randomLong())// 默认价格分类ID
+				.waterTypeParentId(RandomUtil.randomString(32))// 上级用水类别编号
+				.defaultPriceTypeId(RandomUtil.randomString(32))// 默认价格分类ID
 				.build();
 		tenantWaterType.setId(id);
 

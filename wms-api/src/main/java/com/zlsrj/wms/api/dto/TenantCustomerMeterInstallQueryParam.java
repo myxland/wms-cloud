@@ -17,13 +17,13 @@ public class TenantCustomerMeterInstallQueryParam implements Serializable {
 	private static final long serialVersionUID = 1012151015113070312L;
 
 	@ApiModelProperty(value = "水表立户ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "已经立户的水表ID")
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "已经立户的水表代码")
 	private String meterCode;
@@ -38,19 +38,19 @@ public class TenantCustomerMeterInstallQueryParam implements Serializable {
 	private String meterMachineCode;
 
 	@ApiModelProperty(value = "厂商ID")
-	private Long manufactorId;
+	private String manufactorId;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
 
 	@ApiModelProperty(value = "水表口径ID")
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "用水分类ID")
-	private Long waterTypeId;
+	private String waterTypeId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "采集系统编号")
 	private String meterIotCode;

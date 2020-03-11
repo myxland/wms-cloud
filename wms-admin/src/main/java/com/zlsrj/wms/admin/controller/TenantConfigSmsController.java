@@ -62,7 +62,7 @@ public class TenantConfigSmsController {
 	@ApiOperation(value = "根据ID查询短信参数设置")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantConfigSmsVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantConfigSmsVo> getById(@PathVariable("id") String id) {
 		TenantConfigSmsVo tenantConfigSmsVo = tenantConfigSmsClientService.getById(id);
 		wrappperVo(tenantConfigSmsVo);
 
@@ -73,7 +73,7 @@ public class TenantConfigSmsController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantConfigSmsVo> getById(@RequestBody TenantConfigSms tenantConfigSms) {
-		Long id = tenantConfigSms.getId();
+		String id = tenantConfigSms.getId();
 		TenantConfigSmsVo tenantConfigSmsVo = tenantConfigSmsClientService.updatePatchById(id, tenantConfigSms);
 		wrappperVo(tenantConfigSmsVo);
 
@@ -83,7 +83,7 @@ public class TenantConfigSmsController {
 	@ApiOperation(value = "根据ID删除短信参数设置")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantConfigSmsClientService.removeById(id);
 
 		return commonResult;

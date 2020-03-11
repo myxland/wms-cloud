@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,12 +18,10 @@ public class TenantPaymentVo implements Serializable {
 	private static final long serialVersionUID = 1514314118219815105L;
 
 	@ApiModelProperty(value = "实收账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
@@ -43,16 +39,13 @@ public class TenantPaymentVo implements Serializable {
 	private Integer paymentStatus;
 
 	@ApiModelProperty(value = "用户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "收款部门ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long chargeDepartmentId;
+	private String chargeDepartmentId;
 
 	@ApiModelProperty(value = "收费员ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long chargeEmployeeId;
+	private String chargeEmployeeId;
 
 	@ApiModelProperty(value = "付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）")
 	private Integer payChannels;

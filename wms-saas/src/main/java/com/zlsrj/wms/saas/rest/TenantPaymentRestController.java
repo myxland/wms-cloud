@@ -47,7 +47,7 @@ public class TenantPaymentRestController {
 
 	@ApiOperation(value = "根据ID查询实收总账，记录每次缴费的总信息")
 	@RequestMapping(value = "/tenant-payments/{id}", method = RequestMethod.GET)
-	public TenantPaymentVo getById(@PathVariable("id") Long id) {
+	public TenantPaymentVo getById(@PathVariable("id") String id) {
 		TenantPayment tenantPayment = tenantPaymentService.getById(id);
 
 		return entity2vo(tenantPayment);
@@ -134,7 +134,7 @@ public class TenantPaymentRestController {
 	@ApiOperation(value = "新增实收总账，记录每次缴费的总信息")
 	@RequestMapping(value = "/tenant-payments", method = RequestMethod.POST)
 	public TenantPaymentVo save(@RequestBody TenantPayment tenantPayment) {
-		if (tenantPayment.getId() == null || tenantPayment.getId().compareTo(0L) <= 0) {
+		if (tenantPayment.getId() == null || tenantPayment.getId().trim().length() <= 0) {
 			tenantPayment.setId(idService.selectId());
 		}
 		boolean success = tenantPaymentService.save(tenantPayment);
@@ -148,7 +148,7 @@ public class TenantPaymentRestController {
 
 	@ApiOperation(value = "更新实收总账，记录每次缴费的总信息全部信息")
 	@RequestMapping(value = "/tenant-payments/{id}", method = RequestMethod.PUT)
-	public TenantPaymentVo updateById(@PathVariable("id") Long id, @RequestBody TenantPayment tenantPayment) {
+	public TenantPaymentVo updateById(@PathVariable("id") String id, @RequestBody TenantPayment tenantPayment) {
 		tenantPayment.setId(id);
 		boolean success = tenantPaymentService.updateById(tenantPayment);
 		if (success) {
@@ -161,7 +161,7 @@ public class TenantPaymentRestController {
 
 	@ApiOperation(value = "根据参数更新实收总账，记录每次缴费的总信息信息")
 	@RequestMapping(value = "/tenant-payments/{id}", method = RequestMethod.PATCH)
-	public TenantPaymentVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantPayment tenantPayment) {
+	public TenantPaymentVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPayment tenantPayment) {
         TenantPayment tenantPaymentWhere = TenantPayment.builder()//
 				.id(id)//
 				.build();
@@ -200,7 +200,7 @@ public class TenantPaymentRestController {
 
 	@ApiOperation(value = "根据ID删除实收总账，记录每次缴费的总信息")
 	@RequestMapping(value = "/tenant-payments/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantPaymentService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

@@ -17,10 +17,10 @@ public class DevRecListQueryParam implements Serializable {
 	private static final long serialVersionUID = 1411312142521211020L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "应收账标识（1：正常；2：被冲正；3：冲正负记录）")
 	private Integer recFlag;
@@ -32,7 +32,7 @@ public class DevRecListQueryParam implements Serializable {
 	private Long deptId;
 
 	@ApiModelProperty(value = "表册编号")
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "用户编号")
 	private Long custId;
@@ -44,7 +44,7 @@ public class DevRecListQueryParam implements Serializable {
 	private String custAddress;
 
 	@ApiModelProperty(value = "表具系统编号")
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "表具地址")
 	private String devAddress;
@@ -113,7 +113,7 @@ public class DevRecListQueryParam implements Serializable {
 	private BigDecimal useNum;
 
 	@ApiModelProperty(value = "价格编号")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "应收金额")
 	private BigDecimal recMoney;

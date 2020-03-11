@@ -45,7 +45,7 @@ public class ModuleMenuRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/module-menus" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -86,11 +86,11 @@ public class ModuleMenuRestControllerTest {
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
 				.id(TestCaseUtil.id())// 
-				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.moduleId(RandomUtil.randomString(32))// 服务模块ID
 				.menuName(TestCaseUtil.name())// 菜单名称
 				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.menuParentId(RandomUtil.randomString(32))// 父菜单ID
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
@@ -111,15 +111,15 @@ public class ModuleMenuRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
 				//.id(TestCaseUtil.id())// 
-				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.moduleId(RandomUtil.randomString(32))// 服务模块ID
 				.menuName(TestCaseUtil.name())// 菜单名称
 				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.menuParentId(RandomUtil.randomString(32))// 父菜单ID
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
@@ -140,14 +140,14 @@ public class ModuleMenuRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		ModuleMenu tenantInfo = ModuleMenu.builder()//
-				//.moduleId(RandomUtil.randomLong())// 服务模块ID
+				//.moduleId(RandomUtil.randomString(32))// 服务模块ID
 				//.menuName(TestCaseUtil.name())// 菜单名称
 				//.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				//.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				//.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				//.menuParentId(RandomUtil.randomString(32))// 父菜单ID
 				//.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				//.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				//.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
@@ -168,7 +168,7 @@ public class ModuleMenuRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/module-menus" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,11 +16,9 @@ public class SystemDesignVo implements Serializable {
 	private static final long serialVersionUID = 5771151026369871151L;
 
 	@ApiModelProperty(value = "系统ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "依赖模块编码")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long relyId;
 
 	@ApiModelProperty(value = "模块名称")

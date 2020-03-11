@@ -16,10 +16,10 @@ public class ModulePriceQueryParam implements Serializable {
 	private static final long serialVersionUID = 1118125131211921200L;
 
 	@ApiModelProperty(value = "模块价格ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "模块ID")
-	private Long moduleId;
+	private String moduleId;
 
 	@ApiModelProperty(value = "模块版本（1：基础版；2：高级版；3：旗舰版）")
 	private Integer moduleEdition;

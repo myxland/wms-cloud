@@ -48,7 +48,7 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 		boolean success = false;
 		if (tenantModuleList != null && tenantModuleList.size() > 0) {
 			TenantModule tenantModule = tenantModuleList.get(0);
-			Long tenantId = tenantModule.getTenantId();
+			String tenantId = tenantModule.getTenantId();
 			QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
 			queryWrapperTenantModule.lambda().eq(TenantModule::getTenantId, tenantId);
 			super.remove(queryWrapperTenantModule);

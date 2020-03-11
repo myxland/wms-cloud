@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.zlsrj.wms.api.entity.ModulePrice;
 
@@ -21,8 +19,7 @@ public class ModuleInfoVo implements Serializable {
 	private static final long serialVersionUID = 1992121514915146391L;
 
 	@ApiModelProperty(value = "服务模块ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "服务模块名称")
 	private String moduleName;
@@ -34,8 +31,7 @@ public class ModuleInfoVo implements Serializable {
 	private Integer runEnv;
 
 	@ApiModelProperty(value = "依赖模块ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long relyModuleId;
+	private String relyModuleId;
 
 	@ApiModelProperty(value = "依赖模块ID")
 	private String relyModuleName;

@@ -15,10 +15,10 @@ public class TenantSmsQueryParam implements Serializable {
 	private static final long serialVersionUID = 5166613121591486436L;
 
 	@ApiModelProperty(value = "编号ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "短信签名")
 	private String smsSignature;

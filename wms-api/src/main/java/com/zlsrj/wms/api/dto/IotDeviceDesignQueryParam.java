@@ -17,10 +17,10 @@ public class IotDeviceDesignQueryParam implements Serializable {
 	private static final long serialVersionUID = 5131111071241813144L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "父级系统编号")
-	private Long parentId;
+	private String parentId;
 
 	@ApiModelProperty(value = "表具用途（1：贸易结算；2：数据监测）")
 	private Integer devType;
@@ -140,7 +140,7 @@ public class IotDeviceDesignQueryParam implements Serializable {
 	private Long devLastUpId;
 
 	@ApiModelProperty(value = "表册编号")
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "最后一次计费日期")
 	private Date lastCalcDate;

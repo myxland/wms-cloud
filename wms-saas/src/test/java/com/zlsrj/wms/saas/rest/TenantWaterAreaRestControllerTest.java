@@ -45,7 +45,7 @@ public class TenantWaterAreaRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-water-areas" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -78,9 +78,9 @@ public class TenantWaterAreaRestControllerTest {
 
 		TenantWaterArea tenantInfo = TenantWaterArea.builder()//
 				.id(TestCaseUtil.id())// 供水区域ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterAreaName(TestCaseUtil.name())// 供水区域名称
-				.waterAreaParentId(RandomUtil.randomLong())// 上级供水区域ID
+				.waterAreaParentId(RandomUtil.randomString(32))// 上级供水区域ID
 				.build();
 
 		String responseString = mockMvc
@@ -95,13 +95,13 @@ public class TenantWaterAreaRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterArea tenantInfo = TenantWaterArea.builder()//
 				//.id(TestCaseUtil.id())// 供水区域ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterAreaName(TestCaseUtil.name())// 供水区域名称
-				.waterAreaParentId(RandomUtil.randomLong())// 上级供水区域ID
+				.waterAreaParentId(RandomUtil.randomString(32))// 上级供水区域ID
 				.build();
 
 		String responseString = mockMvc
@@ -116,12 +116,12 @@ public class TenantWaterAreaRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterArea tenantInfo = TenantWaterArea.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
 				//.waterAreaName(TestCaseUtil.name())// 供水区域名称
-				//.waterAreaParentId(RandomUtil.randomLong())// 上级供水区域ID
+				//.waterAreaParentId(RandomUtil.randomString(32))// 上级供水区域ID
 				.build();
 
 		String responseString = mockMvc
@@ -136,7 +136,7 @@ public class TenantWaterAreaRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-water-areas" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

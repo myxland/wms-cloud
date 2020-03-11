@@ -27,9 +27,9 @@ public class ITenantWaterAreaServiceTest {
 	public void insertTest() {
 		TenantWaterArea tenantWaterArea = TenantWaterArea.builder()//
 				.id(TestCaseUtil.id())// 供水区域ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterAreaName(TestCaseUtil.name())// 供水区域名称
-				.waterAreaParentId(RandomUtil.randomLong())// 上级供水区域ID
+				.waterAreaParentId(RandomUtil.randomString(32))// 上级供水区域ID
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantWaterArea, ToStringStyle.MULTI_LINE_STYLE));
@@ -42,12 +42,12 @@ public class ITenantWaterAreaServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantWaterArea tenantWaterArea = TenantWaterArea.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
 				.waterAreaName(TestCaseUtil.name())// 供水区域名称
-				.waterAreaParentId(RandomUtil.randomLong())// 上级供水区域ID
+				.waterAreaParentId(RandomUtil.randomString(32))// 上级供水区域ID
 				.build();
 		tenantWaterArea.setId(id);
 

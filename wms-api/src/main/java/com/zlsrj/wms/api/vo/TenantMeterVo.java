@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,27 +19,22 @@ public class TenantMeterVo implements Serializable {
 	private static final long serialVersionUID = 6811151153711249601L;
 
 	@ApiModelProperty(value = "水表ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "用户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表表册ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterBookletId;
+	private String meterBookletId;
 
 	@ApiModelProperty(value = "上级水表ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterParentId;
+	private String meterParentId;
 
 	@ApiModelProperty(value = "水表编号")
 	private String meterCode;
@@ -59,23 +52,19 @@ public class TenantMeterVo implements Serializable {
 	private Integer meterUseType;
 
 	@ApiModelProperty(value = "厂商ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterManufactorId;
+	private String meterManufactorId;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
 
 	@ApiModelProperty(value = "水表口径ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "用水分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterWaterTypeId;
+	private String meterWaterTypeId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "采集系统代码")
 	private String meterIotCode;

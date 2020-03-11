@@ -15,10 +15,10 @@ public class ModuleMenuQueryParam implements Serializable {
 	private static final long serialVersionUID = 8170611224391310108L;
 
 	@ApiModelProperty(value = "")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "服务模块ID")
-	private Long moduleId;
+	private String moduleId;
 
 	@ApiModelProperty(value = "菜单名称")
 	private String menuName;
@@ -51,7 +51,7 @@ public class ModuleMenuQueryParam implements Serializable {
 	private String ultimateUrl;
 	
 	@ApiModelProperty(value = "父级ID")
-	private Long parentId;
+	private String parentId;
 
 }
 

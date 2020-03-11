@@ -15,10 +15,10 @@ public class TenantManufactorQueryParam implements Serializable {
 	private static final long serialVersionUID = 1013610133156097141L;
 
 	@ApiModelProperty(value = "制造商ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "制造商名称")
 	private String manufactorName;

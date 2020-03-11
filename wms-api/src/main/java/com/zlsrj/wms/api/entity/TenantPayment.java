@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,13 +32,11 @@ public class TenantPayment implements Serializable {
 
 	@ApiModelProperty(value = "实收账ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "内部生成的订单号")
 	@TableField("out_transno")
@@ -60,18 +56,15 @@ public class TenantPayment implements Serializable {
 
 	@ApiModelProperty(value = "用户ID")
 	@TableField("customer_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "收款部门ID")
 	@TableField("charge_department_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long chargeDepartmentId;
+	private String chargeDepartmentId;
 
 	@ApiModelProperty(value = "收费员ID")
 	@TableField("charge_employee_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long chargeEmployeeId;
+	private String chargeEmployeeId;
 
 	@ApiModelProperty(value = "付款途径（1：柜台；2：银行；3：线上；4：走收；5：系统处理）")
 	@TableField("pay_channels")

@@ -47,7 +47,7 @@ public class TenantCustomerLinkmanRestController {
 
 	@ApiOperation(value = "根据ID查询用户联系人")
 	@RequestMapping(value = "/tenant-customer-linkmans/{id}", method = RequestMethod.GET)
-	public TenantCustomerLinkmanVo getById(@PathVariable("id") Long id) {
+	public TenantCustomerLinkmanVo getById(@PathVariable("id") String id) {
 		TenantCustomerLinkman tenantCustomerLinkman = tenantCustomerLinkmanService.getById(id);
 
 		return entity2vo(tenantCustomerLinkman);
@@ -100,7 +100,7 @@ public class TenantCustomerLinkmanRestController {
 	@ApiOperation(value = "新增用户联系人")
 	@RequestMapping(value = "/tenant-customer-linkmans", method = RequestMethod.POST)
 	public TenantCustomerLinkmanVo save(@RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
-		if (tenantCustomerLinkman.getId() == null || tenantCustomerLinkman.getId().compareTo(0L) <= 0) {
+		if (tenantCustomerLinkman.getId() == null || tenantCustomerLinkman.getId().trim().length() <= 0) {
 			tenantCustomerLinkman.setId(idService.selectId());
 		}
 		boolean success = tenantCustomerLinkmanService.save(tenantCustomerLinkman);
@@ -114,7 +114,7 @@ public class TenantCustomerLinkmanRestController {
 
 	@ApiOperation(value = "更新用户联系人全部信息")
 	@RequestMapping(value = "/tenant-customer-linkmans/{id}", method = RequestMethod.PUT)
-	public TenantCustomerLinkmanVo updateById(@PathVariable("id") Long id, @RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
+	public TenantCustomerLinkmanVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
 		tenantCustomerLinkman.setId(id);
 		boolean success = tenantCustomerLinkmanService.updateById(tenantCustomerLinkman);
 		if (success) {
@@ -127,7 +127,7 @@ public class TenantCustomerLinkmanRestController {
 
 	@ApiOperation(value = "根据参数更新用户联系人信息")
 	@RequestMapping(value = "/tenant-customer-linkmans/{id}", method = RequestMethod.PATCH)
-	public TenantCustomerLinkmanVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
+	public TenantCustomerLinkmanVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCustomerLinkman tenantCustomerLinkman) {
         TenantCustomerLinkman tenantCustomerLinkmanWhere = TenantCustomerLinkman.builder()//
 				.id(id)//
 				.build();
@@ -163,7 +163,7 @@ public class TenantCustomerLinkmanRestController {
 
 	@ApiOperation(value = "根据ID删除用户联系人")
 	@RequestMapping(value = "/tenant-customer-linkmans/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantCustomerLinkmanService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

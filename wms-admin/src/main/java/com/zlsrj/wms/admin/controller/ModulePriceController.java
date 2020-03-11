@@ -62,7 +62,7 @@ public class ModulePriceController {
 	@ApiOperation(value = "根据ID查询模块价格")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<ModulePriceVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<ModulePriceVo> getById(@PathVariable("id") String id) {
 		ModulePriceVo modulePriceVo = modulePriceClientService.getById(id);
 		wrappperVo(modulePriceVo);
 
@@ -73,7 +73,7 @@ public class ModulePriceController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<ModulePriceVo> getById(@RequestBody ModulePrice modulePrice) {
-		Long id = modulePrice.getId();
+		String id = modulePrice.getId();
 		ModulePriceVo modulePriceVo = modulePriceClientService.updatePatchById(id, modulePrice);
 		wrappperVo(modulePriceVo);
 
@@ -83,7 +83,7 @@ public class ModulePriceController {
 	@ApiOperation(value = "根据ID删除模块价格")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = modulePriceClientService.removeById(id);
 
 		return commonResult;

@@ -56,7 +56,7 @@ public class TenantInfoController {
 	@ApiOperation(value = "根据ID查询租户表")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantInfoVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantInfoVo> getById(@PathVariable("id") String id) {
 		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(id);
 
 		return CommonResult.success(tenantInfoVo);
@@ -66,7 +66,7 @@ public class TenantInfoController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantInfoVo> getById(@RequestBody TenantInfo tenantInfo) {
-		Long id = tenantInfo.getId();
+		String id = tenantInfo.getId();
 		TenantInfoVo tenantInfoVo = tenantInfoClientService.updatePatchById(id, tenantInfo);
 
 		return CommonResult.success(tenantInfoVo);
@@ -75,7 +75,7 @@ public class TenantInfoController {
 	@ApiOperation(value = "根据ID删除租户表")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantInfoClientService.removeById(id);
 
 		return commonResult;

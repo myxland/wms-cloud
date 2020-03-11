@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-DEV", contextId = "IotDeviceDesign")
 public interface IotDeviceDesignClientService {
 	@RequestMapping(value = "/iot-device-designs/{id}", method = RequestMethod.GET)
-	public IotDeviceDesignVo getById(@PathVariable("id") Long id);
+	public IotDeviceDesignVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/iot-device-designs", method = RequestMethod.GET)
 	public Page<IotDeviceDesignVo> page(@RequestBody IotDeviceDesignQueryParam iotDeviceDesignQueryParam,
@@ -30,12 +30,12 @@ public interface IotDeviceDesignClientService {
 	public IotDeviceDesignVo save(@RequestBody IotDeviceDesign iotDeviceDesign);
 
 	@RequestMapping(value = "/iot-device-designs/{id}", method = RequestMethod.PUT)
-	public IotDeviceDesignVo updateById(@PathVariable("id") Long id, @RequestBody IotDeviceDesign iotDeviceDesign);
+	public IotDeviceDesignVo updateById(@PathVariable("id") String id, @RequestBody IotDeviceDesign iotDeviceDesign);
 
 	@RequestMapping(value = "/iot-device-designs/{id}", method = RequestMethod.PATCH)
-	public IotDeviceDesignVo updatePatchById(@PathVariable("id") Long id, @RequestBody IotDeviceDesign iotDeviceDesign);
+	public IotDeviceDesignVo updatePatchById(@PathVariable("id") String id, @RequestBody IotDeviceDesign iotDeviceDesign);
 
 	@RequestMapping(value = "/iot-device-designs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

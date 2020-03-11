@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -33,13 +31,11 @@ public class CustInfoChange implements Serializable {
 
 	@ApiModelProperty(value = "系统编号")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户编号")
 	@TableField("cust_id")
@@ -51,7 +47,6 @@ public class CustInfoChange implements Serializable {
 
 	@ApiModelProperty(value = "变更人")
 	@TableField("changer")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long changer;
 
 	@ApiModelProperty(value = "用户信息变更（1：是；0：否）")
@@ -84,13 +79,11 @@ public class CustInfoChange implements Serializable {
 
 	@ApiModelProperty(value = "用户类别编号")
 	@TableField("cust_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long custTypeId;
+	private String custTypeId;
 
 	@ApiModelProperty(value = "变更前用户类别编号")
 	@TableField("cust_type_id_his")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long custTypeIdHis;
+	private String custTypeIdHis;
 
 	@ApiModelProperty(value = "立户日期")
 	@TableField("cust_regist_date")

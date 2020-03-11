@@ -43,7 +43,7 @@ public class TenantCustomerMeterInstallMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantCustomerMeterInstall tenantCustomerMeterInstall = tenantCustomerMeterInstallMapper.selectById(id);
 		log.info(tenantCustomerMeterInstall.toString());
 	}
@@ -65,7 +65,7 @@ public class TenantCustomerMeterInstallMapperTest {
 		
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 		
 			TenantManufactor tenantManufactor = null;
 			List<TenantManufactor> tenantManufactorList = tenantManufactorMapper.selectList(new QueryWrapper<TenantManufactor>().lambda().eq(TenantManufactor::getTenantId, tenantInfo.getId()));

@@ -46,7 +46,7 @@ public class ModulePriceRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/module-prices" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -81,7 +81,7 @@ public class ModulePriceRestControllerTest {
 
 		ModulePrice tenantInfo = ModulePrice.builder()//
 				.id(TestCaseUtil.id())// 模块价格ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 模块版本（1：基础版；2：高级版；3：旗舰版）
 				.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
 				.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
@@ -100,11 +100,11 @@ public class ModulePriceRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		ModulePrice tenantInfo = ModulePrice.builder()//
 				//.id(TestCaseUtil.id())// 模块价格ID
-				.moduleId(RandomUtil.randomLong())// 模块ID
+				.moduleId(RandomUtil.randomString(32))// 模块ID
 				.moduleEdition(RandomUtil.randomInt(0,1000+1))// 模块版本（1：基础版；2：高级版；3：旗舰版）
 				.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
 				.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
@@ -123,10 +123,10 @@ public class ModulePriceRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		ModulePrice tenantInfo = ModulePrice.builder()//
-				//.moduleId(RandomUtil.randomLong())// 模块ID
+				//.moduleId(RandomUtil.randomString(32))// 模块ID
 				//.moduleEdition(RandomUtil.randomInt(0,1000+1))// 模块版本（1：基础版；2：高级版；3：旗舰版）
 				//.startNum(RandomUtil.randomInt(0,1000+1))// 起始量
 				//.endNum(RandomUtil.randomInt(0,1000+1))// 终止量
@@ -145,7 +145,7 @@ public class ModulePriceRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/module-prices" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

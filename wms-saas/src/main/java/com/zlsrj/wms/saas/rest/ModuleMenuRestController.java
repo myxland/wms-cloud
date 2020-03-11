@@ -42,7 +42,7 @@ public class ModuleMenuRestController {
 
 	@ApiOperation(value = "根据ID查询模块菜单")
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.GET)
-	public ModuleMenuVo getById(@PathVariable("id") Long id) {
+	public ModuleMenuVo getById(@PathVariable("id") String id) {
 		ModuleMenu moduleMenu = moduleMenuService.getById(id);
 
 		return entity2vo(moduleMenu);
@@ -93,7 +93,7 @@ public class ModuleMenuRestController {
 	@ApiOperation(value = "新增模块菜单")
 	@RequestMapping(value = "/module-menus", method = RequestMethod.POST)
 	public ModuleMenuVo save(@RequestBody ModuleMenu moduleMenu) {
-		if (moduleMenu.getId() == null || moduleMenu.getId().compareTo(0L) <= 0) {
+		if (moduleMenu.getId() == null || moduleMenu.getId().trim().length() <= 0) {
 			moduleMenu.setId(idService.selectId());
 		}
 		boolean success = moduleMenuService.save(moduleMenu);
@@ -107,7 +107,7 @@ public class ModuleMenuRestController {
 
 	@ApiOperation(value = "更新模块菜单全部信息")
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.PUT)
-	public ModuleMenuVo updateById(@PathVariable("id") Long id, @RequestBody ModuleMenu moduleMenu) {
+	public ModuleMenuVo updateById(@PathVariable("id") String id, @RequestBody ModuleMenu moduleMenu) {
 		moduleMenu.setId(id);
 		boolean success = moduleMenuService.updateById(moduleMenu);
 		if (success) {
@@ -120,7 +120,7 @@ public class ModuleMenuRestController {
 
 	@ApiOperation(value = "根据参数更新模块菜单信息")
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.PATCH)
-	public ModuleMenuVo updatePatchById(@PathVariable("id") Long id, @RequestBody ModuleMenu moduleMenu) {
+	public ModuleMenuVo updatePatchById(@PathVariable("id") String id, @RequestBody ModuleMenu moduleMenu) {
         ModuleMenu moduleMenuWhere = ModuleMenu.builder()//
 				.id(id)//
 				.build();
@@ -154,7 +154,7 @@ public class ModuleMenuRestController {
 
 	@ApiOperation(value = "根据ID删除模块菜单")
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = moduleMenuService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

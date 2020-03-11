@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,22 +17,18 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private static final long serialVersionUID = 7152349812671104151L;
 
 	@ApiModelProperty(value = "变更日志ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "用户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "新用户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long csutomerIdNew;
 
 	@ApiModelProperty(value = "用户名称")
@@ -50,12 +44,10 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private String customerAddressNew;
 
 	@ApiModelProperty(value = "用户类别ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerTypeId;
+	private String customerTypeId;
 
 	@ApiModelProperty(value = "新用户类别ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerTypeIdNew;
+	private String customerTypeIdNew;
 
 	@ApiModelProperty(value = "用户状态（1：正常；2：暂停；3：消户）")
 	private Integer customerStatus;
@@ -118,16 +110,13 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private String invoiceBankAccountNoNew;
 
 	@ApiModelProperty(value = "水表ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterId;
+	private String meterId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "新价格分类ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeIdNew;
+	private String priceTypeIdNew;
 
 	@ApiModelProperty(value = "水表止码")
 	private BigDecimal meterLastSettlePointer;
@@ -136,12 +125,10 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private BigDecimal meterLastSettlePointerNew;
 
 	@ApiModelProperty(value = "水表厂商ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long manufactorId;
+	private String manufactorId;
 
 	@ApiModelProperty(value = "新水表厂商ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long manufactorIdNew;
+	private String manufactorIdNew;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
@@ -150,12 +137,10 @@ public class TenantCustomerMeterChangeLogVo implements Serializable {
 	private Integer meterTypeNew;
 
 	@ApiModelProperty(value = "水表口径ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "新水表口径ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long caliberIdNew;
+	private String caliberIdNew;
 
 	@ApiModelProperty(value = "水表表身码")
 	private String meterMachineCode;

@@ -17,7 +17,7 @@ public class AdminUser implements Serializable {
 	 */
 	private static final long serialVersionUID = -1864692730887405248L;
 
-	private Long id;
+	private String id;
 
 	private String username;
 

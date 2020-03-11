@@ -63,7 +63,7 @@ public class TenantConfigWxController {
 	@ApiOperation(value = "根据ID查询微信参数设置")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantConfigWxVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantConfigWxVo> getById(@PathVariable("id") String id) {
 		TenantConfigWxVo tenantConfigWxVo = tenantConfigWxClientService.getById(id);
 		wrappperVo(tenantConfigWxVo);
 
@@ -74,7 +74,7 @@ public class TenantConfigWxController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantConfigWxVo> getById(@RequestBody TenantConfigWx tenantConfigWx) {
-		Long id = tenantConfigWx.getId();
+		String id = tenantConfigWx.getId();
 		TenantConfigWxVo tenantConfigWxVo = tenantConfigWxClientService.updatePatchById(id, tenantConfigWx);
 		wrappperVo(tenantConfigWxVo);
 
@@ -84,7 +84,7 @@ public class TenantConfigWxController {
 	@ApiOperation(value = "根据ID删除微信参数设置")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantConfigWxClientService.removeById(id);
 
 		return commonResult;

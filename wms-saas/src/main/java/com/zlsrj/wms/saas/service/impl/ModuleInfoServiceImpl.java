@@ -41,7 +41,7 @@ public class ModuleInfoServiceImpl extends ServiceImpl<ModuleInfoMapper, ModuleI
 		success = super.save(moduleInfo);
 		// 保存模块价格
 		if(success) {
-			Long id = moduleInfo.getId();
+			String id = moduleInfo.getId();
 			QueryWrapper<ModulePrice> queryWrapperModulePrice = new QueryWrapper<ModulePrice>();
 			queryWrapperModulePrice.lambda().eq(ModulePrice::getModuleId, id);
 			modulePriceService.remove(queryWrapperModulePrice);
@@ -140,7 +140,7 @@ public class ModuleInfoServiceImpl extends ServiceImpl<ModuleInfoMapper, ModuleI
 		
 		if(success) {
 			ModuleInfo moduleInfo = updateWrapper.getEntity();
-			Long id = moduleInfo.getId();
+			String id = moduleInfo.getId();
 			QueryWrapper<ModulePrice> queryWrapperModulePrice = new QueryWrapper<ModulePrice>();
 			queryWrapperModulePrice.lambda().eq(ModulePrice::getModuleId, id);
 			modulePriceService.remove(queryWrapperModulePrice);

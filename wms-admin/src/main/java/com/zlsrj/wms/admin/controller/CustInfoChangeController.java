@@ -62,7 +62,7 @@ public class CustInfoChangeController {
 	@ApiOperation(value = "根据ID查询用户变更")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CustInfoChangeVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<CustInfoChangeVo> getById(@PathVariable("id") String id) {
 		CustInfoChangeVo custInfoChangeVo = custInfoChangeClientService.getById(id);
 		wrappperVo(custInfoChangeVo);
 		
@@ -73,7 +73,7 @@ public class CustInfoChangeController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<CustInfoChangeVo> getById(@RequestBody CustInfoChange custInfoChange) {
-		Long id = custInfoChange.getId();
+		String id = custInfoChange.getId();
 		CustInfoChangeVo custInfoChangeVo = custInfoChangeClientService.updatePatchById(id, custInfoChange);
 
 		return CommonResult.success(custInfoChangeVo);
@@ -82,7 +82,7 @@ public class CustInfoChangeController {
 	@ApiOperation(value = "根据ID删除用户变更")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = custInfoChangeClientService.removeById(id);
 
 		return commonResult;

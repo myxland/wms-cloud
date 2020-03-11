@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SAAS", contextId = "TenantConfigWx")
 public interface TenantConfigWxClientService {
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.GET)
-	public TenantConfigWxVo getById(@PathVariable("id") Long id);
+	public TenantConfigWxVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-config-wxs", method = RequestMethod.GET)
 	public Page<TenantConfigWxVo> page(@RequestBody TenantConfigWxQueryParam tenantConfigWxQueryParam,
@@ -33,12 +33,12 @@ public interface TenantConfigWxClientService {
 	public TenantConfigWxVo save(@RequestBody TenantConfigWx tenantConfigWx);
 
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.PUT)
-	public TenantConfigWxVo updateById(@PathVariable("id") Long id, @RequestBody TenantConfigWx tenantConfigWx);
+	public TenantConfigWxVo updateById(@PathVariable("id") String id, @RequestBody TenantConfigWx tenantConfigWx);
 
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.PATCH)
-	public TenantConfigWxVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConfigWx tenantConfigWx);
+	public TenantConfigWxVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConfigWx tenantConfigWx);
 
 	@RequestMapping(value = "/tenant-config-wxs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

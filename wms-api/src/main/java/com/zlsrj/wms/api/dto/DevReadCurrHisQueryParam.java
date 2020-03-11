@@ -17,10 +17,10 @@ public class DevReadCurrHisQueryParam implements Serializable {
 	private static final long serialVersionUID = 4111381410351272412L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "抄表月份")
 	private Date readMonth;
@@ -32,7 +32,7 @@ public class DevReadCurrHisQueryParam implements Serializable {
 	private Date readMonthEnd;
 
 	@ApiModelProperty(value = "表具系统编号")
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "父表具编号")
 	private Long parentDevId;

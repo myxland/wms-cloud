@@ -15,10 +15,10 @@ public class TenantInvoiceQueryParam implements Serializable {
 	private static final long serialVersionUID = 6815231150799151113L;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "税号")
 	private String creditNumber;

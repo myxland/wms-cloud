@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,12 +18,10 @@ public class DevRecListVo implements Serializable {
 	private static final long serialVersionUID = 1171161181151363431L;
 
 	@ApiModelProperty(value = "系统编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户名称")
 	private String tenantName;
@@ -37,15 +33,12 @@ public class DevRecListVo implements Serializable {
 	private Integer recType;
 
 	@ApiModelProperty(value = "部门编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long deptId;
 
 	@ApiModelProperty(value = "表册编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long bookletId;
+	private String bookletId;
 
 	@ApiModelProperty(value = "用户编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long custId;
 
 	@ApiModelProperty(value = "用户名称")
@@ -55,8 +48,7 @@ public class DevRecListVo implements Serializable {
 	private String custAddress;
 
 	@ApiModelProperty(value = "表具系统编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long devId;
+	private String devId;
 
 	@ApiModelProperty(value = "表具地址")
 	private String devAddress;
@@ -68,11 +60,9 @@ public class DevRecListVo implements Serializable {
 	private Date recMonth;
 
 	@ApiModelProperty(value = "业务（抄表、换表）流水号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long businessId;
 
 	@ApiModelProperty(value = "抄表员编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long reader;
 
 	@ApiModelProperty(value = "计费时间")
@@ -97,8 +87,7 @@ public class DevRecListVo implements Serializable {
 	private BigDecimal useNum;
 
 	@ApiModelProperty(value = "价格编号")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "应收金额")
 	private BigDecimal recMoney;

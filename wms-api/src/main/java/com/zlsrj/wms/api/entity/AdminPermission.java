@@ -15,7 +15,7 @@ public class AdminPermission implements Serializable {
 
 	private static final long serialVersionUID = 8437060884934654368L;
 
-	private Long id;
+	private String id;
 
 	private String name;
 

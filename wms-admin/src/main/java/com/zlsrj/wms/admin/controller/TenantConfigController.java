@@ -56,7 +56,7 @@ public class TenantConfigController {
 	@ApiOperation(value = "根据ID查询租户基础配置")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantConfigVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<TenantConfigVo> getById(@PathVariable("id") String id) {
 		TenantConfigVo tenantConfigVo = tenantConfigClientService.getById(id);
 
 		return CommonResult.success(tenantConfigVo);
@@ -65,7 +65,7 @@ public class TenantConfigController {
 	@ApiOperation(value = "根据租户ID查询租户基础配置")
 	@RequestMapping(value = "/tenantId/{tenantId}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantConfigVo> getByTenantId(@PathVariable("tenantId") Long tenantId) {
+	public CommonResult<TenantConfigVo> getByTenantId(@PathVariable("tenantId") String tenantId) {
 		TenantConfigVo tenantConfigVo = tenantConfigClientService.getByTenantId(tenantId);
 
 		return CommonResult.success(tenantConfigVo);
@@ -75,7 +75,7 @@ public class TenantConfigController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<TenantConfigVo> getById(@RequestBody TenantConfig tenantConfig) {
-		Long id = tenantConfig.getId();
+		String id = tenantConfig.getId();
 		TenantConfigVo tenantConfigVo = tenantConfigClientService.updatePatchById(id, tenantConfig);
 
 		return CommonResult.success(tenantConfigVo);
@@ -84,7 +84,7 @@ public class TenantConfigController {
 	@ApiOperation(value = "根据ID删除租户基础配置")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = tenantConfigClientService.removeById(id);
 
 		return commonResult;

@@ -47,7 +47,7 @@ public class TenantConfigSmsRestController {
 
 	@ApiOperation(value = "根据ID查询短信参数设置")
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.GET)
-	public TenantConfigSmsVo getById(@PathVariable("id") Long id) {
+	public TenantConfigSmsVo getById(@PathVariable("id") String id) {
 		TenantConfigSms tenantConfigSms = tenantConfigSmsService.getById(id);
 
 		return entity2vo(tenantConfigSms);
@@ -103,7 +103,7 @@ public class TenantConfigSmsRestController {
 	@ApiOperation(value = "新增短信参数设置")
 	@RequestMapping(value = "/tenant-config-smss", method = RequestMethod.POST)
 	public TenantConfigSmsVo save(@RequestBody TenantConfigSms tenantConfigSms) {
-		if (tenantConfigSms.getId() == null || tenantConfigSms.getId().compareTo(0L) <= 0) {
+		if (tenantConfigSms.getId() == null || tenantConfigSms.getId().trim().length() <= 0) {
 			tenantConfigSms.setId(idService.selectId());
 		}
 		boolean success = tenantConfigSmsService.save(tenantConfigSms);
@@ -117,7 +117,7 @@ public class TenantConfigSmsRestController {
 
 	@ApiOperation(value = "更新短信参数设置全部信息")
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.PUT)
-	public TenantConfigSmsVo updateById(@PathVariable("id") Long id, @RequestBody TenantConfigSms tenantConfigSms) {
+	public TenantConfigSmsVo updateById(@PathVariable("id") String id, @RequestBody TenantConfigSms tenantConfigSms) {
 		tenantConfigSms.setId(id);
 		boolean success = tenantConfigSmsService.updateById(tenantConfigSms);
 		if (success) {
@@ -130,7 +130,7 @@ public class TenantConfigSmsRestController {
 
 	@ApiOperation(value = "根据参数更新短信参数设置信息")
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.PATCH)
-	public TenantConfigSmsVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantConfigSms tenantConfigSms) {
+	public TenantConfigSmsVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConfigSms tenantConfigSms) {
         TenantConfigSms tenantConfigSmsWhere = TenantConfigSms.builder()//
 				.id(id)//
 				.build();
@@ -167,7 +167,7 @@ public class TenantConfigSmsRestController {
 
 	@ApiOperation(value = "根据ID删除短信参数设置")
 	@RequestMapping(value = "/tenant-config-smss/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantConfigSmsService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

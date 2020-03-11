@@ -29,15 +29,15 @@ public class ITenantPaymentDetailServiceTest {
 	public void insertTest() {
 		TenantPaymentDetail tenantPaymentDetail = TenantPaymentDetail.builder()//
 				.id(TestCaseUtil.id())// 实收明细账ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.paymentId(RandomUtil.randomLong())// 实收总账ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.paymentId(RandomUtil.randomString(32))// 实收总账ID
 				.receivableTime(new Date())// 对应的应收账时间
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.receivableDetailId(RandomUtil.randomLong())// 应收明细账ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.receivableDetailId(RandomUtil.randomString(32))// 应收明细账ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.payWaters(new BigDecimal(0))// 收费水量
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.payPrice(new BigDecimal(0))// 价格
 				.payMoney(new BigDecimal(0))// 收费金额
 				.build();
@@ -52,18 +52,18 @@ public class ITenantPaymentDetailServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		TenantPaymentDetail tenantPaymentDetail = TenantPaymentDetail.builder()//
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.paymentId(RandomUtil.randomLong())// 实收总账ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.paymentId(RandomUtil.randomString(32))// 实收总账ID
 				.receivableTime(new Date())// 对应的应收账时间
-				.receivableId(RandomUtil.randomLong())// 应收总账ID
-				.receivableDetailId(RandomUtil.randomLong())// 应收明细账ID
+				.receivableId(RandomUtil.randomString(32))// 应收总账ID
+				.receivableDetailId(RandomUtil.randomString(32))// 应收明细账ID
 				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
 				.payWaters(new BigDecimal(0))// 收费水量
-				.priceTypeId(RandomUtil.randomLong())// 价格分类ID
-				.priceItemId(RandomUtil.randomLong())// 费用项目ID
+				.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
+				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
 				.payPrice(new BigDecimal(0))// 价格
 				.payMoney(new BigDecimal(0))// 收费金额
 				.build();

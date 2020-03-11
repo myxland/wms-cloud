@@ -57,7 +57,7 @@ public class IotDeviceDesignController {
 	@ApiOperation(value = "根据ID查询设备信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<IotDeviceDesignVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<IotDeviceDesignVo> getById(@PathVariable("id") String id) {
 		IotDeviceDesignVo iotDeviceDesignVo = iotDeviceDesignClientService.getById(id);
 		wrappperVo(iotDeviceDesignVo);
 		
@@ -68,7 +68,7 @@ public class IotDeviceDesignController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<IotDeviceDesignVo> getById(@RequestBody IotDeviceDesign iotDeviceDesign) {
-		Long id = iotDeviceDesign.getId();
+		String id = iotDeviceDesign.getId();
 		IotDeviceDesignVo iotDeviceDesignVo = iotDeviceDesignClientService.updatePatchById(id, iotDeviceDesign);
 
 		return CommonResult.success(iotDeviceDesignVo);
@@ -77,7 +77,7 @@ public class IotDeviceDesignController {
 	@ApiOperation(value = "根据ID删除设备信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = iotDeviceDesignClientService.removeById(id);
 
 		return commonResult;

@@ -47,7 +47,7 @@ public class TenantMeterRestController {
 
 	@ApiOperation(value = "根据ID查询水表信息")
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.GET)
-	public TenantMeterVo getById(@PathVariable("id") Long id) {
+	public TenantMeterVo getById(@PathVariable("id") String id) {
 		TenantMeter tenantMeter = tenantMeterService.getById(id);
 
 		return entity2vo(tenantMeter);
@@ -115,7 +115,7 @@ public class TenantMeterRestController {
 	@ApiOperation(value = "新增水表信息")
 	@RequestMapping(value = "/tenant-meters", method = RequestMethod.POST)
 	public TenantMeterVo save(@RequestBody TenantMeter tenantMeter) {
-		if (tenantMeter.getId() == null || tenantMeter.getId().compareTo(0L) <= 0) {
+		if (tenantMeter.getId() == null || tenantMeter.getId().trim().length() <= 0) {
 			tenantMeter.setId(idService.selectId());
 		}
 		boolean success = tenantMeterService.save(tenantMeter);
@@ -129,7 +129,7 @@ public class TenantMeterRestController {
 
 	@ApiOperation(value = "更新水表信息全部信息")
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.PUT)
-	public TenantMeterVo updateById(@PathVariable("id") Long id, @RequestBody TenantMeter tenantMeter) {
+	public TenantMeterVo updateById(@PathVariable("id") String id, @RequestBody TenantMeter tenantMeter) {
 		tenantMeter.setId(id);
 		boolean success = tenantMeterService.updateById(tenantMeter);
 		if (success) {
@@ -142,7 +142,7 @@ public class TenantMeterRestController {
 
 	@ApiOperation(value = "根据参数更新水表信息信息")
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.PATCH)
-	public TenantMeterVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantMeter tenantMeter) {
+	public TenantMeterVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantMeter tenantMeter) {
         TenantMeter tenantMeterWhere = TenantMeter.builder()//
 				.id(id)//
 				.build();
@@ -187,7 +187,7 @@ public class TenantMeterRestController {
 
 	@ApiOperation(value = "根据ID删除水表信息")
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantMeterService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

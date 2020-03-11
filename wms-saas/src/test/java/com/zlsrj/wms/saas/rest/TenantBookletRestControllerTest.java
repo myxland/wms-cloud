@@ -46,7 +46,7 @@ public class TenantBookletRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-booklets" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -88,13 +88,13 @@ public class TenantBookletRestControllerTest {
 
 		TenantBooklet tenantInfo = TenantBooklet.builder()//
 				.id(TestCaseUtil.id())// 表册ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.bookletDepartmentId(RandomUtil.randomLong())// 所属部门ID
-				.bookletWaterAreaId(RandomUtil.randomLong())// 所属供水区域ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.bookletDepartmentId(RandomUtil.randomString(32))// 所属部门ID
+				.bookletWaterAreaId(RandomUtil.randomString(32))// 所属供水区域ID
 				.bookletCode(RandomUtil.randomString(4))// 表册代码
 				.bookletName(TestCaseUtil.name())// 表册名称
-				.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 				.bookletLastSettleMonth(new Date())// 最后一次结算月份
 				.bookletNextSettleMonth(new Date())// 下次计划结算月份
@@ -114,17 +114,17 @@ public class TenantBookletRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantBooklet tenantInfo = TenantBooklet.builder()//
 				//.id(TestCaseUtil.id())// 表册ID
-				.tenantId(RandomUtil.randomLong())// 租户ID
-				.bookletDepartmentId(RandomUtil.randomLong())// 所属部门ID
-				.bookletWaterAreaId(RandomUtil.randomLong())// 所属供水区域ID
+				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.bookletDepartmentId(RandomUtil.randomString(32))// 所属部门ID
+				.bookletWaterAreaId(RandomUtil.randomString(32))// 所属供水区域ID
 				.bookletCode(RandomUtil.randomString(4))// 表册代码
 				.bookletName(TestCaseUtil.name())// 表册名称
-				.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 				.bookletLastSettleMonth(new Date())// 最后一次结算月份
 				.bookletNextSettleMonth(new Date())// 下次计划结算月份
@@ -144,16 +144,16 @@ public class TenantBookletRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantBooklet tenantInfo = TenantBooklet.builder()//
-				//.tenantId(RandomUtil.randomLong())// 租户ID
-				//.bookletDepartmentId(RandomUtil.randomLong())// 所属部门ID
-				//.bookletWaterAreaId(RandomUtil.randomLong())// 所属供水区域ID
+				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.bookletDepartmentId(RandomUtil.randomString(32))// 所属部门ID
+				//.bookletWaterAreaId(RandomUtil.randomString(32))// 所属供水区域ID
 				//.bookletCode(RandomUtil.randomString(4))// 表册代码
 				//.bookletName(TestCaseUtil.name())// 表册名称
-				//.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-				//.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+				//.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+				//.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 				//.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 				//.bookletLastSettleMonth(new Date())// 最后一次结算月份
 				//.bookletNextSettleMonth(new Date())// 下次计划结算月份
@@ -173,7 +173,7 @@ public class TenantBookletRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-booklets" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

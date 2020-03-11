@@ -36,7 +36,7 @@ public class TenantBookletMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantBooklet tenantBooklet = tenantBookletMapper.selectById(id);
 		log.info(tenantBooklet.toString());
 	}
@@ -55,7 +55,7 @@ public class TenantBookletMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(1L).build();
+			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantDepartment tenantDepartment = null;
 			List<TenantDepartment> tenantDepartmentList = tenantDepartmentMapper.selectList(new QueryWrapper<TenantDepartment>().lambda().eq(TenantDepartment::getTenantId, tenantInfo.getId()));
@@ -76,8 +76,8 @@ public class TenantBookletMapperTest {
 					.bookletWaterAreaId(tenantWaterArea!=null?tenantWaterArea.getId():null)// 所属供水区域ID
 					.bookletCode(RandomUtil.randomString(4))// 表册代码
 					.bookletName("表册_"+TestCaseUtil.name())// 表册名称
-					.bookletReadEmployeeId(RandomUtil.randomLong())// 抄表员ID
-					.bookletChargeEmployeeId(RandomUtil.randomLong())// 收费员ID
+					.bookletReadEmployeeId(RandomUtil.randomString(32))// 抄表员ID
+					.bookletChargeEmployeeId(RandomUtil.randomString(32))// 收费员ID
 					.bookletSettleCycleInterval(RandomUtil.randomInt(0,1000+1))// 结算间隔周期[月]
 					.bookletLastSettleMonth(TestCaseUtil.monthBefore())// 最后一次结算月份
 					.bookletNextSettleMonth(TestCaseUtil.monthAfter())// 下次计划结算月份

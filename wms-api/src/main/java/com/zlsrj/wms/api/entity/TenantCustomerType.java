@@ -2,8 +2,6 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -32,13 +30,11 @@ public class TenantCustomerType implements Serializable {
 
 	@ApiModelProperty(value = "用户类别ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户类别名称")
 	@TableField("customer_type_name")
@@ -46,8 +42,7 @@ public class TenantCustomerType implements Serializable {
 
 	@ApiModelProperty(value = "上级用户类别ID")
 	@TableField("customer_type_parent_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerTypeParentId;
+	private String customerTypeParentId;
 
 
 }

@@ -16,7 +16,7 @@ import com.zlsrj.wms.common.api.CommonResult;
 @FeignClient(value = "WMS-SYSTEM", contextId = "SystemMenuDesign")
 public interface SystemMenuDesignClientService {
 	@RequestMapping(value = "/system-menu-designs/{id}", method = RequestMethod.GET)
-	public SystemMenuDesignVo getById(@PathVariable("id") Long id);
+	public SystemMenuDesignVo getById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/system-menu-designs", method = RequestMethod.GET)
 	public Page<SystemMenuDesignVo> page(@RequestBody SystemMenuDesignQueryParam systemMenuDesignQueryParam,
@@ -30,12 +30,12 @@ public interface SystemMenuDesignClientService {
 	public SystemMenuDesignVo save(@RequestBody SystemMenuDesign systemMenuDesign);
 
 	@RequestMapping(value = "/system-menu-designs/{id}", method = RequestMethod.PUT)
-	public SystemMenuDesignVo updateById(@PathVariable("id") Long id, @RequestBody SystemMenuDesign systemMenuDesign);
+	public SystemMenuDesignVo updateById(@PathVariable("id") String id, @RequestBody SystemMenuDesign systemMenuDesign);
 
 	@RequestMapping(value = "/system-menu-designs/{id}", method = RequestMethod.PATCH)
-	public SystemMenuDesignVo updatePatchById(@PathVariable("id") Long id, @RequestBody SystemMenuDesign systemMenuDesign);
+	public SystemMenuDesignVo updatePatchById(@PathVariable("id") String id, @RequestBody SystemMenuDesign systemMenuDesign);
 
 	@RequestMapping(value = "/system-menu-designs/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

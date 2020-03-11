@@ -17,19 +17,19 @@ public class TenantMeterQueryParam implements Serializable {
 	private static final long serialVersionUID = 1798991141511102158L;
 
 	@ApiModelProperty(value = "水表ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户ID")
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表表册ID")
-	private Long meterBookletId;
+	private String meterBookletId;
 
 	@ApiModelProperty(value = "上级水表ID")
-	private Long meterParentId;
+	private String meterParentId;
 
 	@ApiModelProperty(value = "水表编号")
 	private String meterCode;
@@ -47,19 +47,19 @@ public class TenantMeterQueryParam implements Serializable {
 	private Integer meterUseType;
 
 	@ApiModelProperty(value = "厂商ID")
-	private Long meterManufactorId;
+	private String meterManufactorId;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	private Integer meterType;
 
 	@ApiModelProperty(value = "水表口径ID")
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "用水分类ID")
-	private Long meterWaterTypeId;
+	private String meterWaterTypeId;
 
 	@ApiModelProperty(value = "价格分类ID")
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "采集系统代码")
 	private String meterIotCode;
@@ -104,7 +104,7 @@ public class TenantMeterQueryParam implements Serializable {
 	private BigDecimal meterArrearsMoney;
 
 	@ApiModelProperty(value = "父级ID")
-	private Long parentId;
+	private String parentId;
 	
 }
 

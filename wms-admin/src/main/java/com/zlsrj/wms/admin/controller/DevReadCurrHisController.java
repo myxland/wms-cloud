@@ -62,7 +62,7 @@ public class DevReadCurrHisController {
 	@ApiOperation(value = "根据ID查询历史抄表信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<DevReadCurrHisVo> getById(@PathVariable("id") Long id) {
+	public CommonResult<DevReadCurrHisVo> getById(@PathVariable("id") String id) {
 		DevReadCurrHisVo devReadCurrHisVo = devReadCurrHisClientService.getById(id);
 		wrappperVo(devReadCurrHisVo);
 		
@@ -73,7 +73,7 @@ public class DevReadCurrHisController {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<DevReadCurrHisVo> getById(@RequestBody DevReadCurrHis devReadCurrHis) {
-		Long id = devReadCurrHis.getId();
+		String id = devReadCurrHis.getId();
 		DevReadCurrHisVo devReadCurrHisVo = devReadCurrHisClientService.updatePatchById(id, devReadCurrHis);
 
 		return CommonResult.success(devReadCurrHisVo);
@@ -82,7 +82,7 @@ public class DevReadCurrHisController {
 	@ApiOperation(value = "根据ID删除历史抄表信息")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = devReadCurrHisClientService.removeById(id);
 
 		return commonResult;

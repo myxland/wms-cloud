@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,12 +17,10 @@ public class ModuleMenuVo implements Serializable {
 	private static final long serialVersionUID = 7147504511413971029L;
 
 	@ApiModelProperty(value = "")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "服务模块ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long moduleId;
+	private String moduleId;
 
 	@ApiModelProperty(value = "服务模块ID")
 	private String moduleName;
@@ -39,7 +35,6 @@ public class ModuleMenuVo implements Serializable {
 	private String menuIcon;
 
 	@ApiModelProperty(value = "父菜单ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
 	private Long menuParentId;
 
 	@ApiModelProperty(value = "开放基础版（1：开放；0：不开放）")

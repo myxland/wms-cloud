@@ -16,10 +16,10 @@ public class CustContactQueryParam implements Serializable {
 	private static final long serialVersionUID = 4681406131301212444L;
 
 	@ApiModelProperty(value = "系统编号")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户编号")
 	private String custId;

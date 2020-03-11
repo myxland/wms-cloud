@@ -15,10 +15,10 @@ public class TenantBillQueryParam implements Serializable {
 	private static final long serialVersionUID = 3123113913297116152L;
 
 	@ApiModelProperty(value = "编号ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户编号")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户发票开具方式（1：按实收开票；2：按应收开票）")
 	private Integer billPrintType;

@@ -30,7 +30,7 @@ public class TenantConfigWxMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantConfigWx tenantConfigWx = tenantConfigWxMapper.selectById(id);
 		log.info(tenantConfigWx.toString());
 	}
@@ -49,7 +49,7 @@ public class TenantConfigWxMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			//tenantInfo = TenantInfo.builder().id(1L).build();
+			//tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 			TenantConfigWx tenantConfigWx = TenantConfigWx.builder()//
 					.id(TestCaseUtil.id())// 微信配置ID

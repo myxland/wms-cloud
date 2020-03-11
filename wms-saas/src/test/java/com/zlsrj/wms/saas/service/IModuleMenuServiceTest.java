@@ -27,11 +27,11 @@ public class IModuleMenuServiceTest {
 	public void insertTest() {
 		ModuleMenu moduleMenu = ModuleMenu.builder()//
 				.id(TestCaseUtil.id())// 
-				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.moduleId(RandomUtil.randomString(32))// 服务模块ID
 				.menuName(TestCaseUtil.name())// 菜单名称
 				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.menuParentId(RandomUtil.randomString(32))// 父菜单ID
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
@@ -50,14 +50,14 @@ public class IModuleMenuServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		ModuleMenu moduleMenu = ModuleMenu.builder()//
-				.moduleId(RandomUtil.randomLong())// 服务模块ID
+				.moduleId(RandomUtil.randomString(32))// 服务模块ID
 				.menuName(TestCaseUtil.name())// 菜单名称
 				.menuOrder(RandomUtil.randomInt(0,1000+1))// 菜单排序
 				.menuIcon(RandomUtil.randomString(4))// 菜单图标
-				.menuParentId(RandomUtil.randomLong())// 父菜单ID
+				.menuParentId(RandomUtil.randomString(32))// 父菜单ID
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）

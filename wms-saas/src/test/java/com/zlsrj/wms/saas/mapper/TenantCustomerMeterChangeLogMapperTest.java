@@ -33,7 +33,7 @@ public class TenantCustomerMeterChangeLogMapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog = tenantCustomerMeterChangeLogMapper.selectById(id);
 		log.info(tenantCustomerMeterChangeLog.toString());
 	}
@@ -52,7 +52,7 @@ public class TenantCustomerMeterChangeLogMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			//tenantInfo = TenantInfo.builder().id(1L).build();
+			//tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
 			
 //			TenantCustomerType tenantCustomerType = null;
 //			List<TenantCustomerType> tenantCustomerTypeList = tenantCustomerTypeMapper.selectList(new QueryWrapper<TenantCustomerType>().lambda().eq(TenantCustomerType::getTenantId, tenantInfo.getId()));
@@ -63,13 +63,13 @@ public class TenantCustomerMeterChangeLogMapperTest {
 			TenantCustomerMeterChangeLog tenantCustomerMeterChangeLog = TenantCustomerMeterChangeLog.builder()//
 					.id(TestCaseUtil.id())// 变更日志ID
 					.tenantId(tenantInfo.getId())// 租户ID
-//					.customerId(RandomUtil.randomLong())// 用户ID
+//					.customerId(RandomUtil.randomString(32))// 用户ID
 //					.csutomerIdNew(RandomUtil.randomLong())// 新用户ID
 //					.customerName(TestCaseUtil.name())// 用户名称
 //					.customerNameNew(RandomUtil.randomString(4))// 新用户名称
 //					.customerAddress(TestCaseUtil.address())// 用户地址
 //					.customerAddressNew(RandomUtil.randomString(4))// 新用户地址
-//					.customerTypeId(RandomUtil.randomLong())// 用户类别ID
+//					.customerTypeId(RandomUtil.randomString(32))// 用户类别ID
 //					.customerTypeIdNew(RandomUtil.randomLong())// 新用户类别ID
 //					.customerStatus(RandomUtil.randomInt(0,1+1))// 用户状态（1：正常；2：暂停；3：消户）
 //					.customerStatusNew(RandomUtil.randomInt(0,1000+1))// 新用户状态（1：正常；2：暂停；3：消户）
@@ -91,16 +91,16 @@ public class TenantCustomerMeterChangeLogMapperTest {
 //					.invoiceBankNameNew(RandomUtil.randomString(4))// 新开户行名称
 //					.invoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户行账号
 //					.invoiceBankAccountNoNew(RandomUtil.randomString(4))// 新开户行账号
-//					.meterId(RandomUtil.randomLong())// 水表ID
-//					.priceTypeId(RandomUtil.randomLong())// 价格分类ID
+//					.meterId(RandomUtil.randomString(32))// 水表ID
+//					.priceTypeId(RandomUtil.randomString(32))// 价格分类ID
 //					.priceTypeIdNew(RandomUtil.randomLong())// 新价格分类ID
 //					.meterLastSettlePointer(new BigDecimal(0))// 水表止码
 //					.meterLastSettlePointerNew(new BigDecimal(0))// 新水表止码
-//					.manufactorId(RandomUtil.randomLong())// 水表厂商ID
+//					.manufactorId(RandomUtil.randomString(32))// 水表厂商ID
 //					.manufactorIdNew(RandomUtil.randomLong())// 新水表厂商ID
 //					.meterType(RandomUtil.randomInt(0,1+1))// 水表类型（1：机械表；2：远传表；3：IC卡表）
 //					.meterTypeNew(RandomUtil.randomInt(0,1000+1))// 新水表类型（1：机械表；2：远传表；3：IC卡表）
-//					.caliberId(RandomUtil.randomLong())// 水表口径ID
+//					.caliberId(RandomUtil.randomString(32))// 水表口径ID
 //					.caliberIdNew(RandomUtil.randomLong())// 新水表口径ID
 //					.meterMachineCode(RandomUtil.randomString(4))// 水表表身码
 //					.meterMachineCodeNew(RandomUtil.randomString(4))// 新水表表身码

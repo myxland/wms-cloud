@@ -15,10 +15,10 @@ public class TenantEmployeeQueryParam implements Serializable {
 	private static final long serialVersionUID = 1121211772129111014L;
 
 	@ApiModelProperty(value = "员工ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "员工名称")
 	private String employeeName;
@@ -27,7 +27,7 @@ public class TenantEmployeeQueryParam implements Serializable {
 	private String employeePassword;
 
 	@ApiModelProperty(value = "员工所属部门ID")
-	private Long employeeDepartmentId;
+	private String employeeDepartmentId;
 
 	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
 	private Integer employeeLoginOn;

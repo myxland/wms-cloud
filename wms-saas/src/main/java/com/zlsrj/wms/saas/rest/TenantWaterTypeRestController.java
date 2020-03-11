@@ -45,7 +45,7 @@ public class TenantWaterTypeRestController {
 
 	@ApiOperation(value = "根据ID查询用水分类")
 	@RequestMapping(value = "/tenant-water-types/{id}", method = RequestMethod.GET)
-	public TenantWaterTypeVo getById(@PathVariable("id") Long id) {
+	public TenantWaterTypeVo getById(@PathVariable("id") String id) {
 		TenantWaterType tenantWaterType = tenantWaterTypeService.getById(id);
 
 		return entity2vo(tenantWaterType);
@@ -89,7 +89,7 @@ public class TenantWaterTypeRestController {
 	@ApiOperation(value = "新增用水分类")
 	@RequestMapping(value = "/tenant-water-types", method = RequestMethod.POST)
 	public TenantWaterTypeVo save(@RequestBody TenantWaterType tenantWaterType) {
-		if (tenantWaterType.getId() == null || tenantWaterType.getId().compareTo(0L) <= 0) {
+		if (tenantWaterType.getId() == null || tenantWaterType.getId().trim().length() <= 0) {
 			tenantWaterType.setId(idService.selectId());
 		}
 		boolean success = tenantWaterTypeService.save(tenantWaterType);
@@ -103,7 +103,7 @@ public class TenantWaterTypeRestController {
 
 	@ApiOperation(value = "更新用水分类全部信息")
 	@RequestMapping(value = "/tenant-water-types/{id}", method = RequestMethod.PUT)
-	public TenantWaterTypeVo updateById(@PathVariable("id") Long id, @RequestBody TenantWaterType tenantWaterType) {
+	public TenantWaterTypeVo updateById(@PathVariable("id") String id, @RequestBody TenantWaterType tenantWaterType) {
 		tenantWaterType.setId(id);
 		boolean success = tenantWaterTypeService.updateById(tenantWaterType);
 		if (success) {
@@ -116,7 +116,7 @@ public class TenantWaterTypeRestController {
 
 	@ApiOperation(value = "根据参数更新用水分类信息")
 	@RequestMapping(value = "/tenant-water-types/{id}", method = RequestMethod.PATCH)
-	public TenantWaterTypeVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantWaterType tenantWaterType) {
+	public TenantWaterTypeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantWaterType tenantWaterType) {
         TenantWaterType tenantWaterTypeWhere = TenantWaterType.builder()//
 				.id(id)//
 				.build();
@@ -143,7 +143,7 @@ public class TenantWaterTypeRestController {
 
 	@ApiOperation(value = "根据ID删除用水分类")
 	@RequestMapping(value = "/tenant-water-types/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantWaterTypeService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

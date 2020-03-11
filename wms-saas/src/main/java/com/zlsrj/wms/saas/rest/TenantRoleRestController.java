@@ -45,7 +45,7 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "根据ID查询角色信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.GET)
-	public TenantRoleVo getById(@PathVariable("id") Long id) {
+	public TenantRoleVo getById(@PathVariable("id") String id) {
 		TenantRole tenantRole = tenantRoleService.getById(id);
 
 		return entity2vo(tenantRole);
@@ -87,7 +87,7 @@ public class TenantRoleRestController {
 	@ApiOperation(value = "新增角色信息")
 	@RequestMapping(value = "/tenant-roles", method = RequestMethod.POST)
 	public TenantRoleVo save(@RequestBody TenantRole tenantRole) {
-		if (tenantRole.getId() == null || tenantRole.getId().compareTo(0L) <= 0) {
+		if (tenantRole.getId() == null || tenantRole.getId().trim().length() <= 0) {
 			tenantRole.setId(idService.selectId());
 		}
 		boolean success = tenantRoleService.save(tenantRole);
@@ -101,7 +101,7 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "更新角色信息全部信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.PUT)
-	public TenantRoleVo updateById(@PathVariable("id") Long id, @RequestBody TenantRole tenantRole) {
+	public TenantRoleVo updateById(@PathVariable("id") String id, @RequestBody TenantRole tenantRole) {
 		tenantRole.setId(id);
 		boolean success = tenantRoleService.updateById(tenantRole);
 		if (success) {
@@ -114,7 +114,7 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "根据参数更新角色信息信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.PATCH)
-	public TenantRoleVo updatePatchById(@PathVariable("id") Long id, @RequestBody TenantRole tenantRole) {
+	public TenantRoleVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantRole tenantRole) {
         TenantRole tenantRoleWhere = TenantRole.builder()//
 				.id(id)//
 				.build();
@@ -141,7 +141,7 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "根据ID删除角色信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantRoleService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

@@ -3,8 +3,6 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,23 +17,19 @@ public class TenantReceivableDetailVo implements Serializable {
 	private static final long serialVersionUID = 1312391281121312013L;
 
 	@ApiModelProperty(value = "应收明细账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantName;
 
 	@ApiModelProperty(value = "应收总账ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long receivableId;
+	private String receivableId;
 
 	@ApiModelProperty(value = "价格阶梯ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceStepId;
+	private String priceStepId;
 
 	@ApiModelProperty(value = "应收水量")
 	private BigDecimal receivableWaters;
@@ -44,8 +38,7 @@ public class TenantReceivableDetailVo implements Serializable {
 	private BigDecimal arrearsWaters;
 
 	@ApiModelProperty(value = "费用项目ID")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceItemId;
+	private String priceItemId;
 
 	@ApiModelProperty(value = "价格")
 	private BigDecimal detailPrice;

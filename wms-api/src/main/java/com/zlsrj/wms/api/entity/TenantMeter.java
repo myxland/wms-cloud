@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -34,28 +32,23 @@ public class TenantMeter implements Serializable {
 
 	@ApiModelProperty(value = "水表ID")
 	@TableId(value = "id", type = IdType.INPUT)
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "用户ID")
 	@TableField("customer_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long customerId;
+	private String customerId;
 
 	@ApiModelProperty(value = "水表表册ID")
 	@TableField("meter_booklet_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterBookletId;
+	private String meterBookletId;
 
 	@ApiModelProperty(value = "上级水表ID")
 	@TableField("meter_parent_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterParentId;
+	private String meterParentId;
 
 	@ApiModelProperty(value = "水表编号")
 	@TableField("meter_code")
@@ -79,8 +72,7 @@ public class TenantMeter implements Serializable {
 
 	@ApiModelProperty(value = "厂商ID")
 	@TableField("meter_manufactor_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterManufactorId;
+	private String meterManufactorId;
 
 	@ApiModelProperty(value = "水表类型（1：机械表；2：远传表；3：IC卡表）")
 	@TableField("meter_type")
@@ -88,18 +80,15 @@ public class TenantMeter implements Serializable {
 
 	@ApiModelProperty(value = "水表口径ID")
 	@TableField("caliber_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long caliberId;
+	private String caliberId;
 
 	@ApiModelProperty(value = "用水分类ID")
 	@TableField("meter_water_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long meterWaterTypeId;
+	private String meterWaterTypeId;
 
 	@ApiModelProperty(value = "价格分类ID")
 	@TableField("price_type_id")
-	@JSONField(serializeUsing = ToStringSerializer.class)
-	private Long priceTypeId;
+	private String priceTypeId;
 
 	@ApiModelProperty(value = "采集系统代码")
 	@TableField("meter_iot_code")

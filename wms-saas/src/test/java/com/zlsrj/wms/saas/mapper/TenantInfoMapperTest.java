@@ -28,7 +28,7 @@ public class TenantInfoMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantInfo tenantInfo = tenantInfoMapper.selectById(id);
 		log.info(tenantInfo.toString());
 	}

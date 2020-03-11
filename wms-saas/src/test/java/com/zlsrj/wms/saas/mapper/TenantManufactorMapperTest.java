@@ -29,7 +29,7 @@ public class TenantManufactorMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		TenantManufactor tenantManufactor = tenantManufactorMapper.selectById(id);
 		log.info(tenantManufactor.toString());
 	}

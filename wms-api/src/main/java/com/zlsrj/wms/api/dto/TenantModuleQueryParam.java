@@ -16,13 +16,13 @@ public class TenantModuleQueryParam implements Serializable {
 	private static final long serialVersionUID = 1151599401221220122L;
 
 	@ApiModelProperty(value = "租户模块ID")
-	private Long id;
+	private String id;
 
 	@ApiModelProperty(value = "租户ID")
-	private Long tenantId;
+	private String tenantId;
 
 	@ApiModelProperty(value = "模块ID")
-	private Long moduleId;
+	private String moduleId;
 
 	@ApiModelProperty(value = "开通版本（1：基础版；2：高级版；3：旗舰版）")
 	private Integer moduleEdition;
