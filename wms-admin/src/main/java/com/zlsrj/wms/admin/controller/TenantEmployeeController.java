@@ -1,4 +1,4 @@
-package com.zlsrj.wms.admin.history;
+package com.zlsrj.wms.admin.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantDepartmentClientService;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantDepartmentVo;
@@ -54,10 +55,13 @@ public class TenantEmployeeController {
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantEmployeeVo> create(@RequestBody TenantEmployee tenantEmployee) {
-		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.save(tenantEmployee);
-
-		return CommonResult.success(tenantEmployeeVo);
+	public CommonResult<Object> create(@RequestBody TenantEmployeeAddParam tenantEmployee) {
+		boolean success = tenantEmployeeClientService.save(tenantEmployee);
+		if(success) {
+			return CommonResult.success(success);
+		}
+		
+		return CommonResult.failed("未知错误");
 	}
 
 	@ApiOperation(value = "根据ID查询租户员工")

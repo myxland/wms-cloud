@@ -29,7 +29,7 @@ public class TenantManufactor implements Serializable {
 	private static final long serialVersionUID = 8815448482701000121L;
 
 	@ApiModelProperty(value = "制造商ID")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")

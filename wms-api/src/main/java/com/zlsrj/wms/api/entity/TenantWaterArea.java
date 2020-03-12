@@ -29,7 +29,7 @@ public class TenantWaterArea implements Serializable {
 	private static final long serialVersionUID = 1389972413109411232L;
 
 	@ApiModelProperty(value = "供水区域ID")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")

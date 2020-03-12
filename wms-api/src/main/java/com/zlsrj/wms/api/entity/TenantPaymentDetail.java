@@ -31,7 +31,7 @@ public class TenantPaymentDetail implements Serializable {
 	private static final long serialVersionUID = 1381406321281100111L;
 
 	@ApiModelProperty(value = "实收明细账ID")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")

@@ -1,17 +1,13 @@
 package com.zlsrj.wms.saas.service.impl;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
-import com.zlsrj.wms.api.entity.TenantInfo;
-import com.zlsrj.wms.api.enums.EmployeeEnum;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.saas.mapper.TenantEmployeeMapper;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
@@ -24,4 +20,17 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 	@Resource
 	private IIdService idService;
 
+	@Override
+	public boolean save(TenantEmployeeAddParam tenantEmployeeAddParam) {
+		boolean success = false;
+		String jsonString = JSON.toJSONString(tenantEmployeeAddParam);
+		TenantEmployee tenantEmployee = JSON.parseObject(jsonString, TenantEmployee.class);
+		if(tenantEmployee.getId()==null || tenantEmployee.getId().trim().length()==0) {
+			tenantEmployee.setId(idService.selectId());
+		}
+		tenantEmployee.setEmployeePassword("123456");
+		success = this.save(tenantEmployee);
+		
+		return success;
+	}
 }

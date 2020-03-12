@@ -30,7 +30,7 @@ public class TenantPriceType implements Serializable {
 	private static final long serialVersionUID = 1081813151589313257L;
 
 	@ApiModelProperty(value = "价格类别ID")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")

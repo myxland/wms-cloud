@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
@@ -27,7 +28,7 @@ public interface TenantEmployeeClientService {
 	);
 
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
-	public TenantEmployeeVo save(@RequestBody TenantEmployee tenantEmployee);
+	public boolean save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam);
 
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PUT)
 	public TenantEmployeeVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee);

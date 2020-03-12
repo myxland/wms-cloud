@@ -29,7 +29,7 @@ public class TenantEmployee implements Serializable {
 	private static final long serialVersionUID = 1451230121015853219L;
 
 	@ApiModelProperty(value = "员工ID")
-	@TableId(value = "id", type = IdType.AUTO)
+	@TableId(value = "id")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")

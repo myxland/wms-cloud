@@ -18,14 +18,15 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.saas.service.IIdService;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,8 +41,6 @@ public class TenantEmployeeRestController {
 	private ITenantEmployeeService tenantEmployeeService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户员工")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
@@ -94,17 +93,9 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
-	public TenantEmployeeVo save(@RequestBody TenantEmployee tenantEmployee) {
-		if (tenantEmployee.getId() == null || tenantEmployee.getId().trim().length() <= 0) {
-			tenantEmployee.setId(idService.selectId());
-		}
-		boolean success = tenantEmployeeService.save(tenantEmployee);
-		if (success) {
-			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(tenantEmployee.getId());
-			return entity2vo(tenantEmployeeDatabase);
-		}
-		log.info("save TenantEmployee fail，{}", ToStringBuilder.reflectionToString(tenantEmployee, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam) {
+		boolean success = tenantEmployeeService.save(tenantEmployeeAddParam);
+		return success;
 	}
 
 	@ApiOperation(value = "更新租户员工全部信息")
