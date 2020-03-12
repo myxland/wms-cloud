@@ -30,13 +30,18 @@ public class SwaggerConfig {
 
 		ParameterBuilder parameterBuilder = new ParameterBuilder();
 		List<Parameter> parameterList = new ArrayList<Parameter>();
-		parameterBuilder.name("Authorization").description("授权").modelRef(new ModelRef("string")).parameterType("header")
-				.required(false).build();
+		parameterBuilder.name("Authorization").description("授权").modelRef(new ModelRef("string"))
+				.parameterType("header").required(false).build();
 		parameterList.add(parameterBuilder.build());
 
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.any())
-				//.paths(PathSelectors.any()).build().globalOperationParameters(parameterList);
-				.paths(PathSelectors.ant("/account/**")).build().globalOperationParameters(parameterList);
+		return new Docket(DocumentationType.SWAGGER_2)//
+				.apiInfo(apiInfo())//
+				.select()//
+				//.apis(RequestHandlerSelectors.any())//
+				.apis(RequestHandlerSelectors.basePackage("com.zlsrj.wms.admin.controller"))//
+				.paths(PathSelectors.any())//
+				.build()//
+				.globalOperationParameters(parameterList);
 
 	}
 

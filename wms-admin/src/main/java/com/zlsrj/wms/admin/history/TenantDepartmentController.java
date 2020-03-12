@@ -1,0 +1,111 @@
+package com.zlsrj.wms.admin.history;
+
+import org.apache.commons.lang3.StringUtils;
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.client.service.TenantDepartmentClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.dto.TenantDepartmentQueryParam;
+import com.zlsrj.wms.api.entity.TenantDepartment;
+import com.zlsrj.wms.api.vo.TenantDepartmentVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
+import com.zlsrj.wms.common.api.CommonPage;
+import com.zlsrj.wms.common.api.CommonResult;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+
+@Api(value = "租户部门", tags = { "租户部门操作接口" })
+@Controller
+@RequestMapping("/tenantDepartment")
+@Slf4j
+public class TenantDepartmentController {
+
+	@Autowired
+	private TenantDepartmentClientService tenantDepartmentClientService;
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
+
+	@ApiOperation(value = "根据参数查询租户部门列表")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<CommonPage<TenantDepartmentVo>> list(TenantDepartmentQueryParam tenantDepartmentQueryParam, int pageNum,
+			int pageSize) {
+		Page<TenantDepartmentVo> tenantDepartmentVoPage = tenantDepartmentClientService.page(tenantDepartmentQueryParam, pageNum, pageSize, "id", "desc");
+		tenantDepartmentVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+
+		CommonPage<TenantDepartmentVo> tenantDepartmentCommonPage = CommonPage.restPage(tenantDepartmentVoPage);
+
+		return CommonResult.success(tenantDepartmentCommonPage);
+	}
+
+	@ApiOperation(value = "新增租户部门")
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<TenantDepartmentVo> create(@RequestBody TenantDepartment tenantDepartment) {
+		TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.save(tenantDepartment);
+
+		return CommonResult.success(tenantDepartmentVo);
+	}
+
+	@ApiOperation(value = "根据ID查询租户部门")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<TenantDepartmentVo> getById(@PathVariable("id") String id) {
+		TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.getById(id);
+		wrappperVo(tenantDepartmentVo);
+
+		return CommonResult.success(tenantDepartmentVo);
+	}
+
+	@ApiOperation(value = "根据参数更新租户部门信息")
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<TenantDepartmentVo> getById(@RequestBody TenantDepartment tenantDepartment) {
+		String id = tenantDepartment.getId();
+		TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.updatePatchById(id, tenantDepartment);
+		wrappperVo(tenantDepartmentVo);
+
+		return CommonResult.success(tenantDepartmentVo);
+	}
+	
+	@ApiOperation(value = "根据ID删除租户部门")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
+		CommonResult<Object> commonResult = tenantDepartmentClientService.removeById(id);
+
+		return commonResult;
+	}
+
+	private void wrappperVo(TenantDepartmentVo tenantDepartmentVo) {
+		if (StringUtils.isEmpty(tenantDepartmentVo.getTenantName())) {
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantDepartmentVo.getTenantId());
+			if (tenantInfoVo != null) {
+				tenantDepartmentVo.setTenantName(tenantInfoVo.getTenantName());
+			}
+		}
+		boolean hasChildren = tenantDepartmentVo.isHasChildren();
+		if(hasChildren == false) {
+			String parentId = tenantDepartmentVo.getId();
+			TenantDepartmentQueryParam tenantDepartmentQueryParam = new TenantDepartmentQueryParam();
+			tenantDepartmentQueryParam.setParentId(parentId);
+			Page<TenantDepartmentVo> tenantDepartmentVoPage = tenantDepartmentClientService.page(tenantDepartmentQueryParam, 1, 500, "id", "desc");
+			if(tenantDepartmentVoPage!=null && tenantDepartmentVoPage.getTotal()>0) {
+				tenantDepartmentVo.setHasChildren(true);
+			}
+		}
+	}
+
+}
