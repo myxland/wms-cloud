@@ -27,9 +27,12 @@ public class AdminUserController {
 //		String password = adminLoginParam.getPassword();
 
 		TenantEmployee tenantEmployee = tenantEmployeeService.getByEmpName(username);
+		if(tenantEmployee == null) {
+			return null;
+		}
 		AdminUser adminUser = AdminUser.builder()//
 				.id(tenantEmployee.getId())//
-				.username(tenantEmployee.getEmployeeName())//
+				.username(tenantEmployee.getEmployeeLoginid())//
 				.password(tenantEmployee.getEmployeePassword())//
 				.status(tenantEmployee.getEmployeeStatus())//
 				.icon(null)//

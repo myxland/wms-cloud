@@ -36,6 +36,10 @@ public class TenantEmployee implements Serializable {
 	@TableField("tenant_id")
 	private String tenantId;
 
+	@ApiModelProperty(value = "员工账号")
+	@TableField("employee_loginid")
+	private String employeeLoginid;
+	
 	@ApiModelProperty(value = "员工名称")
 	@TableField("employee_name")
 	private String employeeName;

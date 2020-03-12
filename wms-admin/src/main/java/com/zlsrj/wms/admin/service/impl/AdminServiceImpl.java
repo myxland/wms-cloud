@@ -13,15 +13,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.admin.component.JwtTokenUtil;
 import com.zlsrj.wms.admin.service.IAdminService;
 import com.zlsrj.wms.api.client.service.AdminUserClientService;
+import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.dto.AdminLoginParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.entity.AdminPermission;
 import com.zlsrj.wms.api.entity.AdminUser;
+import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
-import cn.hutool.crypto.SecureUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -37,6 +40,9 @@ public class AdminServiceImpl implements IAdminService {
 	
 	@Autowired
 	private  AdminUserClientService adminUserClientService;
+	
+	@Autowired
+	private TenantEmployeeClientService tenantEmployeeClientService;
 
 	public AdminUser getAdminByUsername(String username) {
 //		AdminUser admin = AdminUser.builder()//
@@ -103,6 +109,12 @@ public class AdminServiceImpl implements IAdminService {
 			log.error("登录异常:{}", e.getMessage());
 		}
 		return token;
+	}
+	
+	public TenantEmployeeVo getTenantEmployeeById(String employeeId) {
+		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.getById(employeeId);
+		
+		return tenantEmployeeVo;
 	}
 
 }

@@ -50,7 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public final static String[] STATIC_RESOURCE_ANT_PATH = new String[] { "/", "/*.html", "/favicon.ico", "/**/*.html",
 			"/**/*.css", "/**/*.js", "/swagger-resources/**", "/v2/api-docs/**" };
 
-	public final static String[] LOGIN_ANT_PATH = new String[] { "/admin/login", "/admin/register" };
+	public final static String[] LOGIN_ANT_PATH = new String[] { //
+			"/account/login", //
+			"/admin/login", //
+			"/admin/register" //
+	};
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {

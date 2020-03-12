@@ -23,8 +23,11 @@ import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
+@Api(value = "登录信息", tags = { "登录操作接口" }, hidden = true)
 @Controller
 @RequestMapping("/admin")
 @Slf4j
@@ -39,6 +42,7 @@ public class AdminController {
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
 
+	@ApiOperation(value="",hidden=true)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Object> login(@RequestBody AdminLoginParam adminLoginParam) {
@@ -53,6 +57,7 @@ public class AdminController {
 		return CommonResult.success(tokenMap);
 	}
 
+	@ApiOperation(value="",hidden=true)
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Map<String, Object>> getAdminInfo(Principal principal) {
