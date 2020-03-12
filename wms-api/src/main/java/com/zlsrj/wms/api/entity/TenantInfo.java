@@ -43,8 +43,8 @@ public class TenantInfo implements Serializable {
 	private BigDecimal tenantBalance;
 
 	@ApiModelProperty(value = "透支额度")
-	@TableField("teanant_overdraw")
-	private BigDecimal teanantOverdraw;
+	@TableField("tenant_overdraw")
+	private BigDecimal tenantOverdraw;
 
 	@ApiModelProperty(value = "租户显示名称")
 	@TableField("tenant_display_name")

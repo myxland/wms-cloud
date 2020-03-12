@@ -3,6 +3,7 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -60,4 +61,7 @@ public class ModuleMenuVo implements Serializable {
 	
 	@ApiModelProperty(value = "是否包含子级菜单")
 	private boolean hasChildren;
+	
+	@ApiModelProperty(value = "菜单链接地址")
+	private String menuUrl;
 }

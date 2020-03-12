@@ -13,16 +13,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.admin.component.JwtTokenUtil;
 import com.zlsrj.wms.admin.service.IAdminService;
 import com.zlsrj.wms.api.client.service.AdminUserClientService;
+import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
+import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.dto.AdminLoginParam;
-import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.entity.AdminPermission;
 import com.zlsrj.wms.api.entity.AdminUser;
+import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +45,12 @@ public class AdminServiceImpl implements IAdminService {
 	
 	@Autowired
 	private TenantEmployeeClientService tenantEmployeeClientService;
+	
+	@Autowired
+	private TenantInfoClientService tenantInfoClientService;
+	
+	@Autowired
+	private ModuleMenuClientService moduleMenuClientService;
 
 	public AdminUser getAdminByUsername(String username) {
 //		AdminUser admin = AdminUser.builder()//
@@ -115,6 +123,18 @@ public class AdminServiceImpl implements IAdminService {
 		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.getById(employeeId);
 		
 		return tenantEmployeeVo;
+	}
+	
+	public TenantInfoVo getTenantInfoById(String tenantId) {
+		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantId);
+		
+		return tenantInfoVo;
+	}
+	
+	public List<ModuleMenuVo> getModuleMenuByEmployee(String tenantId,String employeeId) {
+		List<ModuleMenuVo> moduleMenuVoVoList = moduleMenuClientService.selectByEmployee(tenantId, employeeId);
+		
+		return moduleMenuVoVoList;
 	}
 
 }

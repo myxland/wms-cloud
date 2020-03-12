@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,7 +20,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.ModuleMenuQueryParam;
-import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -167,6 +167,21 @@ public class ModuleMenuRestController {
 		String jsonString = JSON.toJSONString(moduleMenu);
 		ModuleMenuVo moduleMenuVo = JSON.parseObject(jsonString, ModuleMenuVo.class);
 		return moduleMenuVo;
+	}
+	
+	@ApiOperation(value = "根据员工信息查询模块菜单列表")
+	@RequestMapping(value = "/module-menus/employee", method = RequestMethod.GET)
+	public List<ModuleMenuVo> selectByEmployee(@RequestParam(value = "tenantId") String tenantId, //
+			@RequestParam(value = "employeeId") String employeeId//
+	) {
+
+		List<ModuleMenu> moduleMenuList = moduleMenuService.selectModuleMenuByEmployee(tenantId, employeeId);
+
+		List<ModuleMenuVo> moduleMenuVoList = moduleMenuList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return moduleMenuVoList;
 	}
 
 }

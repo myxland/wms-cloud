@@ -35,7 +35,8 @@ public class SwaggerConfig {
 		parameterList.add(parameterBuilder.build());
 
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build().globalOperationParameters(parameterList);
+				//.paths(PathSelectors.any()).build().globalOperationParameters(parameterList);
+				.paths(PathSelectors.ant("/account/**")).build().globalOperationParameters(parameterList);
 
 	}
 

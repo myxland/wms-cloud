@@ -27,7 +27,7 @@ public class TenantInfoVo implements Serializable {
 	private BigDecimal tenantBalance;
 
 	@ApiModelProperty(value = "透支额度")
-	private BigDecimal teanantOverdraw;
+	private BigDecimal tenantOverdraw;
 
 	@ApiModelProperty(value = "租户显示名称")
 	private String tenantDisplayName;

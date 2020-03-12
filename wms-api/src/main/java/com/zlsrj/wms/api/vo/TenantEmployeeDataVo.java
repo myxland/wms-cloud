@@ -1,6 +1,7 @@
 package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -38,7 +39,7 @@ public class TenantEmployeeDataVo implements Serializable {
 	
 	@ApiModelProperty(value = "租户信息")
 	@JSONField(name="tenant_info")
-	private TenantInfoVo tenantInfo;
+	private TenantInfoDataVo tenantInfo;
 
 	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
 	@JSONField(name="employee_login_on")
@@ -49,6 +50,6 @@ public class TenantEmployeeDataVo implements Serializable {
 	private Integer employeeStatus;
 
 	@ApiModelProperty(value = "菜单信息")
-	@JSONField(name="module_menu")
-	private ModuleMenuVo moduleMenu;
+	@JSONField(name="module_menu_list")
+	private List<ModuleMenuDataVo> moduleMenuList;
 }

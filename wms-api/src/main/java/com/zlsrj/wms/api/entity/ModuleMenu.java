@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -75,6 +77,9 @@ public class ModuleMenu implements Serializable {
 	@ApiModelProperty(value = "旗舰版链接地址")
 	@TableField("ultimate_url")
 	private String ultimateUrl;
-
+	
+	@ApiModelProperty(value = "菜单链接地址")
+	@TableField(value="menu_url",exist = false)
+	private String menuUrl;
 
 }

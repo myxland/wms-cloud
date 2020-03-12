@@ -68,7 +68,7 @@ public class TenantInfoRestControllerTest {
 		// params.add("id",TestCaseUtil.id());// 租户ID
 		// params.add("tenantName",TestCaseUtil.companyName(companyShortName));// 租户名称
 		// params.add("tenantBalance",new BigDecimal(0));// 账户余额
-		// params.add("teanantOverdraw",new BigDecimal(0));// 透支额度
+		// params.add("tenantOverdraw",new BigDecimal(0));// 透支额度
 		// params.add("tenantDisplayName",companyShortName);// 租户显示名称
 		// params.add("tenantProvince",TestCaseUtil.province());// 省
 		// params.add("tenantCity",TestCaseUtil.city());// 市
@@ -107,7 +107,7 @@ public class TenantInfoRestControllerTest {
 				.id(TestCaseUtil.id())// 租户ID
 				.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
 				.tenantBalance(new BigDecimal(0))// 账户余额
-				.teanantOverdraw(new BigDecimal(0))// 透支额度
+				.tenantOverdraw(new BigDecimal(0))// 透支额度
 				.tenantDisplayName(companyShortName)// 租户显示名称
 				.tenantProvince(TestCaseUtil.province())// 省
 				.tenantCity(TestCaseUtil.city())// 市
@@ -151,7 +151,7 @@ public class TenantInfoRestControllerTest {
 				//.id(TestCaseUtil.id())// 租户ID
 				.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
 				.tenantBalance(new BigDecimal(0))// 账户余额
-				.teanantOverdraw(new BigDecimal(0))// 透支额度
+				.tenantOverdraw(new BigDecimal(0))// 透支额度
 				.tenantDisplayName(companyShortName)// 租户显示名称
 				.tenantProvince(TestCaseUtil.province())// 省
 				.tenantCity(TestCaseUtil.city())// 市
@@ -194,7 +194,7 @@ public class TenantInfoRestControllerTest {
 		TenantInfo tenantInfo = TenantInfo.builder()//
 				//.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
 				//.tenantBalance(new BigDecimal(0))// 账户余额
-				//.teanantOverdraw(new BigDecimal(0))// 透支额度
+				//.tenantOverdraw(new BigDecimal(0))// 透支额度
 				//.tenantDisplayName(companyShortName)// 租户显示名称
 				//.tenantProvince(TestCaseUtil.province())// 省
 				//.tenantCity(TestCaseUtil.city())// 市

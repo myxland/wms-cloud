@@ -1,7 +1,9 @@
 package com.zlsrj.wms.admin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,8 +18,12 @@ import com.zlsrj.wms.admin.component.JwtTokenUtil;
 import com.zlsrj.wms.admin.service.IAdminService;
 import com.zlsrj.wms.api.dto.AccountLoginParam;
 import com.zlsrj.wms.api.entity.AdminUser;
+import com.zlsrj.wms.api.vo.ModuleMenuDataVo;
+import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeDataVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
+import com.zlsrj.wms.api.vo.TenantInfoDataVo;
+import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import io.swagger.annotations.ApiOperation;
@@ -80,6 +86,7 @@ public class AccountController {
 		return CommonResult.validateFailed("扫码登录暂未开通");
 	}
 
+	@ApiOperation(value = "用户信息")
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public CommonResult<TenantEmployeeDataVo> getAdminInfo(HttpServletRequest request) {
 		String authHeader = request.getHeader(this.tokenHeader);
@@ -93,6 +100,20 @@ public class AccountController {
 			String jsonString = JSON.toJSONString(tenantEmployeeVo);
 			TenantEmployeeDataVo tenantEmployeeDataVo = JSON.parseObject(jsonString, TenantEmployeeDataVo.class);
 			
+			TenantInfoVo tenantInfoVo = adminService.getTenantInfoById(tenantEmployeeDataVo.getTenantId());
+			jsonString = JSON.toJSONString(tenantInfoVo);
+			TenantInfoDataVo tenantInfoDataVo = JSON.parseObject(jsonString, TenantInfoDataVo.class);
+			
+			tenantEmployeeDataVo.setTenantInfo(tenantInfoDataVo);
+			
+			List<ModuleMenuVo> moduleMenuVoList = adminService.getModuleMenuByEmployee(tenantEmployeeDataVo.getTenantId(), tenantEmployeeDataVo.getId());
+			
+			
+			List<ModuleMenuDataVo> moduleMenuDataVoList = moduleMenuVoList.stream()//
+			.map(e -> JSON.parseObject(JSON.toJSONString(e),ModuleMenuDataVo.class))//
+			.collect(Collectors.toList());
+			
+			tenantEmployeeDataVo.setModuleMenuList(moduleMenuDataVoList);
 			
 			return CommonResult.success(tenantEmployeeDataVo);
 		}

@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,5 +39,10 @@ public interface ModuleMenuClientService {
 
 	@RequestMapping(value = "/module-menus/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/module-menus/employee", method = RequestMethod.GET)
+	public List<ModuleMenuVo> selectByEmployee(@RequestParam(value = "tenantId") String tenantId, //
+			@RequestParam(value = "employeeId") String employeeId//
+	);
 }
 

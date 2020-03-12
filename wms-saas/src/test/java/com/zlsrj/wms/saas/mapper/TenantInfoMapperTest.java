@@ -50,7 +50,7 @@ public class TenantInfoMapperTest {
 				.id(TestCaseUtil.id())// 租户ID
 				.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
 				.tenantBalance(new BigDecimal(0))// 账户余额
-				.teanantOverdraw(new BigDecimal(0))// 透支额度
+				.tenantOverdraw(new BigDecimal(0))// 透支额度
 				.tenantDisplayName(companyShortName)// 租户显示名称
 				.tenantProvince(TestCaseUtil.province())// 省
 				.tenantCity(TestCaseUtil.city())// 市

@@ -1,6 +1,8 @@
 package com.zlsrj.wms.saas.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.entity.ModuleMenu;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,7 @@ public class ModuleMenuMapperTest {
 
 	@Test
 	public void selectByIdTest() {
-		String id = "";
+		String id = "292021C9A59744688BEAB880B0D885F7";
 		ModuleMenu moduleMenu = moduleMenuMapper.selectById(id);
 		log.info(moduleMenu.toString());
 	}
@@ -60,6 +62,17 @@ public class ModuleMenuMapperTest {
 		int count = moduleMenuMapper.insert(moduleMenu);
 		log.info("count={}",count);
 		log.info("moduleMenu={}",moduleMenu);
+	}
+	
+	@Test
+	public void selectModuleMenuByEmployeeTest() {
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("tenantId", "AE6492EB900A4CEAB9C6E2DB3E03C344");
+		parameters.put("employeeId", "88C2BB0D41104954896549225F81476A");
+		List<ModuleMenu> moduleMenuList = moduleMenuMapper.selectModuleMenuByEmployee(parameters);
+		moduleMenuList.forEach(e -> {
+			log.info(e.toString());
+		});
 	}
 	
 }

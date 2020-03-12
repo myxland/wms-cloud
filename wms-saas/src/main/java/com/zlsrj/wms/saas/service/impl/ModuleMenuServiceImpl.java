@@ -1,4 +1,8 @@
 package com.zlsrj.wms.saas.service.impl;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +25,14 @@ public class ModuleMenuServiceImpl extends ServiceImpl<ModuleMenuMapper, ModuleM
 	@Override
 	public boolean saveBatchByModuleInfo(ModuleInfo moduleInfo) {
 		return false;
+	}
+	
+	@Override
+	public List<ModuleMenu> selectModuleMenuByEmployee(String tenantId,String employeeId){
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("tenantId", tenantId);
+		parameters.put("employeeId", employeeId);
+		return this.baseMapper.selectModuleMenuByEmployee(parameters);
 	}
 
 }

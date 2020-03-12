@@ -1,5 +1,8 @@
 package com.zlsrj.wms.saas.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.entity.ModuleInfo;
@@ -11,4 +14,6 @@ public interface IModuleMenuService extends IService<ModuleMenu> {
 	 * @return
 	 */
 	boolean saveBatchByModuleInfo(ModuleInfo moduleInfo);
+	
+	List<ModuleMenu> selectModuleMenuByEmployee(String tenantId,String employeeId);
 }

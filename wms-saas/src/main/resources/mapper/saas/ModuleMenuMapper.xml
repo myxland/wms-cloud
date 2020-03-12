@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zlsrj.wms.saas.mapper.ModuleMenuMapper">
-
+	<select id="selectModuleMenuByEmployee" parameterType="java.util.Map" resultType="com.zlsrj.wms.api.entity.ModuleMenu">
+		SELECT
+			a1.id,
+			a1.menu_name,
+			a1.menu_parent_id,
+			a1.menu_order,
+			a1.menu_icon,
+		CASE
+				a1.module_edition 
+				WHEN 1 THEN
+				a1.basic_url 
+				WHEN 2 THEN
+				a1.advance_url 
+				WHEN 3 THEN
+				a1.ultimate_url 
+			END AS menu_url 
+		FROM
+			((
+				SELECT
+					0 issel,
+					a.id,
+					a.menu_name,
+					a.menu_parent_id,
+					a.menu_order,
+					c.module_edition,
+					a.basic_url,
+					a.advance_url,
+					a.ultimate_url,
+					a.menu_icon 
+				FROM
+					module_menu a,
+					module_info b,
+					tenant_module c 
+				WHERE
+					a.module_id = b.id 
+					AND b.id = c.module_id 
+					AND c.tenant_id = #{tenantId} 
+					AND b.run_env IN ( 1, 2 ) 
+					AND b.module_on = 1 
+					) UNION ALL
+				(
+				SELECT
+					0 issel,
+					a.id,
+					a.menu_name,
+					a.menu_parent_id,
+					a.menu_order,
+					1 AS module_edition,'' AS basic_url,'' AS advance_url,'' AS ultimate_url,
+					a.menu_icon 
+				FROM
+					module_menu a 
+				WHERE
+					( a.module_id IS NULL OR module_id ='' ) 
+					AND a.id IN (
+					SELECT
+						a.menu_parent_id 
+					FROM
+						module_menu a,
+						module_info b,
+						tenant_module c 
+					WHERE
+						a.module_id = b.id 
+						AND b.id = c.module_id 
+						AND c.tenant_id = #{tenantId} 
+						AND b.run_env IN ( 1, 2 ) 
+						AND b.module_on = 1 
+					) 
+				)) AS a1 
+		WHERE
+			a1.id IN (
+			SELECT
+				b1.menu_id 
+			FROM
+				tenant_role_menu b1,
+				tenant_employee_role r1 
+			WHERE
+				b1.tenant_id = #{tenantId} 
+				AND r1.tenant_id = #{tenantId} 
+				AND b1.role_id = r1.role_id 
+				AND r1.employee_id = #{employeeId} 
+			) 
+		ORDER BY
+			a1.menu_order
+	</select>
 </mapper>
