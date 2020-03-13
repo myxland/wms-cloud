@@ -56,12 +56,8 @@ public class TenantEmployeeController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<Object> create(@RequestBody TenantEmployeeAddParam tenantEmployee) {
-		boolean success = tenantEmployeeClientService.save(tenantEmployee);
-		if(success) {
-			return CommonResult.success(success);
-		}
-		
-		return CommonResult.failed("未知错误");
+		String id = tenantEmployeeClientService.save(tenantEmployee);
+		return CommonResult.success(id);
 	}
 
 	@ApiOperation(value = "根据ID查询租户员工")

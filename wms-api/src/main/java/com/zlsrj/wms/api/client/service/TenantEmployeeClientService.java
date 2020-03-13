@@ -28,7 +28,7 @@ public interface TenantEmployeeClientService {
 	);
 
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
-	public boolean save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam);
+	public String save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam);
 
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PUT)
 	public TenantEmployeeVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee);

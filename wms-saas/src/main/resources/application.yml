@@ -67,3 +67,13 @@ id:
 jasypt: 
  encryptor: 
   password: guiyuan2020
+  
+  
+#系统配置员工密码生成规则
+#defaultPasswordStrategy 默认模式，手机号码后6位
+#randomPasswordStrategy  随机生成6位数字
+system: 
+ config: 
+  password: 
+   mode: defaultPasswordStrategy
+  

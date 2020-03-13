@@ -5,5 +5,5 @@ import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 
 public interface ITenantEmployeeService extends IService<TenantEmployee> {
-	boolean save(TenantEmployeeAddParam tenantEmployeeAddParam);
+	String save(TenantEmployeeAddParam tenantEmployeeAddParam);
 }

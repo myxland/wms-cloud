@@ -21,7 +21,6 @@ import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
-import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
@@ -69,11 +68,11 @@ public class TenantEmployeeControllerTest {
 		
 		tenantEmployeeAddParam.setTenantRoleList(tenantRoleAddParamList);
 		
-		log.info(JSONUtil.toJsonStr(tenantEmployeeAddParam));
+		log.info(JSON.toJSONString(tenantEmployeeAddParam));
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.post("/tenantEmployee/create")//
-						.content(JSONUtil.toJsonStr(tenantEmployeeAddParam))//
+						.content(JSON.toJSONString(tenantEmployeeAddParam))//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();

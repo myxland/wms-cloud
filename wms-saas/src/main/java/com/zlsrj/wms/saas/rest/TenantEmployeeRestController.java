@@ -93,9 +93,8 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
-	public boolean save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam) {
-		boolean success = tenantEmployeeService.save(tenantEmployeeAddParam);
-		return success;
+	public String save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam) {
+		return tenantEmployeeService.save(tenantEmployeeAddParam);
 	}
 
 	@ApiOperation(value = "更新租户员工全部信息")
