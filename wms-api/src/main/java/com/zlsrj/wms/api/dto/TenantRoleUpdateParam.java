@@ -1,4 +1,4 @@
-package com.zlsrj.wms.api.vo;
+package com.zlsrj.wms.api.dto;
 
 import java.io.Serializable;
 
@@ -11,10 +11,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantRole对象", description = "角色信息")
-public class TenantRoleVo implements Serializable {
+@ApiModel(value = "TenantRole更新参数", description = "角色信息")
+public class TenantRoleUpdateParam implements Serializable {
 
-	private static final long serialVersionUID = 1081181431513799315L;
+	private static final long serialVersionUID = -6351616099914618162L;
 
 	@ApiModelProperty(value = "工作岗位ID")
 	@JSONField(name="id")
@@ -23,10 +23,6 @@ public class TenantRoleVo implements Serializable {
 	@ApiModelProperty(value = "租户ID")
 	@JSONField(name="tenant_id")
 	private String tenantId;
-
-	@ApiModelProperty(value = "租户ID")
-	@JSONField(name="tenant_name")
-	private String tenantName;
 
 	@ApiModelProperty(value = "工作岗位名称")
 	@JSONField(name="role_name")
@@ -39,5 +35,6 @@ public class TenantRoleVo implements Serializable {
 	@ApiModelProperty(value = "创建类型（1：平台默认创建；2：租户自建）")
 	@JSONField(name="create_type")
 	private Integer createType;
-	
+
 }
+

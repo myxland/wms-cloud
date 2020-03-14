@@ -14,17 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 
@@ -99,50 +98,14 @@ public class TenantEmployeeRestController {
 
 	@ApiOperation(value = "更新租户员工全部信息")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PUT)
-	public TenantEmployeeVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee) {
-		tenantEmployee.setId(id);
-		boolean success = tenantEmployeeService.updateById(tenantEmployee);
-		if (success) {
-			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(id);
-			return entity2vo(tenantEmployeeDatabase);
-		}
-		log.info("update TenantEmployee fail，{}", ToStringBuilder.reflectionToString(tenantEmployee, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam) {
+		return  tenantEmployeeService.updateById(id,tenantEmployeeUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新租户员工信息")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
-	public TenantEmployeeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee) {
-        TenantEmployee tenantEmployeeWhere = TenantEmployee.builder()//
-				.id(id)//
-				.build();
-		UpdateWrapper<TenantEmployee> updateWrapperTenantEmployee = new UpdateWrapper<TenantEmployee>();
-		updateWrapperTenantEmployee.setEntity(tenantEmployeeWhere);
-		updateWrapperTenantEmployee.lambda()//
-				//.eq(TenantEmployee::getId, id)
-				// .set(tenantEmployee.getId() != null, TenantEmployee::getId, tenantEmployee.getId())
-				.set(tenantEmployee.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployee.getTenantId())
-				.set(tenantEmployee.getEmployeeName() != null, TenantEmployee::getEmployeeName, tenantEmployee.getEmployeeName())
-				.set(tenantEmployee.getEmployeePassword() != null, TenantEmployee::getEmployeePassword, tenantEmployee.getEmployeePassword())
-				.set(tenantEmployee.getEmployeeDepartmentId() != null, TenantEmployee::getEmployeeDepartmentId, tenantEmployee.getEmployeeDepartmentId())
-				.set(tenantEmployee.getEmployeeLoginOn() != null, TenantEmployee::getEmployeeLoginOn, tenantEmployee.getEmployeeLoginOn())
-				.set(tenantEmployee.getEmployeeStatus() != null, TenantEmployee::getEmployeeStatus, tenantEmployee.getEmployeeStatus())
-				.set(tenantEmployee.getEmployeeMobile() != null, TenantEmployee::getEmployeeMobile, tenantEmployee.getEmployeeMobile())
-				.set(tenantEmployee.getEmployeeEmail() != null, TenantEmployee::getEmployeeEmail, tenantEmployee.getEmployeeEmail())
-				.set(tenantEmployee.getEmployeePersonalWx() != null, TenantEmployee::getEmployeePersonalWx, tenantEmployee.getEmployeePersonalWx())
-				.set(tenantEmployee.getEmployeeEnterpriceWx() != null, TenantEmployee::getEmployeeEnterpriceWx, tenantEmployee.getEmployeeEnterpriceWx())
-				.set(tenantEmployee.getEmployeeDingding() != null, TenantEmployee::getEmployeeDingding, tenantEmployee.getEmployeeDingding())
-				.set(tenantEmployee.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployee.getEmployeeCreateType())
-				;
-
-		boolean success = tenantEmployeeService.update(updateWrapperTenantEmployee);
-		if (success) {
-			TenantEmployee tenantEmployeeDatabase = tenantEmployeeService.getById(id);
-			return entity2vo(tenantEmployeeDatabase);
-		}
-		log.info("partial update TenantEmployee fail，{}",
-				ToStringBuilder.reflectionToString(tenantEmployee, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam) {
+		return tenantEmployeeService.update(id,tenantEmployeeUpdateParam);
 	}
 
 	@ApiOperation(value = "根据ID删除租户员工")

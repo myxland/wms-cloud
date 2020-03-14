@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
+
+import io.swagger.annotations.ApiOperation;
 
 @FeignClient(value = "WMS-SAAS", contextId = "TenantEmployee")
 public interface TenantEmployeeClientService {
@@ -31,11 +34,11 @@ public interface TenantEmployeeClientService {
 	public String save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam);
 
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PUT)
-	public TenantEmployeeVo updateById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee);
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam);
 
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
-	public TenantEmployeeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployee tenantEmployee);
-
+	public boolean updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam);
+	
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
