@@ -10,7 +10,8 @@ public class TranslateUtil {
 		return JSON.parseObject(JSON.toJSONString(source), target);
 	}
 
-	public static <T> List<T> translateList(List<Object> sourceList, Class<T> target) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> List<T> translateList(List sourceList, Class<T> target) {
 //		List<T> targetList = new ArrayList<T>();
 //		sourceList.forEach((object) -> {
 //			T t = JSON.parseObject(JSON.toJSONString(object), target);
@@ -19,6 +20,6 @@ public class TranslateUtil {
 //		
 //		return targetList;
 
-		return sourceList.stream().map(e -> translate(e, target)).collect(Collectors.toList());
+		return ((List<Object>)sourceList).stream().map(e -> translate(e, target)).collect(Collectors.toList());
 	}
 }
