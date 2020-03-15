@@ -43,6 +43,19 @@ public class TenantRoleController {
 
 		return CommonResult.success(id);
 	}
+	
+	@ApiOperation(value = "根据ID删除角色信息")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
+		TenantRoleVo tenantRoleVo = tenantRoleClientService.getById(id);
+		if(tenantRoleVo!=null && 1==tenantRoleVo.getCreateType()) {
+			return CommonResult.failed("系统默认建立的角色，不能删除");
+		}
+		
+		CommonResult<Object> commonResult = tenantRoleClientService.removeById(id);
+		return commonResult;
+	}
 
 	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -80,14 +93,7 @@ public class TenantRoleController {
 		return CommonResult.success(tenantRoleVo);
 	}
 	
-	@ApiOperation(value = "根据ID删除角色信息")
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") String id) {
-		CommonResult<Object> commonResult = tenantRoleClientService.removeById(id);
-
-		return commonResult;
-	}
+	
 
 	private void wrappperVo(TenantRoleVo tenantRoleVo) {
 		if (StringUtils.isEmpty(tenantRoleVo.getTenantName())) {

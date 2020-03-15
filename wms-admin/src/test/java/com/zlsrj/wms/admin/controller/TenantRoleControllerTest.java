@@ -80,4 +80,16 @@ public class TenantRoleControllerTest {
 		log.info(responseString);
 	}
 	
+	@Test
+	public void deleteTest() throws Exception {
+		String id = "84B95609CA9A4883928EAE040890376A";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantRole/delete/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
 }
