@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
@@ -86,17 +87,8 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "新增角色信息")
 	@RequestMapping(value = "/tenant-roles", method = RequestMethod.POST)
-	public TenantRoleVo save(@RequestBody TenantRole tenantRole) {
-		if (tenantRole.getId() == null || tenantRole.getId().trim().length() <= 0) {
-			tenantRole.setId(idService.selectId());
-		}
-		boolean success = tenantRoleService.save(tenantRole);
-		if (success) {
-			TenantRole tenantRoleDatabase = tenantRoleService.getById(tenantRole.getId());
-			return entity2vo(tenantRoleDatabase);
-		}
-		log.info("save TenantRole fail，{}", ToStringBuilder.reflectionToString(tenantRole, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody TenantRoleAddParam tenantRoleAddParam) {
+		return tenantRoleService.save(tenantRoleAddParam);
 	}
 
 	@ApiOperation(value = "更新角色信息全部信息")
