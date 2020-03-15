@@ -41,6 +41,7 @@
 		<spring.data.redis.version>2.0.8.RELEASE</spring.data.redis.version>
 		
 		<rocketmq.client.version>4.6.1</rocketmq.client.version>
+		<fastjson.version>1.2.62</fastjson.version>
 	</properties>
 
 	<dependencyManagement>
