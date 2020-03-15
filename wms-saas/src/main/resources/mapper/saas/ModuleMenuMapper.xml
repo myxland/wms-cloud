@@ -85,4 +85,52 @@
 		ORDER BY
 			a1.menu_order
 	</select>
+	
+	<select id="selectModuleMenuByTenant" parameterType="java.util.Map" resultType="com.zlsrj.wms.api.entity.ModuleMenu">
+		( SELECT
+		0 issel,
+		a.id,
+		a.menu_name,
+		a.menu_parent_id,
+		a.menu_order 
+		FROM
+			module_menu a,
+			module_info b,
+			tenant_module c 
+		WHERE
+			a.module_id = b.id 
+			AND b.id = c.module_id 
+			AND c.tenant_id = #{tenantId}  
+			AND b.run_env IN ( 1, 2 ) 
+			AND b.module_on = 1 
+		) UNION ALL
+		(
+		SELECT
+			0 issel,
+			a.id,
+			a.menu_name,
+			a.menu_parent_id,
+			a.menu_order 
+		FROM
+			module_menu a 
+		WHERE
+			( a.module_id IS NULL OR module_id = '' ) 
+			AND a.id IN (
+			SELECT
+				a.menu_parent_id 
+			FROM
+				module_menu a,
+				module_info b,
+				tenant_module c 
+			WHERE
+				a.module_id = b.id 
+				AND b.id = c.module_id 
+				AND c.tenant_id = #{tenantId}  
+				AND b.run_env IN ( 1, 2 ) 
+				AND b.module_on = 1 
+			) 
+		) 
+	ORDER BY
+		menu_order
+	</select>
 </mapper>

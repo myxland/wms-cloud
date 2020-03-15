@@ -44,5 +44,8 @@ public interface ModuleMenuClientService {
 	public List<ModuleMenuVo> selectByEmployee(@RequestParam(value = "tenantId") String tenantId, //
 			@RequestParam(value = "employeeId") String employeeId//
 	);
+	
+	@RequestMapping(value = "/module-menus/tenant", method = RequestMethod.GET)
+	public List<ModuleMenuVo> selectByTenant(@RequestParam(value = "tenantId") String tenantId);
 }
 

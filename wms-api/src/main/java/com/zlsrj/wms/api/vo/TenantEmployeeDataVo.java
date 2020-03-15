@@ -48,6 +48,10 @@ public class TenantEmployeeDataVo implements Serializable {
 	@ApiModelProperty(value = "员工状态（1：在职；2：离职；3：禁用）")
 	@JSONField(name="employee_status")
 	private Integer employeeStatus;
+	
+	@ApiModelProperty(value = "操作员创建类型（1：平台默认创建；2：租户自建）")
+	@JSONField(name="employee_create_type")
+	private Integer employeeCreateType;
 
 	@ApiModelProperty(value = "菜单信息")
 	@JSONField(name="module_menu_list")

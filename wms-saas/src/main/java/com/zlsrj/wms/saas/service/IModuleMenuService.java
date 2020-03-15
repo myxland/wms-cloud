@@ -16,4 +16,6 @@ public interface IModuleMenuService extends IService<ModuleMenu> {
 	boolean saveBatchByModuleInfo(ModuleInfo moduleInfo);
 	
 	List<ModuleMenu> selectModuleMenuByEmployee(String tenantId,String employeeId);
+	
+	List<ModuleMenu> selectModuleMenuByTenant(String tenantId);
 }

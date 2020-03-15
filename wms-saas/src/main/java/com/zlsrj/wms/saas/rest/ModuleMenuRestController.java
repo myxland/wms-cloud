@@ -183,5 +183,18 @@ public class ModuleMenuRestController {
 
 		return moduleMenuVoList;
 	}
+	
+	@ApiOperation(value = "根据租户信息查询模块菜单列表")
+	@RequestMapping(value = "/module-menus/tenant", method = RequestMethod.GET)
+	public List<ModuleMenuVo> selectByTenant(@RequestParam(value = "tenantId") String tenantId) {
+
+		List<ModuleMenu> moduleMenuList = moduleMenuService.selectModuleMenuByTenant(tenantId);
+
+		List<ModuleMenuVo> moduleMenuVoList = moduleMenuList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return moduleMenuVoList;
+	}
 
 }

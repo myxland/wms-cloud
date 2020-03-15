@@ -109,4 +109,20 @@ public class TenantRoleControllerTest {
 		log.info(responseString);
 	}
 	
+	@Test
+	public void initTest() throws Exception {
+		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
+		
+		TenantRoleQueryParam tenantRoleQueryParam = new TenantRoleQueryParam();
+		tenantRoleQueryParam.setTenantId(tenantId);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantRole/init")//
+						.content(JSON.toJSONString(tenantRoleQueryParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
 }

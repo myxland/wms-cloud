@@ -8,4 +8,5 @@ import com.zlsrj.wms.api.entity.ModuleMenu;
 
 public interface ModuleMenuMapper extends BaseMapper<ModuleMenu> {
 	public List<ModuleMenu> selectModuleMenuByEmployee(Map<String,Object> parameters);
+	public List<ModuleMenu> selectModuleMenuByTenant(Map<String,Object> parameters);
 }

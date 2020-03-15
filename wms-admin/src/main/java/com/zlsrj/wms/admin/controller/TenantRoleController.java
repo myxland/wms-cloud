@@ -1,6 +1,8 @@
 package com.zlsrj.wms.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
+import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
+import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
 import com.zlsrj.wms.api.entity.TenantRole;
+import com.zlsrj.wms.api.vo.ModuleMenuVo;
+import com.zlsrj.wms.api.vo.TenantEmployeeDataVo;
+import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
-import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.common.util.TranslateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +43,10 @@ public class TenantRoleController {
 	private TenantRoleClientService tenantRoleClientService;
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
+	@Autowired
+	private TenantEmployeeClientService tenantEmployeeClientService;
+	@Autowired
+	private ModuleMenuClientService moduleMenuClientService;
 	
 	@ApiOperation(value = "新增角色信息")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -61,11 +73,31 @@ public class TenantRoleController {
 	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<List<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam) {
+	public CommonResult<List<TenantRoleVo>> list(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
 		List<TenantRoleVo> tenantRoleVoList = tenantRoleClientService.list(tenantRoleQueryParam);
 		tenantRoleVoList.stream().forEach(v->wrappperVo(v));
 
 		return CommonResult.success(tenantRoleVoList);
+	}
+	
+	@ApiOperation(value = "页面初始化")
+	@RequestMapping(value = "/init", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Map<String,Object>> init(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
+		String tenantId = tenantRoleQueryParam.getTenantId();
+		
+		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();
+		tenantEmployeeQueryParam.setTenantId(tenantId);
+		List<TenantEmployeeVo> tenantEmployeeVoList = tenantEmployeeClientService.list(tenantEmployeeQueryParam);
+		List<TenantEmployeeDataVo> tenantEmployeeDataVoList = TranslateUtil.translateList(tenantEmployeeVoList, TenantEmployeeDataVo.class);
+		
+		List<ModuleMenuVo> moduleMenuList = moduleMenuClientService.selectByTenant(tenantId);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("tenant_employee_list", tenantEmployeeDataVoList);
+		map.put("module_menu_list", moduleMenuList);
+
+		return CommonResult.success(map);
 	}
 
 	
