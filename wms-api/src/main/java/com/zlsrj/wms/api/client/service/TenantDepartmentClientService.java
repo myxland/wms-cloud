@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantDepartmentAddParam;
 import com.zlsrj.wms.api.dto.TenantDepartmentQueryParam;
+import com.zlsrj.wms.api.dto.TenantDepartmentUpdateParam;
 import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.vo.TenantDepartmentVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -18,6 +22,9 @@ public interface TenantDepartmentClientService {
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.GET)
 	public TenantDepartmentVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-departments/list", method = RequestMethod.GET)
+	public List<TenantDepartmentVo> list(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam);
+	
 	@RequestMapping(value = "/tenant-departments", method = RequestMethod.GET)
 	public Page<TenantDepartmentVo> page(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -27,11 +34,11 @@ public interface TenantDepartmentClientService {
 	);
 
 	@RequestMapping(value = "/tenant-departments", method = RequestMethod.POST)
-	public TenantDepartmentVo save(@RequestBody TenantDepartment tenantDepartment);
+	public String save(@RequestBody TenantDepartmentAddParam tenantDepartmentAddParam);
 
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PUT)
-	public TenantDepartmentVo updateById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment);
-
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantDepartmentUpdateParam tenantDepartmentUpdateParam);
+	
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PATCH)
 	public TenantDepartmentVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment);
 

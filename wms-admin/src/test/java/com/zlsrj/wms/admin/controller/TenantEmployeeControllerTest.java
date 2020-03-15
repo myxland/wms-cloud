@@ -175,4 +175,15 @@ public class TenantEmployeeControllerTest {
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);
 	}
+	
+	@Test
+	public void getByDepartmentTest() throws Exception {
+		String departmentId = "EBC639F193694D868C7679F723E72E30";
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantEmployee/department/"+departmentId)//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
 }

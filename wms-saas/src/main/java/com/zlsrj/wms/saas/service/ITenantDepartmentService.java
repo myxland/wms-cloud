@@ -1,6 +1,8 @@
 package com.zlsrj.wms.saas.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zlsrj.wms.api.dto.TenantDepartmentAddParam;
+import com.zlsrj.wms.api.dto.TenantDepartmentUpdateParam;
 import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantInfo;
 
@@ -11,4 +13,8 @@ public interface ITenantDepartmentService extends IService<TenantDepartment> {
 	 * @return
 	 */
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	
+	boolean updateById(TenantDepartmentUpdateParam tenantDepartmentUpdateParam);
+	
+	String save(TenantDepartmentAddParam tenantDepartmentAddParam);
 }

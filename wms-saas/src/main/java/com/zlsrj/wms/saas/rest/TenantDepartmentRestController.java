@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,14 +19,16 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantDepartmentAddParam;
 import com.zlsrj.wms.api.dto.TenantDepartmentQueryParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.dto.TenantDepartmentUpdateParam;
 import com.zlsrj.wms.api.entity.TenantDepartment;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantDepartmentVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.saas.service.IIdService;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantDepartmentService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,6 +52,28 @@ public class TenantDepartmentRestController {
 		TenantDepartment tenantDepartment = tenantDepartmentService.getById(id);
 
 		return entity2vo(tenantDepartment);
+	}
+	
+	@ApiOperation(value = "根据参数查询租户部门列表")
+	@RequestMapping(value = "/tenant-departments/list", method = RequestMethod.GET)
+	public List<TenantDepartmentVo> list(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam) {
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+		queryWrapperTenantDepartment.lambda()
+				.eq(tenantDepartmentQueryParam.getId() != null, TenantDepartment::getId, tenantDepartmentQueryParam.getId())
+				.eq(tenantDepartmentQueryParam.getTenantId() != null, TenantDepartment::getTenantId, tenantDepartmentQueryParam.getTenantId())
+				.eq(tenantDepartmentQueryParam.getDepartmentName() != null, TenantDepartment::getDepartmentName, tenantDepartmentQueryParam.getDepartmentName())
+				.eq(tenantDepartmentQueryParam.getDepartmentParentId() != null, TenantDepartment::getDepartmentParentId, tenantDepartmentQueryParam.getDepartmentParentId())
+				.eq(tenantDepartmentQueryParam.getParentId()!=null,TenantDepartment::getDepartmentParentId, tenantDepartmentQueryParam.getParentId())
+				//.isNull(tenantDepartmentQueryParam.getParentId()==null, TenantDepartment::getDepartmentParentId)
+				;
+
+		List<TenantDepartment> tenantDepartmentList = tenantDepartmentService.list(queryWrapperTenantDepartment);
+
+		List<TenantDepartmentVo> tenantDepartmentVoList = tenantDepartmentList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return tenantDepartmentVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询租户部门列表")
@@ -87,30 +112,15 @@ public class TenantDepartmentRestController {
 
 	@ApiOperation(value = "新增租户部门")
 	@RequestMapping(value = "/tenant-departments", method = RequestMethod.POST)
-	public TenantDepartmentVo save(@RequestBody TenantDepartment tenantDepartment) {
-		if (tenantDepartment.getId() == null || tenantDepartment.getId().trim().length() <= 0) {
-			tenantDepartment.setId(idService.selectId());
-		}
-		boolean success = tenantDepartmentService.save(tenantDepartment);
-		if (success) {
-			TenantDepartment tenantDepartmentDatabase = tenantDepartmentService.getById(tenantDepartment.getId());
-			return entity2vo(tenantDepartmentDatabase);
-		}
-		log.info("save TenantDepartment fail，{}", ToStringBuilder.reflectionToString(tenantDepartment, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody TenantDepartmentAddParam tenantDepartmentAddParam) {
+		return tenantDepartmentService.save(tenantDepartmentAddParam);
 	}
 
 	@ApiOperation(value = "更新租户部门全部信息")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.PUT)
-	public TenantDepartmentVo updateById(@PathVariable("id") String id, @RequestBody TenantDepartment tenantDepartment) {
-		tenantDepartment.setId(id);
-		boolean success = tenantDepartmentService.updateById(tenantDepartment);
-		if (success) {
-			TenantDepartment tenantDepartmentDatabase = tenantDepartmentService.getById(id);
-			return entity2vo(tenantDepartmentDatabase);
-		}
-		log.info("update TenantDepartment fail，{}", ToStringBuilder.reflectionToString(tenantDepartment, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantDepartmentUpdateParam tenantDepartmentUpdateParam) {
+		tenantDepartmentUpdateParam.setId(id);
+		return tenantDepartmentService.updateById(tenantDepartmentUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新租户部门信息")

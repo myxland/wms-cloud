@@ -1,9 +1,8 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +46,35 @@ public class TenantEmployeeRestController {
 		TenantEmployee tenantEmployee = tenantEmployeeService.getById(id);
 
 		return entity2vo(tenantEmployee);
+	}
+	
+	@ApiOperation(value = "根据参数查询租户员工列表")
+	@RequestMapping(value = "/tenant-employees/list", method = RequestMethod.GET)
+	public List<TenantEmployeeVo> list(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam) {
+		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
+		queryWrapperTenantEmployee.lambda()
+				.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
+				.eq(tenantEmployeeQueryParam.getTenantId() != null, TenantEmployee::getTenantId, tenantEmployeeQueryParam.getTenantId())
+				.eq(tenantEmployeeQueryParam.getEmployeeName() != null, TenantEmployee::getEmployeeName, tenantEmployeeQueryParam.getEmployeeName())
+				.eq(tenantEmployeeQueryParam.getEmployeePassword() != null, TenantEmployee::getEmployeePassword, tenantEmployeeQueryParam.getEmployeePassword())
+				.eq(tenantEmployeeQueryParam.getEmployeeDepartmentId() != null, TenantEmployee::getEmployeeDepartmentId, tenantEmployeeQueryParam.getEmployeeDepartmentId())
+				.eq(tenantEmployeeQueryParam.getEmployeeLoginOn() != null, TenantEmployee::getEmployeeLoginOn, tenantEmployeeQueryParam.getEmployeeLoginOn())
+				.eq(tenantEmployeeQueryParam.getEmployeeStatus() != null, TenantEmployee::getEmployeeStatus, tenantEmployeeQueryParam.getEmployeeStatus())
+				.eq(tenantEmployeeQueryParam.getEmployeeMobile() != null, TenantEmployee::getEmployeeMobile, tenantEmployeeQueryParam.getEmployeeMobile())
+				.eq(tenantEmployeeQueryParam.getEmployeeEmail() != null, TenantEmployee::getEmployeeEmail, tenantEmployeeQueryParam.getEmployeeEmail())
+				.eq(tenantEmployeeQueryParam.getEmployeePersonalWx() != null, TenantEmployee::getEmployeePersonalWx, tenantEmployeeQueryParam.getEmployeePersonalWx())
+				.eq(tenantEmployeeQueryParam.getEmployeeEnterpriceWx() != null, TenantEmployee::getEmployeeEnterpriceWx, tenantEmployeeQueryParam.getEmployeeEnterpriceWx())
+				.eq(tenantEmployeeQueryParam.getEmployeeDingding() != null, TenantEmployee::getEmployeeDingding, tenantEmployeeQueryParam.getEmployeeDingding())
+				.eq(tenantEmployeeQueryParam.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployeeQueryParam.getEmployeeCreateType())
+				;
+
+		List<TenantEmployee> tenantEmployeeList = tenantEmployeeService.list(queryWrapperTenantEmployee);
+
+		List<TenantEmployeeVo> tenantEmployeeVoList = tenantEmployeeList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return tenantEmployeeVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询租户员工列表")

@@ -11,14 +11,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantDepartment查询参数", description = "租户部门")
-public class TenantDepartmentQueryParam implements Serializable {
+@ApiModel(value = "TenantDepartment新增参数", description = "租户部门")
+public class TenantDepartmentAddParam implements Serializable {
 
 	private static final long serialVersionUID = 1611121823631115110L;
-
-	@ApiModelProperty(value = "部门ID")
-	@JSONField(name="id")
-	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	@JSONField(name="tenant_id")
@@ -32,9 +28,5 @@ public class TenantDepartmentQueryParam implements Serializable {
 	@JSONField(name="department_parent_id")
 	private String departmentParentId;
 
-	@ApiModelProperty(value = "父级ID")
-	@JSONField(name="parent_id")
-	private String parentId;
-	
 }
 

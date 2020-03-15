@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,17 +13,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
-import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
-
-import io.swagger.annotations.ApiOperation;
 
 @FeignClient(value = "WMS-SAAS", contextId = "TenantEmployee")
 public interface TenantEmployeeClientService {
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
 	public TenantEmployeeVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-employees/list", method = RequestMethod.GET)
+	public List<TenantEmployeeVo> list(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam);
+	
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.GET)
 	public Page<TenantEmployeeVo> page(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //

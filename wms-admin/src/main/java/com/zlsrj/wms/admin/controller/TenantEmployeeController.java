@@ -2,6 +2,7 @@ package com.zlsrj.wms.admin.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +131,23 @@ public class TenantEmployeeController {
 		
 
 		return CommonResult.success(tenantEmployeeAndTenantRoleVo);
+	}
+	
+	@ApiOperation(value = "根据部门查询租户员工列表")
+	@RequestMapping(value = "/list/department/{departmentId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<TenantEmployeeAndTenantRoleVo>> listByDepartment(@PathVariable("departmentId") String departmentId) {
+		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();
+		tenantEmployeeQueryParam.setEmployeeDepartmentId(departmentId);
+		
+		List<TenantEmployeeVo> tenantEmployeeVoList = tenantEmployeeClientService.list(tenantEmployeeQueryParam);
+		tenantEmployeeVoList.stream().forEach(v->wrappperVo(v));
+		
+		List<TenantEmployeeAndTenantRoleVo> tenantEmployeeAndTenantRoleList = tenantEmployeeVoList.stream()//
+				.map(e -> JSON.parseObject(JSON.toJSONString(e), TenantEmployeeAndTenantRoleVo.class))//
+				.collect(Collectors.toList());
+		
+		return CommonResult.success(tenantEmployeeAndTenantRoleList);
 	}
 	
 	@ApiOperation(value = "根据参数查询租户员工列表",hidden=true)
