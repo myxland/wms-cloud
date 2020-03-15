@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -24,7 +25,7 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantRoleService;
 
@@ -41,8 +42,6 @@ public class TenantRoleRestController {
 	private ITenantRoleService tenantRoleService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询角色信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.GET)
@@ -50,6 +49,23 @@ public class TenantRoleRestController {
 		TenantRole tenantRole = tenantRoleService.getById(id);
 
 		return entity2vo(tenantRole);
+	}
+	
+	@ApiOperation(value = "根据参数查询角色信息列表")
+	@RequestMapping(value = "/tenant-roles/list", method = RequestMethod.GET)
+	public List<TenantRoleVo> list(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
+		QueryWrapper<TenantRole> queryWrapperTenantRole = new QueryWrapper<TenantRole>();
+		queryWrapperTenantRole.lambda()
+				.eq(tenantRoleQueryParam.getId() != null, TenantRole::getId, tenantRoleQueryParam.getId())
+				.eq(tenantRoleQueryParam.getTenantId() != null, TenantRole::getTenantId, tenantRoleQueryParam.getTenantId())
+				.eq(tenantRoleQueryParam.getRoleName() != null, TenantRole::getRoleName, tenantRoleQueryParam.getRoleName())
+				.eq(tenantRoleQueryParam.getRoleRemark() != null, TenantRole::getRoleRemark, tenantRoleQueryParam.getRoleRemark())
+				.eq(tenantRoleQueryParam.getCreateType() != null, TenantRole::getCreateType, tenantRoleQueryParam.getCreateType())
+				;
+
+		List<TenantRole> tenantRoleList = tenantRoleService.list(queryWrapperTenantRole);
+
+		return TranslateUtil.translateList(tenantRoleList, TenantRoleVo.class);
 	}
 
 	@ApiOperation(value = "根据参数查询角色信息列表")

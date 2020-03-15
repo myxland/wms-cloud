@@ -1,5 +1,7 @@
 package com.zlsrj.wms.admin.controller;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
@@ -60,14 +61,11 @@ public class TenantRoleController {
 	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CommonPage<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam, int pageNum,
-			int pageSize) {
-		Page<TenantRoleVo> tenantRoleVoPage = tenantRoleClientService.page(tenantRoleQueryParam, pageNum, pageSize, "id", "desc");
-		tenantRoleVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+	public CommonResult<List<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam) {
+		List<TenantRoleVo> tenantRoleVoList = tenantRoleClientService.list(tenantRoleQueryParam);
+		tenantRoleVoList.stream().forEach(v->wrappperVo(v));
 
-		CommonPage<TenantRoleVo> tenantRoleCommonPage = CommonPage.restPage(tenantRoleVoPage);
-
-		return CommonResult.success(tenantRoleCommonPage);
+		return CommonResult.success(tenantRoleVoList);
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +28,9 @@ public interface TenantRoleClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	@RequestMapping(value = "/tenant-roles/list", method = RequestMethod.GET)
+	public List<TenantRoleVo> list(@RequestBody TenantRoleQueryParam tenantRoleQueryParam);
 
 	@RequestMapping(value = "/tenant-roles", method = RequestMethod.POST)
 	public String save(@RequestBody TenantRoleAddParam tenantRoleAddParam);

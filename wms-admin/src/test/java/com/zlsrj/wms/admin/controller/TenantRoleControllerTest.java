@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
+import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -87,6 +88,22 @@ public class TenantRoleControllerTest {
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantRole/delete/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void listTest() throws Exception {
+		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
+		
+		TenantRoleQueryParam tenantRoleQueryParam = new TenantRoleQueryParam();
+		tenantRoleQueryParam.setTenantId(tenantId);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantRole/list")//
+						.content(JSON.toJSONString(tenantRoleQueryParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);
