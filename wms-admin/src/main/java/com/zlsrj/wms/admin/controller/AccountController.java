@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class AccountController {
 
 	@ApiOperation(value = "系统登录")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public CommonResult<Object> login(AccountLoginParam accountLoginParam) {
+	public CommonResult<Object> login(@RequestBody AccountLoginParam accountLoginParam) {
 		log.info("登录参数，adminLoginParam=[{}]", accountLoginParam.toString());
 
 		String logintype = accountLoginParam.getLogintype();
