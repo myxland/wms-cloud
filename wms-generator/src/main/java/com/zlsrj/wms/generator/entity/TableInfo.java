@@ -74,6 +74,11 @@ public class TableInfo implements Serializable {
 	public boolean isIncludeBigDecimal() {
 		return columnList.stream().filter(column -> "decimal".equals(column.getDataType())).count() > 0;
 	}
+	
+	@JSONField(serialize = false)
+	public boolean isIncludeLong() {
+		return columnList.stream().filter(column -> "bigint".equals(column.getDataType())).count() > 0;
+	}
 
 	@JSONField(serialize = false)
 	public boolean isIncludeDate() {

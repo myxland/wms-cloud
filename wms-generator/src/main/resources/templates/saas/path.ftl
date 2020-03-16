@@ -1,10 +1,8 @@
 #mybatisplus
-#entity=${targetDir}/${artifactId}/src/main/java/${domainNameDir}/${projectName}/entity/${table.entityName}.java
-#dto=${targetDir}/${artifactId}/src/main/java/${domainNameDir}/${projectName}/dto/${table.entityName}QueryParam.java
-#controller=${targetDir}/${artifactId}/src/main/java/${domainNameDir}/${projectName}/controller/${table.entityName}Controller.java
-#controllerTest=${targetDir}/${artifactId}/src/test/java/${domainNameDir}/${projectName}/controller/${table.entityName}ControllerTest.java
 entity=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/entity/${table.entityName}.java
 dto=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/dto/${table.entityName}QueryParam.java
+dtoAdd=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/dto/${table.entityName}AddParam.java
+dtoUpdate=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/dto/${table.entityName}UpdateParam.java
 vo=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/vo/${table.entityName}Vo.java
 clientService=${targetDir}/${artifactIdApi}/src/main/java/${domainNameDir}/${projectNameApi}/client/service/${table.entityName}ClientService.java
 mapper=${targetDir}/${artifactId}/src/main/java/${domainNameDir}/${projectName}/mapper/${table.entityName}Mapper.java
