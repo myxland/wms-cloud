@@ -81,5 +81,9 @@ public class ModuleMenu implements Serializable {
 	@ApiModelProperty(value = "菜单链接地址")
 	@TableField(value="menu_url",exist = false)
 	private String menuUrl;
+	
+	@ApiModelProperty(value = "是否选中")
+	@TableField(value="issel",exist = false)
+	private Integer issel;
 
 }

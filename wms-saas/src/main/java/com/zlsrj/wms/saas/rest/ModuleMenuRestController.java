@@ -196,5 +196,18 @@ public class ModuleMenuRestController {
 
 		return moduleMenuVoList;
 	}
+	
+	@ApiOperation(value = "根据角色信息查询模块菜单列表")
+	@RequestMapping(value = "/module-menus/role", method = RequestMethod.GET)
+	public List<ModuleMenuVo> selectByRole(@RequestParam(value = "tenantId") String tenantId,@RequestParam(value = "roleId") String roleId) {
+
+		List<ModuleMenu> moduleMenuList = moduleMenuService.selectModuleMenuByRole(tenantId,roleId);
+
+		List<ModuleMenuVo> moduleMenuVoList = moduleMenuList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return moduleMenuVoList;
+	}
 
 }

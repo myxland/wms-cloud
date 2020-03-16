@@ -56,4 +56,8 @@ public class TenantEmployeeDataVo implements Serializable {
 	@ApiModelProperty(value = "菜单信息")
 	@JSONField(name="module_menu_list")
 	private List<ModuleMenuDataVo> moduleMenuList;
+	
+	@ApiModelProperty(value = "是否选中")
+	@JSONField(name="issel")
+	private Integer issel;
 }

@@ -125,4 +125,15 @@ public class TenantRoleControllerTest {
 		log.info(responseString);
 	}
 	
+	@Test
+	public void getByIdTest() throws Exception {
+		String id = "9eeccb6362f543e0955a5aec14be34ff";
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantRole/"+id)//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
 }

@@ -41,5 +41,13 @@ public class ModuleMenuServiceImpl extends ServiceImpl<ModuleMenuMapper, ModuleM
 		parameters.put("tenantId", tenantId);
 		return this.baseMapper.selectModuleMenuByTenant(parameters);
 	}
+	
+	@Override
+	public List<ModuleMenu> selectModuleMenuByRole(String tenantId,String roleId){
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		parameters.put("tenantId", tenantId);
+		parameters.put("roleId", roleId);
+		return this.baseMapper.selectModuleMenuByRole(parameters);
+	}
 
 }

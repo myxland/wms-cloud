@@ -80,4 +80,8 @@ public class ModuleMenuVo implements Serializable {
 	@ApiModelProperty(value = "菜单链接地址")
 	@JSONField(name="menu_url")
 	private String menuUrl;
+	
+	@ApiModelProperty(value = "是否选中")
+	@JSONField(name="issel")
+	private Integer issel;
 }

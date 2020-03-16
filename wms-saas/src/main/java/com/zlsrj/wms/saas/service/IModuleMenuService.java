@@ -18,4 +18,6 @@ public interface IModuleMenuService extends IService<ModuleMenu> {
 	List<ModuleMenu> selectModuleMenuByEmployee(String tenantId,String employeeId);
 	
 	List<ModuleMenu> selectModuleMenuByTenant(String tenantId);
+	
+	List<ModuleMenu> selectModuleMenuByRole(String tenantId,String roleId);
 }

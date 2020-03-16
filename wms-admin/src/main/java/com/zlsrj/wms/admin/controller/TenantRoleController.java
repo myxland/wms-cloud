@@ -1,5 +1,6 @@
 package com.zlsrj.wms.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
+import com.zlsrj.wms.api.client.service.TenantEmployeeRoleClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
 import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeDataVo;
+import com.zlsrj.wms.api.vo.TenantEmployeeRoleVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
@@ -45,6 +50,8 @@ public class TenantRoleController {
 	private TenantInfoClientService tenantInfoClientService;
 	@Autowired
 	private TenantEmployeeClientService tenantEmployeeClientService;
+	@Autowired
+	private TenantEmployeeRoleClientService tenantEmployeeRoleClientService;
 	@Autowired
 	private ModuleMenuClientService moduleMenuClientService;
 	
@@ -105,11 +112,55 @@ public class TenantRoleController {
 	@ApiOperation(value = "根据ID查询角色信息")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<TenantRoleVo> getById(@PathVariable("id") String id) {
+	public CommonResult<Map<String,Object>> getById(@PathVariable("id") String id) {
 		TenantRoleVo tenantRoleVo = tenantRoleClientService.getById(id);
 		wrappperVo(tenantRoleVo);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("tenant_role", tenantRoleVo);
+		
+		
+		String tenantId = tenantRoleVo.getTenantId();
+		
+		//菜单及菜单分配信息
+		List<ModuleMenuVo> moduleMenuVoList = moduleMenuClientService.selectByRole(tenantId, id);
+		map.put("module_menu_list", moduleMenuVoList);
+		
+		//员工信息
+		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();
+		tenantEmployeeQueryParam.setTenantId(tenantId);
+		Page<TenantEmployeeVo> tenantEmployeeVoPage = tenantEmployeeClientService.page(tenantEmployeeQueryParam, 1, 500, "id", "asc");
+		//分配员工信息
+		TenantEmployeeRoleQueryParam tenantEmployeeRoleQueryParam = new TenantEmployeeRoleQueryParam();
+		tenantEmployeeRoleQueryParam.setTenantId(tenantId);
+		tenantEmployeeRoleQueryParam.setRoleId(id);
+		Page<TenantEmployeeRoleVo> tenantEmployeeRoleVoPage = tenantEmployeeRoleClientService.page(tenantEmployeeRoleQueryParam, 1, 500, "id", "asc");
+		
+		List<TenantEmployeeDataVo> tenantEmployeeDataVoList = new ArrayList<TenantEmployeeDataVo>();
+		
+		if(tenantEmployeeVoPage!=null && tenantEmployeeVoPage.getRecords() !=null && tenantEmployeeVoPage.getRecords().size()>0) {
+			for(TenantEmployeeVo tenantEmployeeVo:tenantEmployeeVoPage.getRecords()) {
+				
+				TenantEmployeeDataVo tenantEmployeeDataVo = TranslateUtil.translate(tenantEmployeeVo, TenantEmployeeDataVo.class);
+				
+				tenantEmployeeDataVoList.add(tenantEmployeeDataVo);
+				tenantEmployeeDataVo.setIssel(0);
+				
+				if(tenantEmployeeRoleVoPage!=null && tenantEmployeeRoleVoPage.getRecords()!=null && tenantEmployeeRoleVoPage.getSize()>0) {
+					for(TenantEmployeeRoleVo tenantEmployeeRoleVo:tenantEmployeeRoleVoPage.getRecords()) {
+						if(tenantEmployeeVo.getId().equals(tenantEmployeeRoleVo.getEmployeeId())) {
+							tenantEmployeeDataVo.setIssel(1);
+						}
+					}
+				}
+				
+				
+			}
+			
+			map.put("tenant_employee_list", tenantEmployeeDataVoList);
+		}
 
-		return CommonResult.success(tenantRoleVo);
+		return CommonResult.success(map);
 	}
 
 	@ApiOperation(value = "根据参数更新角色信息信息")
