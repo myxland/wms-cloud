@@ -201,7 +201,7 @@ public class GeneratorSQLTest {
 
 				String[] IGNORE_PROPERTIES = new String[] { "tableName", "tableComment", "tablePrefix", "tableShortName"//
 						, "primaryKeyList", "selectColumnList"//
-						, "includeBigDecimal", "includeDate", "includeStatus", "includeCompanyShortName"//
+						, "includeBigDecimal","includeLong","includeDate", "includeStatus", "includeCompanyShortName"//
 				};
 
 				BeanUtil.copyProperties(tableInfoBak, tableInfo, IGNORE_PROPERTIES); // 忽略属性

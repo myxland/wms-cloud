@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 </#if>
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,25 +24,30 @@ public class ${table.entityName}QueryParam implements Serializable {
 
 	<#list table.columnList as column>
 	@ApiModelProperty(value = "${column.columnComment}")
+	@JSONField(name="${column.columnName}")
 	private ${column.propertyType} ${column.propertyName};
 
 	<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
 	@ApiModelProperty(value = "${column.columnComment}开始")
+	@JSONField(name="${column.columnName}_start")
 	private ${column.propertyType} ${column.propertyName}Start;
 
 	@ApiModelProperty(value = "${column.columnComment}结束")
+	@JSONField(name="${column.columnName}_end")
 	private ${column.propertyType} ${column.propertyName}End;
 
 	</#if>
 	<#if column.likeable>
 	@ApiModelProperty(value = "${column.columnComment}")
+	@JSONField(name="${column.columnName}_like")
 	private ${column.propertyType} ${column.propertyName}Like;
 
 	</#if>
 	</#list>
 	<#if table.includeParentId>
 	@ApiModelProperty(value = "父级ID")
-	private Long parentId;
+	@JSONField(name="parent_id")
+	private String parentId;
 	
 	</#if>
 }

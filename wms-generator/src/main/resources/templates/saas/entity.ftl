@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 </#if>
 
+<#if table.includeLong>
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
+</#if>
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -53,5 +55,4 @@ public class ${table.entityName} implements Serializable {
 	private ${column.propertyType} ${column.propertyName};
 
 	</#list>
-
 }
