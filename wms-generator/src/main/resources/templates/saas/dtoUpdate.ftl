@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 </#if>
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -24,7 +22,6 @@ public class ${table.entityName}UpdateParam implements Serializable {
 
 	<#list table.columnList as column>
 	@ApiModelProperty(value = "${column.columnComment}")
-	@JSONField(name="${column.columnName}")
 	private ${column.propertyType} ${column.propertyName};
 
 	</#list>

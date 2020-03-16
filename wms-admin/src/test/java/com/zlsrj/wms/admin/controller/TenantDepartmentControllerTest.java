@@ -11,11 +11,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantDepartmentAddParam;
-import com.zlsrj.wms.api.dto.TenantDepartmentQueryParam;
 import com.zlsrj.wms.api.dto.TenantDepartmentUpdateParam;
 
 import cn.hutool.core.util.RandomUtil;
@@ -55,24 +56,12 @@ public class TenantDepartmentControllerTest {
 	public void listTest() throws Exception {
 		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
 		
-//		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-//		params.add("tenant_id", tenantId);
-//		
-//		String responseString = mockMvc.perform(//
-//				MockMvcRequestBuilders.get("/tenantDepartment/list")//
-//						.params(params)
-//						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
-//						.accept(MediaType.APPLICATION_JSON_UTF8)//
-//		).andReturn().getResponse().getContentAsString();
-//		log.info(responseString);
-		
-		TenantDepartmentQueryParam tenantDepartmentQueryParam = new TenantDepartmentQueryParam();
-		tenantDepartmentQueryParam.setTenantId(tenantId);
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantDepartment/list")//
-						.content(JSON.toJSONString(tenantDepartmentQueryParam))//
-						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.params(params)
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

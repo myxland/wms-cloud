@@ -80,7 +80,7 @@ public class TenantRoleController {
 	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<List<TenantRoleVo>> list(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
+	public CommonResult<List<TenantRoleVo>> list(TenantRoleQueryParam tenantRoleQueryParam) {
 		List<TenantRoleVo> tenantRoleVoList = tenantRoleClientService.list(tenantRoleQueryParam);
 		tenantRoleVoList.stream().forEach(v->wrappperVo(v));
 
@@ -90,7 +90,7 @@ public class TenantRoleController {
 	@ApiOperation(value = "页面初始化")
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Map<String,Object>> init(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
+	public CommonResult<Map<String,Object>> init(TenantRoleQueryParam tenantRoleQueryParam) {
 		String tenantId = tenantRoleQueryParam.getTenantId();
 		
 		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();

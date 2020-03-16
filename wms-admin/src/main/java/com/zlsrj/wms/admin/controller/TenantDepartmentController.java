@@ -60,7 +60,7 @@ public class TenantDepartmentController {
 	@ApiOperation(value = "根据参数查询租户部门列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<List<TenantDepartmentDataVo>> list(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam) {
+	public CommonResult<List<TenantDepartmentDataVo>> list(TenantDepartmentQueryParam tenantDepartmentQueryParam) {
 		List<TenantDepartmentVo> tenantDepartmentVoList = tenantDepartmentClientService
 				.list(tenantDepartmentQueryParam);
 		tenantDepartmentVoList.stream().forEach(v -> wrappperVo(v));
