@@ -2,6 +2,7 @@ package com.zlsrj.wms.saas.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
+import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
 
@@ -14,4 +15,6 @@ public interface ITenantRoleService extends IService<TenantRole> {
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
 	String save(TenantRoleAddParam tenantRoleAddParam);
+	
+	boolean updateById(TenantRoleUpdateParam tenantRoleUpdateParam);
 }

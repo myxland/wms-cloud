@@ -24,7 +24,7 @@ import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
-import com.zlsrj.wms.api.entity.TenantRole;
+import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.vo.ModuleMenuVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeDataVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeRoleVo;
@@ -166,12 +166,9 @@ public class TenantRoleController {
 	@ApiOperation(value = "根据参数更新角色信息信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantRoleVo> getById(@RequestBody TenantRole tenantRole) {
-		String id = tenantRole.getId();
-		TenantRoleVo tenantRoleVo = tenantRoleClientService.updatePatchById(id, tenantRole);
-		wrappperVo(tenantRoleVo);
-
-		return CommonResult.success(tenantRoleVo);
+	public CommonResult<Object> getById(@PathVariable("id") String id,@RequestBody TenantRoleUpdateParam tenantRoleUpdateParam) {
+		boolean success = tenantRoleClientService.updateById(id, tenantRoleUpdateParam);
+		return CommonResult.success(success);
 	}
 	
 	

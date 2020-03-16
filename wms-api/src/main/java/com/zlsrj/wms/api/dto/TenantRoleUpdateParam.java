@@ -1,6 +1,8 @@
 package com.zlsrj.wms.api.dto;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -35,6 +37,14 @@ public class TenantRoleUpdateParam implements Serializable {
 	@ApiModelProperty(value = "创建类型（1：平台默认创建；2：租户自建）")
 	@JSONField(name="create_type")
 	private Integer createType;
+	
+	@ApiModelProperty(value = "角色分配菜单")
+	@JSONField(name="module_menu_list")
+	private List<Map<String,String>> moduleMenuList;
+	
+	@ApiModelProperty(value = "角色分配员工")
+	@JSONField(name="tenant_employee_list")
+	private List<Map<String,String>> tenantEmployeeList;
 
 }
 

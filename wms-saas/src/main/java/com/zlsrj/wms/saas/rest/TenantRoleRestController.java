@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
+import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
@@ -109,15 +110,9 @@ public class TenantRoleRestController {
 
 	@ApiOperation(value = "更新角色信息全部信息")
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.PUT)
-	public TenantRoleVo updateById(@PathVariable("id") String id, @RequestBody TenantRole tenantRole) {
-		tenantRole.setId(id);
-		boolean success = tenantRoleService.updateById(tenantRole);
-		if (success) {
-			TenantRole tenantRoleDatabase = tenantRoleService.getById(id);
-			return entity2vo(tenantRoleDatabase);
-		}
-		log.info("update TenantRole fail，{}", ToStringBuilder.reflectionToString(tenantRole, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantRoleUpdateParam tenantRoleUpdateParam) {
+		tenantRoleUpdateParam.setId(id);
+		return tenantRoleService.updateById(tenantRoleUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新角色信息信息")

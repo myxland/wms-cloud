@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
+import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployeeRole;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
@@ -125,6 +126,62 @@ public class TenantRoleServiceImpl extends ServiceImpl<TenantRoleMapper, TenantR
 		}
 		
 		return tenantRole.getId();
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateById(TenantRoleUpdateParam tenantRoleUpdateParam) {
+		boolean success = false;
+		String id = tenantRoleUpdateParam.getId();
+		TenantRole tenantRole = TranslateUtil.translate(tenantRoleUpdateParam, TenantRole.class);
+		
+		// moduleMenu
+		QueryWrapper<TenantRoleMenu> wrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
+		wrapperTenantRoleMenu.lambda()//
+				.eq(TenantRoleMenu::getTenantId, tenantRole.getTenantId())
+				.eq(TenantRoleMenu::getRoleId, tenantRole.getId());
+		tenantRoleMenuMapper.delete(wrapperTenantRoleMenu);
+
+		List<Map<String,String>> moduleMenuList = tenantRoleUpdateParam.getModuleMenuList();
+		if (moduleMenuList != null && moduleMenuList.size() > 0) {
+			for (Map<String,String> map : moduleMenuList) {
+				TenantRoleMenu tenantRoleMenu = TenantRoleMenu.builder()//
+						.id(idService.selectId())//
+						.tenantId(tenantRole.getTenantId())//
+						.roleId(tenantRole.getId())//
+						.menuId(map.get("id"))
+						.build();
+				tenantRoleMenuMapper.insert(tenantRoleMenu);
+			}
+		}else {
+			log.info("更新角色未配菜单信息");
+		}
+		
+		// tenantEmployee
+		QueryWrapper<TenantEmployeeRole> wrapperTenantEmployeeRole = new QueryWrapper<TenantEmployeeRole>();
+		wrapperTenantEmployeeRole.lambda()//
+				.eq(TenantEmployeeRole::getTenantId, tenantRole.getTenantId())
+				.eq(TenantEmployeeRole::getRoleId, tenantRole.getId());
+		tenantEmployeeRoleMapper.delete(wrapperTenantEmployeeRole);
+		
+		List<Map<String,String>> tenantEmployeeList = tenantRoleUpdateParam.getTenantEmployeeList();
+		if (tenantEmployeeList != null && tenantEmployeeList.size() > 0) {
+			for (Map<String,String> map : tenantEmployeeList) {
+				TenantEmployeeRole tenantEmployeeRole = TenantEmployeeRole.builder()//
+						.id(idService.selectId())//
+						.tenantId(tenantRole.getTenantId())//
+						.employeeId(map.get("id"))
+						.roleId(tenantRole.getId())//
+						.build();
+				tenantEmployeeRoleMapper.insert(tenantEmployeeRole);
+			}
+		}else {
+			log.info("更新角色未配员工信息");
+		}
+		
+		success = this.updateById(tenantRole);
+		
+		return success;
 	}
 
 }
