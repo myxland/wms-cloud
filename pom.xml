@@ -16,6 +16,7 @@
 		<module>wms-common</module>
 		<module>wms-api</module>
 		<module>wms-eureka</module>
+		<module>wms-generator</module>
 		<module>wms-iam</module>
 		<module>wms-admin</module>
 		<module>wms-gateway</module>

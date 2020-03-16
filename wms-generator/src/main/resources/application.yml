@@ -1,0 +1,16 @@
+server:
+  port: 19888
+spring:
+  application:
+    name: wms-generator
+  profiles: 
+    active: saas
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-prefix: mybatis.sql.
+
+    
+jasypt: 
+ encryptor: 
+  password: guiyuan2020    

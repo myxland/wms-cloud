@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.zlsrj.wms.generator.mapper.TableInfoMapper">
+	<select id="selectTableInfoList" parameterType="String"
+		resultType="com.zlsrj.wms.generator.entity.TableInfo">
+		SELECT
+		table_name,
+		table_comment
+		FROM
+		information_schema.TABLES
+		WHERE
+		table_schema = #{schema} order by
+		table_name
+	</select>
+	
+	<select id="selectTableInfoByTableName" parameterType="java.util.Map"
+		resultType="com.zlsrj.wms.generator.entity.TableInfo">
+		SELECT
+		table_name,
+		table_comment
+		FROM
+		information_schema.TABLES
+		WHERE
+		table_schema = #{schema} 
+		and table_name = #{name}
+		order by
+		table_name
+	</select>
+</mapper>
