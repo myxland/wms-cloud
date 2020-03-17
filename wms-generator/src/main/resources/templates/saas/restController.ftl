@@ -108,7 +108,6 @@ public class ${table.entityName}RestController {
 		<#list table.columnList as column>
 		<#if column.columnName?ends_with("_parent_id")>
 				.eq(${table.entityName?uncap_first}QueryParam.getParentId()!=null,${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.getParentId())
-				.isNull(${table.entityName?uncap_first}QueryParam.getParentId()==null, ${table.entityName}::get${column.propertyName?cap_first})
 		</#if>
 		</#list>
 		</#if>

@@ -22,9 +22,9 @@ import ${domainName}.${projectNameApi}.client.service.SystemDesignClientService;
 <#if table.includeModuleId>
 import ${domainName}.${projectNameApi}.client.service.ModuleInfoClientService;
 </#if>
-import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeAddParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
-import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeUpdateParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}UpdateParam;
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 <#if table.includeTenantId>
 import ${domainName}.${projectNameApi}.vo.TenantInfoVo;
@@ -192,11 +192,11 @@ public class ${table.entityName}Controller {
 		<#if table.includeParentId>
 		boolean hasChildren = ${table.entityName?uncap_first}Vo.isHasChildren();
 		if(hasChildren == false) {
-			Long parentId = ${table.entityName?uncap_first}Vo.getId();
+			String parentId = ${table.entityName?uncap_first}Vo.getId();
 			${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam = new ${table.entityName}QueryParam();
 			${table.entityName?uncap_first}QueryParam.setParentId(parentId);
-			Page<${table.entityName}Vo> ${table.entityName?uncap_first}VoPage = ${table.entityName?uncap_first}ClientService.page(${table.entityName?uncap_first}QueryParam, 1, 500, "id", "desc");
-			if(${table.entityName?uncap_first}VoPage!=null && ${table.entityName?uncap_first}VoPage.getTotal()>0) {
+			List<${table.entityName}Vo> ${table.entityName?uncap_first}VoList = ${table.entityName?uncap_first}ClientService.list(${table.entityName?uncap_first}QueryParam);
+			if(${table.entityName?uncap_first}VoList!=null && ${table.entityName?uncap_first}VoList.size()>0) {
 				${table.entityName?uncap_first}Vo.setHasChildren(true);
 			}
 		}

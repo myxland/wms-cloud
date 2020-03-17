@@ -99,7 +99,7 @@ public class ${table.entityName}MapperTest {
 					<#if column.refEntityName?default("")?trim?length gt 1>
 					.${column.propertyName}(${column.refEntityName?uncap_first}!=null?${column.refEntityName?uncap_first}.getId():null)// ${column.columnComment}
 					<#else>
-					.${column.propertyName}(RandomUtil.randomLong())// ${column.columnComment}
+					.${column.propertyName}(TestCaseUtil.id())// ${column.columnComment}
 					</#if>
 					<#elseif column.columnName?ends_with("tenant_name")>
 					.${column.propertyName}(TestCaseUtil.companyName(companyShortName))// ${column.columnComment}

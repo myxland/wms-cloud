@@ -48,7 +48,7 @@ public class TableNameFactory {
 				"tenant_config_wx", //
 				"", //
 				"tenant_customer_type", //
-				"", //
+				"tenant_meter_industry", //
 				"", //
 				"", //
 				"", //

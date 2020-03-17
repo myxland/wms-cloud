@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeAddParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
-import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeUpdateParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}UpdateParam;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 import ${domainName}.common.api.CommonResult;
