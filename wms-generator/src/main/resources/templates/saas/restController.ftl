@@ -3,6 +3,7 @@ package ${domainName}.${projectName}.rest;
 <#if table.includeDate>
 import java.util.Date;
 </#if>
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,7 +22,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}UpdateParam;
 <#if table.includeSysId>
 import ${domainName}.${projectNameApi}.entity.SystemDesign;
 </#if>
@@ -34,7 +37,7 @@ import ${domainName}.${projectNameApi}.entity.TenantInfo;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 import ${domainName}.common.api.CommonResult;
-import ${domainName}.${projectName}.service.IIdService;
+import ${domainName}.common.util.TranslateUtil;
 <#if table.includeSysId>
 import ${domainName}.${projectName}.service.ISystemDesignService;
 </#if>
@@ -65,8 +68,6 @@ public class ${table.entityName}RestController {
 	@Autowired
 	private ITenantInfoService tenantInfoService;
 	</#if>
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.GET)
@@ -88,6 +89,38 @@ public class ${table.entityName}RestController {
 	}
 
 	</#if>
+	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
+	@RequestMapping(value = "/${table.restSegment}s/list", method = RequestMethod.GET)
+	public List<${table.entityName}Vo> list(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam) {
+		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
+		queryWrapper${table.entityName}.lambda()
+		<#list table.columnList as column>
+				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#if column.likeable>
+				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
+		</#if>
+		<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
+				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
+		</#if>
+		</#list>
+		<#if table.includeParentId>
+		<#list table.columnList as column>
+		<#if column.columnName?ends_with("_parent_id")>
+				.eq(${table.entityName?uncap_first}QueryParam.getParentId()!=null,${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.getParentId())
+				.isNull(${table.entityName?uncap_first}QueryParam.getParentId()==null, ${table.entityName}::get${column.propertyName?cap_first})
+		</#if>
+		</#list>
+		</#if>
+				;
+
+		List<${table.entityName}> ${table.entityName?uncap_first}List = ${table.entityName?uncap_first}Service.list(queryWrapper${table.entityName});
+
+		List<${table.entityName}Vo> ${table.entityName?uncap_first}VoList = TranslateUtil.translateList(${table.entityName?uncap_first}List, ${table.entityName}Vo.class);
+
+		return ${table.entityName?uncap_first}VoList;
+	}
+	
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
@@ -168,45 +201,15 @@ public class ${table.entityName}RestController {
 	</#if>
 	@ApiOperation(value = "新增${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.POST)
-	public ${table.entityName}Vo save(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		if (${table.entityName?uncap_first}.getId() == null || ${table.entityName?uncap_first}.getId().trim().length() <= 0) {
-			${table.entityName?uncap_first}.setId(idService.selectId());
-		}
-		<#list table.columnList as column>
-		<#if column.defaultAddValue?default("")?trim?length gt 1>
-		if (${table.entityName?uncap_first}.get${column.propertyName?cap_first}() == null) {
-			<#if column.dataType=="date">
-			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(DateUtil.beginOfDay(new Date()));
-			<#elseif column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
-			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(new Date());
-			<#elseif column.propertyType=="Integer"|| column.propertyType=="Integer" || column.propertyType=="Long" || column.propertyType=="BigDecimal" || column.propertyType=="Double" || column.propertyType=="Float">
-			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(${column.defaultAddValue});
-			<#else>
-			${table.entityName?uncap_first}.set${column.propertyName?cap_first}("${column.defaultAddValue}");
-			</#if>
-		}
-		</#if>
-		</#list>
-		boolean success = ${table.entityName?uncap_first}Service.save(${table.entityName?uncap_first});
-		if (success) {
-			${table.entityName} ${table.entityName?uncap_first}Database = ${table.entityName?uncap_first}Service.getById(${table.entityName?uncap_first}.getId());
-			return entity2vo(${table.entityName?uncap_first}Database);
-		}
-		log.info("save ${table.entityName} fail，{}", ToStringBuilder.reflectionToString(${table.entityName?uncap_first}, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody ${table.entityName}AddParam ${table.entityName?uncap_first}AddParam) {
+		return ${table.entityName?uncap_first}Service.save(${table.entityName?uncap_first}AddParam);
 	}
 
 	@ApiOperation(value = "更新${table.tableComment}全部信息")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PUT)
-	public ${table.entityName}Vo updateById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		${table.entityName?uncap_first}.setId(id);
-		boolean success = ${table.entityName?uncap_first}Service.updateById(${table.entityName?uncap_first});
-		if (success) {
-			${table.entityName} ${table.entityName?uncap_first}Database = ${table.entityName?uncap_first}Service.getById(id);
-			return entity2vo(${table.entityName?uncap_first}Database);
-		}
-		log.info("update ${table.entityName} fail，{}", ToStringBuilder.reflectionToString(${table.entityName?uncap_first}, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody ${table.entityName}UpdateParam ${table.entityName?uncap_first}UpdateParam) {
+		${table.entityName?uncap_first}UpdateParam.setId(id);
+		return ${table.entityName?uncap_first}Service.updateById(${table.entityName?uncap_first}UpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")

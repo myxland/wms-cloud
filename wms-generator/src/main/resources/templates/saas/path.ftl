@@ -14,3 +14,4 @@ mapperTest=${targetDir}/${artifactId}/src/test/java/${domainNameDir}/${projectNa
 serviceTest=${targetDir}/${artifactId}/src/test/java/${domainNameDir}/${projectName}/service/I${table.entityName}ServiceTest.java
 restControllerTest=${targetDir}/${artifactId}/src/test/java/${domainNameDir}/${projectName}/rest/${table.entityName}RestControllerTest.java
 webController=${targetDir}/${artifactIdWeb}/src/main/java/${domainNameDir}/${projectNameWeb}/controller/${table.entityName}Controller.java
+webControllerTest=${targetDir}/${artifactIdWeb}/src/test/java/${domainNameDir}/${projectNameWeb}/controller/${table.entityName}ControllerTest.java

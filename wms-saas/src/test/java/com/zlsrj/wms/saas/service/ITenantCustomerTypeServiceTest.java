@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zlsrj.wms.api.entity.TenantCustomerType;
 
 import cn.hutool.core.util.RandomUtil;
@@ -62,25 +61,5 @@ public class ITenantCustomerTypeServiceTest {
 		boolean success = tenantCustomerTypeService.updateById(tenantCustomerType);
 
 		log.info(Boolean.toString(success));
-	}
-	
-	@Test
-	public void updateEntityTest() {
-		TenantCustomerType tenantCustomerType = TenantCustomerType.builder()//
-				.id("3e0d9befd84f4294a96bad0f745ba708")// 
-				.tenantId("640D27A93BA4421495434CA7EE796E64")// 租户ID
-				.customerTypeName("用户分类名称-新增测试-"+RandomUtil.randomNumbers(4))// 用户分类名称
-				.build();
-		tenantCustomerTypeService.updateById(tenantCustomerType);
-	}
-	
-
-	@Test
-	public void updateWrapperTest() {
-		UpdateWrapper<TenantCustomerType> updateWrapper = new UpdateWrapper<TenantCustomerType>();
-		updateWrapper.lambda()//
-			.eq(TenantCustomerType::getId, "3e0d9befd84f4294a96bad0f745ba708")
-			.set(TenantCustomerType::getCustomerTypeName, "用户分类名称-新增测试-"+RandomUtil.randomNumbers(4));
-		tenantCustomerTypeService.update(updateWrapper);
 	}
 }

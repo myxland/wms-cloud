@@ -1,20 +1,17 @@
 package ${domainName}.${projectNameWeb}.controller;
 
+import java.util.List;
+
 <#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 import org.apache.commons.lang3.StringUtils;
-</#if>
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
+</#if>import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${domainName}.${projectNameApi}.client.service.${table.entityName}ClientService;
 <#if table.includeTenantId>
 import ${domainName}.${projectNameApi}.client.service.TenantInfoClientService;
@@ -25,8 +22,9 @@ import ${domainName}.${projectNameApi}.client.service.SystemDesignClientService;
 <#if table.includeModuleId>
 import ${domainName}.${projectNameApi}.client.service.ModuleInfoClientService;
 </#if>
+import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeAddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
-import ${domainName}.${projectNameApi}.entity.${table.entityName};
+import ${domainName}.${projectNameApi}.dto.TenantCustomerTypeUpdateParam;
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 <#if table.includeTenantId>
 import ${domainName}.${projectNameApi}.vo.TenantInfoVo;
@@ -37,7 +35,6 @@ import ${domainName}.${projectNameApi}.vo.SystemDesignVo;
 <#if table.includeModuleId>
 import ${domainName}.${projectNameApi}.vo.ModuleInfoVo;
 </#if>
-import ${domainName}.common.api.CommonPage;
 import ${domainName}.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
@@ -68,21 +65,11 @@ public class ${table.entityName}Controller {
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CommonPage<${table.entityName}Vo>> list(${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam, int pageNum,
-			int pageSize) {
-		Page<${table.entityName}Vo> ${table.entityName?uncap_first}VoPage = ${table.entityName?uncap_first}ClientService.page(${table.entityName?uncap_first}QueryParam, pageNum, pageSize, "id", "desc");
-		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
-		${table.entityName?uncap_first}VoPage.getRecords().stream().forEach(v->wrappperVo(v));
-		</#if>
+	public CommonResult<List<${table.entityName}Vo>> list(${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam) {
+		List<${table.entityName}Vo> ${table.entityName?uncap_first}VoList = ${table.entityName?uncap_first}ClientService.list(${table.entityName?uncap_first}QueryParam);
+		${table.entityName?uncap_first}VoList.stream().forEach(v->wrappperVo(v));
 
-		<#if table.includeAggregation>
-		${table.entityName}Vo ${table.entityName?uncap_first}VoAggregation = ${table.entityName?uncap_first}ClientService.aggregation(${table.entityName?uncap_first}QueryParam);
-
-		CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage,${table.entityName?uncap_first}VoAggregation);
-		<#else>
-		CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage);
-		</#if>
-		return CommonResult.success(${table.entityName?uncap_first}CommonPage);
+		return CommonResult.success(${table.entityName?uncap_first}VoList);
 	}
 
 	<#if table.includeSingleUpdatable>
@@ -126,10 +113,10 @@ public class ${table.entityName}Controller {
 	@ApiOperation(value = "新增${table.tableComment}")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<${table.entityName}Vo> create(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.save(${table.entityName?uncap_first});
+	public CommonResult<Object> create(@RequestBody ${table.entityName}AddParam ${table.entityName?uncap_first}AddParam) {
+		String id = ${table.entityName?uncap_first}ClientService.save(${table.entityName?uncap_first}AddParam);
 
-		return CommonResult.success(${table.entityName?uncap_first}Vo);
+		return CommonResult.success(id);
 	}
 
 	@ApiOperation(value = "根据ID查询${table.tableComment}")
@@ -161,14 +148,10 @@ public class ${table.entityName}Controller {
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<${table.entityName}Vo> getById(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		String id = ${table.entityName?uncap_first}.getId();
-		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.updatePatchById(id, ${table.entityName?uncap_first});
-		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
-		wrappperVo(${table.entityName?uncap_first}Vo);
-		</#if>
+	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody ${table.entityName}UpdateParam ${table.entityName?uncap_first}UpdateParam) {
+		boolean success = ${table.entityName?uncap_first}ClientService.updateById(id, ${table.entityName?uncap_first}UpdateParam);
 
-		return CommonResult.success(${table.entityName?uncap_first}Vo);
+		return CommonResult.success(success);
 	}
 	
 	@ApiOperation(value = "根据ID删除${table.tableComment}")

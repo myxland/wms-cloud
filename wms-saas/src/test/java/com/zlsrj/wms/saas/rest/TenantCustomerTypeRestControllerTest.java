@@ -46,7 +46,7 @@ public class TenantCustomerTypeRestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-customer-types" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -100,7 +100,7 @@ public class TenantCustomerTypeRestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerType tenantInfo = TenantCustomerType.builder()//
 				//.id(TestCaseUtil.id())// 
@@ -123,7 +123,7 @@ public class TenantCustomerTypeRestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		TenantCustomerType tenantInfo = TenantCustomerType.builder()//
 				//.tenantId(RandomUtil.randomString(4))// 租户ID
@@ -145,7 +145,7 @@ public class TenantCustomerTypeRestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/tenant-customer-types" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

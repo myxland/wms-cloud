@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import javax.annotation.Resource;
 
 </#if>
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 <#if table.selectable>
@@ -30,10 +31,13 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 </#if>
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
+import ${domainName}.${projectNameApi}.dto.${table.entityName}UpdateParam;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
-
+import ${domainName}.common.util.TranslateUtil;
 import ${domainName}.${projectName}.mapper.${table.entityName}Mapper;
 import ${domainName}.${projectName}.service.I${table.entityName}Service;
+import ${domainName}.${projectName}.service.IIdService;
 <#if table.selectable>
 import ${domainName}.${projectName}.service.RedisService;
 </#if>
@@ -47,6 +51,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 </#if>
 public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityName}Mapper, ${table.entityName}> implements I${table.entityName}Service {
+	@Resource
+	private IIdService idService;
 	<#if table.selectable>
 	@Resource
 	private RedisService<String, String> redisService;
@@ -111,4 +117,24 @@ public class ${table.entityName}ServiceImpl extends ServiceImpl<${table.entityNa
 	}
 	
 	</#if>
+	@Override
+	public String save(${table.entityName}AddParam ${table.entityName?uncap_first}AddParam) {
+		${table.entityName} ${table.entityName?uncap_first} = TranslateUtil.translate(${table.entityName?uncap_first}AddParam,
+				${table.entityName}.class);
+		if (${table.entityName?uncap_first} != null && StringUtils.isBlank(${table.entityName?uncap_first}.getId())) {
+			${table.entityName?uncap_first}.setId(idService.selectId());
+		}
+		this.save(${table.entityName?uncap_first});
+
+		return ${table.entityName?uncap_first}.getId();
+	}
+
+	@Override
+	public boolean updateById(${table.entityName}UpdateParam ${table.entityName?uncap_first}UpdateParam) {
+		${table.entityName} ${table.entityName?uncap_first} = TranslateUtil.translate(${table.entityName?uncap_first}UpdateParam,
+				${table.entityName}.class);
+
+		return this.updateById(${table.entityName?uncap_first});
+	}
+	
 }

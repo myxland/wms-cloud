@@ -1,5 +1,7 @@
 package com.zlsrj.wms.admin.controller;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeUpdateParam;
 
@@ -42,7 +45,7 @@ public class TenantCustomerTypeControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		String id = "abd969bb43fd498d91a391940c80ef39";
+		String id = "c9a5f6923e7c49cabd3832816c095b31";
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantCustomerType/"+id)//
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
@@ -67,7 +70,7 @@ public class TenantCustomerTypeControllerTest {
 	
 	@Test
 	public void deleteTest() throws Exception {
-		String id = "9CD528949AAD4B61ABF58E3322CEC566";
+		String id = "c9a5f6923e7c49cabd3832816c095b31";
 		log.info("id={}",id);
 		
 		String responseString = mockMvc.perform(//
@@ -79,13 +82,13 @@ public class TenantCustomerTypeControllerTest {
 	
 	@Test
 	public void updateTest() throws Exception {
-		String id = "abd969bb43fd498d91a391940c80ef39";
+		String id = "c9a5f6923e7c49cabd3832816c095b31";
 		log.info("id={}",id);
 		
 		TenantCustomerTypeUpdateParam tenantCustomerTypeUpdateParam = new TenantCustomerTypeUpdateParam();
-		tenantCustomerTypeUpdateParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");
-		tenantCustomerTypeUpdateParam.setCustomerTypeName("用户分类名称"+"-"+"更新测试"+"-"+RandomUtil.randomNumbers(4));
-		//tenantCustomerTypeUpdateParam.setCustomerTypeData(RandomUtil.randomString(4));
+		tenantCustomerTypeUpdateParam.setTenantId(RandomUtil.randomString(4));// 租户ID
+		tenantCustomerTypeUpdateParam.setCustomerTypeName(TestCaseUtil.name());// 用户分类名称
+		tenantCustomerTypeUpdateParam.setCustomerTypeData(RandomUtil.randomString(4));// 结构化数据
 		
 		log.info(JSON.toJSONString(tenantCustomerTypeUpdateParam));
 		
@@ -101,9 +104,9 @@ public class TenantCustomerTypeControllerTest {
 	@Test
 	public void createTest() throws Exception {
 		TenantCustomerTypeAddParam tenantCustomerTypeAddParam = new TenantCustomerTypeAddParam();
-		tenantCustomerTypeAddParam.setTenantId("640D27A93BA4421495434CA7EE796E64");
-		tenantCustomerTypeAddParam.setCustomerTypeName("用户分类名称"+"-"+"新增测试"+"-"+RandomUtil.randomNumbers(4));
-		tenantCustomerTypeAddParam.setCustomerTypeData(RandomUtil.randomString(4));
+		tenantCustomerTypeAddParam.setTenantId(RandomUtil.randomString(4));// 租户ID
+		tenantCustomerTypeAddParam.setCustomerTypeName(TestCaseUtil.name());// 用户分类名称
+		tenantCustomerTypeAddParam.setCustomerTypeData(RandomUtil.randomString(4));// 结构化数据
 		
 		log.info(JSON.toJSONString(tenantCustomerTypeAddParam));
 		

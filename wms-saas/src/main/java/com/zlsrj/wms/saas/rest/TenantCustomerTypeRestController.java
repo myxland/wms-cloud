@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +23,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeQueryParam;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeUpdateParam;
-import com.zlsrj.wms.api.entity.TenantCustomerType;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantCustomerType;
 import com.zlsrj.wms.api.vo.TenantCustomerTypeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.common.util.TranslateUtil;
-import com.zlsrj.wms.saas.service.IIdService;
-import com.zlsrj.wms.saas.service.ITenantCustomerTypeService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantCustomerTypeService;
 
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
@@ -45,8 +45,6 @@ public class TenantCustomerTypeRestController {
 	private ITenantCustomerTypeService tenantCustomerTypeService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询用户类别")
 	@RequestMapping(value = "/tenant-customer-types/{id}", method = RequestMethod.GET)
@@ -55,7 +53,7 @@ public class TenantCustomerTypeRestController {
 
 		return entity2vo(tenantCustomerType);
 	}
-	
+
 	@ApiOperation(value = "根据参数查询用户类别列表")
 	@RequestMapping(value = "/tenant-customer-types/list", method = RequestMethod.GET)
 	public List<TenantCustomerTypeVo> list(@RequestBody TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam) {
@@ -75,11 +73,11 @@ public class TenantCustomerTypeRestController {
 
 		List<TenantCustomerType> tenantCustomerTypeList = tenantCustomerTypeService.list(queryWrapperTenantCustomerType);
 
-		List<TenantCustomerTypeVo> tenantDepartmentVoList = TranslateUtil.translateList(tenantCustomerTypeList, TenantCustomerTypeVo.class);
+		List<TenantCustomerTypeVo> tenantCustomerTypeVoList = TranslateUtil.translateList(tenantCustomerTypeList, TenantCustomerTypeVo.class);
 
-		return tenantDepartmentVoList;
+		return tenantCustomerTypeVoList;
 	}
-
+	
 	@ApiOperation(value = "根据参数查询用户类别列表")
 	@RequestMapping(value = "/tenant-customer-types", method = RequestMethod.GET)
 	public Page<TenantCustomerTypeVo> page(@RequestBody TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam,
