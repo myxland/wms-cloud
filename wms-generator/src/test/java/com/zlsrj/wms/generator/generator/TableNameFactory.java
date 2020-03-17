@@ -51,7 +51,7 @@ public class TableNameFactory {
 				"tenant_meter_industry", //
 				"tenant_meter_supply_area", //
 				"tenant_meter_marketing_area", //
-				"", //
+				"tenant_meter_read_situation", //
 				"", //
 				"", //
 				"", //
