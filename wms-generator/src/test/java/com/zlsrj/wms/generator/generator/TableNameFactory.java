@@ -49,7 +49,7 @@ public class TableNameFactory {
 				"", //
 				"tenant_customer_type", //
 				"tenant_meter_industry", //
-				"", //
+				"tenant_meter_supply_area", //
 				"", //
 				"", //
 				"", //
