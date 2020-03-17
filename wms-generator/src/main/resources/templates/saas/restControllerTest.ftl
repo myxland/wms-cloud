@@ -51,7 +51,7 @@ public class ${table.entityName}RestControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/${table.restSegment}s" + "/" + id))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
 				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
@@ -191,7 +191,7 @@ public class ${table.entityName}RestControllerTest {
 
 	@Test
 	public void updateByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		<#if table.includeCompanyShortName>
 		String companyShortName = TestCaseUtil.companyShortName();
 
@@ -257,7 +257,7 @@ public class ${table.entityName}RestControllerTest {
 
 	@Test
 	public void updatePatchById() throws Exception {
-		Long id = 1L;
+		String id = "";
 		<#if table.includeCompanyShortName>
 		// String companyShortName = TestCaseUtil.companyShortName();
 
@@ -325,7 +325,7 @@ public class ${table.entityName}RestControllerTest {
 
 	@Test
 	public void removeById() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.delete("/${table.restSegment}s" + "/" + id)) //
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200

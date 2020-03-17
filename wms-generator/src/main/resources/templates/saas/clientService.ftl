@@ -16,16 +16,16 @@ import ${domainName}.common.api.CommonResult;
 @FeignClient(value = "${artifactId?upper_case}", contextId = "${table.entityName}")
 public interface ${table.entityName}ClientService {
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.GET)
-	public ${table.entityName}Vo getById(@PathVariable("id") Long id);
+	public ${table.entityName}Vo getById(@PathVariable("id") String id);
 
 	<#if table.includeTenantOne2One>
 	@RequestMapping(value = "/${table.restSegment}s/tenant-id/{tenant-id}", method = RequestMethod.GET)
-	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") Long tenantId);
+	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") String tenantId);
 
 	</#if>
 	<#if table.includeModuleOne2One>
 	@RequestMapping(value = "/${table.restSegment}s/module-id/{module-id}", method = RequestMethod.GET)
-	public ${table.entityName}Vo getByModuleId(@PathVariable("module-id") Long moduleId);
+	public ${table.entityName}Vo getByModuleId(@PathVariable("module-id") String moduleId);
 
 	</#if>
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
@@ -45,12 +45,12 @@ public interface ${table.entityName}ClientService {
 	public ${table.entityName}Vo save(@RequestBody ${table.entityName} ${table.entityName?uncap_first});
 
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PUT)
-	public ${table.entityName}Vo updateById(@PathVariable("id") Long id, @RequestBody ${table.entityName} ${table.entityName?uncap_first});
+	public ${table.entityName}Vo updateById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first});
 
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PATCH)
-	public ${table.entityName}Vo updatePatchById(@PathVariable("id") Long id, @RequestBody ${table.entityName} ${table.entityName?uncap_first});
+	public ${table.entityName}Vo updatePatchById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first});
 
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id);
+	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
 

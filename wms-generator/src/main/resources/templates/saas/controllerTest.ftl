@@ -55,7 +55,7 @@ public class ${table.entityName}ControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/${table.entityName?uncap_first}/select" + "/" + id)).andReturn()
 				.getResponse().getContentAsString();
 		log.info(responseString);
@@ -147,7 +147,7 @@ public class ${table.entityName}ControllerTest {
 
 	@Test
 	public void updateTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		<#if table.includeCompanyShortName>
 		String companyShortName = TestCaseUtil.companyShortName();
 
@@ -215,7 +215,7 @@ public class ${table.entityName}ControllerTest {
 
 	@Test
 	public void updateStatusTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 		Integer status = 0;
 
 		String responseString = mockMvc
@@ -229,7 +229,7 @@ public class ${table.entityName}ControllerTest {
 
 	@Test
 	public void deleteTest() throws Exception {
-		Long id = 1L;
+		String id = "";
 
 		String responseString = mockMvc
 				.perform(MockMvcRequestBuilders.delete("/${table.entityName?uncap_first}/delete" + "/" + id)

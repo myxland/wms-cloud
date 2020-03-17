@@ -93,7 +93,7 @@ public class ${table.entityName}Controller {
 	public CommonResult<Boolean> update${column.propertyName?cap_first}(@RequestParam("ids") String ids,
 			@RequestParam("${column.propertyName}") ${column.propertyType} ${column.propertyName}) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			${table.entityName} ${table.entityName?uncap_first} = new ${table.entityName}();
 			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(${column.propertyName});
 			${table.entityName?uncap_first}ClientService.updatePatchById(id, ${table.entityName?uncap_first});
@@ -112,7 +112,7 @@ public class ${table.entityName}Controller {
 	public CommonResult<Boolean> update${column.propertyName?cap_first}(@RequestParam("ids") String ids,
 			@RequestParam("${column.propertyName}") ${column.propertyType} ${column.propertyName}) {
 		Arrays.asList(ids.split(",")).forEach(n -> {
-			Long id = Long.parseLong(n);
+			String id = n;
 			${table.entityName} ${table.entityName?uncap_first} = new ${table.entityName}();
 			${table.entityName?uncap_first}.set${column.propertyName?cap_first}(${column.propertyName});
 			${table.entityName?uncap_first}ClientService.updatePatchById(id, ${table.entityName?uncap_first});
@@ -135,7 +135,7 @@ public class ${table.entityName}Controller {
 	@ApiOperation(value = "根据ID查询${table.tableComment}")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<${table.entityName}Vo> getById(@PathVariable("id") Long id) {
+	public CommonResult<${table.entityName}Vo> getById(@PathVariable("id") String id) {
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.getById(id);
 		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		wrappperVo(${table.entityName?uncap_first}Vo);
@@ -162,7 +162,7 @@ public class ${table.entityName}Controller {
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult<${table.entityName}Vo> getById(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		Long id = ${table.entityName?uncap_first}.getId();
+		String id = ${table.entityName?uncap_first}.getId();
 		${table.entityName}Vo ${table.entityName?uncap_first}Vo = ${table.entityName?uncap_first}ClientService.updatePatchById(id, ${table.entityName?uncap_first});
 		<#if table.includeTenantId || table.includeSysId || table.includeModuleId>
 		wrappperVo(${table.entityName?uncap_first}Vo);
@@ -174,7 +174,7 @@ public class ${table.entityName}Controller {
 	@ApiOperation(value = "根据ID删除${table.tableComment}")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		CommonResult<Object> commonResult = ${table.entityName?uncap_first}ClientService.removeById(id);
 
 		return commonResult;

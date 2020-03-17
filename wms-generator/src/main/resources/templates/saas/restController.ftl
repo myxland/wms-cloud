@@ -70,7 +70,7 @@ public class ${table.entityName}RestController {
 
 	@ApiOperation(value = "根据ID查询${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.GET)
-	public ${table.entityName}Vo getById(@PathVariable("id") Long id) {
+	public ${table.entityName}Vo getById(@PathVariable("id") String id) {
 		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Service.getById(id);
 
 		return entity2vo(${table.entityName?uncap_first});
@@ -79,7 +79,7 @@ public class ${table.entityName}RestController {
 	<#if table.includeTenantOne2One>
 	@ApiOperation(value = "根据ID查询${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s/tenant-id/{tenant-id}", method = RequestMethod.GET)
-	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") Long tenantId) {
+	public ${table.entityName}Vo getByTenantId(@PathVariable("tenant-id") String tenantId) {
 		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
 		queryWrapper${table.entityName}.lambda().eq(${table.entityName}::getTenantId, tenantId);
 		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Service.getOne(queryWrapper${table.entityName});
@@ -169,7 +169,7 @@ public class ${table.entityName}RestController {
 	@ApiOperation(value = "新增${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.POST)
 	public ${table.entityName}Vo save(@RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-		if (${table.entityName?uncap_first}.getId() == null || ${table.entityName?uncap_first}.getId().compareTo(0L) <= 0) {
+		if (${table.entityName?uncap_first}.getId() == null || ${table.entityName?uncap_first}.getId().trim().length() <= 0) {
 			${table.entityName?uncap_first}.setId(idService.selectId());
 		}
 		<#list table.columnList as column>
@@ -198,7 +198,7 @@ public class ${table.entityName}RestController {
 
 	@ApiOperation(value = "更新${table.tableComment}全部信息")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PUT)
-	public ${table.entityName}Vo updateById(@PathVariable("id") Long id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
+	public ${table.entityName}Vo updateById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
 		${table.entityName?uncap_first}.setId(id);
 		boolean success = ${table.entityName?uncap_first}Service.updateById(${table.entityName?uncap_first});
 		if (success) {
@@ -211,7 +211,7 @@ public class ${table.entityName}RestController {
 
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PATCH)
-	public ${table.entityName}Vo updatePatchById(@PathVariable("id") Long id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
+	public ${table.entityName}Vo updatePatchById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
         ${table.entityName} ${table.entityName?uncap_first}Where = ${table.entityName}.builder()//
 				.id(id)//
 				.build();
@@ -240,7 +240,7 @@ public class ${table.entityName}RestController {
 
 	@ApiOperation(value = "根据ID删除${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.DELETE)
-	public CommonResult<Object> removeById(@PathVariable("id") Long id) {
+	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = ${table.entityName?uncap_first}Service.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}

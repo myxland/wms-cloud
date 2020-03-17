@@ -14,5 +14,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import ${domainName}.${projectNameApi}.entity.${table.entityName};
 
 public interface ${table.entityName}Mapper extends BaseMapper<${table.entityName}> {
+	<#if table.includeAggregation>
 	${table.entityName} selectAggregation (@Param(Constants.WRAPPER) Wrapper<${table.entityName}> wrapper);
+	</#if>
 }

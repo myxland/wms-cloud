@@ -50,7 +50,7 @@ public class ${table.entityName}MapperTest {
 	
 	@Test
 	public void selectByIdTest() {
-		Long id = 1L;
+		String id = "";
 		${table.entityName} ${table.entityName?uncap_first} = ${table.entityName?uncap_first}Mapper.selectById(id);
 		log.info(${table.entityName?uncap_first}.toString());
 	}

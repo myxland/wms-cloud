@@ -93,7 +93,7 @@ public class I${table.entityName}ServiceTest {
 	@Test
 	public void updateTest() {
 
-		Long id = 1L;
+		String id = "";
 
 		<#if table.includeCompanyShortName>
 		String companyShortName = TestCaseUtil.companyShortName();
