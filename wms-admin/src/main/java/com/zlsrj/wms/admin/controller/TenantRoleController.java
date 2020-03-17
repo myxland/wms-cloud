@@ -101,8 +101,8 @@ public class TenantRoleController {
 		List<ModuleMenuVo> moduleMenuList = moduleMenuClientService.selectByTenant(tenantId);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("tenant_employee_list", tenantEmployeeDataVoList);
-		map.put("module_menu_list", moduleMenuList);
+		map.put("tenantEmployeeList", tenantEmployeeDataVoList);
+		map.put("moduleMenuList", moduleMenuList);
 
 		return CommonResult.success(map);
 	}
@@ -117,14 +117,14 @@ public class TenantRoleController {
 		wrappperVo(tenantRoleVo);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("tenant_role", tenantRoleVo);
+		map.put("tenantRole", tenantRoleVo);
 		
 		
 		String tenantId = tenantRoleVo.getTenantId();
 		
 		//菜单及菜单分配信息
 		List<ModuleMenuVo> moduleMenuVoList = moduleMenuClientService.selectByRole(tenantId, id);
-		map.put("module_menu_list", moduleMenuVoList);
+		map.put("moduleMenuList", moduleMenuVoList);
 		
 		//员工信息
 		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();
@@ -157,7 +157,7 @@ public class TenantRoleController {
 				
 			}
 			
-			map.put("tenant_employee_list", tenantEmployeeDataVoList);
+			map.put("tenantEmployeeList", tenantEmployeeDataVoList);
 		}
 
 		return CommonResult.success(map);
