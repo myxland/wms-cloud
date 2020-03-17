@@ -1,6 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,14 +19,17 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantCustomerTypeAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeQueryParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.dto.TenantCustomerTypeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantCustomerType;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantCustomerTypeVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.service.IIdService;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantCustomerTypeService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
@@ -51,6 +54,30 @@ public class TenantCustomerTypeRestController {
 		TenantCustomerType tenantCustomerType = tenantCustomerTypeService.getById(id);
 
 		return entity2vo(tenantCustomerType);
+	}
+	
+	@ApiOperation(value = "根据参数查询用户类别列表")
+	@RequestMapping(value = "/tenant-customer-types/list", method = RequestMethod.GET)
+	public List<TenantCustomerTypeVo> list(@RequestBody TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam) {
+		QueryWrapper<TenantCustomerType> queryWrapperTenantCustomerType = new QueryWrapper<TenantCustomerType>();
+		queryWrapperTenantCustomerType.lambda()
+				.eq(tenantCustomerTypeQueryParam.getId() != null, TenantCustomerType::getId, tenantCustomerTypeQueryParam.getId())
+				.eq(tenantCustomerTypeQueryParam.getTenantId() != null, TenantCustomerType::getTenantId, tenantCustomerTypeQueryParam.getTenantId())
+				.eq(tenantCustomerTypeQueryParam.getCustomerTypeName() != null, TenantCustomerType::getCustomerTypeName, tenantCustomerTypeQueryParam.getCustomerTypeName())
+				.eq(tenantCustomerTypeQueryParam.getCustomerTypeData() != null, TenantCustomerType::getCustomerTypeData, tenantCustomerTypeQueryParam.getCustomerTypeData())
+				.eq(tenantCustomerTypeQueryParam.getAddTime() != null, TenantCustomerType::getAddTime, tenantCustomerTypeQueryParam.getAddTime())
+				.ge(tenantCustomerTypeQueryParam.getAddTimeStart() != null, TenantCustomerType::getAddTime,tenantCustomerTypeQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerTypeQueryParam.getAddTimeStart()))
+				.le(tenantCustomerTypeQueryParam.getAddTimeEnd() != null, TenantCustomerType::getAddTime,tenantCustomerTypeQueryParam.getAddTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerTypeQueryParam.getAddTimeEnd()))
+				.eq(tenantCustomerTypeQueryParam.getUpdateTime() != null, TenantCustomerType::getUpdateTime, tenantCustomerTypeQueryParam.getUpdateTime())
+				.ge(tenantCustomerTypeQueryParam.getUpdateTimeStart() != null, TenantCustomerType::getUpdateTime,tenantCustomerTypeQueryParam.getUpdateTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerTypeQueryParam.getUpdateTimeStart()))
+				.le(tenantCustomerTypeQueryParam.getUpdateTimeEnd() != null, TenantCustomerType::getUpdateTime,tenantCustomerTypeQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerTypeQueryParam.getUpdateTimeEnd()))
+				;
+
+		List<TenantCustomerType> tenantCustomerTypeList = tenantCustomerTypeService.list(queryWrapperTenantCustomerType);
+
+		List<TenantCustomerTypeVo> tenantDepartmentVoList = TranslateUtil.translateList(tenantCustomerTypeList, TenantCustomerTypeVo.class);
+
+		return tenantDepartmentVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询用户类别列表")
@@ -93,30 +120,15 @@ public class TenantCustomerTypeRestController {
 	
 	@ApiOperation(value = "新增用户类别")
 	@RequestMapping(value = "/tenant-customer-types", method = RequestMethod.POST)
-	public TenantCustomerTypeVo save(@RequestBody TenantCustomerType tenantCustomerType) {
-		if (tenantCustomerType.getId() == null || tenantCustomerType.getId().trim().length() <= 0) {
-			tenantCustomerType.setId(idService.selectId());
-		}
-		boolean success = tenantCustomerTypeService.save(tenantCustomerType);
-		if (success) {
-			TenantCustomerType tenantCustomerTypeDatabase = tenantCustomerTypeService.getById(tenantCustomerType.getId());
-			return entity2vo(tenantCustomerTypeDatabase);
-		}
-		log.info("save TenantCustomerType fail，{}", ToStringBuilder.reflectionToString(tenantCustomerType, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody TenantCustomerTypeAddParam tenantCustomerTypeAddParam) {
+		return tenantCustomerTypeService.save(tenantCustomerTypeAddParam);
 	}
 
 	@ApiOperation(value = "更新用户类别全部信息")
 	@RequestMapping(value = "/tenant-customer-types/{id}", method = RequestMethod.PUT)
-	public TenantCustomerTypeVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomerType tenantCustomerType) {
-		tenantCustomerType.setId(id);
-		boolean success = tenantCustomerTypeService.updateById(tenantCustomerType);
-		if (success) {
-			TenantCustomerType tenantCustomerTypeDatabase = tenantCustomerTypeService.getById(id);
-			return entity2vo(tenantCustomerTypeDatabase);
-		}
-		log.info("update TenantCustomerType fail，{}", ToStringBuilder.reflectionToString(tenantCustomerType, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantCustomerTypeUpdateParam tenantCustomerTypeUpdateParam) {
+		tenantCustomerTypeUpdateParam.setId(id);
+		return tenantCustomerTypeService.updateById(tenantCustomerTypeUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新用户类别信息")

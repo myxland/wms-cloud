@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantCustomerTypeAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerTypeQueryParam;
+import com.zlsrj.wms.api.dto.TenantCustomerTypeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantCustomerType;
 import com.zlsrj.wms.api.vo.TenantCustomerTypeVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -18,6 +22,9 @@ public interface TenantCustomerTypeClientService {
 	@RequestMapping(value = "/tenant-customer-types/{id}", method = RequestMethod.GET)
 	public TenantCustomerTypeVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-customer-types/list", method = RequestMethod.GET)
+	public List<TenantCustomerTypeVo> list(@RequestBody TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam);
+	
 	@RequestMapping(value = "/tenant-customer-types", method = RequestMethod.GET)
 	public Page<TenantCustomerTypeVo> page(@RequestBody TenantCustomerTypeQueryParam tenantCustomerTypeQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -27,10 +34,10 @@ public interface TenantCustomerTypeClientService {
 	);
 	
 	@RequestMapping(value = "/tenant-customer-types", method = RequestMethod.POST)
-	public TenantCustomerTypeVo save(@RequestBody TenantCustomerType tenantCustomerType);
+	public String save(@RequestBody TenantCustomerTypeAddParam tenantCustomerTypeAddParam);
 
 	@RequestMapping(value = "/tenant-customer-types/{id}", method = RequestMethod.PUT)
-	public TenantCustomerTypeVo updateById(@PathVariable("id") String id, @RequestBody TenantCustomerType tenantCustomerType);
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantCustomerTypeUpdateParam tenantCustomerTypeUpdateParam);
 
 	@RequestMapping(value = "/tenant-customer-types/{id}", method = RequestMethod.PATCH)
 	public TenantCustomerTypeVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantCustomerType tenantCustomerType);

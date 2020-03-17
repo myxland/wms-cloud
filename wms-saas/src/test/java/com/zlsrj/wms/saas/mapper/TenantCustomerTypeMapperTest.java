@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,9 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zlsrj.wms.api.entity.TenantCustomerType;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +65,29 @@ public class TenantCustomerTypeMapperTest {
 			log.info("tenantCustomerType={}",tenantCustomerType);
 		}
 		
+	}
+	
+	@Test
+	public void updateByIdTest() {
+		TenantCustomerType tenantCustomerType = TenantCustomerType.builder()//
+				.id("3e0d9befd84f4294a96bad0f745ba708")// 
+				.tenantId("640D27A93BA4421495434CA7EE796E64")// 租户ID
+				.customerTypeName("用户分类名称-新增测试-"+RandomUtil.randomNumbers(4))// 用户分类名称
+				.build();
+		tenantCustomerTypeMapper.updateById(tenantCustomerType);
+	}
+	
+	@Test
+	public void updateTest() {
+		TenantCustomerType tenantCustomerType = TenantCustomerType.builder()//
+				.tenantId("640D27A93BA4421495434CA7EE796E64")// 租户ID
+				.customerTypeName("用户分类名称-新增测试-"+RandomUtil.randomNumbers(4))// 用户分类名称
+				.build();
+		
+		UpdateWrapper<TenantCustomerType> updateWrapper = new UpdateWrapper<TenantCustomerType>();
+		updateWrapper.lambda().eq(TenantCustomerType::getId, "3e0d9befd84f4294a96bad0f745ba708");
+		
+		tenantCustomerTypeMapper.update(tenantCustomerType, updateWrapper);
 	}
 	
 }
