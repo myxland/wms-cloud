@@ -65,8 +65,7 @@ public class TenantPriceStepRestControllerTest {
 		
 		// params.add("id",TestCaseUtil.id());// 阶梯明细ID
 		// params.add("tenantId",RandomUtil.randomString(4));// 租户ID
-		// params.add("priceId",RandomUtil.randomString(4));// 水价列表ID
-		// params.add("priceItemId",RandomUtil.randomString(4));// 费用项目ID
+		// params.add("priceDetailId",RandomUtil.randomString(4));// 水价明细ID
 		// params.add("stepClass",RandomUtil.randomInt(0,1000+1));// 阶梯级次
 		// params.add("startCode",new BigDecimal(0));// 阶梯起始量
 		// params.add("endCode",new BigDecimal(0));// 阶梯终止量
@@ -89,14 +88,13 @@ public class TenantPriceStepRestControllerTest {
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
 				.id(TestCaseUtil.id())// 阶梯明细ID
 				.tenantId(RandomUtil.randomString(4))// 租户ID
-				.priceId(RandomUtil.randomString(4))// 水价列表ID
-				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.priceDetailId(RandomUtil.randomString(4))// 水价明细ID
 				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
 				.startCode(new BigDecimal(0))// 阶梯起始量
 				.endCode(new BigDecimal(0))// 阶梯终止量
 				.stepPrice(new BigDecimal(0))// 单价
 				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
-				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.stepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN))// 超人数增补量
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
 				.build();
@@ -118,14 +116,13 @@ public class TenantPriceStepRestControllerTest {
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
 				//.id(TestCaseUtil.id())// 阶梯明细ID
 				.tenantId(RandomUtil.randomString(4))// 租户ID
-				.priceId(RandomUtil.randomString(4))// 水价列表ID
-				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.priceDetailId(RandomUtil.randomString(4))// 水价明细ID
 				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
 				.startCode(new BigDecimal(0))// 阶梯起始量
 				.endCode(new BigDecimal(0))// 阶梯终止量
 				.stepPrice(new BigDecimal(0))// 单价
 				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
-				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.stepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN))// 超人数增补量
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
 				.build();
@@ -146,8 +143,7 @@ public class TenantPriceStepRestControllerTest {
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
 				//.tenantId(RandomUtil.randomString(4))// 租户ID
-				//.priceId(RandomUtil.randomString(4))// 水价列表ID
-				//.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				//.priceDetailId(RandomUtil.randomString(4))// 水价明细ID
 				//.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
 				//.startCode(new BigDecimal(0))// 阶梯起始量
 				//.endCode(new BigDecimal(0))// 阶梯终止量

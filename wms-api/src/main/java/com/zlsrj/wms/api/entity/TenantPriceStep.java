@@ -38,13 +38,9 @@ public class TenantPriceStep implements Serializable {
 	@TableField("tenant_id")
 	private String tenantId;
 
-	@ApiModelProperty(value = "水价列表ID")
-	@TableField("price_id")
-	private String priceId;
-
-	@ApiModelProperty(value = "费用项目ID")
-	@TableField("price_item_id")
-	private String priceItemId;
+	@ApiModelProperty(value = "水价明细ID")
+	@TableField("price_detail_id")
+	private String priceDetailId;
 
 	@ApiModelProperty(value = "阶梯级次")
 	@TableField("step_class")

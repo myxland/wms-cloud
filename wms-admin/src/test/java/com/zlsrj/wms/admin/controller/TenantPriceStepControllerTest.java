@@ -46,7 +46,7 @@ public class TenantPriceStepControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		String id = "6272fcaf27d34bf2a7b8496bfcb64c99";
+		String id = "";
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantPriceStep/"+id)//
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
@@ -56,7 +56,7 @@ public class TenantPriceStepControllerTest {
 	
 	@Test
 	public void listTest() throws Exception {
-		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
+		String tenantId = "";
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("tenantId", tenantId);
@@ -71,7 +71,7 @@ public class TenantPriceStepControllerTest {
 	
 	@Test
 	public void deleteTest() throws Exception {
-		String id = "6272fcaf27d34bf2a7b8496bfcb64c99";
+		String id = "";
 		log.info("id={}",id);
 		
 		String responseString = mockMvc.perform(//
@@ -83,19 +83,18 @@ public class TenantPriceStepControllerTest {
 	
 	@Test
 	public void updateTest() throws Exception {
-		String id = "6272fcaf27d34bf2a7b8496bfcb64c99";
+		String id = "";
 		log.info("id={}",id);
 		
 		TenantPriceStepUpdateParam tenantPriceStepUpdateParam = new TenantPriceStepUpdateParam();
-		tenantPriceStepUpdateParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
-		tenantPriceStepUpdateParam.setPriceId(RandomUtil.randomString(4));// 水价列表ID
-		tenantPriceStepUpdateParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目ID
+		tenantPriceStepUpdateParam.setTenantId(RandomUtil.randomString(4));// 租户ID
+		tenantPriceStepUpdateParam.setPriceDetailId(RandomUtil.randomString(4));// 水价明细ID
 		tenantPriceStepUpdateParam.setStepClass(RandomUtil.randomInt(0,1000+1));// 阶梯级次
-		tenantPriceStepUpdateParam.setStartCode(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 阶梯起始量
-		tenantPriceStepUpdateParam.setEndCode(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 阶梯终止量
-		tenantPriceStepUpdateParam.setStepPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
+		tenantPriceStepUpdateParam.setStartCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯起始量
+		tenantPriceStepUpdateParam.setEndCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯终止量
+		tenantPriceStepUpdateParam.setStepPrice(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 单价
 		tenantPriceStepUpdateParam.setStepUsers(RandomUtil.randomInt(0,1000+1));// 标准用水人数
-		tenantPriceStepUpdateParam.setStepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 超人数增补量
+		tenantPriceStepUpdateParam.setStepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 超人数增补量
 		
 		log.info(JSON.toJSONString(tenantPriceStepUpdateParam));
 		
@@ -111,15 +110,14 @@ public class TenantPriceStepControllerTest {
 	@Test
 	public void createTest() throws Exception {
 		TenantPriceStepAddParam tenantPriceStepAddParam = new TenantPriceStepAddParam();
-		tenantPriceStepAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
-		tenantPriceStepAddParam.setPriceId(RandomUtil.randomString(4));// 水价列表ID
-		tenantPriceStepAddParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目ID
+		tenantPriceStepAddParam.setTenantId(RandomUtil.randomString(4));// 租户ID
+		tenantPriceStepAddParam.setPriceDetailId(RandomUtil.randomString(4));// 水价明细ID
 		tenantPriceStepAddParam.setStepClass(RandomUtil.randomInt(0,1000+1));// 阶梯级次
-		tenantPriceStepAddParam.setStartCode(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 阶梯起始量
-		tenantPriceStepAddParam.setEndCode(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 阶梯终止量
-		tenantPriceStepAddParam.setStepPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
+		tenantPriceStepAddParam.setStartCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯起始量
+		tenantPriceStepAddParam.setEndCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯终止量
+		tenantPriceStepAddParam.setStepPrice(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 单价
 		tenantPriceStepAddParam.setStepUsers(RandomUtil.randomInt(0,1000+1));// 标准用水人数
-		tenantPriceStepAddParam.setStepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 超人数增补量
+		tenantPriceStepAddParam.setStepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 超人数增补量
 		
 		log.info(JSON.toJSONString(tenantPriceStepAddParam));
 		

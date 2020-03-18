@@ -22,11 +22,8 @@ public class TenantPriceStepUpdateParam implements Serializable {
 	@ApiModelProperty(value = "租户ID")
 	private String tenantId;
 
-	@ApiModelProperty(value = "水价列表ID")
-	private String priceId;
-
-	@ApiModelProperty(value = "费用项目ID")
-	private String priceItemId;
+	@ApiModelProperty(value = "水价明细ID")
+	private String priceDetailId;
 
 	@ApiModelProperty(value = "阶梯级次")
 	private Integer stepClass;

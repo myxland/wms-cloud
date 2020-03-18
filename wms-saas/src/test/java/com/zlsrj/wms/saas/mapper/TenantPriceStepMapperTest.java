@@ -55,14 +55,13 @@ public class TenantPriceStepMapperTest {
 			TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
 					.id(TestCaseUtil.id())// 阶梯明细ID
 					.tenantId(tenantInfo.getId())// 租户ID
-					.priceId(TestCaseUtil.id())// 水价列表ID
-					.priceItemId(TestCaseUtil.id())// 费用项目ID
+					.priceDetailId(TestCaseUtil.id())// 水价明细ID
 					.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
 					.startCode(TestCaseUtil.water())// 阶梯起始量
 					.endCode(TestCaseUtil.water())// 阶梯终止量
 					.stepPrice(TestCaseUtil.money())// 单价
 					.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
-					.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+					.stepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN))// 超人数增补量
 					.addTime(TestCaseUtil.dateBefore())// 数据新增时间
 					.updateTime(TestCaseUtil.dateBefore())// 数据修改时间
 					.build();
