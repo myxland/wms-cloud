@@ -58,7 +58,7 @@ public class TableNameFactory {
 				"tenant_meter_brand", //
 				"tenant_price_item", //
 				"tenant_price_rule", //
-				"", //
+				"tenant_price", //
 				"", //
 				"", //
 				"", //
