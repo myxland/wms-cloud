@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantPriceItemAddParam;
 import com.zlsrj.wms.api.dto.TenantPriceItemQueryParam;
+import com.zlsrj.wms.api.dto.TenantPriceItemUpdateParam;
 import com.zlsrj.wms.api.entity.TenantPriceItem;
 import com.zlsrj.wms.api.vo.TenantPriceItemVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -18,6 +22,9 @@ public interface TenantPriceItemClientService {
 	@RequestMapping(value = "/tenant-price-items/{id}", method = RequestMethod.GET)
 	public TenantPriceItemVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-price-items/list", method = RequestMethod.GET)
+	public List<TenantPriceItemVo> list(@RequestBody TenantPriceItemQueryParam tenantPriceItemQueryParam);
+	
 	@RequestMapping(value = "/tenant-price-items", method = RequestMethod.GET)
 	public Page<TenantPriceItemVo> page(@RequestBody TenantPriceItemQueryParam tenantPriceItemQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -25,12 +32,15 @@ public interface TenantPriceItemClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	@RequestMapping(value = "/tenant-price-items/aggregation", method = RequestMethod.GET)
+	public TenantPriceItemVo aggregation(@RequestBody TenantPriceItemQueryParam tenantPriceItemQueryParam);
 
 	@RequestMapping(value = "/tenant-price-items", method = RequestMethod.POST)
-	public TenantPriceItemVo save(@RequestBody TenantPriceItem tenantPriceItem);
+	public String save(@RequestBody TenantPriceItemAddParam tenantPriceItemAddParam);
 
 	@RequestMapping(value = "/tenant-price-items/{id}", method = RequestMethod.PUT)
-	public TenantPriceItemVo updateById(@PathVariable("id") String id, @RequestBody TenantPriceItem tenantPriceItem);
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantPriceItemUpdateParam tenantPriceItemUpdateParam);
 
 	@RequestMapping(value = "/tenant-price-items/{id}", method = RequestMethod.PATCH)
 	public TenantPriceItemVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantPriceItem tenantPriceItem);

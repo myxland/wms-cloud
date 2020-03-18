@@ -1,11 +1,8 @@
-package com.zlsrj.wms.api.vo;
+package com.zlsrj.wms.api.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,19 +11,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantPriceItem对象", description = "费用项目")
-public class TenantPriceItemVo implements Serializable {
+@ApiModel(value = "TenantPriceItem更新参数", description = "费用项目")
+public class TenantPriceItemUpdateParam implements Serializable {
 
-	private static final long serialVersionUID = 3461291971261406271L;
+	private static final long serialVersionUID = 2133415811411181314L;
 
 	@ApiModelProperty(value = "")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantId;
-
-	@ApiModelProperty(value = "租户ID")
-	private String tenantName;
 
 	@ApiModelProperty(value = "费用项目编码")
 	private Integer priceItemCode;
@@ -47,3 +41,4 @@ public class TenantPriceItemVo implements Serializable {
 	private Date updateTime;
 
 }
+

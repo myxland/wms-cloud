@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.rest;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,11 +63,14 @@ public class TenantPriceItemRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 费用项目ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("id",TestCaseUtil.id());// 
+		// params.add("tenantId",RandomUtil.randomString(4));// 租户ID
+		// params.add("priceItemCode",RandomUtil.randomInt(0,1000+1));// 费用项目编码
 		// params.add("priceItemName",TestCaseUtil.name());// 费用项目名称
 		// params.add("priceItemTaxRate",new BigDecimal(0));// 税率
-		// params.add("priceItemTaxId",RandomUtil.randomString(4));// 对应税控项目编号
+		// params.add("priceItemTaxCode",RandomUtil.randomString(4));// 税收分类编码
+		// params.add("addTime",new Date());// 数据新增时间
+		// params.add("updateTime",new Date());// 数据修改时间
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-items").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -79,11 +83,14 @@ public class TenantPriceItemRestControllerTest {
 	public void saveTest() throws Exception {
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
-				.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.id(TestCaseUtil.id())// 
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceItemCode(RandomUtil.randomInt(0,1000+1))// 费用项目编码
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
-				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
+				.priceItemTaxCode(RandomUtil.randomString(4))// 税收分类编码
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc
@@ -101,11 +108,14 @@ public class TenantPriceItemRestControllerTest {
 		String id = "";
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
-				//.id(TestCaseUtil.id())// 费用项目ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.id(TestCaseUtil.id())// 
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceItemCode(RandomUtil.randomInt(0,1000+1))// 费用项目编码
 				.priceItemName(TestCaseUtil.name())// 费用项目名称
 				.priceItemTaxRate(new BigDecimal(0))// 税率
-				.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
+				.priceItemTaxCode(RandomUtil.randomString(4))// 税收分类编码
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc
@@ -123,10 +133,13 @@ public class TenantPriceItemRestControllerTest {
 		String id = "";
 
 		TenantPriceItem tenantInfo = TenantPriceItem.builder()//
-				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.tenantId(RandomUtil.randomString(4))// 租户ID
+				//.priceItemCode(RandomUtil.randomInt(0,1000+1))// 费用项目编码
 				//.priceItemName(TestCaseUtil.name())// 费用项目名称
 				//.priceItemTaxRate(new BigDecimal(0))// 税率
-				//.priceItemTaxId(RandomUtil.randomString(4))// 对应税控项目编号
+				//.priceItemTaxCode(RandomUtil.randomString(4))// 税收分类编码
+				//.addTime(new Date())// 数据新增时间
+				//.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc

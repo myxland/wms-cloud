@@ -1,25 +1,23 @@
-package com.zlsrj.wms.admin.history;
+package com.zlsrj.wms.admin.controller;
+
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantPriceItemClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.dto.TenantPriceItemAddParam;
 import com.zlsrj.wms.api.dto.TenantPriceItemQueryParam;
-import com.zlsrj.wms.api.entity.TenantPriceItem;
+import com.zlsrj.wms.api.dto.TenantPriceItemUpdateParam;
 import com.zlsrj.wms.api.vo.TenantPriceItemVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
-import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
@@ -40,23 +38,20 @@ public class TenantPriceItemController {
 	@ApiOperation(value = "根据参数查询费用项目列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CommonPage<TenantPriceItemVo>> list(TenantPriceItemQueryParam tenantPriceItemQueryParam, int pageNum,
-			int pageSize) {
-		Page<TenantPriceItemVo> tenantPriceItemVoPage = tenantPriceItemClientService.page(tenantPriceItemQueryParam, pageNum, pageSize, "id", "desc");
-		tenantPriceItemVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+	public CommonResult<List<TenantPriceItemVo>> list(TenantPriceItemQueryParam tenantPriceItemQueryParam) {
+		List<TenantPriceItemVo> tenantPriceItemVoList = tenantPriceItemClientService.list(tenantPriceItemQueryParam);
+		tenantPriceItemVoList.stream().forEach(v->wrappperVo(v));
 
-		CommonPage<TenantPriceItemVo> tenantPriceItemCommonPage = CommonPage.restPage(tenantPriceItemVoPage);
-
-		return CommonResult.success(tenantPriceItemCommonPage);
+		return CommonResult.success(tenantPriceItemVoList);
 	}
 
 	@ApiOperation(value = "新增费用项目")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantPriceItemVo> create(@RequestBody TenantPriceItem tenantPriceItem) {
-		TenantPriceItemVo tenantPriceItemVo = tenantPriceItemClientService.save(tenantPriceItem);
+	public CommonResult<Object> create(@RequestBody TenantPriceItemAddParam tenantPriceItemAddParam) {
+		String id = tenantPriceItemClientService.save(tenantPriceItemAddParam);
 
-		return CommonResult.success(tenantPriceItemVo);
+		return CommonResult.success(id);
 	}
 
 	@ApiOperation(value = "根据ID查询费用项目")
@@ -72,12 +67,10 @@ public class TenantPriceItemController {
 	@ApiOperation(value = "根据参数更新费用项目信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantPriceItemVo> getById(@RequestBody TenantPriceItem tenantPriceItem) {
-		String id = tenantPriceItem.getId();
-		TenantPriceItemVo tenantPriceItemVo = tenantPriceItemClientService.updatePatchById(id, tenantPriceItem);
-		wrappperVo(tenantPriceItemVo);
+	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody TenantPriceItemUpdateParam tenantPriceItemUpdateParam) {
+		boolean success = tenantPriceItemClientService.updateById(id, tenantPriceItemUpdateParam);
 
-		return CommonResult.success(tenantPriceItemVo);
+		return CommonResult.success(success);
 	}
 	
 	@ApiOperation(value = "根据ID删除费用项目")
