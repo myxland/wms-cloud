@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.mapper;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,8 +15,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.entity.TenantPriceStep;
 import com.zlsrj.wms.api.entity.TenantInfo;
-import com.zlsrj.wms.api.entity.TenantPriceType;
-import com.zlsrj.wms.api.entity.TenantPriceItem;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +28,6 @@ public class TenantPriceStepMapperTest {
 	private TenantPriceStepMapper tenantPriceStepMapper;
 	@Resource
 	private TenantInfoMapper tenantInfoMapper;
-	@Resource
-	private TenantPriceTypeMapper tenantPriceTypeMapper;
-	@Resource
-	private TenantPriceItemMapper tenantPriceItemMapper;
 	
 	@Test
 	public void selectByIdTest() {
@@ -55,29 +50,21 @@ public class TenantPriceStepMapperTest {
 		List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(new QueryWrapper<TenantInfo>());
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
-			tenantInfo = TenantInfo.builder().id(RandomUtil.randomString(32)).build();
-			
-			TenantPriceType tenantPriceType = null;
-			List<TenantPriceType> tenantPriceTypeList = tenantPriceTypeMapper.selectList(new QueryWrapper<TenantPriceType>().lambda().eq(TenantPriceType::getTenantId, tenantInfo.getId()));
-			if(tenantPriceTypeList!=null && tenantPriceTypeList.size()>0) {
-				tenantPriceType = tenantPriceTypeList.get(RandomUtil.randomInt(tenantPriceTypeList.size()));
-			}
-			
-			TenantPriceItem tenantPriceItem = null;
-			List<TenantPriceItem> tenantPriceItemList = tenantPriceItemMapper.selectList(new QueryWrapper<TenantPriceItem>().lambda().eq(TenantPriceItem::getTenantId, tenantInfo.getId()));
-			if(tenantPriceItemList!=null && tenantPriceItemList.size()>0) {
-				tenantPriceItem = tenantPriceItemList.get(RandomUtil.randomInt(tenantPriceItemList.size()));
-			}
+			//tenantInfo = TenantInfo.builder().id(1L).build();
 			
 			TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-					.id(TestCaseUtil.id())// 价格阶梯ID
+					.id(TestCaseUtil.id())// 阶梯明细ID
 					.tenantId(tenantInfo.getId())// 租户ID
-					.priceTypeId(tenantPriceType!=null?tenantPriceType.getId():null)// 价格类别ID
-					.priceItemId(tenantPriceItem!=null?tenantPriceItem.getId():null)// 费用项目ID
-					.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-					.startWaters(TestCaseUtil.water())// 起始量
-					.endWaters(TestCaseUtil.water())// 终止量
-					.stepPrice(TestCaseUtil.money())// 价格
+					.priceId(TestCaseUtil.id())// 水价列表ID
+					.priceItemId(TestCaseUtil.id())// 费用项目ID
+					.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+					.startCode(TestCaseUtil.water())// 阶梯起始量
+					.endCode(TestCaseUtil.water())// 阶梯终止量
+					.stepPrice(TestCaseUtil.money())// 单价
+					.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+					.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+					.addTime(TestCaseUtil.dateBefore())// 数据新增时间
+					.updateTime(TestCaseUtil.dateBefore())// 数据修改时间
 					.build();
 				
 			int count = tenantPriceStepMapper.insert(tenantPriceStep);
@@ -85,6 +72,17 @@ public class TenantPriceStepMapperTest {
 			log.info("tenantPriceStep={}",tenantPriceStep);
 		}
 		
+	}
+	
+	@Test
+	public void selectAggregation() {
+		QueryWrapper<TenantPriceStep> wrapper = new QueryWrapper<TenantPriceStep>();
+		wrapper.lambda()//
+				.eq(TenantPriceStep::getTenantId, 1L)//
+		;
+		TenantPriceStep tenantPriceStepAggregation = tenantPriceStepMapper.selectAggregation(wrapper);
+		
+		log.info("tenantPriceStepAggregation={}", tenantPriceStepAggregation);
 	}
 	
 }

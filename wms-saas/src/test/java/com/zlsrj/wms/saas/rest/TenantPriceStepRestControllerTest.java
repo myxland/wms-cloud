@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.rest;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,14 +63,18 @@ public class TenantPriceStepRestControllerTest {
 		params.add("sort", "id");
 		params.add("order", "desc");
 		
-		// params.add("id",TestCaseUtil.id());// 价格阶梯ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
-		// params.add("priceTypeId",RandomUtil.randomLong());// 价格类别ID
-		// params.add("priceItemId",RandomUtil.randomLong());// 费用项目ID
-		// params.add("stepNo",RandomUtil.randomInt(0,1000+1));// 阶梯号
-		// params.add("startWaters",new BigDecimal(0));// 起始量
-		// params.add("endWaters",new BigDecimal(0));// 终止量
-		// params.add("stepPrice",new BigDecimal(0));// 价格
+		// params.add("id",TestCaseUtil.id());// 阶梯明细ID
+		// params.add("tenantId",RandomUtil.randomString(4));// 租户ID
+		// params.add("priceId",RandomUtil.randomString(4));// 水价列表ID
+		// params.add("priceItemId",RandomUtil.randomString(4));// 费用项目ID
+		// params.add("stepClass",RandomUtil.randomInt(0,1000+1));// 阶梯级次
+		// params.add("startCode",new BigDecimal(0));// 阶梯起始量
+		// params.add("endCode",new BigDecimal(0));// 阶梯终止量
+		// params.add("stepPrice",new BigDecimal(0));// 单价
+		// params.add("stepUsers",RandomUtil.randomInt(0,1000+1));// 标准用水人数
+		// params.add("stepUsersAdd",TestCaseUtil.address());// 超人数增补量
+		// params.add("addTime",new Date());// 数据新增时间
+		// params.add("updateTime",new Date());// 数据修改时间
 
 		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-price-steps").params(params))
 				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
@@ -82,14 +87,18 @@ public class TenantPriceStepRestControllerTest {
 	public void saveTest() throws Exception {
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
-				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
-				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
-				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-				.startWaters(new BigDecimal(0))// 起始量
-				.endWaters(new BigDecimal(0))// 终止量
-				.stepPrice(new BigDecimal(0))// 价格
+				.id(TestCaseUtil.id())// 阶梯明细ID
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceId(RandomUtil.randomString(4))// 水价列表ID
+				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+				.startCode(new BigDecimal(0))// 阶梯起始量
+				.endCode(new BigDecimal(0))// 阶梯终止量
+				.stepPrice(new BigDecimal(0))// 单价
+				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc
@@ -107,14 +116,18 @@ public class TenantPriceStepRestControllerTest {
 		String id = "";
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
-				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
-				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
-				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-				.startWaters(new BigDecimal(0))// 起始量
-				.endWaters(new BigDecimal(0))// 终止量
-				.stepPrice(new BigDecimal(0))// 价格
+				//.id(TestCaseUtil.id())// 阶梯明细ID
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceId(RandomUtil.randomString(4))// 水价列表ID
+				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+				.startCode(new BigDecimal(0))// 阶梯起始量
+				.endCode(new BigDecimal(0))// 阶梯终止量
+				.stepPrice(new BigDecimal(0))// 单价
+				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc
@@ -132,13 +145,17 @@ public class TenantPriceStepRestControllerTest {
 		String id = "";
 
 		TenantPriceStep tenantInfo = TenantPriceStep.builder()//
-				//.tenantId(RandomUtil.randomString(32))// 租户ID
-				//.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
-				//.priceItemId(RandomUtil.randomString(32))// 费用项目ID
-				//.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-				//.startWaters(new BigDecimal(0))// 起始量
-				//.endWaters(new BigDecimal(0))// 终止量
-				//.stepPrice(new BigDecimal(0))// 价格
+				//.tenantId(RandomUtil.randomString(4))// 租户ID
+				//.priceId(RandomUtil.randomString(4))// 水价列表ID
+				//.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				//.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+				//.startCode(new BigDecimal(0))// 阶梯起始量
+				//.endCode(new BigDecimal(0))// 阶梯终止量
+				//.stepPrice(new BigDecimal(0))// 单价
+				//.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+				//.stepUsersAdd(TestCaseUtil.address())// 超人数增补量
+				//.addTime(new Date())// 数据新增时间
+				//.updateTime(new Date())// 数据修改时间
 				.build();
 
 		String responseString = mockMvc

@@ -1,32 +1,30 @@
-package com.zlsrj.wms.admin.history;
+package com.zlsrj.wms.admin.controller;
+
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantPriceStepClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.dto.TenantPriceStepAddParam;
 import com.zlsrj.wms.api.dto.TenantPriceStepQueryParam;
-import com.zlsrj.wms.api.entity.TenantPriceStep;
+import com.zlsrj.wms.api.dto.TenantPriceStepUpdateParam;
 import com.zlsrj.wms.api.vo.TenantPriceStepVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
-import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "水价阶梯", tags = { "水价阶梯操作接口" })
+@Api(value = "阶梯明细", tags = { "阶梯明细操作接口" })
 @Controller
 @RequestMapping("/tenantPriceStep")
 @Slf4j
@@ -37,29 +35,26 @@ public class TenantPriceStepController {
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
 
-	@ApiOperation(value = "根据参数查询水价阶梯列表")
+	@ApiOperation(value = "根据参数查询阶梯明细列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CommonPage<TenantPriceStepVo>> list(TenantPriceStepQueryParam tenantPriceStepQueryParam, int pageNum,
-			int pageSize) {
-		Page<TenantPriceStepVo> tenantPriceStepVoPage = tenantPriceStepClientService.page(tenantPriceStepQueryParam, pageNum, pageSize, "id", "desc");
-		tenantPriceStepVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+	public CommonResult<List<TenantPriceStepVo>> list(TenantPriceStepQueryParam tenantPriceStepQueryParam) {
+		List<TenantPriceStepVo> tenantPriceStepVoList = tenantPriceStepClientService.list(tenantPriceStepQueryParam);
+		tenantPriceStepVoList.stream().forEach(v->wrappperVo(v));
 
-		CommonPage<TenantPriceStepVo> tenantPriceStepCommonPage = CommonPage.restPage(tenantPriceStepVoPage);
-
-		return CommonResult.success(tenantPriceStepCommonPage);
+		return CommonResult.success(tenantPriceStepVoList);
 	}
 
-	@ApiOperation(value = "新增水价阶梯")
+	@ApiOperation(value = "新增阶梯明细")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantPriceStepVo> create(@RequestBody TenantPriceStep tenantPriceStep) {
-		TenantPriceStepVo tenantPriceStepVo = tenantPriceStepClientService.save(tenantPriceStep);
+	public CommonResult<Object> create(@RequestBody TenantPriceStepAddParam tenantPriceStepAddParam) {
+		String id = tenantPriceStepClientService.save(tenantPriceStepAddParam);
 
-		return CommonResult.success(tenantPriceStepVo);
+		return CommonResult.success(id);
 	}
 
-	@ApiOperation(value = "根据ID查询水价阶梯")
+	@ApiOperation(value = "根据ID查询阶梯明细")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<TenantPriceStepVo> getById(@PathVariable("id") String id) {
@@ -69,18 +64,16 @@ public class TenantPriceStepController {
 		return CommonResult.success(tenantPriceStepVo);
 	}
 
-	@ApiOperation(value = "根据参数更新水价阶梯信息")
+	@ApiOperation(value = "根据参数更新阶梯明细信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<TenantPriceStepVo> getById(@RequestBody TenantPriceStep tenantPriceStep) {
-		String id = tenantPriceStep.getId();
-		TenantPriceStepVo tenantPriceStepVo = tenantPriceStepClientService.updatePatchById(id, tenantPriceStep);
-		wrappperVo(tenantPriceStepVo);
+	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody TenantPriceStepUpdateParam tenantPriceStepUpdateParam) {
+		boolean success = tenantPriceStepClientService.updateById(id, tenantPriceStepUpdateParam);
 
-		return CommonResult.success(tenantPriceStepVo);
+		return CommonResult.success(success);
 	}
 	
-	@ApiOperation(value = "根据ID删除水价阶梯")
+	@ApiOperation(value = "根据ID删除阶梯明细")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Object> removeById(@PathVariable("id") String id) {

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zlsrj.wms.saas.mapper.TenantPriceStepMapper">
-
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantPriceStep">
+		SELECT
+			count(id) as id,
+			sum(step_class) as step_class,
+			sum(start_code) as start_code,
+			sum(end_code) as end_code,
+			sum(step_price) as step_price,
+			sum(step_users) as step_users,
+			sum(step_users_add) as step_users_add
+		FROM tenant_price_step
+		${ew.customSqlSegment} 
+	</select>
 </mapper>

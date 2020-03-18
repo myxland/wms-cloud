@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -27,14 +28,18 @@ public class ITenantPriceStepServiceTest {
 	@Test
 	public void insertTest() {
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-				.id(TestCaseUtil.id())// 价格阶梯ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
-				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
-				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
-				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-				.startWaters(new BigDecimal(0))// 起始量
-				.endWaters(new BigDecimal(0))// 终止量
-				.stepPrice(new BigDecimal(0))// 价格
+				.id(TestCaseUtil.id())// 阶梯明细ID
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceId(RandomUtil.randomString(4))// 水价列表ID
+				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+				.startCode(new BigDecimal(0))// 阶梯起始量
+				.endCode(new BigDecimal(0))// 阶梯终止量
+				.stepPrice(new BigDecimal(0))// 单价
+				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 
 		log.info(ToStringBuilder.reflectionToString(tenantPriceStep, ToStringStyle.MULTI_LINE_STYLE));
@@ -50,13 +55,17 @@ public class ITenantPriceStepServiceTest {
 		String id = "";
 
 		TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
-				.tenantId(RandomUtil.randomString(32))// 租户ID
-				.priceTypeId(RandomUtil.randomString(32))// 价格类别ID
-				.priceItemId(RandomUtil.randomString(32))// 费用项目ID
-				.stepNo(RandomUtil.randomInt(0,1000+1))// 阶梯号
-				.startWaters(new BigDecimal(0))// 起始量
-				.endWaters(new BigDecimal(0))// 终止量
-				.stepPrice(new BigDecimal(0))// 价格
+				.tenantId(RandomUtil.randomString(4))// 租户ID
+				.priceId(RandomUtil.randomString(4))// 水价列表ID
+				.priceItemId(RandomUtil.randomString(4))// 费用项目ID
+				.stepClass(RandomUtil.randomInt(0,1000+1))// 阶梯级次
+				.startCode(new BigDecimal(0))// 阶梯起始量
+				.endCode(new BigDecimal(0))// 阶梯终止量
+				.stepPrice(new BigDecimal(0))// 单价
+				.stepUsers(RandomUtil.randomInt(0,1000+1))// 标准用水人数
+				.stepUsersAdd(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)))// 超人数增补量
+				.addTime(new Date())// 数据新增时间
+				.updateTime(new Date())// 数据修改时间
 				.build();
 		tenantPriceStep.setId(id);
 
