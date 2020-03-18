@@ -56,8 +56,8 @@ public class TableNameFactory {
 				"tenant_meter_type", //
 				"tenant_meter_caliber", //
 				"tenant_meter_brand", //
-				"", //
-				"", //
+				"tenant_price_item", //
+				"tenant_price_rule", //
 				"", //
 				"", //
 				"", //
