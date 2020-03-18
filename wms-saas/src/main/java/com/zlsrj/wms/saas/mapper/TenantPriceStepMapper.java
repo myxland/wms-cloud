@@ -9,4 +9,6 @@ import com.zlsrj.wms.api.entity.TenantPriceStep;
 
 public interface TenantPriceStepMapper extends BaseMapper<TenantPriceStep> {
 	TenantPriceStep selectAggregation (@Param(Constants.WRAPPER) Wrapper<TenantPriceStep> wrapper);
+	
+	boolean deleteByPriceId(String priceId);
 }

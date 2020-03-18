@@ -1,6 +1,8 @@
 package com.zlsrj.wms.admin.controller;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,8 +20,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
-import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.dto.TenantPriceAddParam;
+import com.zlsrj.wms.api.dto.TenantPriceDetailAddParam;
+import com.zlsrj.wms.api.dto.TenantPriceDetailUpdateParam;
+import com.zlsrj.wms.api.dto.TenantPriceStepAddParam;
+import com.zlsrj.wms.api.dto.TenantPriceStepUpdateParam;
 import com.zlsrj.wms.api.dto.TenantPriceUpdateParam;
 
 import cn.hutool.core.util.RandomUtil;
@@ -45,7 +50,7 @@ public class TenantPriceControllerTest {
 
 	@Test
 	public void getByIdTest() throws Exception {
-		String id = "3121b26b85f34efc994645cdf0d205ee";
+		String id = "1c97259e61534272b62ad699a7200bf1";
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantPrice/"+id)//
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
@@ -70,7 +75,7 @@ public class TenantPriceControllerTest {
 	
 	@Test
 	public void deleteTest() throws Exception {
-		String id = "3121b26b85f34efc994645cdf0d205ee";
+		String id = "bfff1502cb934060a8f4f2ede4927be0";
 		log.info("id={}",id);
 		
 		String responseString = mockMvc.perform(//
@@ -82,7 +87,7 @@ public class TenantPriceControllerTest {
 	
 	@Test
 	public void updateTest() throws Exception {
-		String id = "3121b26b85f34efc994645cdf0d205ee";
+		String id = "45ff10d2eac246f5b1a61ae443492a8a";
 		log.info("id={}",id);
 		
 		TenantPriceUpdateParam tenantPriceUpdateParam = new TenantPriceUpdateParam();
@@ -94,6 +99,34 @@ public class TenantPriceControllerTest {
 		tenantPriceUpdateParam.setPriceVersionMemo(RandomUtil.randomString(4));// 版本说明
 		tenantPriceUpdateParam.setMarketingAreaId(RandomUtil.randomString(4));// 营销区域
 		tenantPriceUpdateParam.setPriceMemo(RandomUtil.randomString(4));// 备注
+		
+		List<TenantPriceDetailUpdateParam> tenantPriceDetailUpdateParamList = new ArrayList<TenantPriceDetailUpdateParam>();
+		for(int i=0;i<2;i++) {
+			TenantPriceDetailUpdateParam tenantPriceDetailUpdateParam = new TenantPriceDetailUpdateParam();
+			tenantPriceDetailUpdateParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
+			tenantPriceDetailUpdateParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目
+			tenantPriceDetailUpdateParam.setPriceRuleId(RandomUtil.randomString(4));// 计费规则
+			tenantPriceDetailUpdateParam.setDetailPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
+			
+			List<TenantPriceStepUpdateParam> tenantPriceStepUpdateParamList = new ArrayList<TenantPriceStepUpdateParam>();
+			for(int m=0;m<3;m++) {
+				TenantPriceStepUpdateParam tenantPriceStepUpdateParam = new TenantPriceStepUpdateParam();
+				tenantPriceStepUpdateParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
+				tenantPriceStepUpdateParam.setStepClass(RandomUtil.randomInt(0,1000+1));// 阶梯级次
+				tenantPriceStepUpdateParam.setStartCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯起始量
+				tenantPriceStepUpdateParam.setEndCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯终止量
+				tenantPriceStepUpdateParam.setStepPrice(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 单价
+				tenantPriceStepUpdateParam.setStepUsers(RandomUtil.randomInt(0,1000+1));// 标准用水人数
+				tenantPriceStepUpdateParam.setStepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 超人数增补量
+				
+				tenantPriceStepUpdateParamList.add(tenantPriceStepUpdateParam);
+			}
+			
+			tenantPriceDetailUpdateParam.setTenantPriceStepList(tenantPriceStepUpdateParamList);
+			
+			tenantPriceDetailUpdateParamList.add(tenantPriceDetailUpdateParam);
+		}
+		tenantPriceUpdateParam.setTenantPriceDetailList(tenantPriceDetailUpdateParamList);
 		
 		log.info(JSON.toJSONString(tenantPriceUpdateParam));
 		
@@ -117,6 +150,35 @@ public class TenantPriceControllerTest {
 		tenantPriceAddParam.setPriceVersionMemo(RandomUtil.randomString(4));// 版本说明
 		tenantPriceAddParam.setMarketingAreaId(RandomUtil.randomString(4));// 营销区域
 		tenantPriceAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
+		
+		List<TenantPriceDetailAddParam> tenantPriceDetailAddParamList = new ArrayList<TenantPriceDetailAddParam>();
+		for(int i=0;i<2;i++) {
+			TenantPriceDetailAddParam tenantPriceDetailAddParam = new TenantPriceDetailAddParam();
+			tenantPriceDetailAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
+			tenantPriceDetailAddParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目
+			tenantPriceDetailAddParam.setPriceRuleId(RandomUtil.randomString(4));// 计费规则
+			tenantPriceDetailAddParam.setDetailPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
+			
+			List<TenantPriceStepAddParam> tenantPriceStepAddParamList = new ArrayList<TenantPriceStepAddParam>();
+			for(int m=0;m<3;m++) {
+				TenantPriceStepAddParam tenantPriceStepAddParam = new TenantPriceStepAddParam();
+				tenantPriceStepAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
+				tenantPriceStepAddParam.setStepClass(RandomUtil.randomInt(0,1000+1));// 阶梯级次
+				tenantPriceStepAddParam.setStartCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯起始量
+				tenantPriceStepAddParam.setEndCode(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 阶梯终止量
+				tenantPriceStepAddParam.setStepPrice(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 单价
+				tenantPriceStepAddParam.setStepUsers(RandomUtil.randomInt(0,1000+1));// 标准用水人数
+				tenantPriceStepAddParam.setStepUsersAdd(RandomUtil.randomBigDecimal(BigDecimal.ZERO, BigDecimal.TEN));// 超人数增补量
+				
+				tenantPriceStepAddParamList.add(tenantPriceStepAddParam);
+			}
+			
+			tenantPriceDetailAddParam.setTenantPriceStepList(tenantPriceStepAddParamList);
+			
+			tenantPriceDetailAddParamList.add(tenantPriceDetailAddParam);
+		}
+		tenantPriceAddParam.setTenantPriceDetailList(tenantPriceDetailAddParamList);
+		
 		
 		log.info(JSON.toJSONString(tenantPriceAddParam));
 		

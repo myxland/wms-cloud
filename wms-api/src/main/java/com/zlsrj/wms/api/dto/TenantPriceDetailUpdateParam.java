@@ -3,6 +3,7 @@ package com.zlsrj.wms.api.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,11 +35,8 @@ public class TenantPriceDetailUpdateParam implements Serializable {
 	@ApiModelProperty(value = "单价")
 	private BigDecimal detailPrice;
 
-	@ApiModelProperty(value = "数据新增时间")
-	private Date addTime;
-
-	@ApiModelProperty(value = "数据修改时间")
-	private Date updateTime;
+	@ApiModelProperty(value = "价格明细")
+	private List<TenantPriceStepUpdateParam> tenantPriceStepList;
 
 }
 

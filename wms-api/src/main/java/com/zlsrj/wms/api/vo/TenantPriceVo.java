@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -60,5 +57,8 @@ public class TenantPriceVo implements Serializable {
 	
 	@ApiModelProperty(value = "是否包含子级水价列表")
 	private boolean hasChildren;
+	
+	@ApiModelProperty(value = "价格明细")
+	private List<TenantPriceDetailVo> tenantPriceDetailList;
 	
 }

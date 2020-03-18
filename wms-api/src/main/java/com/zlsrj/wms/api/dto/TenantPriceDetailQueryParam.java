@@ -51,6 +51,6 @@ public class TenantPriceDetailQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "数据修改时间结束")
 	private Date updateTimeEnd;
-
+	
 }
 

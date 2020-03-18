@@ -12,5 +12,5 @@ public interface ITenantPriceStepService extends IService<TenantPriceStep> {
 	String save(TenantPriceStepAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantPriceStepUpdateParam tenantCustomerTypeUpdateParam);
-
+	
 }

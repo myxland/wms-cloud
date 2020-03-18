@@ -13,4 +13,11 @@
 		FROM tenant_price_step
 		${ew.customSqlSegment} 
 	</select>
+	
+	<delete id="deleteByPriceId" parameterType="java.lang.String">
+		delete from tenant_price_step where price_detail_id in 
+		(
+			select id from tenant_price_detail where price_id = #{priceId} 
+		)
+	</delete>
 </mapper>

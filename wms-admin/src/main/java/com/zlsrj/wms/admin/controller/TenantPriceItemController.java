@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zlsrj.wms.api.client.service.TenantPriceItemClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
+import com.zlsrj.wms.api.client.service.TenantPriceDetailClientService;
+import com.zlsrj.wms.api.client.service.TenantPriceItemClientService;
+import com.zlsrj.wms.api.dto.TenantPriceDetailQueryParam;
 import com.zlsrj.wms.api.dto.TenantPriceItemAddParam;
 import com.zlsrj.wms.api.dto.TenantPriceItemQueryParam;
 import com.zlsrj.wms.api.dto.TenantPriceItemUpdateParam;
-import com.zlsrj.wms.api.vo.TenantPriceItemVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
+import com.zlsrj.wms.api.vo.TenantPriceDetailVo;
+import com.zlsrj.wms.api.vo.TenantPriceItemVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
@@ -34,6 +37,8 @@ public class TenantPriceItemController {
 	private TenantPriceItemClientService tenantPriceItemClientService;
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
+	@Autowired
+	private TenantPriceDetailClientService tenantPriceDetailClientService;
 
 	@ApiOperation(value = "根据参数查询费用项目列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -77,6 +82,15 @@ public class TenantPriceItemController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<Object> removeById(@PathVariable("id") String id) {
+		//水价明细
+		TenantPriceDetailQueryParam tenantPriceDetailQueryParam = new TenantPriceDetailQueryParam();
+		tenantPriceDetailQueryParam.setPriceItemId(id);
+		List<TenantPriceDetailVo> tenantPriceDetailVoList = tenantPriceDetailClientService.list(tenantPriceDetailQueryParam);
+		if(tenantPriceDetailVoList!=null && tenantPriceDetailVoList.size()>0) {
+			return CommonResult.failed("当前费用项目正在使用，不能进行删除");
+		}
+		
+		
 		CommonResult<Object> commonResult = tenantPriceItemClientService.removeById(id);
 
 		return commonResult;
