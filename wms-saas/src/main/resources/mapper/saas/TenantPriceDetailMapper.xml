@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlsrj.wms.saas.mapper.TenantPriceDetailMapper">
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantPriceDetail">
+		SELECT
+			count(id) as id,
+			sum(detail_price) as detail_price
+		FROM tenant_price_detail
+		${ew.customSqlSegment} 
+	</select>
+</mapper>

@@ -59,7 +59,7 @@ public class TableNameFactory {
 				"tenant_price_item", //
 				"tenant_price_rule", //
 				"tenant_price", //
-				"", //
+				"tenant_price_detail", //
 				"", //
 				"", //
 				"", //

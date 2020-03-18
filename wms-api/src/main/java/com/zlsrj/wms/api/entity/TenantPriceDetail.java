@@ -2,6 +2,7 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -23,35 +24,42 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @Builder
-@TableName("t_op_tenant_price_detail")
-@ApiModel(value = "TenantPriceDetail对象", description = "价格明细")
+@TableName("tenant_price_detail")
+@ApiModel(value = "TenantPriceDetail对象", description = "水价明细")
 public class TenantPriceDetail implements Serializable {
 
 	private static final long serialVersionUID = 4946512119311115151L;
 
-	@ApiModelProperty(value = "系统ID")
+	@ApiModelProperty(value = "水价明细ID")
 	@TableId(value = "id", type = IdType.INPUT)
 	private String id;
 
-	@ApiModelProperty(value = "租户编号")
+	@ApiModelProperty(value = "租户ID")
 	@TableField("tenant_id")
 	private String tenantId;
 
-	@ApiModelProperty(value = "价格类别")
-	@TableField("price_type_id")
-	private String priceTypeId;
+	@ApiModelProperty(value = "水表列表ID")
+	@TableField("price_id")
+	private String priceId;
 
 	@ApiModelProperty(value = "费用项目")
 	@TableField("price_item_id")
 	private String priceItemId;
 
-	@ApiModelProperty(value = "计算方法（1：固定单价；2：固定金额；3：阶梯价格）")
-	@TableField("calc_type")
-	private Integer calcType;
+	@ApiModelProperty(value = "计费规则")
+	@TableField("price_rule_id")
+	private String priceRuleId;
 
-	@ApiModelProperty(value = "指定价格（金额）")
-	@TableField("price")
-	private BigDecimal price;
+	@ApiModelProperty(value = "单价")
+	@TableField("detail_price")
+	private BigDecimal detailPrice;
 
+	@ApiModelProperty(value = "数据新增时间")
+	@TableField("add_time")
+	private Date addTime;
+
+	@ApiModelProperty(value = "数据修改时间")
+	@TableField("update_time")
+	private Date updateTime;
 
 }
