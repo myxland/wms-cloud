@@ -63,6 +63,26 @@ public class TableNameFactory {
 				"tenant_price_step", //
 				"", //
 				"", //
+				"tenant_business_rules", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
+				"", //
 				"");
 		
 		List<String> filterList = list.stream().filter(s->StringUtils.isNotEmpty(s)).collect(Collectors.toList());
