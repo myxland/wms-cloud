@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
@@ -42,6 +43,9 @@ public interface TenantEmployeeClientService {
 
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
 	public boolean updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam);
+	
+	@RequestMapping(value = "/tenant-employees/ids/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String[] ids, @RequestBody TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam);
 	
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);

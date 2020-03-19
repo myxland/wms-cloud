@@ -19,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
@@ -49,7 +50,7 @@ public class TenantEmployeeControllerTest {
 		for(int i=0;i<10;i++) {
 			TenantEmployeeAddParam tenantEmployeeAddParam = new TenantEmployeeAddParam();
 			tenantEmployeeAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");
-			tenantEmployeeAddParam.setEmployeeName("批量删除用例"+"-"+TestCaseUtil.name());
+			tenantEmployeeAddParam.setEmployeeName("批量更新用例"+"-"+TestCaseUtil.name());
 			tenantEmployeeAddParam.setEmployeeDepartmentId("EBC639F193694D868C7679F723E72E30");
 			tenantEmployeeAddParam.setEmployeeLoginOn(1);
 			tenantEmployeeAddParam.setEmployeeStatus(1);
@@ -198,6 +199,26 @@ public class TenantEmployeeControllerTest {
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantEmployee/delete/ids/"+StringUtils.join(ids, ","))//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	
+	@Test
+	public void updateBatchTest() throws Exception {
+		String[] ids = new String[] {"749aa4bbc68c45098daabedeef380505","c6c83a7bee8c4f4f9247f2d2e8c73b3d"};
+		log.info("ids={}",StringUtils.join(ids, ","));
+		
+		TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam = new TenantEmployeeBatchUpdateParam();
+		tenantEmployeeBatchUpdateParam.setEmployeeDepartmentId("1A435B888DFC4E66AD4D3B2AA7CA3250");
+		
+		log.info(JSON.toJSONString(tenantEmployeeBatchUpdateParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantEmployee/update/ids/"+StringUtils.join(ids, ","))//
+						.content(JSON.toJSONString(tenantEmployeeBatchUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

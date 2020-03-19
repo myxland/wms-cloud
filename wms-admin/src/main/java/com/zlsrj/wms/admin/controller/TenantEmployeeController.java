@@ -21,6 +21,7 @@ import com.zlsrj.wms.api.client.service.TenantEmployeeRoleClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
@@ -104,6 +105,14 @@ public class TenantEmployeeController {
 	@ResponseBody
 	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam) {
 		boolean success = tenantEmployeeClientService.updateById(id, tenantEmployeeUpdateParam);
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "根据参数批量更新租户员工信息")
+	@RequestMapping(value = "/update/ids/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> updateById(@PathVariable("ids") String[] ids,@RequestBody TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam) {
+		boolean success = tenantEmployeeClientService.updateByIds(ids, tenantEmployeeBatchUpdateParam);
 		return CommonResult.success(success);
 	}
 

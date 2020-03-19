@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
+import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
@@ -135,6 +136,12 @@ public class TenantEmployeeRestController {
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.PATCH)
 	public boolean updatePatchById(@PathVariable("id") String id, @RequestBody TenantEmployeeUpdateParam tenantEmployeeUpdateParam) {
 		return tenantEmployeeService.update(id,tenantEmployeeUpdateParam);
+	}
+	
+	@ApiOperation(value = "根据参数批量更新租户员工信息")
+	@RequestMapping(value = "/tenant-employees/ids/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String[] ids, @RequestBody TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam) {
+		return tenantEmployeeService.updateByIds(ids,tenantEmployeeBatchUpdateParam);
 	}
 
 	@ApiOperation(value = "根据ID删除租户员工")
