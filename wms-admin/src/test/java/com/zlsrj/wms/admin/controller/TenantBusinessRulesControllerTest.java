@@ -55,10 +55,12 @@ public class TenantBusinessRulesControllerTest {
 	
 	@Test
 	public void listTest() throws Exception {
-		String tenantId = "";
+		String tenantId = "ri3q";
+		String rulesType = "业务规则类型-测试-3423";
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("tenantId", tenantId);
+		params.add("rulesType", rulesType);
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantBusinessRules/list")//
