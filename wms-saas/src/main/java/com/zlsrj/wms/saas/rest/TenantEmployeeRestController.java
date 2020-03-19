@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -140,6 +141,16 @@ public class TenantEmployeeRestController {
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantEmployeeService.removeById(id);
+		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+	
+	@ApiOperation(value = "根据IDS批量删除租户员工")
+	@RequestMapping(value = "/tenant-employees/ids/{ids}", method = RequestMethod.DELETE)
+	public CommonResult<Object> removeByIds(@PathVariable("ids") String[] ids) {
+		if(ids==null) {
+			return CommonResult.failed("ids参数为空");
+		}
+		boolean success = tenantEmployeeService.removeByIds(Arrays.asList(ids));
 		return success ? CommonResult.success(success) : CommonResult.failed();
 	}
 

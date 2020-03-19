@@ -3,6 +3,7 @@ package com.zlsrj.wms.admin.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,40 +46,43 @@ public class TenantEmployeeControllerTest {
 
 	@Test
 	public void createTest() throws Exception {
-		TenantEmployeeAddParam tenantEmployeeAddParam = new TenantEmployeeAddParam();
-		tenantEmployeeAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");
-		tenantEmployeeAddParam.setEmployeeName(TestCaseUtil.name());
-		tenantEmployeeAddParam.setEmployeeDepartmentId("EBC639F193694D868C7679F723E72E30");
-		tenantEmployeeAddParam.setEmployeeLoginOn(1);
-		tenantEmployeeAddParam.setEmployeeStatus(1);
-		tenantEmployeeAddParam.setEmployeeMobile(TestCaseUtil.mobile());
-		tenantEmployeeAddParam.setEmployeeEmail(TestCaseUtil.email(TestCaseUtil.name()));
-		tenantEmployeeAddParam.setEmployeePersonalWx(TestCaseUtil.wx());
-		tenantEmployeeAddParam.setEmployeeEnterpriceWx(TestCaseUtil.wx());
-		tenantEmployeeAddParam.setEmployeeDingding(TestCaseUtil.wx());
-		tenantEmployeeAddParam.setEmployeeCreateType(2);
+		for(int i=0;i<10;i++) {
+			TenantEmployeeAddParam tenantEmployeeAddParam = new TenantEmployeeAddParam();
+			tenantEmployeeAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");
+			tenantEmployeeAddParam.setEmployeeName("批量删除用例"+"-"+TestCaseUtil.name());
+			tenantEmployeeAddParam.setEmployeeDepartmentId("EBC639F193694D868C7679F723E72E30");
+			tenantEmployeeAddParam.setEmployeeLoginOn(1);
+			tenantEmployeeAddParam.setEmployeeStatus(1);
+			tenantEmployeeAddParam.setEmployeeMobile(TestCaseUtil.mobile());
+			tenantEmployeeAddParam.setEmployeeEmail(TestCaseUtil.email(TestCaseUtil.name()));
+			tenantEmployeeAddParam.setEmployeePersonalWx(TestCaseUtil.wx());
+			tenantEmployeeAddParam.setEmployeeEnterpriceWx(TestCaseUtil.wx());
+			tenantEmployeeAddParam.setEmployeeDingding(TestCaseUtil.wx());
+			tenantEmployeeAddParam.setEmployeeCreateType(2);
+			
+			List<TenantRoleAddParam> tenantRoleAddParamList = new ArrayList<TenantRoleAddParam>();
+			
+			TenantRoleAddParam tenantRoleAddParam = new TenantRoleAddParam();
+			tenantRoleAddParam.setId("84B95609CA9A4883928EAE040890376A");
+			tenantRoleAddParamList.add(tenantRoleAddParam);
+			
+			tenantRoleAddParam = new TenantRoleAddParam();
+			tenantRoleAddParam.setId("3ACD1ACEF49B409C8D85F425E7AA1906");
+			tenantRoleAddParamList.add(tenantRoleAddParam);
+			
+			tenantEmployeeAddParam.setTenantRoleList(tenantRoleAddParamList);
+			
+			log.info(JSON.toJSONString(tenantEmployeeAddParam));
+			
+			String responseString = mockMvc.perform(//
+					MockMvcRequestBuilders.post("/tenantEmployee/create")//
+							.content(JSON.toJSONString(tenantEmployeeAddParam))//
+							.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+							.accept(MediaType.APPLICATION_JSON_UTF8)//
+			).andReturn().getResponse().getContentAsString();
+			log.info(responseString);
+		}
 		
-		List<TenantRoleAddParam> tenantRoleAddParamList = new ArrayList<TenantRoleAddParam>();
-		
-		TenantRoleAddParam tenantRoleAddParam = new TenantRoleAddParam();
-		tenantRoleAddParam.setId("84B95609CA9A4883928EAE040890376A");
-		tenantRoleAddParamList.add(tenantRoleAddParam);
-		
-		tenantRoleAddParam = new TenantRoleAddParam();
-		tenantRoleAddParam.setId("3ACD1ACEF49B409C8D85F425E7AA1906");
-		tenantRoleAddParamList.add(tenantRoleAddParam);
-		
-		tenantEmployeeAddParam.setTenantRoleList(tenantRoleAddParamList);
-		
-		log.info(JSON.toJSONString(tenantEmployeeAddParam));
-		
-		String responseString = mockMvc.perform(//
-				MockMvcRequestBuilders.post("/tenantEmployee/create")//
-						.content(JSON.toJSONString(tenantEmployeeAddParam))//
-						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
-						.accept(MediaType.APPLICATION_JSON_UTF8)//
-		).andReturn().getResponse().getContentAsString();
-		log.info(responseString);
 	}
 	
 	@Test
@@ -114,7 +118,7 @@ public class TenantEmployeeControllerTest {
 	
 	@Test
 	public void deleteTest() throws Exception {
-		String id = "a85be45197e143fda73ec0be2607ced9";
+		String id = "305ea801f61f4f168cf22bbe68a82c94";
 		log.info("id={}",id);
 		
 		String responseString = mockMvc.perform(//
@@ -182,6 +186,18 @@ public class TenantEmployeeControllerTest {
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantEmployee/department/"+departmentId)//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void deleteBatchTest() throws Exception {
+		String[] ids = new String[] {"ca0392149d534246938957b2d8b42515","2f4703120ff54730bb506195ef6a1e1f"};
+		log.info("ids={}",StringUtils.join(ids, ","));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantEmployee/delete/ids/"+StringUtils.join(ids, ","))//
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

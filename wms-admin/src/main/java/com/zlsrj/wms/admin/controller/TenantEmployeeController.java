@@ -78,6 +78,27 @@ public class TenantEmployeeController {
 		return commonResult;
 	}
 	
+	@ApiOperation(value = "根据ID删除租户员工")
+	@RequestMapping(value = "/delete/ids/{ids}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Object> removeByIds(@PathVariable("ids") String[] ids) {
+		//如果员工的create_type = 1 则提示：系统默认建立的员工不能删除
+		if(ids==null || ids.length==0) {
+			CommonResult.failed("参数ids为空，不能删除");
+		}
+		if(ids!=null && ids.length>0) {
+			for(String id: ids) {
+				TenantEmployeeVo tenantEmployeeVo  = tenantEmployeeClientService.getById(id);
+				if(1==tenantEmployeeVo.getEmployeeCreateType()) {
+					return CommonResult.failed("系统默认建立的员工"+id+"不能删除");
+				}
+			}
+		}
+		
+		CommonResult<Object> commonResult = tenantEmployeeClientService.removeByIds(ids);
+		return commonResult;
+	}
+	
 	@ApiOperation(value = "根据参数更新租户员工信息")
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	@ResponseBody

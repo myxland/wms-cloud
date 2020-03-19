@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.service.impl;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
@@ -89,6 +91,17 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		tenantEmployeeRoleMapper.delete(wrapperTenantEmployeeRole);
 		
         return super.removeById(id);
+    }
+	
+	@Override
+	@Transactional
+    public boolean removeByIds(Collection<? extends Serializable> idList) {
+		QueryWrapper<TenantEmployeeRole> wrapperTenantEmployeeRole = new QueryWrapper<TenantEmployeeRole>();
+		wrapperTenantEmployeeRole.lambda()//
+				.in(TenantEmployeeRole::getEmployeeId, idList);
+		tenantEmployeeRoleMapper.delete(wrapperTenantEmployeeRole);
+		
+        return super.removeByIds(idList);
     }
 	
 	@Override

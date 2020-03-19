@@ -16,6 +16,8 @@ import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
+import io.swagger.annotations.ApiOperation;
+
 @FeignClient(value = "WMS-SAAS", contextId = "TenantEmployee")
 public interface TenantEmployeeClientService {
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
@@ -43,5 +45,8 @@ public interface TenantEmployeeClientService {
 	
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/tenant-employees/ids/{ids}", method = RequestMethod.DELETE)
+	public CommonResult<Object> removeByIds(@PathVariable("ids") String[] ids);
 }
 
