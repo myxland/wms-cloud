@@ -39,11 +39,7 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 	@Resource
 	private IIdService idService;
 
-	@Autowired
-	private PasswordContext passwordContext;
-
-	@Value("${system.config.password.mode}")
-	private String passwordMode;
+	
 
 	@Resource
 	private TenantEmployeeRoleMapper tenantEmployeeRoleMapper;
@@ -56,8 +52,6 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		if (tenantEmployee.getId() == null || tenantEmployee.getId().trim().length() == 0) {
 			tenantEmployee.setId(idService.selectId());
 		}
-		String password = passwordContext.getInstance(passwordMode).getPassword(tenantEmployee);
-		tenantEmployee.setEmployeePassword(password);
 		this.save(tenantEmployee);
 
 		QueryWrapper<TenantEmployeeRole> wrapperTenantEmployeeRole = new QueryWrapper<TenantEmployeeRole>();
@@ -230,4 +224,27 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		
 		return success;
 	}
+	
+	@Override
+	public boolean updatePassword(String id,String password) {
+		boolean success = false;
+		
+		TenantEmployee tenantEmployeeWhere = TenantEmployee.builder()//
+				.id(id)//
+				.build();
+		UpdateWrapper<TenantEmployee> updateWrapperTenantEmployee = new UpdateWrapper<TenantEmployee>();
+		updateWrapperTenantEmployee.setEntity(tenantEmployeeWhere);
+		updateWrapperTenantEmployee.lambda()//
+				//.eq(TenantEmployee::getId, id)
+				// .set(tenantEmployee.getId() != null, TenantEmployee::getId, tenantEmployee.getId())
+				.set(TenantEmployee::getEmployeePassword, password)
+				;
+
+		super.update(updateWrapperTenantEmployee);
+		
+		success = true;
+		
+		return success;
+	}
+	
 }

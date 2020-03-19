@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
+import com.zlsrj.wms.api.dto.TenantEmployeePasswordUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
@@ -47,10 +48,10 @@ public class TenantEmployeeControllerTest {
 
 	@Test
 	public void createTest() throws Exception {
-		for(int i=0;i<10;i++) {
+		for(int i=0;i<4;i++) {
 			TenantEmployeeAddParam tenantEmployeeAddParam = new TenantEmployeeAddParam();
 			tenantEmployeeAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");
-			tenantEmployeeAddParam.setEmployeeName("批量更新用例"+"-"+TestCaseUtil.name());
+			tenantEmployeeAddParam.setEmployeeName("密码用例"+"-"+TestCaseUtil.name());
 			tenantEmployeeAddParam.setEmployeeDepartmentId("EBC639F193694D868C7679F723E72E30");
 			tenantEmployeeAddParam.setEmployeeLoginOn(1);
 			tenantEmployeeAddParam.setEmployeeStatus(1);
@@ -218,6 +219,38 @@ public class TenantEmployeeControllerTest {
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.post("/tenantEmployee/update/ids/"+StringUtils.join(ids, ","))//
 						.content(JSON.toJSONString(tenantEmployeeBatchUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void updatePassordTest() throws Exception {
+		String id = "77f9c7f8a1304c83871e7f824818bd7c";
+		log.info("id={}",id);
+		
+		TenantEmployeePasswordUpdateParam tenantEmployeePasswordUpdateParam = new TenantEmployeePasswordUpdateParam();
+		tenantEmployeePasswordUpdateParam.setOldPassword("123456");
+		tenantEmployeePasswordUpdateParam.setNewPassword("000000");
+		tenantEmployeePasswordUpdateParam.setConfirmPassword("111111");
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantEmployee/update/password/"+id)//
+						.content(JSON.toJSONString(tenantEmployeePasswordUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void resetPassordTest() throws Exception {
+		String id = "77f9c7f8a1304c83871e7f824818bd7c";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantEmployee/reset/password/"+id)//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();

@@ -17,4 +17,12 @@ public interface ITenantEmployeeService extends IService<TenantEmployee> {
 	 * @return
 	 */
 	boolean updateByIds(String[] ids,TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam);
+	
+	/**
+	 * 更新员工密码
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	boolean updatePassword(String id,String password);
 }

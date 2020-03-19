@@ -25,6 +25,9 @@ public class TenantEmployeeAddParam implements Serializable {
 	@ApiModelProperty(value = "员工名称")
 	private String employeeName;
 	
+	@ApiModelProperty(value = "登录密码",hidden=true)
+	private String employeePassword;
+	
 	@ApiModelProperty(value = "员工所属部门ID")
 	private String employeeDepartmentId;
 	

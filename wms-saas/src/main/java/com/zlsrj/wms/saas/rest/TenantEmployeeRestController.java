@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,12 @@ import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.strategy.password.PasswordContext;
 
+import cn.hutool.crypto.SecureUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +45,12 @@ public class TenantEmployeeRestController {
 	private ITenantEmployeeService tenantEmployeeService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
+	
+	@Autowired
+	private PasswordContext passwordContext;
+
+	@Value("${system.config.password.mode}")
+	private String passwordMode;
 
 	@ApiOperation(value = "根据ID查询租户员工")
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
@@ -123,6 +133,9 @@ public class TenantEmployeeRestController {
 	@ApiOperation(value = "新增租户员工")
 	@RequestMapping(value = "/tenant-employees", method = RequestMethod.POST)
 	public String save(@RequestBody TenantEmployeeAddParam tenantEmployeeAddParam) {
+		TenantEmployee tenantEmployee = TranslateUtil.translate(tenantEmployeeAddParam, TenantEmployee.class);
+		String password = passwordContext.getInstance(passwordMode).getPassword(tenantEmployee);
+		tenantEmployeeAddParam.setEmployeePassword(password);
 		return tenantEmployeeService.save(tenantEmployeeAddParam);
 	}
 
@@ -175,6 +188,21 @@ public class TenantEmployeeRestController {
 			}
 		}
 		return tenantEmployeeVo;
+	}
+	
+	@ApiOperation(value = "更新租户员工密码")
+	@RequestMapping(value = "/tenant-employees/update/password/{id}", method = RequestMethod.PUT)
+	public boolean updatePassword(@PathVariable("id") String id, @RequestBody String plainPassword) {
+		String password = SecureUtil.md5(plainPassword);
+		return  tenantEmployeeService.updatePassword(id,password);
+	}
+	
+	@ApiOperation(value = "重置租户员工密码")
+	@RequestMapping(value = "/tenant-employees/reset/password/{id}", method = RequestMethod.PUT)
+	public boolean resetPassword(@PathVariable("id") String id) {
+		TenantEmployee tenantEmployee = tenantEmployeeService.getById(id);
+		String password = passwordContext.getInstance(passwordMode).getPassword(tenantEmployee);
+		return  tenantEmployeeService.updatePassword(id,password);
 	}
 
 }

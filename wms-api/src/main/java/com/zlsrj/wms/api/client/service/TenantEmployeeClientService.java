@@ -17,6 +17,7 @@ import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
+import cn.hutool.crypto.SecureUtil;
 import io.swagger.annotations.ApiOperation;
 
 @FeignClient(value = "WMS-SAAS", contextId = "TenantEmployee")
@@ -52,5 +53,11 @@ public interface TenantEmployeeClientService {
 	
 	@RequestMapping(value = "/tenant-employees/ids/{ids}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeByIds(@PathVariable("ids") String[] ids);
+	
+	@RequestMapping(value = "/tenant-employees/update/password/{id}", method = RequestMethod.PUT)
+	public boolean updatePassword(@PathVariable("id") String id, @RequestBody String plainPassword);
+	
+	@RequestMapping(value = "/tenant-employees/reset/password/{id}", method = RequestMethod.PUT)
+	public boolean resetPassword(@PathVariable("id") String id);
 }
 

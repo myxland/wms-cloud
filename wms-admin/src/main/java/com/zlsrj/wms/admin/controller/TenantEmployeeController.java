@@ -22,6 +22,7 @@ import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantRoleClientService;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
+import com.zlsrj.wms.api.dto.TenantEmployeePasswordUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
@@ -36,6 +37,7 @@ import com.zlsrj.wms.api.vo.TenantRoleVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
+import cn.hutool.crypto.SecureUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -113,6 +115,41 @@ public class TenantEmployeeController {
 	@ResponseBody
 	public CommonResult<Object> updateById(@PathVariable("ids") String[] ids,@RequestBody TenantEmployeeBatchUpdateParam tenantEmployeeBatchUpdateParam) {
 		boolean success = tenantEmployeeClientService.updateByIds(ids, tenantEmployeeBatchUpdateParam);
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "更新租户员工密码")
+	@RequestMapping(value = "/update/password/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> updatePassword(@PathVariable("id") String id,@RequestBody TenantEmployeePasswordUpdateParam tenantEmployeePasswordUpdateParam) {
+		String oldPassword = tenantEmployeePasswordUpdateParam.getOldPassword();
+		String newPassword = tenantEmployeePasswordUpdateParam.getNewPassword();
+		String confirmPassword = tenantEmployeePasswordUpdateParam.getConfirmPassword();
+		
+		TenantEmployeeVo tenantEmployeeVo = tenantEmployeeClientService.getById(id);
+		if(tenantEmployeeVo!=null) {
+			String employeePasswordDatabase = tenantEmployeeVo.getEmployeePassword();
+			if(employeePasswordDatabase!=null) {
+				if(employeePasswordDatabase.equals(SecureUtil.md5(oldPassword)) == false){
+					return CommonResult.validateFailed("旧密码错误");
+				}
+			}
+		}
+		
+		if(StringUtils.equals(newPassword, confirmPassword) ==false) {
+			return CommonResult.validateFailed("新密码与确认密码不一致");
+		}
+		
+		
+		boolean success = tenantEmployeeClientService.updatePassword(id, newPassword);
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "重置租户员工密码")
+	@RequestMapping(value = "/reset/password/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> resetPassword(@PathVariable("id") String id) {
+		boolean success = tenantEmployeeClientService.resetPassword(id);
 		return CommonResult.success(success);
 	}
 
