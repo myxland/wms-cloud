@@ -184,9 +184,9 @@ public class TenantEmployeeControllerTest {
 	
 	@Test
 	public void getByDepartmentTest() throws Exception {
-		String departmentId = "EBC639F193694D868C7679F723E72E30";
+		String departmentId = "66BED12184674A59BC7319A536F18C2B";
 		String responseString = mockMvc.perform(//
-				MockMvcRequestBuilders.get("/tenantEmployee/department/"+departmentId)//
+				MockMvcRequestBuilders.get("/tenantEmployee/list/department/"+departmentId)//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();

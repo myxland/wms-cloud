@@ -27,6 +27,7 @@ import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeRoleQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleQueryParam;
+import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.vo.TenantDepartmentVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeAndTenantRoleVo;
 import com.zlsrj.wms.api.vo.TenantEmployeeRoleVo;
@@ -36,6 +37,7 @@ import com.zlsrj.wms.api.vo.TenantRoleDataVo;
 import com.zlsrj.wms.api.vo.TenantRoleVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.common.util.TranslateUtil;
 
 import cn.hutool.crypto.SecureUtil;
 import io.swagger.annotations.Api;
@@ -213,6 +215,39 @@ public class TenantEmployeeController {
 		List<TenantEmployeeAndTenantRoleVo> tenantEmployeeAndTenantRoleList = tenantEmployeeVoList.stream()//
 				.map(e -> JSON.parseObject(JSON.toJSONString(e), TenantEmployeeAndTenantRoleVo.class))//
 				.collect(Collectors.toList());
+		
+		for(TenantEmployeeAndTenantRoleVo tenantEmployeeAndTenantRoleVo :tenantEmployeeAndTenantRoleList) {
+			//角色信息
+			List<TenantRoleDataVo> tenantRoleDataVoList = new ArrayList<TenantRoleDataVo>();
+			TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.getById(departmentId);
+			String tenantId = tenantDepartmentVo.getTenantId();
+			
+			TenantRoleQueryParam tenantRoleQueryParam = new TenantRoleQueryParam();
+			tenantRoleQueryParam.setTenantId(tenantId);
+			List<TenantRoleVo> tenantRoleVoList = tenantRoleClientService.list(tenantRoleQueryParam);
+			if(tenantRoleVoList!=null && tenantRoleVoList.size()>0) {
+				for(TenantRoleVo tenantRoleVo:tenantRoleVoList) {
+					TenantEmployeeRoleQueryParam tenantEmployeeRoleQueryParam = new TenantEmployeeRoleQueryParam();
+					tenantEmployeeRoleQueryParam.setTenantId(tenantId);
+					tenantEmployeeRoleQueryParam.setEmployeeId(tenantEmployeeAndTenantRoleVo.getId());
+					Page<TenantEmployeeRoleVo> tenantEmployeeRolePage=tenantEmployeeRoleClientService.page(tenantEmployeeRoleQueryParam, 1, 500, "id", "asc");
+					
+					TenantRoleDataVo tenantRoleDataVo = TranslateUtil.translate(tenantRoleVo, TenantRoleDataVo.class);
+					tenantRoleDataVo.setIssel(0);
+					
+					if(tenantEmployeeRolePage!=null && tenantEmployeeRolePage.getSize()>0) {
+						for(TenantEmployeeRoleVo tenantEmployeeRoleVo:tenantEmployeeRolePage.getRecords()) {
+							if(tenantRoleDataVo.getId().equals(tenantEmployeeRoleVo.getRoleId())) {
+								tenantRoleDataVo.setIssel(1);
+							}
+						}
+					}
+					tenantRoleDataVoList.add(tenantRoleDataVo);
+				}
+			}
+			tenantEmployeeAndTenantRoleVo.setTenantRoleList(tenantRoleDataVoList);
+		}
+		
 		
 		return CommonResult.success(tenantEmployeeAndTenantRoleList);
 	}
