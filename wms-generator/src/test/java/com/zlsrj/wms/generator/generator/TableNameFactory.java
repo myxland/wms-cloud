@@ -64,7 +64,7 @@ public class TableNameFactory {
 				"", //
 				"", //
 				"tenant_business_rules", //
-				"", //
+				"tenant_charge_agency", //
 				"", //
 				"", //
 				"", //
