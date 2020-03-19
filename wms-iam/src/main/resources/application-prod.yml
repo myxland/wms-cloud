@@ -9,3 +9,7 @@ spring:
     url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/guiyuandb
     username: root_top
     password: ENC(DqlW5ueDybAoWWQSoPGwX9Qq1SQfERao)
+  boot:
+    admin:
+      client:
+        url: "http://39.100.108.49:7080"

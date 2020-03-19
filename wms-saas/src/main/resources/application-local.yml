@@ -9,12 +9,3 @@ spring:
     url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/guiyuandb
     username: root_top
     password: ENC(DqlW5ueDybAoWWQSoPGwX9Qq1SQfERao)
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password: redis2019
-  activemq:
-    broker-url: tcp://127.0.0.1:61616
-    user: admin
-    password: admin
