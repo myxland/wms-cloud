@@ -23,6 +23,9 @@ spring:
     admin:
       client:
         url: "http://localhost:7080"
+  cloud: 
+    config: 
+      enabled: false  
 management:
   endpoints:
     web:

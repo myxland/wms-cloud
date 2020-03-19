@@ -48,10 +48,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+		-->
 
 		<!-- actuator -->
 		<dependency>
@@ -84,6 +86,7 @@
 		</dependency>
 
 		<!-- reids -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -92,12 +95,15 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
 		</dependency>
+		-->
 
 		<!-- activemq -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
 		</dependency>
+		-->
 
 		<dependency>
 			<groupId>net.logstash.logback</groupId>

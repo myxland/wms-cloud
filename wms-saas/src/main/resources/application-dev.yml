@@ -9,19 +9,3 @@ spring:
    url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/guiyuandb
    username: root
    password: ENC(DNsJoa9UB5/WCdU2k946tQ==)
-  redis:
-    database: 0
-    host: redis
-    port: 6379
-    password: ENC(DNsJoa9UB5/WCdU2k946tQ==)
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
-    timeout: 10000
-  activemq:
-    broker-url: tcp://192.168.148.215:61616
-    user: admin
-    password: admin

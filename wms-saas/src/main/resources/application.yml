@@ -19,35 +19,13 @@ spring:
     url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/root_top
     username: root
     password: ENC(DqlW5ueDybAoWWQSoPGwX9Qq1SQfERao)
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password: redis2019
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
-    timeout: 10000
   boot:
     admin:
       client:
         url: "http://localhost:7080"
-  activemq:
-    broker-url: tcp://127.0.0.1:61616
-    user: admin
-    password: admin
-  jms:
-    pub-sub-domain: false # false=Queue true=Topic
-    
-mq:
-  mbg: 
-    saas: 
-      rbac: mq-mbg-saas-rbac
-      module: mq-mbg-saas-module
-      
+  cloud: 
+    config: 
+      enabled: false      
 management:
   endpoints:
     web:
