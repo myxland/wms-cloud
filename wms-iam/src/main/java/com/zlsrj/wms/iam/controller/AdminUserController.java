@@ -32,7 +32,7 @@ public class AdminUserController {
 		}
 		AdminUser adminUser = AdminUser.builder()//
 				.id(tenantEmployee.getId())//
-				.username(tenantEmployee.getEmployeeLoginid())//
+				.username(tenantEmployee.getId())//
 				.password(tenantEmployee.getEmployeePassword())//
 				.status(tenantEmployee.getEmployeeStatus())//
 				.icon(null)//

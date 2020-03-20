@@ -31,8 +31,8 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 	public TenantEmployee getByEmpName(String empName) {
 		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
 		queryWrapperTenantEmployee.lambda()//
-				.eq(TenantEmployee::getEmployeeLoginid, empName)//
-				.or()//
+				.eq(TenantEmployee::getId, empName)//
+				.or()
 				.eq(TenantEmployee::getEmployeeEmail, empName)//
 				.or()//
 				.eq(TenantEmployee::getEmployeeMobile, empName)//
