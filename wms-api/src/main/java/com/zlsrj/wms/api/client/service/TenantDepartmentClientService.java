@@ -22,6 +22,9 @@ public interface TenantDepartmentClientService {
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.GET)
 	public TenantDepartmentVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-departments/dictionary/{id}", method = RequestMethod.GET)
+	public TenantDepartmentVo getDictionaryById(@PathVariable("id") String id);
+	
 	@RequestMapping(value = "/tenant-departments/list", method = RequestMethod.GET)
 	public List<TenantDepartmentVo> list(@RequestBody TenantDepartmentQueryParam tenantDepartmentQueryParam);
 	

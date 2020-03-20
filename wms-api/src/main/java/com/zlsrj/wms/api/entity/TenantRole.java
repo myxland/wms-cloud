@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,6 +31,7 @@ public class TenantRole implements Serializable {
 	private static final long serialVersionUID = 1114108415611111574L;
 
 	@ApiModelProperty(value = "工作岗位ID")
+	@DictionaryValue
 	@TableId(value = "id", type = IdType.INPUT)
 	private String id;
 
@@ -37,6 +40,7 @@ public class TenantRole implements Serializable {
 	private String tenantId;
 
 	@ApiModelProperty(value = "工作岗位名称")
+	@DictionaryText
 	@TableField("role_name")
 	private String roleName;
 

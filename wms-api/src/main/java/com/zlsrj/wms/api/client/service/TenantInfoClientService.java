@@ -17,6 +17,9 @@ import com.zlsrj.wms.common.api.CommonResult;
 public interface TenantInfoClientService {
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
 	public TenantInfoVo getById(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/tenant-infos/dictionary/{id}", method = RequestMethod.GET)
+	public TenantInfoVo getDictionaryById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.GET)
 	public Page<TenantInfoVo> page(@RequestBody TenantInfoQueryParam tenantInfoQueryParam,

@@ -1,5 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
@@ -25,4 +27,6 @@ public interface ITenantEmployeeService extends IService<TenantEmployee> {
 	 * @return
 	 */
 	boolean updatePassword(String id,String password);
+	
+	TenantEmployee getDictionaryById(Serializable id);
 }

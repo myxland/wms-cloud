@@ -1,5 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
@@ -17,4 +19,6 @@ public interface ITenantRoleService extends IService<TenantRole> {
 	String save(TenantRoleAddParam tenantRoleAddParam);
 	
 	boolean updateById(TenantRoleUpdateParam tenantRoleUpdateParam);
+	
+	TenantRole getDictionaryById(Serializable id);
 }

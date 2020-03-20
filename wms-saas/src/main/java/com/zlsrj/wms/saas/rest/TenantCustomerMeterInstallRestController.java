@@ -196,7 +196,7 @@ public class TenantCustomerMeterInstallRestController {
 		String jsonString = JSON.toJSONString(tenantCustomerMeterInstall);
 		TenantCustomerMeterInstallVo tenantCustomerMeterInstallVo = JSON.parseObject(jsonString, TenantCustomerMeterInstallVo.class);
 		if (StringUtils.isEmpty(tenantCustomerMeterInstallVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantCustomerMeterInstall.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantCustomerMeterInstall.getTenantId());
 			if (tenantInfo != null) {
 				tenantCustomerMeterInstallVo.setTenantName(tenantInfo.getTenantName());
 			}

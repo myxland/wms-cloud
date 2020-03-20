@@ -181,7 +181,7 @@ public class TenantMeterMarketingAreaRestController {
 		String jsonString = JSON.toJSONString(tenantMeterMarketingArea);
 		TenantMeterMarketingAreaVo tenantMeterMarketingAreaVo = JSON.parseObject(jsonString, TenantMeterMarketingAreaVo.class);
 		if (StringUtils.isEmpty(tenantMeterMarketingAreaVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantMeterMarketingArea.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantMeterMarketingArea.getTenantId());
 			if (tenantInfo != null) {
 				tenantMeterMarketingAreaVo.setTenantName(tenantInfo.getTenantName());
 			}

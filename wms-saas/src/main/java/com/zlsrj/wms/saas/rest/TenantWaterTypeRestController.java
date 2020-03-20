@@ -156,7 +156,7 @@ public class TenantWaterTypeRestController {
 		String jsonString = JSON.toJSONString(tenantWaterType);
 		TenantWaterTypeVo tenantWaterTypeVo = JSON.parseObject(jsonString, TenantWaterTypeVo.class);
 		if (StringUtils.isEmpty(tenantWaterTypeVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantWaterType.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantWaterType.getTenantId());
 			if (tenantInfo != null) {
 				tenantWaterTypeVo.setTenantName(tenantInfo.getTenantName());
 			}

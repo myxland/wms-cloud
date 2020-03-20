@@ -167,7 +167,7 @@ public class ${table.entityName}Controller {
 	private void wrappperVo(${table.entityName}Vo ${table.entityName?uncap_first}Vo) {
 		<#if table.includeTenantId>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(${table.entityName?uncap_first}Vo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(${table.entityName?uncap_first}Vo.getTenantId());
 			if (tenantInfoVo != null) {
 				${table.entityName?uncap_first}Vo.setTenantName(tenantInfoVo.getTenantName());
 			}
@@ -175,7 +175,7 @@ public class ${table.entityName}Controller {
 		</#if>
 		<#if table.includeSysId>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.getSysName())) {
-			SystemDesignVo systemDesignVo = systemDesignClientService.getById(${table.entityName?uncap_first}Vo.getSysId());
+			SystemDesignVo systemDesignVo = systemDesignClientService.getDictionaryById(${table.entityName?uncap_first}Vo.getSysId());
 			if (systemDesignVo != null) {
 				${table.entityName?uncap_first}Vo.setSysName(systemDesignVo.getModuleName());
 			}
@@ -183,7 +183,7 @@ public class ${table.entityName}Controller {
 		</#if>
 		<#if table.includeModuleId>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.getModuleName())) {
-			ModuleInfoVo moduleInfoVo = moduleInfoClientService.getById(${table.entityName?uncap_first}Vo.getModuleId());
+			ModuleInfoVo moduleInfoVo = moduleInfoClientService.getDictionaryById(${table.entityName?uncap_first}Vo.getModuleId());
 			if (moduleInfoVo != null) {
 				${table.entityName?uncap_first}Vo.setModuleName(moduleInfoVo.getModuleName());
 			}

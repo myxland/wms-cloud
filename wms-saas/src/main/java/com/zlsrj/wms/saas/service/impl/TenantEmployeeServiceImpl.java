@@ -1,19 +1,25 @@
 package com.zlsrj.wms.saas.service.impl;
 
+import static java.util.stream.Collectors.toCollection;
+
 import java.io.Serializable;
-import java.lang.reflect.Array;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,11 +30,15 @@ import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantEmployeeRole;
+import com.zlsrj.wms.common.annotation.DictionaryDescription;
+import com.zlsrj.wms.common.annotation.DictionaryOrder;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.saas.mapper.TenantEmployeeMapper;
 import com.zlsrj.wms.saas.mapper.TenantEmployeeRoleMapper;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
-import com.zlsrj.wms.saas.strategy.password.PasswordContext;
+import com.zlsrj.wms.saas.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,8 +48,9 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		implements ITenantEmployeeService {
 	@Resource
 	private IIdService idService;
-
 	
+	@Autowired
+	private RedisService<String, String> redisService;
 
 	@Resource
 	private TenantEmployeeRoleMapper tenantEmployeeRoleMapper;
@@ -86,7 +97,15 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 				.eq(TenantEmployeeRole::getEmployeeId, id);
 		tenantEmployeeRoleMapper.delete(wrapperTenantEmployeeRole);
 		
-        return super.removeById(id);
+		boolean success = super.removeById(id);
+    	if(success) {
+        	try {
+    			redisService.remove(id.toString());
+    		} catch (Exception e) {
+    			log.error("redis error", e);
+    		}
+        }
+    	return success;
     }
 	
 	@Override
@@ -97,7 +116,15 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 				.in(TenantEmployeeRole::getEmployeeId, idList);
 		tenantEmployeeRoleMapper.delete(wrapperTenantEmployeeRole);
 		
-        return super.removeByIds(idList);
+		boolean success = super.removeByIds(idList);
+		if(success) {
+        	try {
+        		idList.forEach(id->redisService.remove(id.toString()));;
+    		} catch (Exception e) {
+    			log.error("redis error", e);
+    		}
+        }
+    	return success;
     }
 	
 	@Override
@@ -107,7 +134,7 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 		String jsonString = JSON.toJSONString(tenantEmployeeUpdateParam);
 		TenantEmployee tenantEmployee = JSON.parseObject(jsonString, TenantEmployee.class);
 		tenantEmployee.setId(id);
-		super.updateById(tenantEmployee);
+		this.updateById(tenantEmployee);
 		
 		QueryWrapper<TenantEmployeeRole> wrapperTenantEmployeeRole = new QueryWrapper<TenantEmployeeRole>();
 		wrapperTenantEmployeeRole.lambda()//
@@ -218,9 +245,15 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 				.set(tenantEmployee.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployee.getEmployeeCreateType())
 				;
 
-		super.update(updateWrapperTenantEmployee);
+		success = super.update(updateWrapperTenantEmployee);
 		
-		success = true;
+		if(success) {
+        	try {
+        		Arrays.asList(ids).forEach(id->redisService.remove(id.toString()));;
+    		} catch (Exception e) {
+    			log.error("redis error", e);
+    		}
+        }
 		
 		return success;
 	}
@@ -240,11 +273,79 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 				.set(TenantEmployee::getEmployeePassword, password)
 				;
 
-		super.update(updateWrapperTenantEmployee);
+		this.update(updateWrapperTenantEmployee);
 		
 		success = true;
 		
 		return success;
 	}
+	
+	@Override
+	public TenantEmployee getDictionaryById(Serializable id) {
+		try {
+			String entityJSONString = redisService.getValue(id.toString());
+			if (StringUtils.isNotBlank(entityJSONString)) {
+				TenantEmployee entity = JSONObject.parseObject(entityJSONString, TenantEmployee.class);
+				return entity;
+			}
+		} catch (Exception e) {
+			log.error("redis error", e);
+		}
+		
+		List<String> fieldList = Stream.of(TenantEmployee.class.getDeclaredFields())
+                /* 过滤静态属性 */
+                .filter(field -> !Modifier.isStatic(field.getModifiers()))
+                /* 过滤 transient关键字修饰的属性 */
+                .filter(field -> !Modifier.isTransient(field.getModifiers()))
+                .filter(
+                		field -> field.isAnnotationPresent(DictionaryValue.class)//
+						|| field.isAnnotationPresent(DictionaryText.class)//
+						|| field.isAnnotationPresent(DictionaryOrder.class)//
+						|| field.isAnnotationPresent(DictionaryDescription.class)//
+                		)
+                .map(e->e.getName())
+                .collect(toCollection(LinkedList::new));
+
+		QueryWrapper<TenantEmployee> queryWrapper = new QueryWrapper<>();
+		queryWrapper//
+				.lambda()//
+				.select(TenantEmployee.class,//
+						e -> fieldList.contains(e.getProperty()))//
+				.eq(TenantEmployee::getId, id);
+		TenantEmployee entity = this.getOne(queryWrapper);
+		// TenantEmployee entity = this.getById(id);
+
+		redisService.setValue(entity.getId(), JSON.toJSONString(entity));
+
+		return entity;
+	}
+	
+	@Override
+    public boolean updateById(TenantEmployee entity) {
+        boolean success = super.updateById(entity);
+        if(success) {
+        	try {
+    			redisService.remove(entity.getId());
+    		} catch (Exception e) {
+    			log.error("redis error", e);
+    		}
+        }
+        
+        return success;
+    }
+
+    @Override
+    public boolean update(Wrapper<TenantEmployee> updateWrapper) {
+    	boolean success =  super.update(updateWrapper);
+    	if(success) {
+        	try {
+        		TenantEmployee entity = updateWrapper.getEntity();
+    			redisService.remove(entity.getId());
+    		} catch (Exception e) {
+    			log.error("redis error", e);
+    		}
+        }
+    	return success;
+    }
 	
 }

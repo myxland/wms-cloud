@@ -180,7 +180,7 @@ public class TenantConfigSmsRestController {
 		String jsonString = JSON.toJSONString(tenantConfigSms);
 		TenantConfigSmsVo tenantConfigSmsVo = JSON.parseObject(jsonString, TenantConfigSmsVo.class);
 		if (StringUtils.isEmpty(tenantConfigSmsVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantConfigSms.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantConfigSms.getTenantId());
 			if (tenantInfo != null) {
 				tenantConfigSmsVo.setTenantName(tenantInfo.getTenantName());
 			}

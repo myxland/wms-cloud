@@ -52,6 +52,14 @@ public class TenantRoleRestController {
 		return entity2vo(tenantRole);
 	}
 	
+	@ApiOperation(value = "根据ID查询角色字典信息")
+	@RequestMapping(value = "/tenant-roles/dictionary/{id}", method = RequestMethod.GET)
+	public TenantRoleVo getDictionaryById(@PathVariable("id") String id) {
+		TenantRole tenantRole = tenantRoleService.getDictionaryById(id);
+
+		return entity2vo(tenantRole);
+	}
+	
 	@ApiOperation(value = "根据参数查询角色信息列表")
 	@RequestMapping(value = "/tenant-roles/list", method = RequestMethod.GET)
 	public List<TenantRoleVo> list(@RequestBody TenantRoleQueryParam tenantRoleQueryParam) {
@@ -157,7 +165,7 @@ public class TenantRoleRestController {
 		String jsonString = JSON.toJSONString(tenantRole);
 		TenantRoleVo tenantRoleVo = JSON.parseObject(jsonString, TenantRoleVo.class);
 		if (StringUtils.isEmpty(tenantRoleVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantRole.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantRole.getTenantId());
 			if (tenantInfo != null) {
 				tenantRoleVo.setTenantName(tenantInfo.getTenantName());
 			}

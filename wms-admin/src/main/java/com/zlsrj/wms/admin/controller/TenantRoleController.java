@@ -175,7 +175,7 @@ public class TenantRoleController {
 
 	private void wrappperVo(TenantRoleVo tenantRoleVo) {
 		if (StringUtils.isEmpty(tenantRoleVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantRoleVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantRoleVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantRoleVo.setTenantName(tenantInfoVo.getTenantName());
 			}

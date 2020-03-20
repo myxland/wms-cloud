@@ -84,7 +84,7 @@ public class TenantBusinessRulesController {
 
 	private void wrappperVo(TenantBusinessRulesVo tenantBusinessRulesVo) {
 		if (StringUtils.isEmpty(tenantBusinessRulesVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantBusinessRulesVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantBusinessRulesVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantBusinessRulesVo.setTenantName(tenantInfoVo.getTenantName());
 			}

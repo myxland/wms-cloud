@@ -172,7 +172,7 @@ public class TenantPaymentDetailRestController {
 		String jsonString = JSON.toJSONString(tenantPaymentDetail);
 		TenantPaymentDetailVo tenantPaymentDetailVo = JSON.parseObject(jsonString, TenantPaymentDetailVo.class);
 		if (StringUtils.isEmpty(tenantPaymentDetailVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantPaymentDetail.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantPaymentDetail.getTenantId());
 			if (tenantInfo != null) {
 				tenantPaymentDetailVo.setTenantName(tenantInfo.getTenantName());
 			}

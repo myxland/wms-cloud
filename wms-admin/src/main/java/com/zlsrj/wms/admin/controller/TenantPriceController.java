@@ -125,7 +125,7 @@ public class TenantPriceController {
 
 	private void wrappperVo(TenantPriceVo tenantPriceVo) {
 		if (StringUtils.isEmpty(tenantPriceVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantPriceVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantPriceVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantPriceVo.setTenantName(tenantInfoVo.getTenantName());
 			}

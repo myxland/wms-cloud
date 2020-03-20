@@ -1,7 +1,10 @@
 package com.zlsrj.wms.saas.service;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,8 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
+import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.common.annotation.DictionaryDescription;
+import com.zlsrj.wms.common.annotation.DictionaryOrder;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +38,12 @@ public class ITenantInfoServiceTest {
 
 	@Test
 	public void insertTest() {
-		for(int i=0;i<RandomUtil.randomInt(10,100+1);i++) {
+		for(int i=0;i<5;i++) {
 			String companyShortName = TestCaseUtil.companyShortName();
 
 			TenantInfo tenantInfo = TenantInfo.builder()//
 					.id(TestCaseUtil.id())// 租户ID
-					.tenantName(TestCaseUtil.companyName(companyShortName))// 租户名称
+					.tenantName("租户名称"+"-"+"Redis用例"+"-"+i+"-"+RandomUtil.randomNumbers(4))// 租户名称
 					.tenantBalance(new BigDecimal(0))// 账户余额
 					.tenantOverdraw(new BigDecimal(0))// 透支额度
 					.tenantDisplayName(companyShortName)// 租户显示名称
@@ -106,5 +117,69 @@ public class ITenantInfoServiceTest {
 		boolean success = tenantInfoService.updateById(tenantInfo);
 
 		log.info(Boolean.toString(success));
+	}
+	
+	@Test
+	public void dictionaryTest() {
+		//List<Field> fieldList = ReflectionKit.getFieldList(ClassUtils.getUserClass(TenantInfo.class));
+		
+		Map<String, Field> fieldMap = ReflectionKit.getFieldMap(ClassUtils.getUserClass(TenantInfo.class));
+		
+		//boolean isExistDictionaryValue = fieldList.stream().anyMatch(field -> field.isAnnotationPresent(DictionaryValue.class));
+		//log.info("isExistDictionaryValue={}",isExistDictionaryValue);
+		
+//		Optional<Field> dictionaryValueField = fieldList.stream()//
+//				.filter(field -> field.isAnnotationPresent(DictionaryValue.class)).findFirst();
+//		
+//		dictionaryValueField.get().getName()
+		
+		QueryWrapper<TenantInfo> queryWrapper = new QueryWrapper<TenantInfo>();
+		queryWrapper//
+				.lambda()//
+				.select(//
+						TenantInfo.class, e //
+						-> //
+						fieldMap.get(e.getProperty()).isAnnotationPresent(DictionaryValue.class)//
+								|| fieldMap.get(e.getProperty()).isAnnotationPresent(DictionaryText.class)//
+								|| fieldMap.get(e.getProperty()).isAnnotationPresent(DictionaryOrder.class)//
+								|| fieldMap.get(e.getProperty()).isAnnotationPresent(DictionaryDescription.class)//
+				);
+		
+		List<TenantInfo> tenantInfoList = tenantInfoService.list(queryWrapper);
+		
+		tenantInfoList.forEach(e -> {
+			//log.info(e.toString());
+			log.info(ToStringBuilder.reflectionToString(e, ToStringStyle.MULTI_LINE_STYLE));
+		});
+		
+	}
+	
+	@Test
+	public void getDictionaryById() {
+		String id = "cbdc7fc0a26b4027b8d7f3016de4b0e1";
+		log.info("id={}",id);
+		TenantInfo tenantInfo = this.tenantInfoService.getDictionaryById(id);
+		log.info(ToStringBuilder.reflectionToString(tenantInfo, ToStringStyle.MULTI_LINE_STYLE));
+	}
+	
+	@Test
+	public void updateRedisTest() {
+		String id = "cbdc7fc0a26b4027b8d7f3016de4b0e1";
+		log.info("id={}", id);
+		TenantInfo entityWhere = TenantInfo.builder()//
+				.id(id)//
+				.build();
+		UpdateWrapper<TenantInfo> updateWrapper = new UpdateWrapper<TenantInfo>();
+		updateWrapper.setEntity(entityWhere);
+		updateWrapper.lambda()//
+				.set(TenantInfo::getTenantName, "租户名称" + "-" + "更新测试" + "-" + RandomUtil.randomNumbers(4));
+		this.tenantInfoService.update(updateWrapper);
+	}
+
+	@Test
+	public void deleteRedisTest() {
+		String id = "cbdc7fc0a26b4027b8d7f3016de4b0e1";
+		log.info("id={}", id);
+		this.tenantInfoService.removeById(id);
 	}
 }

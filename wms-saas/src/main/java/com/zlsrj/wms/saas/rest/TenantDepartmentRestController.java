@@ -26,7 +26,6 @@ import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantDepartmentVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantDepartmentService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 
@@ -43,13 +42,19 @@ public class TenantDepartmentRestController {
 	private ITenantDepartmentService tenantDepartmentService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户部门")
 	@RequestMapping(value = "/tenant-departments/{id}", method = RequestMethod.GET)
 	public TenantDepartmentVo getById(@PathVariable("id") String id) {
 		TenantDepartment tenantDepartment = tenantDepartmentService.getById(id);
+
+		return entity2vo(tenantDepartment);
+	}
+	
+	@ApiOperation(value = "根据ID查询租户部门")
+	@RequestMapping(value = "/tenant-departments/dictionary/{id}", method = RequestMethod.GET)
+	public TenantDepartmentVo getDictionaryById(@PathVariable("id") String id) {
+		TenantDepartment tenantDepartment = tenantDepartmentService.getDictionaryById(id);
 
 		return entity2vo(tenantDepartment);
 	}
@@ -164,7 +169,7 @@ public class TenantDepartmentRestController {
 		String jsonString = JSON.toJSONString(tenantDepartment);
 		TenantDepartmentVo tenantDepartmentVo = JSON.parseObject(jsonString, TenantDepartmentVo.class);
 		if (StringUtils.isEmpty(tenantDepartmentVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantDepartment.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantDepartment.getTenantId());
 			if (tenantInfo != null) {
 				tenantDepartmentVo.setTenantName(tenantInfo.getTenantName());
 			}

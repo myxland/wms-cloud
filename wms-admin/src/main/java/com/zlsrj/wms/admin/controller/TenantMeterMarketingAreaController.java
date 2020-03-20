@@ -84,7 +84,7 @@ public class TenantMeterMarketingAreaController {
 
 	private void wrappperVo(TenantMeterMarketingAreaVo tenantMeterMarketingAreaVo) {
 		if (StringUtils.isEmpty(tenantMeterMarketingAreaVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantMeterMarketingAreaVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantMeterMarketingAreaVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantMeterMarketingAreaVo.setTenantName(tenantInfoVo.getTenantName());
 			}

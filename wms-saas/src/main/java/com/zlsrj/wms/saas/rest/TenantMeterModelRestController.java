@@ -172,7 +172,7 @@ public class TenantMeterModelRestController {
 		String jsonString = JSON.toJSONString(tenantMeterModel);
 		TenantMeterModelVo tenantMeterModelVo = JSON.parseObject(jsonString, TenantMeterModelVo.class);
 		if (StringUtils.isEmpty(tenantMeterModelVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantMeterModel.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantMeterModel.getTenantId());
 			if (tenantInfo != null) {
 				tenantMeterModelVo.setTenantName(tenantInfo.getTenantName());
 			}

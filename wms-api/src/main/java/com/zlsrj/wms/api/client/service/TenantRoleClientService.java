@@ -21,6 +21,9 @@ import com.zlsrj.wms.common.api.CommonResult;
 public interface TenantRoleClientService {
 	@RequestMapping(value = "/tenant-roles/{id}", method = RequestMethod.GET)
 	public TenantRoleVo getById(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/tenant-roles/dictionary/{id}", method = RequestMethod.GET)
+	public TenantRoleVo getDictionaryById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-roles", method = RequestMethod.GET)
 	public Page<TenantRoleVo> page(@RequestBody TenantRoleQueryParam tenantRoleQueryParam,

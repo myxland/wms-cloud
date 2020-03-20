@@ -172,7 +172,7 @@ public class TenantBusinessRulesRestController {
 		String jsonString = JSON.toJSONString(tenantBusinessRules);
 		TenantBusinessRulesVo tenantBusinessRulesVo = JSON.parseObject(jsonString, TenantBusinessRulesVo.class);
 		if (StringUtils.isEmpty(tenantBusinessRulesVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantBusinessRules.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantBusinessRules.getTenantId());
 			if (tenantInfo != null) {
 				tenantBusinessRulesVo.setTenantName(tenantInfo.getTenantName());
 			}

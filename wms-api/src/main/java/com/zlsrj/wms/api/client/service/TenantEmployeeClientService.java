@@ -17,13 +17,13 @@ import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
-import cn.hutool.crypto.SecureUtil;
-import io.swagger.annotations.ApiOperation;
-
 @FeignClient(value = "WMS-SAAS", contextId = "TenantEmployee")
 public interface TenantEmployeeClientService {
 	@RequestMapping(value = "/tenant-employees/{id}", method = RequestMethod.GET)
 	public TenantEmployeeVo getById(@PathVariable("id") String id);
+	
+	@RequestMapping(value = "/tenant-employees/dictionary/{id}", method = RequestMethod.GET)
+	public TenantEmployeeVo getDictionaryById(@PathVariable("id") String id);
 
 	@RequestMapping(value = "/tenant-employees/list", method = RequestMethod.GET)
 	public List<TenantEmployeeVo> list(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam);

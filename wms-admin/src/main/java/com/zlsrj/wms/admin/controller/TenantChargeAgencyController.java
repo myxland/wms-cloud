@@ -84,7 +84,7 @@ public class TenantChargeAgencyController {
 
 	private void wrappperVo(TenantChargeAgencyVo tenantChargeAgencyVo) {
 		if (StringUtils.isEmpty(tenantChargeAgencyVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantChargeAgencyVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantChargeAgencyVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantChargeAgencyVo.setTenantName(tenantInfoVo.getTenantName());
 			}

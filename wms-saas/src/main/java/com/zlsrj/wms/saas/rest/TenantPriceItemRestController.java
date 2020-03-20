@@ -202,7 +202,7 @@ public class TenantPriceItemRestController {
 		String jsonString = JSON.toJSONString(tenantPriceItem);
 		TenantPriceItemVo tenantPriceItemVo = JSON.parseObject(jsonString, TenantPriceItemVo.class);
 		if (StringUtils.isEmpty(tenantPriceItemVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantPriceItem.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantPriceItem.getTenantId());
 			if (tenantInfo != null) {
 				tenantPriceItemVo.setTenantName(tenantInfo.getTenantName());
 			}

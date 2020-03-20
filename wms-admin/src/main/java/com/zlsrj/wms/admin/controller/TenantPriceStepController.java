@@ -84,7 +84,7 @@ public class TenantPriceStepController {
 
 	private void wrappperVo(TenantPriceStepVo tenantPriceStepVo) {
 		if (StringUtils.isEmpty(tenantPriceStepVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantPriceStepVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantPriceStepVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantPriceStepVo.setTenantName(tenantInfoVo.getTenantName());
 			}

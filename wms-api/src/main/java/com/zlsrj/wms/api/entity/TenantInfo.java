@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zlsrj.wms.common.annotation.DictionaryEntity;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,16 +28,19 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Builder
 @TableName("tenant_info")
+@DictionaryEntity
 @ApiModel(value = "TenantInfo对象", description = "租户表")
 public class TenantInfo implements Serializable {
 
 	private static final long serialVersionUID = 1483810642213014113L;
 
 	@ApiModelProperty(value = "租户ID")
+	@DictionaryValue
 	@TableId(value = "id", type = IdType.INPUT)
 	private String id;
 
 	@ApiModelProperty(value = "租户名称")
+	@DictionaryText
 	@TableField("tenant_name")
 	private String tenantName;
 
@@ -132,9 +138,9 @@ public class TenantInfo implements Serializable {
 
 	@ApiModelProperty(value = "部门结构")
 	@TableField(exist = false)
-	private int departmentStructure;
+	private Integer departmentStructure;
 	
 	@ApiModelProperty(value = "阶梯水价")
 	@TableField(exist = false)
-	private int priceStepOn;
+	private Integer priceStepOn;
 }

@@ -84,7 +84,7 @@ public class TenantPriceRuleController {
 
 	private void wrappperVo(TenantPriceRuleVo tenantPriceRuleVo) {
 		if (StringUtils.isEmpty(tenantPriceRuleVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantPriceRuleVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantPriceRuleVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantPriceRuleVo.setTenantName(tenantInfoVo.getTenantName());
 			}

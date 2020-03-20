@@ -9,6 +9,18 @@ spring:
     url: jdbc:p6spy:mysql://rm-uf6k42ke05jq7358so.mysql.rds.aliyuncs.com:3306/guiyuandb
     username: root_top
     password: ENC(DqlW5ueDybAoWWQSoPGwX9Qq1SQfERao)
+  redis:
+    database: 0
+    host: 172.26.2.97
+    port: 6379
+    password: ENC(SPym8Q9KkAafCAEkjLA2I/i666yIsGJo)
+    jedis:
+      pool:
+        max-active: 64
+        max-wait: -1
+        max-idle: 32
+        min-idle: 0
+    timeout: 10000
   boot:
     admin:
       client:

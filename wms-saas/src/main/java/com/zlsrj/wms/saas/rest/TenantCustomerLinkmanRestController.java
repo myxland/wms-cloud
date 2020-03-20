@@ -176,7 +176,7 @@ public class TenantCustomerLinkmanRestController {
 		String jsonString = JSON.toJSONString(tenantCustomerLinkman);
 		TenantCustomerLinkmanVo tenantCustomerLinkmanVo = JSON.parseObject(jsonString, TenantCustomerLinkmanVo.class);
 		if (StringUtils.isEmpty(tenantCustomerLinkmanVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantCustomerLinkman.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantCustomerLinkman.getTenantId());
 			if (tenantInfo != null) {
 				tenantCustomerLinkmanVo.setTenantName(tenantInfo.getTenantName());
 			}

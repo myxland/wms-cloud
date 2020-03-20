@@ -152,7 +152,7 @@ public class TenantManufactorRestController {
 		String jsonString = JSON.toJSONString(tenantManufactor);
 		TenantManufactorVo tenantManufactorVo = JSON.parseObject(jsonString, TenantManufactorVo.class);
 		if (StringUtils.isEmpty(tenantManufactorVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantManufactor.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantManufactor.getTenantId());
 			if (tenantInfo != null) {
 				tenantManufactorVo.setTenantName(tenantInfo.getTenantName());
 			}

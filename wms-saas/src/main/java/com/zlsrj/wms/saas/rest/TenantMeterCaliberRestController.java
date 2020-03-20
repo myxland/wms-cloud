@@ -172,7 +172,7 @@ public class TenantMeterCaliberRestController {
 		String jsonString = JSON.toJSONString(tenantMeterCaliber);
 		TenantMeterCaliberVo tenantMeterCaliberVo = JSON.parseObject(jsonString, TenantMeterCaliberVo.class);
 		if (StringUtils.isEmpty(tenantMeterCaliberVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantMeterCaliber.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantMeterCaliber.getTenantId());
 			if (tenantInfo != null) {
 				tenantMeterCaliberVo.setTenantName(tenantInfo.getTenantName());
 			}

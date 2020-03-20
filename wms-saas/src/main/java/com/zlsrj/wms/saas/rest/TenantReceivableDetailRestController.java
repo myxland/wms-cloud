@@ -164,7 +164,7 @@ public class TenantReceivableDetailRestController {
 		String jsonString = JSON.toJSONString(tenantReceivableDetail);
 		TenantReceivableDetailVo tenantReceivableDetailVo = JSON.parseObject(jsonString, TenantReceivableDetailVo.class);
 		if (StringUtils.isEmpty(tenantReceivableDetailVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantReceivableDetail.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantReceivableDetail.getTenantId());
 			if (tenantInfo != null) {
 				tenantReceivableDetailVo.setTenantName(tenantInfo.getTenantName());
 			}

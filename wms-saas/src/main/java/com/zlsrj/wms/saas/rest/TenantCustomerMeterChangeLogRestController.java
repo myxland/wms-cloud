@@ -238,7 +238,7 @@ public class TenantCustomerMeterChangeLogRestController {
 		String jsonString = JSON.toJSONString(tenantCustomerMeterChangeLog);
 		TenantCustomerMeterChangeLogVo tenantCustomerMeterChangeLogVo = JSON.parseObject(jsonString, TenantCustomerMeterChangeLogVo.class);
 		if (StringUtils.isEmpty(tenantCustomerMeterChangeLogVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantCustomerMeterChangeLog.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantCustomerMeterChangeLog.getTenantId());
 			if (tenantInfo != null) {
 				tenantCustomerMeterChangeLogVo.setTenantName(tenantInfo.getTenantName());
 			}

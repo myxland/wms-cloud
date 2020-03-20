@@ -226,7 +226,7 @@ public class TenantConfigWxRestController {
 		String jsonString = JSON.toJSONString(tenantConfigWx);
 		TenantConfigWxVo tenantConfigWxVo = JSON.parseObject(jsonString, TenantConfigWxVo.class);
 		if (StringUtils.isEmpty(tenantConfigWxVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantConfigWx.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantConfigWx.getTenantId());
 			if (tenantInfo != null) {
 				tenantConfigWxVo.setTenantName(tenantInfo.getTenantName());
 			}

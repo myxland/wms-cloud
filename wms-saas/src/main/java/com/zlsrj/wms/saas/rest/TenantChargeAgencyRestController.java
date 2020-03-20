@@ -178,7 +178,7 @@ public class TenantChargeAgencyRestController {
 		String jsonString = JSON.toJSONString(tenantChargeAgency);
 		TenantChargeAgencyVo tenantChargeAgencyVo = JSON.parseObject(jsonString, TenantChargeAgencyVo.class);
 		if (StringUtils.isEmpty(tenantChargeAgencyVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantChargeAgency.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantChargeAgency.getTenantId());
 			if (tenantInfo != null) {
 				tenantChargeAgencyVo.setTenantName(tenantInfo.getTenantName());
 			}

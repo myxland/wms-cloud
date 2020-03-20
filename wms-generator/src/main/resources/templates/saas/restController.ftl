@@ -258,7 +258,7 @@ public class ${table.entityName}RestController {
 		<#list table.columnList as column>
 		<#if column.columnName?ends_with("sys_id")>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.get${column.propertyName?cap_first?replace("SysId","ModuleName")}())) {
-			SystemDesign systemDesign = systemDesignService.getById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
+			SystemDesign systemDesign = systemDesignService.getDictionaryById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
 			if (systemDesign != null) {
 				${table.entityName?uncap_first}Vo.set${column.propertyName?cap_first?replace("SysId","ModuleName")}(systemDesign.getModuleName());
 			}
@@ -270,7 +270,7 @@ public class ${table.entityName}RestController {
 		<#list table.columnList as column>
 		<#if column.columnName?ends_with("tenant_id")>
 		if (StringUtils.isEmpty(${table.entityName?uncap_first}Vo.get${column.propertyName?replace("Id","Name")?cap_first}())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(${table.entityName?uncap_first}.get${column.propertyName?cap_first}());
 			if (tenantInfo != null) {
 				${table.entityName?uncap_first}Vo.set${column.propertyName?replace("Id","Name")?cap_first}(tenantInfo.getTenantName());
 			}

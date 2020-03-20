@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -45,6 +44,14 @@ public class TenantInfoRestController {
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
 	public TenantInfoVo getById(@PathVariable("id") String id) {
 		TenantInfo tenantInfo = tenantInfoService.getById(id);
+
+		return entity2vo(tenantInfo);
+	}
+	
+	@ApiOperation(value = "根据ID查询租户表")
+	@RequestMapping(value = "/tenant-infos/dictionary/{id}", method = RequestMethod.GET)
+	public TenantInfoVo getDictionaryById(@PathVariable("id") String id) {
+		TenantInfo tenantInfo = tenantInfoService.getDictionaryById(id);
 
 		return entity2vo(tenantInfo);
 	}

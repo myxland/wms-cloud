@@ -164,7 +164,7 @@ public class TenantConsumptionBillRestController {
 		String jsonString = JSON.toJSONString(tenantConsumptionBill);
 		TenantConsumptionBillVo tenantConsumptionBillVo = JSON.parseObject(jsonString, TenantConsumptionBillVo.class);
 		if (StringUtils.isEmpty(tenantConsumptionBillVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantConsumptionBill.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantConsumptionBill.getTenantId());
 			if (tenantInfo != null) {
 				tenantConsumptionBillVo.setTenantName(tenantInfo.getTenantName());
 			}

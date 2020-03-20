@@ -176,7 +176,7 @@ public class TenantBookletRestController {
 		String jsonString = JSON.toJSONString(tenantBooklet);
 		TenantBookletVo tenantBookletVo = JSON.parseObject(jsonString, TenantBookletVo.class);
 		if (StringUtils.isEmpty(tenantBookletVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantBooklet.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantBooklet.getTenantId());
 			if (tenantInfo != null) {
 				tenantBookletVo.setTenantName(tenantInfo.getTenantName());
 			}

@@ -2,10 +2,11 @@ package com.zlsrj.wms.api.entity;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,6 +30,7 @@ public class TenantDepartment implements Serializable {
 	private static final long serialVersionUID = 1110411514104661089L;
 
 	@ApiModelProperty(value = "部门ID")
+	@DictionaryValue
 	@TableId(value = "id")
 	private String id;
 
@@ -37,6 +39,7 @@ public class TenantDepartment implements Serializable {
 	private String tenantId;
 
 	@ApiModelProperty(value = "部门名称")
+	@DictionaryText
 	@TableField("department_name")
 	private String departmentName;
 

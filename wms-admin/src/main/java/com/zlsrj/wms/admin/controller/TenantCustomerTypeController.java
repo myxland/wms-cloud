@@ -84,7 +84,7 @@ public class TenantCustomerTypeController {
 
 	private void wrappperVo(TenantCustomerTypeVo tenantCustomerTypeVo) {
 		if (StringUtils.isEmpty(tenantCustomerTypeVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantCustomerTypeVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantCustomerTypeVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantCustomerTypeVo.setTenantName(tenantInfoVo.getTenantName());
 			}

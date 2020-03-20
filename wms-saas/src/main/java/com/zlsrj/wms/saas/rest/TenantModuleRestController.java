@@ -175,7 +175,7 @@ public class TenantModuleRestController {
 		String jsonString = JSON.toJSONString(tenantModule);
 		TenantModuleVo tenantModuleVo = JSON.parseObject(jsonString, TenantModuleVo.class);
 		if (StringUtils.isEmpty(tenantModuleVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantModule.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantModule.getTenantId());
 			if (tenantInfo != null) {
 				tenantModuleVo.setTenantName(tenantInfo.getTenantName());
 			}

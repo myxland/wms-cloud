@@ -120,7 +120,7 @@ public class TenantDepartmentController {
 
 	private void wrappperVo(TenantDepartmentVo tenantDepartmentVo) {
 		if (StringUtils.isEmpty(tenantDepartmentVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantDepartmentVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantDepartmentVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantDepartmentVo.setTenantName(tenantInfoVo.getTenantName());
 			}

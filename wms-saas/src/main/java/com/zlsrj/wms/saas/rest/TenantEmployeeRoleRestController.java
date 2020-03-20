@@ -152,7 +152,7 @@ public class TenantEmployeeRoleRestController {
 		String jsonString = JSON.toJSONString(tenantEmployeeRole);
 		TenantEmployeeRoleVo tenantEmployeeRoleVo = JSON.parseObject(jsonString, TenantEmployeeRoleVo.class);
 		if (StringUtils.isEmpty(tenantEmployeeRoleVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantEmployeeRole.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantEmployeeRole.getTenantId());
 			if (tenantInfo != null) {
 				tenantEmployeeRoleVo.setTenantName(tenantInfo.getTenantName());
 			}

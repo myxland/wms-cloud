@@ -194,7 +194,7 @@ public class TenantCustomerRestController {
 		String jsonString = JSON.toJSONString(tenantCustomer);
 		TenantCustomerVo tenantCustomerVo = JSON.parseObject(jsonString, TenantCustomerVo.class);
 		if (StringUtils.isEmpty(tenantCustomerVo.getTenantName())) {
-			TenantInfo tenantInfo = tenantInfoService.getById(tenantCustomer.getTenantId());
+			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantCustomer.getTenantId());
 			if (tenantInfo != null) {
 				tenantCustomerVo.setTenantName(tenantInfo.getTenantName());
 			}

@@ -267,7 +267,7 @@ public class TenantEmployeeController {
 
 	private void wrappperVo(TenantEmployeeVo tenantEmployeeVo) {
 		if (StringUtils.isEmpty(tenantEmployeeVo.getTenantName())) {
-			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(tenantEmployeeVo.getTenantId());
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getDictionaryById(tenantEmployeeVo.getTenantId());
 			if (tenantInfoVo != null) {
 				tenantEmployeeVo.setTenantName(tenantInfoVo.getTenantName());
 			}
