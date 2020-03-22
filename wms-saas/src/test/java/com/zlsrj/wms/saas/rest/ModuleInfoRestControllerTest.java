@@ -96,7 +96,6 @@ public class ModuleInfoRestControllerTest {
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
 				.moduleOn(RandomUtil.randomInt(0,1+1))// 服务发布状态（1：发布 ；0：未发布）
-				.moduleAppid(RandomUtil.randomString(4))// 应用APPID
 				.build();
 
 		String responseString = mockMvc
@@ -125,7 +124,6 @@ public class ModuleInfoRestControllerTest {
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
 				.moduleOn(RandomUtil.randomInt(0,1+1))// 服务发布状态（1：发布 ；0：未发布）
-				.moduleAppid(RandomUtil.randomString(4))// 应用APPID
 				.build();
 
 		String responseString = mockMvc

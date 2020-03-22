@@ -47,8 +47,5 @@ public class ModuleInfoQueryParam implements Serializable {
 	@ApiModelProperty(value = "服务发布状态（1：发布 ；0：未发布）")
 	private Integer moduleOn;
 
-	@ApiModelProperty(value = "应用APPID")
-	private String moduleAppid;
-
 }
 

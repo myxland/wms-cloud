@@ -106,3 +106,5 @@ mq-config:
       - TenantRoleTag
       - TenantEmployeeTag
       - TenantEmployeeRoleTag  
+      - TenantModuleTag
+      - TenantRoleMenuTag
