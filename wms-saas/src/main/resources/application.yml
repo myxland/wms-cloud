@@ -92,12 +92,17 @@ rocketmq:
     isOnOff: on
     groupName: ${spring.application.name} # 官方建议：确保同一组中的每个消费者订阅相同的主题。
     namesrvAddr: 192.168.80.132:9876  # 服务地址
-    topics: wms-saas-topic~*; # 接收该 Topic 下所有 Tag
+#    topics: TenantInfoTopic~*; # 接收该 Topic 下所有 Tag
     consumeThreadMin: 20
     consumeThreadMax: 64
     consumeMessageBatchMaxSize: 1  # 设置一次消费消息的条数，默认为1条
 
-# 配置 Group  Topic  Tag
-wms-saas:
-  wms-saas-topic: wms-saas-topic
-  tenant-info-tag: tenant-info-tag   
+# 配置 Group Topic Tag
+mq-config:
+  tenant-info: 
+    topic: TenantInfoTopic
+    tags: 
+      - TenantDepartmentTag
+      - TenantRoleTag
+      - TenantEmployeeTag
+      - TenantEmployeeRoleTag  

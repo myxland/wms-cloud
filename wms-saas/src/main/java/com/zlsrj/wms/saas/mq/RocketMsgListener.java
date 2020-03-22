@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
@@ -29,13 +28,13 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class RocketMsgListener implements MessageListenerOrderly {
-    @Resource
-    private ParamConfigService paramConfigService ;
     
     @Resource
     private TenantInsertContext tenantInsertContext;
     
-    
+    @Resource
+    private MqConfig mqConfig;
+	
 	@Override
 	public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext context) {
 		if (CollectionUtils.isEmpty(list)) {
@@ -56,14 +55,6 @@ public class RocketMsgListener implements MessageListenerOrderly {
             return ConsumeOrderlyStatus.SUCCESS;
         }
         
-        String topic = "TenantInfoTopic";
-//		String[] tags = new String[] { //
-//				"TenantDepartmentTag", //
-//				"TenantRoleTag", //
-//				"TenantEmployeeTag", //
-//				"TenantEmployeeRoleTag", //
-//		};
-		
 		Map<String, TenantInsertStrategy> map = tenantInsertContext.getStrategyMap();
 		//map.keySet().forEach(log::info);
 		
@@ -73,11 +64,10 @@ public class RocketMsgListener implements MessageListenerOrderly {
 		
 		
         
-        if(messageExt.getTopic().equals(topic)){
+        if(messageExt.getTopic().equals(mqConfig.getTopic())){
             String tag = messageExt.getTags() ;
             
             try {
-                log.info("TenantDepartmentTag == >>"+tag);
                 String key = StringUtils.firstCharToLower(tag.replaceFirst("Tag", "Strategy")); 
                 log.info("tag={},key={}",tag,key);
                 if(map.containsKey(key)) {

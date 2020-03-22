@@ -23,12 +23,17 @@ public class ConsumerConfig {
 	private int consumeThreadMin;
 	@Value("${rocketmq.consumer.consumeThreadMax}")
 	private int consumeThreadMax;
-	@Value("${rocketmq.consumer.topics}")
-	private String topics;
+//	@Value("${rocketmq.consumer.topics}")
+//	private String topics;
 	@Value("${rocketmq.consumer.consumeMessageBatchMaxSize}")
 	private int consumeMessageBatchMaxSize;
+	
+	
 	@Resource
 	private RocketMsgListener msgListener;
+	
+	@Resource
+	private MqConfig mqConfig;
 	
 	@Bean
     public DefaultMQPushConsumer getRocketMQConsumer(){
@@ -47,15 +52,7 @@ public class ConsumerConfig {
 //            }
         	
         	// 顺序消息
-			String topic = "TenantInfoTopic";
-			String[] tags = new String[] { //
-					"TenantDepartmentTag", //
-					"TenantRoleTag", //
-					"TenantEmployeeTag", //
-					"TenantEmployeeRoleTag", //
-			};
-			
-			consumer.subscribe(topic,StringUtils.join(tags, " || "));
+			consumer.subscribe(mqConfig.getTopic(),StringUtils.join(mqConfig.getTags(), " || "));
         	
             consumer.start();
         }catch (MQClientException e){

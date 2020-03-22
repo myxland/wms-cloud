@@ -42,9 +42,9 @@ public class ProducerConfig {
             producer.setRetryTimesWhenSendFailed(this.retryTimesWhenSendFailed);
         }
         try {
-        	log.info("producer start begin");
+        	//log.info("producer start begin");
             producer.start();
-            log.info("producer start end");
+            //log.info("producer start end");
         } catch (MQClientException e) {
             e.printStackTrace();
             log.error("producer start exception", e);

@@ -30,6 +30,7 @@ import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
+import com.zlsrj.wms.saas.mq.MqConfig;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.RedisService;
 
@@ -44,6 +45,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 
 	@Autowired
 	private DefaultMQProducer defaultMQProducer;
+	
+	@Autowired
+	private MqConfig mqConfig;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -62,25 +66,17 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		if (success) {
 			try {
 				// 顺序消息
-				String topic = "TenantInfoTopic";
-				String[] tags = new String[] { //
-						"TenantDepartmentTag", //
-						"TenantRoleTag", //
-						"TenantEmployeeTag", //
-						"TenantEmployeeRoleTag", //
-				};
 				
-				for(String tag:tags) {
+				for(String tag:mqConfig.getTags()) {
 					String key = tenantInfo.getId();
 					byte[] body = JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET);
-					Message message = new Message(topic, tag, key, body);
+					Message message = new Message(mqConfig.getTopic(), tag, key, body);
 					
 					SendResult sendResult = defaultMQProducer.send(message, new MessageQueueSelector() {
 			            @Override
 			            public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
 			            	//uuid生成的id，取第1个字符，转16进制字符串表示，然后转成10进制数字
 			            	Integer id = Integer.valueOf(String.valueOf(((String)arg).toCharArray()[0]), 16);
-			            	log.debug("arg={},id={}",arg,id);
 			                //Integer id = (Integer) arg;
 			                int index = id % mqs.size();
 			                return mqs.get(index);
