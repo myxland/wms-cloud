@@ -30,6 +30,7 @@ import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantEmployeeRole;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
@@ -54,6 +55,11 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 
 	@Resource
 	private TenantEmployeeRoleMapper tenantEmployeeRoleMapper;
+	
+	@Override
+	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
+		return false;
+	}
 
 	@Override
 	@Transactional

@@ -43,7 +43,25 @@ public class TenantDepartmentServiceImpl extends ServiceImpl<TenantDepartmentMap
 
 	@Override
 	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
-		return false;
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+		queryWrapperTenantDepartment.lambda()//
+				.eq(TenantDepartment::getTenantId, tenantInfo.getId())//
+		;
+		int count = super.count(queryWrapperTenantDepartment);
+		if (count > 0) {
+			log.error("根据租户信息初始化部门信息失败，部门信息已存在。");
+			return false;
+		}
+		
+		TenantDepartment tenantDepartment = TenantDepartment.builder()//
+				.id(idService.selectId())//
+				.tenantId(tenantInfo.getId())//
+				.departmentName(tenantInfo.getTenantName())//
+				.departmentParentId(null)//
+				.build();
+		boolean success = this.save(tenantDepartment);
+
+		return success;
 	}
 	
 	@Override

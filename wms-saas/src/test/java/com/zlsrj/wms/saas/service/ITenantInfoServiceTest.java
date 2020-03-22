@@ -38,12 +38,12 @@ public class ITenantInfoServiceTest {
 
 	@Test
 	public void insertTest() {
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<2;i++) {
 			String companyShortName = TestCaseUtil.companyShortName();
 
 			TenantInfo tenantInfo = TenantInfo.builder()//
 					.id(TestCaseUtil.id())// 租户ID
-					.tenantName("租户名称"+"-"+"Redis用例"+"-"+i+"-"+RandomUtil.randomNumbers(4))// 租户名称
+					.tenantName("租户名称"+"-"+"新增用例"+"-"+i+"-"+RandomUtil.randomNumbers(4))// 租户名称
 					.tenantBalance(new BigDecimal(0))// 账户余额
 					.tenantOverdraw(new BigDecimal(0))// 透支额度
 					.tenantDisplayName(companyShortName)// 租户显示名称
