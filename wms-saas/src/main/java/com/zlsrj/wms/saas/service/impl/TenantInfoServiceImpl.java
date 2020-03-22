@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,6 @@ import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
-import com.zlsrj.wms.saas.mq.ParamConfigService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.RedisService;
 
@@ -44,8 +44,6 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 
 	@Autowired
 	private DefaultMQProducer defaultMQProducer;
-	@Autowired
-	private ParamConfigService paramConfigService;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -63,24 +61,55 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 
 		if (success) {
 			try {
-				Message message = new Message(paramConfigService.wmsSaasTopic, paramConfigService.tenantInfoTag,
-						JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET));
-				// 同步消息
-				// SendResult sendResult = defaultMQProducer.send(message);
-				// log.info("sendResult={}", sendResult);
-				// 异步消息
-				defaultMQProducer.send(message, new SendCallback() {
-					@Override
-					public void onSuccess(SendResult sendResult) {
-						log.info(String.format(" OK %s %n", sendResult.getMsgId()));
-					}
+				// 顺序消息
+				String topic = "TenantInfoTopic";
+				String[] tags = new String[] { //
+						"TenantDepartmentTag", //
+						"TenantRoleTag", //
+						"TenantEmployeeTag", //
+						"TenantEmployeeRoleTag", //
+				};
+				
+				for(String tag:tags) {
+					String key = tenantInfo.getId();
+					byte[] body = JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET);
+					Message message = new Message(topic, tag, key, body);
+					
+					SendResult sendResult = defaultMQProducer.send(message, new MessageQueueSelector() {
+			            @Override
+			            public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+			            	//uuid生成的id，取第1个字符，转16进制字符串表示，然后转成10进制数字
+			            	Integer id = Integer.valueOf(String.valueOf(((String)arg).toCharArray()[0]), 16);
+			            	log.debug("arg={},id={}",arg,id);
+			                //Integer id = (Integer) arg;
+			                int index = id % mqs.size();
+			                return mqs.get(index);
+			            }
+			            }, tenantInfo.getId());
 
-					@Override
-					public void onException(Throwable e) {
-						log.info(String.format(" Exception %s %n", e));
-						e.printStackTrace();
-					}
-				});
+			            log.info(String.format("%s%n", sendResult));
+					
+				}
+				
+				
+//				Message message = new Message(paramConfigService.wmsSaasTopic, paramConfigService.tenantInfoTag,
+//						JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET));
+//				// 同步消息
+//				// SendResult sendResult = defaultMQProducer.send(message);
+//				// log.info("sendResult={}", sendResult);
+//				// 异步消息
+//				defaultMQProducer.send(message, new SendCallback() {
+//					@Override
+//					public void onSuccess(SendResult sendResult) {
+//						log.info(String.format(" OK %s %n", sendResult.getMsgId()));
+//					}
+//
+//					@Override
+//					public void onException(Throwable e) {
+//						log.info(String.format(" Exception %s %n", e));
+//						e.printStackTrace();
+//					}
+//				});
 				
 			} catch (Exception e) {
 				log.info(JSON.toJSONString(tenantInfo));

@@ -2,6 +2,7 @@ package com.zlsrj.wms.saas.mq;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
@@ -39,11 +40,23 @@ public class ConsumerConfig {
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
         consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
         try {
-            String[] topicTagsArr = topics.split(";");
-            for (String topicTags : topicTagsArr) {
-                String[] topicTag = topicTags.split("~");
-                consumer.subscribe(topicTag[0],topicTag[1]);
-            }
+//            String[] topicTagsArr = topics.split(";");
+//            for (String topicTags : topicTagsArr) {
+//                String[] topicTag = topicTags.split("~");
+//                consumer.subscribe(topicTag[0],topicTag[1]);
+//            }
+        	
+        	// 顺序消息
+			String topic = "TenantInfoTopic";
+			String[] tags = new String[] { //
+					"TenantDepartmentTag", //
+					"TenantRoleTag", //
+					"TenantEmployeeTag", //
+					"TenantEmployeeRoleTag", //
+			};
+			
+			consumer.subscribe(topic,StringUtils.join(tags, " || "));
+        	
             consumer.start();
         }catch (MQClientException e){
             e.printStackTrace();
