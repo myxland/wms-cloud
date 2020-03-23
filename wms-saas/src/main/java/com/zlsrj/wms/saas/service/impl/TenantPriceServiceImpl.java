@@ -50,6 +50,10 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 	private TenantPriceStepMapper tenantPriceStepMapper;
 
 	private final static String[] PRICE_NAME = new String[] { "居民价格", "居民阶梯价格", "非居民价格", "特种行业价格" };
+	
+	private final static int[] PRICE_STEP_CLASS = new int[] { 1,2,3 };
+	private final static BigDecimal[] PRICE_STEP_START_CODE = new BigDecimal[] { new BigDecimal(1), new BigDecimal(201), new BigDecimal(401)};
+	private final static BigDecimal[] PRICE_STEP_END_CODE = new BigDecimal[] { new BigDecimal(200), new BigDecimal(400), new BigDecimal(600)};
 
 	@Override
 	public TenantPrice getAggregation(Wrapper<TenantPrice> wrapper) {
@@ -122,6 +126,55 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 				}
 			}
 			
+		}
+		
+		
+		//阶梯水价
+		Integer priceStepOn = tenantInfo.getPriceStepOn();
+		if(1== priceStepOn) {
+			tenantPrice = TenantPrice.builder()//
+					.id(idService.selectId())//
+					.tenantId(tenantInfo.getId())// 租户ID
+					.priceOrder(1)// 排序
+					.priceName("居民阶梯价格")// 水价名称
+					.priceParentId(parentId)// 父级ID
+					.priceVersion(null)// 水价版本
+					.priceVersionMemo(null)// 版本说明
+					.marketingAreaId(null)// 营销区域
+					.priceMemo(null)// 备注
+					.build();
+			this.save(tenantPrice);
+			
+			if(tenantPriceItemList!=null && tenantPriceItemList.size()>0) {
+				for(TenantPriceItem tenantPriceItem: tenantPriceItemList) {
+					TenantPriceDetail tenantPriceDetail = TenantPriceDetail.builder()//
+							.id(idService.selectId())// 水价明细ID
+							.tenantId(tenantInfo.getId())// 租户ID
+							.priceId(tenantPrice.getId())// 水表列表ID
+							.priceItemId(tenantPriceItem.getId())// 费用项目
+							.priceRuleId("4")// 计费规则
+							.detailPrice(BigDecimal.ZERO)// 单价
+							.build();
+						
+					tenantPriceDetailMapper.insert(tenantPriceDetail);
+					
+					for(int i=0;i<PRICE_STEP_CLASS.length;i++) {
+						TenantPriceStep tenantPriceStep = TenantPriceStep.builder()//
+								.id(idService.selectId())// 阶梯明细ID
+								.tenantId(tenantInfo.getId())// 租户ID
+								.priceDetailId(tenantPriceDetail.getId())// 水价明细ID
+								.stepClass(PRICE_STEP_CLASS[i])// 阶梯级次
+								.startCode(PRICE_STEP_START_CODE[i])// 阶梯起始量
+								.endCode(PRICE_STEP_END_CODE[i])// 阶梯终止量
+								.stepPrice(BigDecimal.ZERO)// 单价
+								.stepUsers(4)// 标准用水人数
+								.stepUsersAdd(BigDecimal.ZERO)// 超人数增补量
+								.build();
+							
+						tenantPriceStepMapper.insert(tenantPriceStep);
+					}
+				}
+			}
 		}
 
 		success = true;

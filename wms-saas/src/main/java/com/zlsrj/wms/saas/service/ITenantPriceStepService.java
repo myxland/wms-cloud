@@ -7,6 +7,7 @@ import com.zlsrj.wms.api.dto.TenantPriceStepUpdateParam;
 import com.zlsrj.wms.api.entity.TenantPriceStep;
 
 public interface ITenantPriceStepService extends IService<TenantPriceStep> {
+	
 	TenantPriceStep getAggregation(Wrapper<TenantPriceStep> wrapper);
 	
 	String save(TenantPriceStepAddParam tenantCustomerTypeAddParam);
