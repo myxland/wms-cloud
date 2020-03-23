@@ -45,9 +45,9 @@ public class TenantDictionariesDefaultMapperTest {
 	public void insert() {
 		for(int i=0;i<RandomUtil.randomInt(10, 100);i++) {
 			TenantDictionariesDefault tenantDictionariesDefault = TenantDictionariesDefault.builder()//
-					.tenantType(RandomUtil.randomInt(0,1))// 租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
+					.tenantType(RandomUtil.randomString(4))// 租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
 					.dictCode(RandomUtil.randomInt(0,1000+1))// 字典编码
-					.dictType(RandomUtil.randomInt(0,1))// 字典类型
+					.dictType(RandomUtil.randomString(4))// 字典类型
 					.dictName(TestCaseUtil.name())// 名称
 					.dictData(RandomUtil.randomString(4))// 结构化数据
 					.addTime(TestCaseUtil.dateBefore())// 数据新增时间
