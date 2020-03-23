@@ -57,7 +57,7 @@ public class TenantPriceDetailMapperTest {
 					.tenantId(tenantInfo.getId())// 租户ID
 					.priceId(TestCaseUtil.id())// 水表列表ID
 					.priceItemId(TestCaseUtil.id())// 费用项目
-					.priceRuleId(TestCaseUtil.id())// 计费规则
+					.priceRule(1)// 计费规则
 					.detailPrice(TestCaseUtil.money())// 单价
 					.addTime(TestCaseUtil.dateBefore())// 数据新增时间
 					.updateTime(TestCaseUtil.dateBefore())// 数据修改时间

@@ -47,8 +47,8 @@ public class TenantPriceDetail implements Serializable {
 	private String priceItemId;
 
 	@ApiModelProperty(value = "计费规则")
-	@TableField("price_rule_id")
-	private String priceRuleId;
+	@TableField("price_rule")
+	private Integer priceRule;
 
 	@ApiModelProperty(value = "单价")
 	@TableField("detail_price")

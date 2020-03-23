@@ -33,7 +33,7 @@ public class TenantPriceDetailVo implements Serializable {
 	private String priceItemId;
 
 	@ApiModelProperty(value = "计费规则")
-	private String priceRuleId;
+	private Integer priceRule;
 
 	@ApiModelProperty(value = "单价")
 	private BigDecimal detailPrice;

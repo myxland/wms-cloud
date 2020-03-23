@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,7 +62,7 @@ public class TenantPriceDetailRestController {
 				.eq(tenantPriceDetailQueryParam.getTenantId() != null, TenantPriceDetail::getTenantId, tenantPriceDetailQueryParam.getTenantId())
 				.eq(tenantPriceDetailQueryParam.getPriceId() != null, TenantPriceDetail::getPriceId, tenantPriceDetailQueryParam.getPriceId())
 				.eq(tenantPriceDetailQueryParam.getPriceItemId() != null, TenantPriceDetail::getPriceItemId, tenantPriceDetailQueryParam.getPriceItemId())
-				.eq(tenantPriceDetailQueryParam.getPriceRuleId() != null, TenantPriceDetail::getPriceRuleId, tenantPriceDetailQueryParam.getPriceRuleId())
+				.eq(tenantPriceDetailQueryParam.getPriceRule() != null, TenantPriceDetail::getPriceRule, tenantPriceDetailQueryParam.getPriceRule())
 				.eq(tenantPriceDetailQueryParam.getDetailPrice() != null, TenantPriceDetail::getDetailPrice, tenantPriceDetailQueryParam.getDetailPrice())
 				.eq(tenantPriceDetailQueryParam.getAddTime() != null, TenantPriceDetail::getAddTime, tenantPriceDetailQueryParam.getAddTime())
 				.ge(tenantPriceDetailQueryParam.getAddTimeStart() != null, TenantPriceDetail::getAddTime,tenantPriceDetailQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantPriceDetailQueryParam.getAddTimeStart()))
@@ -96,7 +95,7 @@ public class TenantPriceDetailRestController {
 				.eq(tenantPriceDetailQueryParam.getTenantId() != null, TenantPriceDetail::getTenantId, tenantPriceDetailQueryParam.getTenantId())
 				.eq(tenantPriceDetailQueryParam.getPriceId() != null, TenantPriceDetail::getPriceId, tenantPriceDetailQueryParam.getPriceId())
 				.eq(tenantPriceDetailQueryParam.getPriceItemId() != null, TenantPriceDetail::getPriceItemId, tenantPriceDetailQueryParam.getPriceItemId())
-				.eq(tenantPriceDetailQueryParam.getPriceRuleId() != null, TenantPriceDetail::getPriceRuleId, tenantPriceDetailQueryParam.getPriceRuleId())
+				.eq(tenantPriceDetailQueryParam.getPriceRule() != null, TenantPriceDetail::getPriceRule, tenantPriceDetailQueryParam.getPriceRule())
 				.eq(tenantPriceDetailQueryParam.getDetailPrice() != null, TenantPriceDetail::getDetailPrice, tenantPriceDetailQueryParam.getDetailPrice())
 				.eq(tenantPriceDetailQueryParam.getAddTime() != null, TenantPriceDetail::getAddTime, tenantPriceDetailQueryParam.getAddTime())
 				.ge(tenantPriceDetailQueryParam.getAddTimeStart() != null, TenantPriceDetail::getAddTime,tenantPriceDetailQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantPriceDetailQueryParam.getAddTimeStart()))
@@ -129,7 +128,7 @@ public class TenantPriceDetailRestController {
 				.eq(tenantPriceDetailQueryParam.getTenantId() != null, TenantPriceDetail::getTenantId, tenantPriceDetailQueryParam.getTenantId())
 				.eq(tenantPriceDetailQueryParam.getPriceId() != null, TenantPriceDetail::getPriceId, tenantPriceDetailQueryParam.getPriceId())
 				.eq(tenantPriceDetailQueryParam.getPriceItemId() != null, TenantPriceDetail::getPriceItemId, tenantPriceDetailQueryParam.getPriceItemId())
-				.eq(tenantPriceDetailQueryParam.getPriceRuleId() != null, TenantPriceDetail::getPriceRuleId, tenantPriceDetailQueryParam.getPriceRuleId())
+				.eq(tenantPriceDetailQueryParam.getPriceRule() != null, TenantPriceDetail::getPriceRule, tenantPriceDetailQueryParam.getPriceRule())
 				.eq(tenantPriceDetailQueryParam.getDetailPrice() != null, TenantPriceDetail::getDetailPrice, tenantPriceDetailQueryParam.getDetailPrice())
 				.eq(tenantPriceDetailQueryParam.getAddTime() != null, TenantPriceDetail::getAddTime, tenantPriceDetailQueryParam.getAddTime())
 				.ge(tenantPriceDetailQueryParam.getAddTimeStart() != null, TenantPriceDetail::getAddTime,tenantPriceDetailQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantPriceDetailQueryParam.getAddTimeStart()))
@@ -171,7 +170,7 @@ public class TenantPriceDetailRestController {
 				.set(tenantPriceDetail.getTenantId() != null, TenantPriceDetail::getTenantId, tenantPriceDetail.getTenantId())
 				.set(tenantPriceDetail.getPriceId() != null, TenantPriceDetail::getPriceId, tenantPriceDetail.getPriceId())
 				.set(tenantPriceDetail.getPriceItemId() != null, TenantPriceDetail::getPriceItemId, tenantPriceDetail.getPriceItemId())
-				.set(tenantPriceDetail.getPriceRuleId() != null, TenantPriceDetail::getPriceRuleId, tenantPriceDetail.getPriceRuleId())
+				.set(tenantPriceDetail.getPriceRule() != null, TenantPriceDetail::getPriceRule, tenantPriceDetail.getPriceRule())
 				.set(tenantPriceDetail.getDetailPrice() != null, TenantPriceDetail::getDetailPrice, tenantPriceDetail.getDetailPrice())
 				.set(tenantPriceDetail.getAddTime() != null, TenantPriceDetail::getAddTime, tenantPriceDetail.getAddTime())
 				.set(tenantPriceDetail.getUpdateTime() != null, TenantPriceDetail::getUpdateTime, tenantPriceDetail.getUpdateTime())

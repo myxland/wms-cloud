@@ -32,7 +32,7 @@ public class ITenantPriceDetailServiceTest {
 				.tenantId(RandomUtil.randomString(4))// 租户ID
 				.priceId(RandomUtil.randomString(4))// 水表列表ID
 				.priceItemId(RandomUtil.randomString(4))// 费用项目
-				.priceRuleId(RandomUtil.randomString(4))// 计费规则
+				.priceRule(1)// 计费规则
 				.detailPrice(new BigDecimal(0))// 单价
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
@@ -54,7 +54,7 @@ public class ITenantPriceDetailServiceTest {
 				.tenantId(RandomUtil.randomString(4))// 租户ID
 				.priceId(RandomUtil.randomString(4))// 水表列表ID
 				.priceItemId(RandomUtil.randomString(4))// 费用项目
-				.priceRuleId(RandomUtil.randomString(4))// 计费规则
+				.priceRule(1)// 计费规则
 				.detailPrice(new BigDecimal(0))// 单价
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间

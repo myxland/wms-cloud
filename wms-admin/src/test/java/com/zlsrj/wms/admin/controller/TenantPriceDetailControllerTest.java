@@ -90,7 +90,7 @@ public class TenantPriceDetailControllerTest {
 		tenantPriceDetailUpdateParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
 		tenantPriceDetailUpdateParam.setPriceId(RandomUtil.randomString(4));// 水表列表ID
 		tenantPriceDetailUpdateParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目
-		tenantPriceDetailUpdateParam.setPriceRuleId(RandomUtil.randomString(4));// 计费规则
+		tenantPriceDetailUpdateParam.setPriceRule(1);// 计费规则
 		tenantPriceDetailUpdateParam.setDetailPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
 		
 		log.info(JSON.toJSONString(tenantPriceDetailUpdateParam));
@@ -110,7 +110,7 @@ public class TenantPriceDetailControllerTest {
 		tenantPriceDetailAddParam.setTenantId("AE6492EB900A4CEAB9C6E2DB3E03C344");// 租户ID
 		tenantPriceDetailAddParam.setPriceId(RandomUtil.randomString(4));// 水表列表ID
 		tenantPriceDetailAddParam.setPriceItemId(RandomUtil.randomString(4));// 费用项目
-		tenantPriceDetailAddParam.setPriceRuleId(RandomUtil.randomString(4));// 计费规则
+		tenantPriceDetailAddParam.setPriceRule(1);// 计费规则
 		tenantPriceDetailAddParam.setDetailPrice(RandomUtil.randomBigDecimal(new BigDecimal(0), new BigDecimal(1000)));// 单价
 		
 		log.info(JSON.toJSONString(tenantPriceDetailAddParam));
