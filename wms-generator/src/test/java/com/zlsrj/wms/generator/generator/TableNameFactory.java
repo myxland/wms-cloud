@@ -65,6 +65,8 @@ public class TableNameFactory {
 				"", //
 				"tenant_business_rules", //
 				"tenant_charge_agency", //
+				"", //
+				"", //
 				"tenant_business_rules_default", //
 				"tenant_customer_type_default", //
 				"tenant_dictionaries_default", //
@@ -72,7 +74,7 @@ public class TableNameFactory {
 				"tenant_meter_caliber_default", //
 				"tenant_meter_industry_default", //
 				"tenant_meter_model_default", //
-				//"tenant_meter_read_situation_default", //
+				"tenant_meter_read_situation_default", //
 				"", //
 				"", //
 				"", //
