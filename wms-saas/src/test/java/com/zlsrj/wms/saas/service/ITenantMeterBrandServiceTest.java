@@ -2,6 +2,8 @@ package com.zlsrj.wms.saas.service;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantMeterBrand;
 
 import cn.hutool.core.util.RandomUtil;
@@ -23,6 +26,9 @@ public class ITenantMeterBrandServiceTest {
 
 	@Autowired
 	private ITenantMeterBrandService tenantMeterBrandService;
+	
+	@Resource
+	private ITenantInfoService tenantInfoService;
 
 	@Test
 	public void insertTest() {
@@ -61,5 +67,14 @@ public class ITenantMeterBrandServiceTest {
 		boolean success = tenantMeterBrandService.updateById(tenantMeterBrand);
 
 		log.info(Boolean.toString(success));
+	}
+	
+	@Test
+	public void saveBatchByTenantInfoTest() {
+		String tenantId = "27f3f0eec0714620b5c3f5c34c19650d";
+		TenantInfo tenantInfo = tenantInfoService.getById(tenantId);
+		boolean success = tenantMeterBrandService.saveBatchByTenantInfo(tenantInfo);
+		
+		log.info("tenantId={},success={}",tenantId,Boolean.toString(success));
 	}
 }

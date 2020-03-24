@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.service.impl;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,17 +11,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantMeterIndustryAddParam;
 import com.zlsrj.wms.api.dto.TenantMeterIndustryUpdateParam;
-import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantMeterIndustry;
-import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.zlsrj.wms.api.entity.TenantMeterIndustryDefault;
 import com.zlsrj.wms.common.util.TranslateUtil;
+import com.zlsrj.wms.saas.mapper.TenantMeterIndustryDefaultMapper;
 import com.zlsrj.wms.saas.mapper.TenantMeterIndustryMapper;
-import com.zlsrj.wms.saas.service.ITenantMeterIndustryService;
-
-import cn.hutool.core.util.RandomUtil;
-
 import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.saas.service.ITenantMeterIndustryService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +28,13 @@ public class TenantMeterIndustryServiceImpl extends ServiceImpl<TenantMeterIndus
 	@Resource
 	private IIdService idService;
 	
+	@Resource
+	private TenantMeterIndustryDefaultMapper tenantMeterIndustryDefaultMapper;
+	
+	@Override
 	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		
 		QueryWrapper<TenantMeterIndustry> queryWrapperTenantMeterIndustry = new QueryWrapper<TenantMeterIndustry>();
 		queryWrapperTenantMeterIndustry.lambda()//
 				.eq(TenantMeterIndustry::getTenantId, tenantInfo.getId())//
@@ -43,17 +45,27 @@ public class TenantMeterIndustryServiceImpl extends ServiceImpl<TenantMeterIndus
 			return false;
 		}
 		
-//		TenantMeterIndustry tenantMeterIndustry = TenantMeterIndustry.builder()//
-//				.id(idService.selectId())// 行业分类ID
-//				.tenantId(tenantInfo.getId())// 租户ID
-//				.meterIndustryName()// 名称
-//				.meterIndustryParentId()// 父级ID
-//				.meterIndustryData()// 结构化数据
-//				.build();
-//		
-//		boolean success = this.save(tenantMeterIndustry);
-
-		return false;
+		List<TenantMeterIndustryDefault> tenantMeterIndustryDefaultList = tenantMeterIndustryDefaultMapper.selectList(null);
+		
+		if(tenantMeterIndustryDefaultList!=null && tenantMeterIndustryDefaultList.size()>0) {
+			
+			List<TenantMeterIndustry> tenantMeterIndustryList = new ArrayList<TenantMeterIndustry>();
+			
+			for(TenantMeterIndustryDefault tenantMeterIndustryDefault: tenantMeterIndustryDefaultList) {
+				TenantMeterIndustry tenantMeterIndustry = TenantMeterIndustry.builder()//
+						.id(idService.newId(tenantMeterIndustryDefault.getId(),tenantInfo.getId()))// 行业分类ID
+						.tenantId(tenantInfo.getId())// 租户ID
+						.meterIndustryName(tenantMeterIndustryDefault.getMeterIndustryName())// 名称
+						.meterIndustryParentId(StringUtils.isBlank(tenantMeterIndustryDefault.getMeterIndustryParentId())?null:idService.newId(tenantMeterIndustryDefault.getMeterIndustryParentId(),tenantInfo.getId()))// 父级ID
+						.meterIndustryData(tenantMeterIndustryDefault.getMeterIndustryData())// 结构化数据
+						.build();
+				tenantMeterIndustryList.add(tenantMeterIndustry);
+			}
+			
+			success = this.saveBatch(tenantMeterIndustryList);
+		}
+		
+		return success;
 	}
 
 	@Override

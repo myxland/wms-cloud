@@ -2,6 +2,8 @@ package com.zlsrj.wms.saas.service;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.entity.TenantCustomerType;
+import com.zlsrj.wms.api.entity.TenantInfo;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,9 @@ public class ITenantCustomerTypeServiceTest {
 
 	@Autowired
 	private ITenantCustomerTypeService tenantCustomerTypeService;
+	
+	@Resource
+	private ITenantInfoService tenantInfoService;
 
 	@Test
 	public void insertTest() {
@@ -61,5 +67,14 @@ public class ITenantCustomerTypeServiceTest {
 		boolean success = tenantCustomerTypeService.updateById(tenantCustomerType);
 
 		log.info(Boolean.toString(success));
+	}
+	
+	@Test
+	public void saveBatchByTenantInfoTest() {
+		String tenantId = "27f3f0eec0714620b5c3f5c34c19650d";
+		TenantInfo tenantInfo = tenantInfoService.getById(tenantId);
+		boolean success = tenantCustomerTypeService.saveBatchByTenantInfo(tenantInfo);
+		
+		log.info("tenantId={},success={}",tenantId,Boolean.toString(success));
 	}
 }
