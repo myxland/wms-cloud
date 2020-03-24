@@ -89,4 +89,42 @@ public class TenantInfoControllerTest {
 		
 	}
 	
+	@Test
+	public void createSwaggerTest() throws Exception {
+		TenantInfoAddParam tenantInfoAddParam = new TenantInfoAddParam();
+		
+		String companyShortName = TestCaseUtil.companyShortName();
+		
+		tenantInfoAddParam.setId(TestCaseUtil.id());// 租户ID
+		tenantInfoAddParam.setTenantName("租户名称"+"-"+"新增用例"+"-"+"8"+"-"+RandomUtil.randomNumbers(4));// 租户名称
+		tenantInfoAddParam.setTenantBalance(new BigDecimal(0));// 账户余额
+		tenantInfoAddParam.setTenantOverdraw(new BigDecimal(0));// 透支额度
+		tenantInfoAddParam.setTenantDisplayName(companyShortName);// 租户显示名称
+		tenantInfoAddParam.setTenantProvince(TestCaseUtil.province());// 省
+		tenantInfoAddParam.setTenantCity(TestCaseUtil.city());// 市
+		tenantInfoAddParam.setTenantCountyTown(RandomUtil.randomString(4));// 区/县
+		tenantInfoAddParam.setTenantLinkAddress(TestCaseUtil.address());// 联系地址
+		tenantInfoAddParam.setTenantLinkman(TestCaseUtil.name());// 联系人
+		tenantInfoAddParam.setTenantLinkmanMobile(TestCaseUtil.mobile());// 手机号码
+		tenantInfoAddParam.setTenantLinkmanTel(TestCaseUtil.tel());// 单位电话
+		tenantInfoAddParam.setTenantLinkmanEmail(TestCaseUtil.email(null));// 邮箱
+		tenantInfoAddParam.setTenantLinkmanQq(TestCaseUtil.qq());// QQ号码
+		tenantInfoAddParam.setTenantType(RandomUtil.randomInt(0,1+1));// 租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
+		tenantInfoAddParam.setTenantRegisterTime(new Date());// 注册时间
+		tenantInfoAddParam.setInvoiceType(RandomUtil.randomInt(0,1+1));// 开票类别（1：普通纸制发票；2：普通电子发票；3：专用纸制发票）
+		tenantInfoAddParam.setInvoiceName(TestCaseUtil.name());// 开票名称
+		tenantInfoAddParam.setInvoiceTaxNo(RandomUtil.randomString(4));// 税号
+		tenantInfoAddParam.setInvoiceAddress(TestCaseUtil.address());// 开票地址
+		tenantInfoAddParam.setInvoiceTel(TestCaseUtil.tel());// 开票电话
+		tenantInfoAddParam.setInvoiceBankCode(RandomUtil.randomString(4));// 开户行行号
+		tenantInfoAddParam.setInvoiceBankName(TestCaseUtil.bankName());// 开户行名称
+		tenantInfoAddParam.setInvoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()));// 开户账号
+		tenantInfoAddParam.setTenantAccesskey(RandomUtil.randomString(4));// 租户KEY
+		tenantInfoAddParam.setPriceStepOn(RandomUtil.randomInt(0,1+1));
+		tenantInfoAddParam.setMarketingAreaType(RandomUtil.randomInt(1,2+1));
+		
+		log.info(JSON.toJSONString(tenantInfoAddParam));
+		
+	}
+	
 }

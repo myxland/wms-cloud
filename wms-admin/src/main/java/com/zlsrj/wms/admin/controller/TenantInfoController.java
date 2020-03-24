@@ -16,7 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
-@Api(value = "信息", tags = { "信息操作接口" })
+@Api(value = "租户信息", tags = { "租户信息操作接口" })
 @Controller
 @RequestMapping("/tenantInfo")
 @Slf4j
@@ -25,11 +25,11 @@ public class TenantInfoController {
 	@Autowired
 	private TenantInfoClientService tenantInfoClientService;
 	
-	@ApiOperation(value = "新增信息")
+	@ApiOperation(value = "新增租户信息")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@ResponseBody
-	public CommonResult<Object> create(@RequestBody TenantInfoAddParam tenantInfo) {
-		String id = tenantInfoClientService.save(tenantInfo);
+	public CommonResult<Object> create(@RequestBody TenantInfoAddParam tenantInfoAddParam) {
+		String id = tenantInfoClientService.save(tenantInfoAddParam);
 		return CommonResult.success(id);
 	}
 	

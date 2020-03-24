@@ -64,12 +64,6 @@ public class TenantInfoAddParam implements Serializable {
 	@ApiModelProperty(value = "注册时间")
 	private Date tenantRegisterTime;
 
-	@ApiModelProperty(value = "注册时间开始")
-	private Date tenantRegisterTimeStart;
-
-	@ApiModelProperty(value = "注册时间结束")
-	private Date tenantRegisterTimeEnd;
-
 	@ApiModelProperty(value = "开票类别（1：普通纸制发票；2：普通电子发票；3：专用纸制发票）")
 	private Integer invoiceType;
 
