@@ -118,7 +118,7 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 							.tenantId(tenantInfo.getId())// 租户ID
 							.priceId(tenantPrice.getId())// 水表列表ID
 							.priceItemId(tenantPriceItem.getId())// 费用项目
-							.priceRuleId("1")// 计费规则
+							.priceRule(1)// 计费规则
 							.detailPrice(BigDecimal.ZERO)// 单价
 							.build();
 						
@@ -152,7 +152,7 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 							.tenantId(tenantInfo.getId())// 租户ID
 							.priceId(tenantPrice.getId())// 水表列表ID
 							.priceItemId(tenantPriceItem.getId())// 费用项目
-							.priceRuleId("4")// 计费规则
+							.priceRule(4)// 计费规则
 							.detailPrice(BigDecimal.ZERO)// 单价
 							.build();
 						
