@@ -25,3 +25,9 @@ spring:
     admin:
       client:
         url: "http://39.100.108.49:7080"
+        
+rocketmq:
+  producer: # 生产者配置
+    namesrvAddr: 172.26.2.97:9876 # 服务地址
+  consumer:  # 消费者配置
+    namesrvAddr: 172.26.2.97:9876  # 服务地址
