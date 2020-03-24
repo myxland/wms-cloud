@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.MessageQueueSelector;
@@ -24,6 +26,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zlsrj.wms.api.dto.TenantInfoAddParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
@@ -31,6 +34,7 @@ import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
 import com.zlsrj.wms.saas.mq.MqConfig;
+import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.RedisService;
 
@@ -40,6 +44,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantInfo> implements ITenantInfoService {
+	@Resource
+	private IIdService idService;
+	
 	@Autowired
 	private RedisService<String, String> redisService;
 
@@ -52,15 +59,7 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
 		boolean success = false;
-		// 账户余额
-		if (tenantInfo.getTenantBalance() == null) {
-			tenantInfo.setTenantBalance(BigDecimal.ZERO);
-		}
-		// 注册时间
-		if (tenantInfo.getTenantRegisterTime() == null) {
-			tenantInfo.setTenantRegisterTime(new DateTime());
-		}
-
+		
 		success = super.save(tenantInfo);
 
 		if (success) {
@@ -151,6 +150,27 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		redisService.setValue(entity.getId(), JSON.toJSONString(entity));
 
 		return entity;
+	}
+	
+	@Override
+	public String save(TenantInfoAddParam tenantInfoAddParam) {
+		String jsonString = JSON.toJSONString(tenantInfoAddParam);
+		TenantInfo tenantInfo = JSON.parseObject(jsonString, TenantInfo.class);
+		if (tenantInfo.getId() == null || tenantInfo.getId().trim().length() == 0) {
+			tenantInfo.setId(idService.selectId());
+		}
+		// 账户余额
+		if (tenantInfo.getTenantBalance() == null) {
+			tenantInfo.setTenantBalance(BigDecimal.ZERO);
+		}
+		// 注册时间
+		if (tenantInfo.getTenantRegisterTime() == null) {
+			tenantInfo.setTenantRegisterTime(new DateTime());
+		}
+
+		this.save(tenantInfo);
+
+		return tenantInfo.getId();
 	}
 
 	@Override

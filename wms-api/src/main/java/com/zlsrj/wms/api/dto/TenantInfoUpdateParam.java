@@ -11,8 +11,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantInfo查询参数", description = "租户表")
-public class TenantInfoQueryParam implements Serializable {
+@ApiModel(value = "TenantInfo新增参数", description = "租户表")
+public class TenantInfoUpdateParam implements Serializable {
 
 	private static final long serialVersionUID = 5784121514767265731L;
 
