@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantInfoAddParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
@@ -113,17 +114,8 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "新增租户表")
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.POST)
-	public TenantInfoVo save(@RequestBody TenantInfo tenantInfo) {
-		if (tenantInfo.getId() == null || tenantInfo.getId().trim().length() <= 0) {
-			tenantInfo.setId(idService.selectId());
-		}
-		boolean success = tenantInfoService.save(tenantInfo);
-		if (success) {
-			TenantInfo tenantInfoDatabase = tenantInfoService.getById(tenantInfo.getId());
-			return entity2vo(tenantInfoDatabase);
-		}
-		log.info("save TenantInfo fail，{}", ToStringBuilder.reflectionToString(tenantInfo, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody TenantInfoAddParam tenantInfoAddParam) {
+		return tenantInfoService.save(tenantInfoAddParam);
 	}
 
 	@ApiOperation(value = "更新租户表全部信息")

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlsrj.wms.saas.mapper.TenantDictionariesDefaultMapper">
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantDictionariesDefault">
+		SELECT
+			count(id) as id,
+			sum(dict_code) as dict_code
+		FROM tenant_dictionaries_default
+		${ew.customSqlSegment} 
+	</select>
+</mapper>

@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,17 +29,21 @@ import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleAddParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
+import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantEmployeeRole;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
+import com.zlsrj.wms.saas.mapper.TenantDepartmentMapper;
 import com.zlsrj.wms.saas.mapper.TenantEmployeeMapper;
 import com.zlsrj.wms.saas.mapper.TenantEmployeeRoleMapper;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
 import com.zlsrj.wms.saas.service.RedisService;
+import com.zlsrj.wms.saas.strategy.password.PasswordContext;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,6 +59,57 @@ public class TenantEmployeeServiceImpl extends ServiceImpl<TenantEmployeeMapper,
 
 	@Resource
 	private TenantEmployeeRoleMapper tenantEmployeeRoleMapper;
+	
+	@Resource
+	private TenantDepartmentMapper tenantDepartmentMapper;
+	
+	@Autowired
+	private PasswordContext passwordContext;
+
+	@Value("${system.config.password.mode}")
+	private String passwordMode;
+	
+	@Override
+	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
+		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
+		queryWrapperTenantEmployee.lambda()//
+				.eq(TenantEmployee::getTenantId, tenantInfo.getId())//
+		;
+		int count = super.count(queryWrapperTenantEmployee);
+		if (count > 0) {
+			log.error("根据租户信息初始化员工信息失败，部门员工已存在。");
+			return false;
+		}
+		
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+		queryWrapperTenantDepartment.lambda()//
+		.eq(TenantDepartment::getTenantId, tenantInfo.getId())//
+		;
+		TenantDepartment tenantDepartment = tenantDepartmentMapper.selectOne(queryWrapperTenantDepartment);
+		
+		TenantEmployee tenantEmployee = TenantEmployee.builder()//
+				.id(idService.selectId())// 员工ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.employeeName(tenantInfo.getTenantLinkman())// 员工名称
+				.employeePassword(null)// 登录密码
+				.employeeDepartmentId(tenantDepartment.getId())// 员工所属部门ID
+				.employeeLoginOn(1)// 可登录系统（1：可登录；0：不能登录）
+				.employeeStatus(1)// 员工状态（1：在职；2：离职；3：禁用）
+				.employeeMobile(tenantInfo.getTenantLinkmanMobile())// 员工手机号
+				.employeeEmail(tenantInfo.getTenantLinkmanEmail())// 员工邮箱
+				.employeePersonalWx(null)// 员工个人微信号
+				.employeeEnterpriceWx(null)// 员工企业微信号
+				.employeeDingding(null)// 钉钉号
+				.employeeCreateType(1)// 操作员创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		
+		String employeePassword = passwordContext.getInstance(passwordMode).getPassword(tenantEmployee);
+		tenantEmployee.setEmployeePassword(employeePassword);
+		
+		boolean success = this.save(tenantEmployee);
+
+		return success;
+	}
 
 	@Override
 	@Transactional

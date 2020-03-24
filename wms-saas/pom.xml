@@ -115,6 +115,21 @@
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>1.14</version>
 		</dependency>
+		
+		<!-- rocketmq -->
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+			<version>${rocketmq.client.version}</version>
+		</dependency>
+
+		<!-- configuration -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
 
 	</dependencies>
 

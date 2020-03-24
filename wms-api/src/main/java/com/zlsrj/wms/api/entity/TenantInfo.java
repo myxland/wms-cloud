@@ -143,4 +143,8 @@ public class TenantInfo implements Serializable {
 	@ApiModelProperty(value = "阶梯水价")
 	@TableField(exist = false)
 	private Integer priceStepOn;
+	
+	@ApiModelProperty(value = "营销机构类型（1：扁平型；2：复杂型）")
+	@TableField(exist = false)
+	private Integer marketingAreaType;
 }

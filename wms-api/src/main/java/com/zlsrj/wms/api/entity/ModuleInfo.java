@@ -73,10 +73,6 @@ public class ModuleInfo implements Serializable {
 	@TableField("module_on")
 	private Integer moduleOn;
 
-	@ApiModelProperty(value = "应用APPID")
-	@TableField("module_appid")
-	private String moduleAppid;
-
 	@ApiModelProperty(value = "基础模块价格列表")
 	@TableField(exist = false)
 	private List<ModulePrice> basicModulePriceList;

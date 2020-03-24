@@ -96,6 +96,12 @@ public class TenantInfoQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "租户KEY")
 	private String tenantAccesskey;
+	
+	@ApiModelProperty(value = "阶梯水价")
+	private Integer priceStepOn;
+	
+	@ApiModelProperty(value = "营销机构类型（1：扁平型；2：复杂型）")
+	private Integer marketingAreaType;
 
 }
 

@@ -71,7 +71,6 @@ public class ModuleInfoRestController {
 				.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
 				.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
 				.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
-				.eq(moduleInfoQueryParam.getModuleAppid() != null, ModuleInfo::getModuleAppid, moduleInfoQueryParam.getModuleAppid())
 				;
 
 		IPage<ModuleInfo> moduleInfoPage = moduleInfoService.page(pageModuleInfo, queryWrapperModuleInfo);
@@ -143,7 +142,6 @@ public class ModuleInfoRestController {
 				.set(moduleInfo.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfo.getAdvanceEditionOn())
 				.set(moduleInfo.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfo.getUltimateEditionOn())
 				.set(moduleInfo.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfo.getModuleOn())
-				.set(moduleInfo.getModuleAppid() != null, ModuleInfo::getModuleAppid, moduleInfo.getModuleAppid())
 				;
 
 		boolean success = moduleInfoService.update(updateWrapperModuleInfo);

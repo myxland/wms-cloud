@@ -130,7 +130,11 @@ public class ${table.entityName}MapperTest {
 					<#elseif column.columnName?ends_with("account_no")>
 					.${column.propertyName}(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// ${column.columnComment}
 					<#elseif column.columnName?ends_with("_type") || column.columnName?ends_with("_status") || column.columnName?ends_with("_on") || column.columnName?ends_with("_channels") || column.columnName?ends_with("_method")|| column.columnName?ends_with("_sex") || column.columnName?ends_with("_gender") || column.columnName?ends_with("_source") || column.columnName?ends_with("_result")>
+					<#if column.propertyOptionList?size gt 0>
 					.${column.propertyName}(RandomUtil.randomInt(${column.propertyOptionList[0].value},${column.propertyOptionList[column.propertyOptionList?size-1].value}+1))// ${column.columnComment}
+					<#else>
+					.${column.propertyName}(RandomUtil.randomInt(0,1))// ${column.columnComment}
+					</#if>
 					<#elseif column.propertyType=="Date">
 					<#if column.columnName?ends_with("_month")>
 					.${column.propertyName}(TestCaseUtil.monthBefore())// ${column.columnComment}

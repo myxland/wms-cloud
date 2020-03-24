@@ -7,8 +7,10 @@ import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.api.entity.TenantInfo;
 
 public interface ITenantEmployeeService extends IService<TenantEmployee> {
+	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	String save(TenantEmployeeAddParam tenantEmployeeAddParam);
 	boolean updateById(String id,TenantEmployeeUpdateParam tenantEmployeeUpdateParam);
 	boolean update(String id,TenantEmployeeUpdateParam tenantEmployeeUpdateParam);

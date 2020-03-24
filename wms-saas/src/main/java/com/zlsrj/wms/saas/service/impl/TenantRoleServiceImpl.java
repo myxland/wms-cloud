@@ -3,7 +3,6 @@ import static java.util.stream.Collectors.toCollection;
 
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ import com.zlsrj.wms.api.entity.TenantEmployeeRole;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRole;
 import com.zlsrj.wms.api.entity.TenantRoleMenu;
-import com.zlsrj.wms.api.enums.RoleEnum;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
@@ -58,7 +56,9 @@ public class TenantRoleServiceImpl extends ServiceImpl<TenantRoleMapper, TenantR
 	private TenantEmployeeRoleMapper tenantEmployeeRoleMapper;
 
 	@Override
+	@Transactional
 	public boolean saveBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
 		QueryWrapper<TenantRole> queryWrapperTenantRole = new QueryWrapper<TenantRole>();
 		queryWrapperTenantRole.lambda()//
 				.eq(TenantRole::getTenantId, tenantInfo.getId())//
@@ -68,27 +68,54 @@ public class TenantRoleServiceImpl extends ServiceImpl<TenantRoleMapper, TenantR
 			log.error("根据租户信息初始化角色信息失败，角色信息已存在。");
 			return false;
 		}
-
-		List<TenantRole> tenantRoleList = new ArrayList<TenantRole>();
-		for (RoleEnum roleEnum : RoleEnum.values()) {
-			TenantRole tenantRole = TenantRole.builder()//
-					.id(idService.selectId())// 工作岗位ID
-					.tenantId(tenantInfo.getId())// 租户ID
-					.roleName(roleEnum.getText())// 工作岗位名称
-					.roleRemark(null)// 工作岗位说明
-					.createType(null)// 创建类型（1：平台默认创建；2：租户自建）
-					.build();
-			log.info(tenantRole.toString());
-			tenantRoleList.add(tenantRole);
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		log.info(tenantRoleList.toString());
-		return super.saveBatch(tenantRoleList);
+		
+		TenantRole tenantRole = TenantRole.builder()//
+				.id(idService.selectId())// 工作岗位ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.roleName("系统管理员")// 工作岗位名称
+				.roleRemark("系统默认建立，权限最大")// 工作岗位说明
+				.createType(1)// 创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		this.save(tenantRole);
+		
+		tenantRole = TenantRole.builder()//
+				.id(idService.selectId())// 工作岗位ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.roleName("抄表人员")// 工作岗位名称
+				.roleRemark("现场抄表")// 工作岗位说明
+				.createType(2)// 创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		this.save(tenantRole);
+		
+		tenantRole = TenantRole.builder()//
+				.id(idService.selectId())// 工作岗位ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.roleName("走收人员")// 工作岗位名称
+				.roleRemark("用户现场收费")// 工作岗位说明
+				.createType(2)// 创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		this.save(tenantRole);
+		
+		tenantRole = TenantRole.builder()//
+				.id(idService.selectId())// 工作岗位ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.roleName("柜台收费人员")// 工作岗位名称
+				.roleRemark("柜台收费")// 工作岗位说明
+				.createType(2)// 创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		this.save(tenantRole);
+		
+		tenantRole = TenantRole.builder()//
+				.id(idService.selectId())// 工作岗位ID
+				.tenantId(tenantInfo.getId())// 租户ID
+				.roleName("财务人员")// 工作岗位名称
+				.roleRemark("收费对账及资金管理")// 工作岗位说明
+				.createType(2)// 创建类型（1：平台默认创建；2：租户自建）
+				.build();
+		this.save(tenantRole);
+		
+		success = true;
+		return success;
 	}
 	
 	@Override

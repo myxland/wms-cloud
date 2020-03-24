@@ -10,7 +10,6 @@ import com.zlsrj.wms.api.dto.TenantPriceStepAddParam;
 import com.zlsrj.wms.api.dto.TenantPriceStepUpdateParam;
 import com.zlsrj.wms.api.entity.TenantPriceStep;
 import com.zlsrj.wms.common.util.TranslateUtil;
-import com.zlsrj.wms.saas.mapper.TenantPriceDetailMapper;
 import com.zlsrj.wms.saas.mapper.TenantPriceStepMapper;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantPriceStepService;
