@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -19,7 +20,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
-import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -46,6 +46,33 @@ public class ModuleInfoRestController {
 		ModuleInfo moduleInfo = moduleInfoService.getById(id);
 
 		return entity2vo(moduleInfo);
+	}
+	
+	@ApiOperation(value = "根据参数查询模块信息列表")
+	@RequestMapping(value = "/module-infos/list", method = RequestMethod.GET)
+	public List<ModuleInfoVo> list(@RequestBody ModuleInfoQueryParam moduleInfoQueryParam) {
+		QueryWrapper<ModuleInfo> queryWrapperModuleInfo = new QueryWrapper<ModuleInfo>();
+		queryWrapperModuleInfo.lambda()
+			.eq(moduleInfoQueryParam.getId() != null, ModuleInfo::getId, moduleInfoQueryParam.getId())
+			.eq(moduleInfoQueryParam.getModuleName() != null, ModuleInfo::getModuleName, moduleInfoQueryParam.getModuleName())
+			.eq(moduleInfoQueryParam.getOpenTarget() != null, ModuleInfo::getOpenTarget, moduleInfoQueryParam.getOpenTarget())
+			.eq(moduleInfoQueryParam.getRunEnv() != null, ModuleInfo::getRunEnv, moduleInfoQueryParam.getRunEnv())
+			.eq(moduleInfoQueryParam.getRelyModuleId() != null, ModuleInfo::getRelyModuleId, moduleInfoQueryParam.getRelyModuleId())
+			.eq(moduleInfoQueryParam.getBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getBillingMode())
+			.eq(moduleInfoQueryParam.getBillingCycle() != null, ModuleInfo::getBillingCycle, moduleInfoQueryParam.getBillingCycle())
+			.eq(moduleInfoQueryParam.getBasicEditionOn() != null, ModuleInfo::getBasicEditionOn, moduleInfoQueryParam.getBasicEditionOn())
+			.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
+			.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
+			.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
+		;
+
+		List<ModuleInfo> moduleInfoList = moduleInfoService.list(queryWrapperModuleInfo);
+
+		List<ModuleInfoVo> moduleInfoVoList = moduleInfoList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return moduleInfoVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询模块信息列表")

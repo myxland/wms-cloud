@@ -17,8 +17,10 @@ import org.springframework.util.CollectionUtils;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zlsrj.wms.api.entity.TenantInfo;
-import com.zlsrj.wms.saas.strategy.tenant.TenantInsertContext;
-import com.zlsrj.wms.saas.strategy.tenant.TenantInsertStrategy;
+import com.zlsrj.wms.saas.strategy.tenant.insert.TenantInsertContext;
+import com.zlsrj.wms.saas.strategy.tenant.insert.TenantInsertStrategy;
+import com.zlsrj.wms.saas.strategy.tenant.remove.TenantRemoveContext;
+import com.zlsrj.wms.saas.strategy.tenant.remove.TenantRemoveStrategy;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +33,8 @@ public class RocketMsgListener implements MessageListenerOrderly {
     
     @Resource
     private TenantInsertContext tenantInsertContext;
+    @Resource
+    private TenantRemoveContext tenantRemoveContext;
     
     @Resource
     private MqConfig mqConfig;
@@ -55,54 +59,44 @@ public class RocketMsgListener implements MessageListenerOrderly {
             return ConsumeOrderlyStatus.SUCCESS;
         }
         
-		Map<String, TenantInsertStrategy> map = tenantInsertContext.getStrategyMap();
-		//map.keySet().forEach(log::info);
+		Map<String, TenantInsertStrategy> mapTenantInsertStrategy = tenantInsertContext.getStrategyMap();
+		Map<String, TenantRemoveStrategy> mapTenantRemoveStrategy = tenantRemoveContext.getStrategyMap();
 		
-//		tenantRoleStrategy
-//		tenantDepartmentStrategy
-//		tenantEmployeeStrategy
-		
+		boolean success = true;
 		
         
         if(messageExt.getTopic().equals(mqConfig.getTopic())){
             String tag = messageExt.getTags() ;
             
-            try {
-                String key = StringUtils.firstCharToLower(tag.replaceFirst("Tag", "Strategy")); 
-                log.info("tag={},key={}",tag,key);
-                if(map.containsKey(key)) {
-                	 map.get(key).initData(tenantInfo);
-                } else {
-                	log.info("key={}",key);
-                	map.keySet().forEach(log::info);
-                	log.info("tag {} unkonw strategy",tag);
-                }
-        	}
-            catch (Exception e) {
-    			log.error(tag+"执行initData方法出错", e);
-    		}
+			try {
+				if (tag.endsWith("InsertTag")) {
+					String key = StringUtils.firstCharToLower(tag.replaceFirst("InsertTag", "Strategy"));
+					if (mapTenantInsertStrategy.containsKey(key)) {
+						success = mapTenantInsertStrategy.get(key).initData(tenantInfo);
+					} else {
+						log.info("key={}", key);
+						mapTenantRemoveStrategy.keySet().forEach(log::info);
+						log.info("tag {} unkonwn strategy", tag);
+					}
+				} else if (tag.endsWith("RemoveTag")) {
+					String key = StringUtils.firstCharToLower(tag.replaceFirst("RemoveTag", "RemoveStrategy"));
+					if (mapTenantRemoveStrategy.containsKey(key)) {
+						success = mapTenantRemoveStrategy.get(key).removeData(tenantInfo);
+					} else {
+						log.info("key={}", key);
+						mapTenantRemoveStrategy.keySet().forEach(log::info);
+						log.info("tag {} unkonwn strategy", tag);
+					}
+				} else {
+					log.info("tag {} unkonwn strategy", tag);
+				}
+
+			} catch (Exception e) {
+				log.error(tag + "执行方法出错", e);
+			}
             
-//            switch (tag){
-//                case "TenantDepartmentTag":
-//                	
-//                    
-////                    for(String k:map.keySet()) {
-////                    	try {
-////                    		TenantInsertStrategy v = map.get(k);
-////                        	v.initData(tenantInfo);
-////                        	log.info(k+"执行initData方法完成");
-////                    	} catch (Exception e) {
-////                			log.error(k+"执行initData方法出错", e);
-////                		}
-////                    	
-////                    }
-//                    break ;
-//                default:
-//                    log.info("未匹配到Tag == >>"+tag);
-//                    break;
-//            }
         }
-        // 消息消费成功
-        return ConsumeOrderlyStatus.SUCCESS;
+        
+        return success?ConsumeOrderlyStatus.SUCCESS:ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
     }
 }

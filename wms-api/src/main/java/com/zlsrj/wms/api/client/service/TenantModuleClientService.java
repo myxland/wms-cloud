@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
 import com.zlsrj.wms.api.entity.TenantModule;
+import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -22,6 +24,9 @@ public interface TenantModuleClientService {
 	@RequestMapping(value = "/tenant-modules/{id}", method = RequestMethod.GET)
 	public TenantModuleVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-modules/list", method = RequestMethod.GET)
+	public List<TenantModuleVo> list(@RequestBody TenantModuleQueryParam tenantModuleQueryParam);
+	
 	@RequestMapping(value = "/tenant-modules", method = RequestMethod.GET)
 	public Page<TenantModuleVo> page(@RequestBody TenantModuleQueryParam tenantModuleQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //

@@ -10,6 +10,8 @@ public interface ITenantChargeAgencyService extends IService<TenantChargeAgency>
 	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantChargeAgencyAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantChargeAgencyUpdateParam tenantCustomerTypeUpdateParam);

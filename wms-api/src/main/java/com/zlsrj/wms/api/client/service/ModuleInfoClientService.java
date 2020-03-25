@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,9 @@ public interface ModuleInfoClientService {
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.GET)
 	public ModuleInfoVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/module-infos/list", method = RequestMethod.GET)
+	public List<ModuleInfoVo> list(@RequestBody ModuleInfoQueryParam moduleInfoQueryParam);
+	
 	@RequestMapping(value = "/module-infos", method = RequestMethod.GET)
 	public Page<ModuleInfoVo> page(@RequestBody ModuleInfoQueryParam moduleInfoQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //

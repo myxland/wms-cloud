@@ -1,5 +1,8 @@
 package com.zlsrj.wms.saas.mq;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +55,17 @@ public class ConsumerConfig {
 //            }
         	
         	// 顺序消息
-			consumer.subscribe(mqConfig.getTopic(),StringUtils.join(mqConfig.getTags(), " || "));
+        	List<String> tags = new ArrayList<String>();
+        	if(mqConfig!=null && mqConfig.getInsertTags()!=null && mqConfig.getInsertTags().size()>0)
+        	{
+        		tags.addAll(mqConfig.getInsertTags());
+        	}
+        	if(mqConfig!=null && mqConfig.getRemoveTags()!=null && mqConfig.getRemoveTags().size()>0)
+        	{
+        		tags.addAll(mqConfig.getRemoveTags());
+        	}
+        	
+			consumer.subscribe(mqConfig.getTopic(),StringUtils.join(tags, " || "));
         	
             consumer.start();
         }catch (MQClientException e){

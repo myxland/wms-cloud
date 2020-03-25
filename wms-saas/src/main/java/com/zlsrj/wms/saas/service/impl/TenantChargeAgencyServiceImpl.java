@@ -62,6 +62,18 @@ public class TenantChargeAgencyServiceImpl extends ServiceImpl<TenantChargeAgenc
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantChargeAgency> queryWrapperTenantChargeAgency = new QueryWrapper<TenantChargeAgency>();
+		queryWrapperTenantChargeAgency.lambda()//
+				.eq(TenantChargeAgency::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantChargeAgency);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantChargeAgencyAddParam tenantChargeAgencyAddParam) {

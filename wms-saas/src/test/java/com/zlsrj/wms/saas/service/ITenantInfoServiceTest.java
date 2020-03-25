@@ -67,6 +67,7 @@ public class ITenantInfoServiceTest {
 					.invoiceBankName(TestCaseUtil.bankName())// 开户行名称
 					.invoiceBankAccountNo(TestCaseUtil.bankCardNo(TestCaseUtil.bank()))// 开户账号
 					.tenantAccesskey(RandomUtil.randomString(4))// 租户KEY
+					.priceStepOn(RandomUtil.randomInt(0,1+1))
 					.build();
 
 			log.info(ToStringBuilder.reflectionToString(tenantInfo, ToStringStyle.MULTI_LINE_STYLE));
@@ -178,7 +179,7 @@ public class ITenantInfoServiceTest {
 
 	@Test
 	public void deleteRedisTest() {
-		String id = "cbdc7fc0a26b4027b8d7f3016de4b0e1";
+		String id = "48e60355794d4572b73ca6274aabe1ed";
 		log.info("id={}", id);
 		this.tenantInfoService.removeById(id);
 	}

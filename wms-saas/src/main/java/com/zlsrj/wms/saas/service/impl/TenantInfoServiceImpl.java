@@ -27,11 +27,13 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
 import com.zlsrj.wms.saas.mq.MqConfig;
 import com.zlsrj.wms.saas.service.IIdService;
@@ -66,7 +68,7 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 			try {
 				// 顺序消息
 				
-				for(String tag:mqConfig.getTags()) {
+				for(String tag:mqConfig.getInsertTags()) {
 					String key = tenantInfo.getId();
 					byte[] body = JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET);
 					Message message = new Message(mqConfig.getTopic(), tag, key, body);
@@ -172,6 +174,12 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 
 		return tenantInfo.getId();
 	}
+	
+	@Override
+	public boolean updateById(TenantInfoUpdateParam tenantInfoUpdateParam) {
+		TenantInfo tenantInfo = TranslateUtil.translate(tenantInfoUpdateParam, TenantInfo.class);
+		return this.updateById(tenantInfo);
+	}
 
 	@Override
 	public boolean updateById(TenantInfo entity) {
@@ -211,6 +219,38 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 				log.error("redis error", e);
 			}
 		}
+		
+		if (success) {
+			try {
+				// 顺序消息
+				TenantInfo tenantInfo = TenantInfo.builder().id(id.toString()).build();
+				
+				for(String tag:mqConfig.getRemoveTags()) {
+					String key = tenantInfo.getId();
+					byte[] body = JSON.toJSONString(tenantInfo).getBytes(RemotingHelper.DEFAULT_CHARSET);
+					Message message = new Message(mqConfig.getTopic(), tag, key, body);
+					
+					SendResult sendResult = defaultMQProducer.send(message, new MessageQueueSelector() {
+			            @Override
+			            public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+			            	//uuid生成的id，取第1个字符，转16进制字符串表示，然后转成10进制数字
+			            	Integer id = Integer.valueOf(String.valueOf(((String)arg).toCharArray()[0]), 16);
+			                //Integer id = (Integer) arg;
+			                int index = id % mqs.size();
+			                return mqs.get(index);
+			            }
+			            }, tenantInfo.getId());
+
+			            log.info(String.format("%s%n", sendResult));
+					
+				}
+				
+			} catch (Exception e) {
+				log.info(id.toString());
+				log.error("发送rocketmq消息出错", e);
+			}
+		}
+		
 		return success;
 	}
 }

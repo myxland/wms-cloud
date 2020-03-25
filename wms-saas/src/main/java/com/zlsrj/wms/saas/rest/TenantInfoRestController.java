@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
+import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -120,15 +121,9 @@ public class TenantInfoRestController {
 
 	@ApiOperation(value = "更新租户表全部信息")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.PUT)
-	public TenantInfoVo updateById(@PathVariable("id") String id, @RequestBody TenantInfo tenantInfo) {
-		tenantInfo.setId(id);
-		boolean success = tenantInfoService.updateById(tenantInfo);
-		if (success) {
-			TenantInfo tenantInfoDatabase = tenantInfoService.getById(id);
-			return entity2vo(tenantInfoDatabase);
-		}
-		log.info("update TenantInfo fail，{}", ToStringBuilder.reflectionToString(tenantInfo, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantInfoUpdateParam tenantInfoUpdateParam) {
+		tenantInfoUpdateParam.setId(id);
+		return tenantInfoService.updateById(tenantInfoUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新租户表信息")

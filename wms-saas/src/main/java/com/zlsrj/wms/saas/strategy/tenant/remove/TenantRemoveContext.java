@@ -1,4 +1,4 @@
-package com.zlsrj.wms.saas.strategy.tenant;
+package com.zlsrj.wms.saas.strategy.tenant.remove;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,20 +10,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class TenantInsertContext {
+public class TenantRemoveContext {
 
-	private final Map<String, TenantInsertStrategy> strategyMap = new ConcurrentHashMap<>();
+	private final Map<String, TenantRemoveStrategy> strategyMap = new ConcurrentHashMap<>();
 	
 
     @Autowired
-    public void stragegyInteface(Map<String, TenantInsertStrategy> strategyMap) {
+    public void stragegyInteface(Map<String, TenantRemoveStrategy> strategyMap) {
         this.strategyMap.clear();
         strategyMap.forEach(this.strategyMap::put);
-        this.strategyMap.keySet().forEach(log::info);
+        //this.strategyMap.keySet().forEach(log::info);
     }
 
 
-    public Map<String, TenantInsertStrategy> getStrategyMap() {
+    public Map<String, TenantRemoveStrategy> getStrategyMap() {
         return strategyMap;
     }
 }

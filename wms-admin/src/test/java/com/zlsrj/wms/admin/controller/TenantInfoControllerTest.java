@@ -1,7 +1,9 @@
 package com.zlsrj.wms.admin.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +19,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
+import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
+import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
@@ -125,6 +130,25 @@ public class TenantInfoControllerTest {
 		
 		log.info(JSON.toJSONString(tenantInfoAddParam));
 		
+	}
+	
+	@Test
+	public void updateTest() throws Exception {
+		String id = "dd119da46cb44455be061425da1dd9ed";
+		log.info("id={}",id);
+		
+		TenantInfoUpdateParam tenantInfoUpdateParam = new TenantInfoUpdateParam();
+		tenantInfoUpdateParam.setTenantDisplayName("欣茂"+"更新测试"+RandomUtil.randomString(4));
+		
+		log.info(JSON.toJSONString(tenantInfoUpdateParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantInfo/update/"+id)//
+						.content(JSON.toJSONString(tenantInfoUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
 	}
 	
 }

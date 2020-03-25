@@ -19,9 +19,12 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
+import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantModule;
+import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.saas.service.IIdService;
@@ -51,6 +54,36 @@ public class TenantModuleRestController {
 		TenantModule tenantModule = tenantModuleService.getById(id);
 
 		return entity2vo(tenantModule);
+	}
+	
+	@ApiOperation(value = "根据参数查询租户开通模块列表")
+	@RequestMapping(value = "/tenant-modules/list", method = RequestMethod.GET)
+	public List<TenantModuleVo> list(@RequestBody TenantModuleQueryParam tenantModuleQueryParam) {
+		QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
+		queryWrapperTenantModule.lambda()
+		.eq(tenantModuleQueryParam.getId() != null, TenantModule::getId, tenantModuleQueryParam.getId())
+		.eq(tenantModuleQueryParam.getTenantId() != null, TenantModule::getTenantId,
+				tenantModuleQueryParam.getTenantId())
+		.eq(tenantModuleQueryParam.getModuleId() != null, TenantModule::getModuleId,
+				tenantModuleQueryParam.getModuleId())
+		.eq(tenantModuleQueryParam.getModuleEdition() != null, TenantModule::getModuleEdition,
+				tenantModuleQueryParam.getModuleEdition())
+		.eq(tenantModuleQueryParam.getModuleOpenTime() != null, TenantModule::getModuleOpenTime,
+				tenantModuleQueryParam.getModuleOpenTime())
+		.ge(tenantModuleQueryParam.getModuleOpenTimeStart() != null, TenantModule::getModuleOpenTime,
+				tenantModuleQueryParam.getModuleOpenTimeStart() == null ? null
+						: DateUtil.beginOfDay(tenantModuleQueryParam.getModuleOpenTimeStart()))
+		.le(tenantModuleQueryParam.getModuleOpenTimeEnd() != null, TenantModule::getModuleOpenTime,
+				tenantModuleQueryParam.getModuleOpenTimeEnd() == null ? null
+						: DateUtil.endOfDay(tenantModuleQueryParam.getModuleOpenTimeEnd()));
+
+		List<TenantModule> tenantModuleList = tenantModuleService.list(queryWrapperTenantModule);
+
+		List<TenantModuleVo> tenantModuleVoList = tenantModuleList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return tenantModuleVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询租户开通模块清单列表")

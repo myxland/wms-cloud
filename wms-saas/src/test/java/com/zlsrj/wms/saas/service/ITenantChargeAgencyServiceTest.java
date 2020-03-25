@@ -81,4 +81,13 @@ public class ITenantChargeAgencyServiceTest {
 		
 		log.info("tenantId={},success={}",tenantId,Boolean.toString(success));
 	}
+	
+	@Test
+	public void removeBatchByTenantInfoTest() {
+		String tenantId = "dd119da46cb44455be061425da1dd9ed";
+		TenantInfo tenantInfo = tenantInfoService.getById(tenantId);
+		boolean success = tenantChargeAgencyService.removeBatchByTenantInfo(tenantInfo);
+		
+		log.info("tenantId={},success={}",tenantId,Boolean.toString(success));
+	}
 }

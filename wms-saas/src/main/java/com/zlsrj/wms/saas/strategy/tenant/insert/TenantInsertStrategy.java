@@ -1,4 +1,4 @@
-package com.zlsrj.wms.saas.strategy.tenant;
+package com.zlsrj.wms.saas.strategy.tenant.insert;
 
 import com.zlsrj.wms.api.entity.TenantInfo;
 

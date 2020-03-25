@@ -100,31 +100,31 @@ rocketmq:
 # 配置 Group Topic Tag
 mq-config:
   tenant-info: 
-    topic: TenantInfoTopic
-    tags: 
-      - TenantDepartmentTag
-      - TenantRoleTag
-      - TenantEmployeeTag
-      - TenantEmployeeRoleTag  
-      - TenantModuleTag
-      - TenantRoleMenuTag
-      - TenantMeterSupplyAreaTag
-      - TenantMeterMarketingAreaTag
-      - TenantPriceItemTag
-      - TenantPriceTag
-      - TenantMeterIndustryTag
-      - TenantMeterCaliberTag
-      - TenantMeterModelTag
-      - TenantMeterBrandTag
-      - TenantMeterTypeTag
-      - TenantMeterReadSituationTag
-      - TenantBusinessRulesTag
-      - TenantCustomerTypeTag
-      - TenantChargeAgencyTag
-      - TenantLinkmanTag
-      - TenantOperatorTag
-      
-      
+     topic: TenantInfoTopic
+     insertTags: 
+        - TenantDepartmentInsertTag
+        - TenantRoleInsertTag
+        - TenantEmployeeInsertTag
+        - TenantEmployeeRoleInsertTag  
+        - TenantModuleInsertTag
+        - TenantRoleMenuInsertTag
+        - TenantMeterSupplyAreaInsertTag
+        - TenantMeterMarketingAreaInsertTag
+        - TenantPriceItemInsertTag
+        - TenantPriceInsertTag
+        - TenantMeterIndustryInsertTag
+        - TenantMeterCaliberInsertTag
+        - TenantMeterModelInsertTag
+        - TenantMeterBrandInsertTag
+        - TenantMeterTypeInsertTag
+        - TenantMeterReadSituationInsertTag
+        - TenantBusinessRulesInsertTag
+        - TenantCustomerTypeInsertTag
+        - TenantChargeAgencyInsertTag
+        - TenantLinkmanInsertTag
+        - TenantOperatorInsertTag
+     removeTags:
+        - TenantChargeAgencyRemoveTag      
       
       
       
