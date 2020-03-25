@@ -108,6 +108,10 @@ mq-config:
       - TenantEmployeeRoleTag  
       - TenantModuleTag
       - TenantRoleMenuTag
+      - TenantMeterSupplyAreaTag
+      - TenantMeterMarketingAreaTag
+      - TenantPriceItemTag
+      - TenantPriceTag
       - TenantMeterIndustryTag
       - TenantMeterCaliberTag
       - TenantMeterModelTag

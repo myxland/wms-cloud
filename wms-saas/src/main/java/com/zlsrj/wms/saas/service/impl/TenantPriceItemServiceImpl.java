@@ -40,7 +40,7 @@ public class TenantPriceItemServiceImpl extends ServiceImpl<TenantPriceItemMappe
 		;
 		int count = super.count(queryWrapperTenantPriceItem);
 		if (count > 0) {
-			log.error("根据租户信息初始化部门信息失败，部门信息已存在。");
+			log.error("根据租户信息初始化收费项目失败，收费项目已存在。");
 			return false;
 		}
 
