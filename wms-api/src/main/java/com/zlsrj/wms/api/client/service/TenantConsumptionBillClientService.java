@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillAddParam;
 import com.zlsrj.wms.api.dto.TenantConsumptionBillQueryParam;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillUpdateParam;
 import com.zlsrj.wms.api.entity.TenantConsumptionBill;
 import com.zlsrj.wms.api.vo.TenantConsumptionBillVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -18,6 +22,9 @@ public interface TenantConsumptionBillClientService {
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.GET)
 	public TenantConsumptionBillVo getById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-consumption-bills/list", method = RequestMethod.GET)
+	public List<TenantConsumptionBillVo> list(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam);
+	
 	@RequestMapping(value = "/tenant-consumption-bills", method = RequestMethod.GET)
 	public Page<TenantConsumptionBillVo> page(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -25,12 +32,15 @@ public interface TenantConsumptionBillClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
+	
+	@RequestMapping(value = "/tenant-consumption-bills/aggregation", method = RequestMethod.GET)
+	public TenantConsumptionBillVo aggregation(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam);
 
 	@RequestMapping(value = "/tenant-consumption-bills", method = RequestMethod.POST)
-	public TenantConsumptionBillVo save(@RequestBody TenantConsumptionBill tenantConsumptionBill);
+	public String save(@RequestBody TenantConsumptionBillAddParam tenantConsumptionBillAddParam);
 
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.PUT)
-	public TenantConsumptionBillVo updateById(@PathVariable("id") String id, @RequestBody TenantConsumptionBill tenantConsumptionBill);
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantConsumptionBillUpdateParam tenantConsumptionBillUpdateParam);
 
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.PATCH)
 	public TenantConsumptionBillVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantConsumptionBill tenantConsumptionBill);

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zlsrj.wms.saas.mapper.TenantConsumptionBillMapper">
-
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantConsumptionBill">
+		SELECT
+			count(id) as id,
+			sum(consumption_bill_money) as consumption_bill_money,
+			sum(tenant_balance) as tenant_balance
+		FROM tenant_consumption_bill
+		${ew.customSqlSegment} 
+	</select>
 </mapper>

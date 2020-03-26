@@ -1,14 +1,16 @@
 package com.zlsrj.wms.saas.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillAddParam;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillUpdateParam;
 import com.zlsrj.wms.api.entity.TenantConsumptionBill;
-import com.zlsrj.wms.api.entity.TenantInfo;
 
 public interface ITenantConsumptionBillService extends IService<TenantConsumptionBill> {
-	/**
-	 * 根据新建租户信息创建默认用户类型
-	 * @param tenantInfo
-	 * @return
-	 */
-	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	TenantConsumptionBill getAggregation(Wrapper<TenantConsumptionBill> wrapper);
+	
+	String save(TenantConsumptionBillAddParam tenantCustomerTypeAddParam);
+
+	boolean updateById(TenantConsumptionBillUpdateParam tenantCustomerTypeUpdateParam);
+
 }

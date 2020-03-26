@@ -76,7 +76,7 @@ public class TableNameFactory {
 				"tenant_meter_model_default", //
 				"tenant_meter_read_situation_default", //
 				"tenant_meter_type_default", //
-				"", //
+				"tenant_consumption_bill", //
 				"", //
 				"", //
 				"", //

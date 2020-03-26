@@ -62,5 +62,4 @@ public class TenantConsumptionBill implements Serializable {
 	@TableField("consumption_bill_remark")
 	private String consumptionBillRemark;
 
-
 }

@@ -1,8 +1,10 @@
 package com.zlsrj.wms.saas.rest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,15 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillAddParam;
 import com.zlsrj.wms.api.dto.TenantConsumptionBillQueryParam;
+import com.zlsrj.wms.api.dto.TenantConsumptionBillUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantConsumptionBill;
 import com.zlsrj.wms.api.vo.TenantConsumptionBillVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantConsumptionBillService;
 
@@ -42,8 +45,6 @@ public class TenantConsumptionBillRestController {
 	private ITenantConsumptionBillService tenantConsumptionBillService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户账单")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.GET)
@@ -54,6 +55,30 @@ public class TenantConsumptionBillRestController {
 	}
 
 	@ApiOperation(value = "根据参数查询租户账单列表")
+	@RequestMapping(value = "/tenant-consumption-bills/list", method = RequestMethod.GET)
+	public List<TenantConsumptionBillVo> list(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam) {
+		QueryWrapper<TenantConsumptionBill> queryWrapperTenantConsumptionBill = new QueryWrapper<TenantConsumptionBill>();
+		queryWrapperTenantConsumptionBill.lambda()
+				.eq(tenantConsumptionBillQueryParam.getId() != null, TenantConsumptionBill::getId, tenantConsumptionBillQueryParam.getId())
+				.eq(tenantConsumptionBillQueryParam.getTenantId() != null, TenantConsumptionBill::getTenantId, tenantConsumptionBillQueryParam.getTenantId())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillType() != null, TenantConsumptionBill::getConsumptionBillType, tenantConsumptionBillQueryParam.getConsumptionBillType())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillTime() != null, TenantConsumptionBill::getConsumptionBillTime, tenantConsumptionBillQueryParam.getConsumptionBillTime())
+				.ge(tenantConsumptionBillQueryParam.getConsumptionBillTimeStart() != null, TenantConsumptionBill::getConsumptionBillTime,tenantConsumptionBillQueryParam.getConsumptionBillTimeStart() == null ? null: DateUtil.beginOfDay(tenantConsumptionBillQueryParam.getConsumptionBillTimeStart()))
+				.le(tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd() != null, TenantConsumptionBill::getConsumptionBillTime,tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd() == null ? null: DateUtil.endOfDay(tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd()))
+				.eq(StringUtils.isNotBlank(tenantConsumptionBillQueryParam.getConsumptionBillName()), TenantConsumptionBill::getConsumptionBillName, tenantConsumptionBillQueryParam.getConsumptionBillName())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillMoney() != null, TenantConsumptionBill::getConsumptionBillMoney, tenantConsumptionBillQueryParam.getConsumptionBillMoney())
+				.eq(tenantConsumptionBillQueryParam.getTenantBalance() != null, TenantConsumptionBill::getTenantBalance, tenantConsumptionBillQueryParam.getTenantBalance())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillRemark() != null, TenantConsumptionBill::getConsumptionBillRemark, tenantConsumptionBillQueryParam.getConsumptionBillRemark())
+				;
+
+		List<TenantConsumptionBill> tenantConsumptionBillList = tenantConsumptionBillService.list(queryWrapperTenantConsumptionBill);
+
+		List<TenantConsumptionBillVo> tenantConsumptionBillVoList = TranslateUtil.translateList(tenantConsumptionBillList, TenantConsumptionBillVo.class);
+
+		return tenantConsumptionBillVoList;
+	}
+	
+	@ApiOperation(value = "根据参数查询租户账单列表")
 	@RequestMapping(value = "/tenant-consumption-bills", method = RequestMethod.GET)
 	public Page<TenantConsumptionBillVo> page(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -63,7 +88,7 @@ public class TenantConsumptionBillRestController {
 	) {
 		IPage<TenantConsumptionBill> pageTenantConsumptionBill = new Page<TenantConsumptionBill>(page, rows);
 		QueryWrapper<TenantConsumptionBill> queryWrapperTenantConsumptionBill = new QueryWrapper<TenantConsumptionBill>();
-		queryWrapperTenantConsumptionBill.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperTenantConsumptionBill.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperTenantConsumptionBill.lambda()
 				.eq(tenantConsumptionBillQueryParam.getId() != null, TenantConsumptionBill::getId, tenantConsumptionBillQueryParam.getId())
 				.eq(tenantConsumptionBillQueryParam.getTenantId() != null, TenantConsumptionBill::getTenantId, tenantConsumptionBillQueryParam.getTenantId())
@@ -90,33 +115,40 @@ public class TenantConsumptionBillRestController {
 
 		return tenantConsumptionBillVoPage;
 	}
+	
+	@ApiOperation(value = "根据参数查询租户账单统计")
+	@RequestMapping(value = "/tenant-consumption-bills/aggregation", method = RequestMethod.GET)
+	public TenantConsumptionBillVo aggregation(@RequestBody TenantConsumptionBillQueryParam tenantConsumptionBillQueryParam) {
+		QueryWrapper<TenantConsumptionBill> queryWrapperTenantConsumptionBill = new QueryWrapper<TenantConsumptionBill>();
+		queryWrapperTenantConsumptionBill.lambda()
+				.eq(tenantConsumptionBillQueryParam.getId() != null, TenantConsumptionBill::getId, tenantConsumptionBillQueryParam.getId())
+				.eq(tenantConsumptionBillQueryParam.getTenantId() != null, TenantConsumptionBill::getTenantId, tenantConsumptionBillQueryParam.getTenantId())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillType() != null, TenantConsumptionBill::getConsumptionBillType, tenantConsumptionBillQueryParam.getConsumptionBillType())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillTime() != null, TenantConsumptionBill::getConsumptionBillTime, tenantConsumptionBillQueryParam.getConsumptionBillTime())
+				.ge(tenantConsumptionBillQueryParam.getConsumptionBillTimeStart() != null, TenantConsumptionBill::getConsumptionBillTime,tenantConsumptionBillQueryParam.getConsumptionBillTimeStart() == null ? null: DateUtil.beginOfDay(tenantConsumptionBillQueryParam.getConsumptionBillTimeStart()))
+				.le(tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd() != null, TenantConsumptionBill::getConsumptionBillTime,tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd() == null ? null: DateUtil.endOfDay(tenantConsumptionBillQueryParam.getConsumptionBillTimeEnd()))
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillName() != null, TenantConsumptionBill::getConsumptionBillName, tenantConsumptionBillQueryParam.getConsumptionBillName())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillMoney() != null, TenantConsumptionBill::getConsumptionBillMoney, tenantConsumptionBillQueryParam.getConsumptionBillMoney())
+				.eq(tenantConsumptionBillQueryParam.getTenantBalance() != null, TenantConsumptionBill::getTenantBalance, tenantConsumptionBillQueryParam.getTenantBalance())
+				.eq(tenantConsumptionBillQueryParam.getConsumptionBillRemark() != null, TenantConsumptionBill::getConsumptionBillRemark, tenantConsumptionBillQueryParam.getConsumptionBillRemark())
+				;
+
+		TenantConsumptionBill tenantConsumptionBill = tenantConsumptionBillService.getAggregation(queryWrapperTenantConsumptionBill);
+		
+		return entity2vo(tenantConsumptionBill);
+	}
 
 	@ApiOperation(value = "新增租户账单")
 	@RequestMapping(value = "/tenant-consumption-bills", method = RequestMethod.POST)
-	public TenantConsumptionBillVo save(@RequestBody TenantConsumptionBill tenantConsumptionBill) {
-		if (tenantConsumptionBill.getId() == null || tenantConsumptionBill.getId().trim().length() <= 0) {
-			tenantConsumptionBill.setId(idService.selectId());
-		}
-		boolean success = tenantConsumptionBillService.save(tenantConsumptionBill);
-		if (success) {
-			TenantConsumptionBill tenantConsumptionBillDatabase = tenantConsumptionBillService.getById(tenantConsumptionBill.getId());
-			return entity2vo(tenantConsumptionBillDatabase);
-		}
-		log.info("save TenantConsumptionBill fail，{}", ToStringBuilder.reflectionToString(tenantConsumptionBill, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody TenantConsumptionBillAddParam tenantConsumptionBillAddParam) {
+		return tenantConsumptionBillService.save(tenantConsumptionBillAddParam);
 	}
 
 	@ApiOperation(value = "更新租户账单全部信息")
 	@RequestMapping(value = "/tenant-consumption-bills/{id}", method = RequestMethod.PUT)
-	public TenantConsumptionBillVo updateById(@PathVariable("id") String id, @RequestBody TenantConsumptionBill tenantConsumptionBill) {
-		tenantConsumptionBill.setId(id);
-		boolean success = tenantConsumptionBillService.updateById(tenantConsumptionBill);
-		if (success) {
-			TenantConsumptionBill tenantConsumptionBillDatabase = tenantConsumptionBillService.getById(id);
-			return entity2vo(tenantConsumptionBillDatabase);
-		}
-		log.info("update TenantConsumptionBill fail，{}", ToStringBuilder.reflectionToString(tenantConsumptionBill, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantConsumptionBillUpdateParam tenantConsumptionBillUpdateParam) {
+		tenantConsumptionBillUpdateParam.setId(id);
+		return tenantConsumptionBillService.updateById(tenantConsumptionBillUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新租户账单信息")

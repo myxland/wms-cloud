@@ -64,7 +64,7 @@ public class TenantConsumptionBillRestControllerTest {
 		params.add("order", "desc");
 		
 		// params.add("id",TestCaseUtil.id());// 租户账单ID
-		// params.add("tenantId",RandomUtil.randomLong());// 租户ID
+		// params.add("tenantId",RandomUtil.randomString(4));// 租户ID
 		// params.add("consumptionBillType",RandomUtil.randomInt(0,1+1));// 账单类型（1：充值；2：消费）
 		// params.add("consumptionBillTime",new Date());// 账单时间
 		// params.add("consumptionBillName",TestCaseUtil.name());// 账单名称[账户充值/短信平台/...]
@@ -84,7 +84,7 @@ public class TenantConsumptionBillRestControllerTest {
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
 				.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.tenantId(RandomUtil.randomString(4))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -109,7 +109,7 @@ public class TenantConsumptionBillRestControllerTest {
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
 				//.id(TestCaseUtil.id())// 租户账单ID
-				.tenantId(RandomUtil.randomString(32))// 租户ID
+				.tenantId(RandomUtil.randomString(4))// 租户ID
 				.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				.consumptionBillTime(new Date())// 账单时间
 				.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
@@ -133,7 +133,7 @@ public class TenantConsumptionBillRestControllerTest {
 		String id = "";
 
 		TenantConsumptionBill tenantInfo = TenantConsumptionBill.builder()//
-				//.tenantId(RandomUtil.randomString(32))// 租户ID
+				//.tenantId(RandomUtil.randomString(4))// 租户ID
 				//.consumptionBillType(RandomUtil.randomInt(0,1+1))// 账单类型（1：充值；2：消费）
 				//.consumptionBillTime(new Date())// 账单时间
 				//.consumptionBillName(TestCaseUtil.name())// 账单名称[账户充值/短信平台/...]
