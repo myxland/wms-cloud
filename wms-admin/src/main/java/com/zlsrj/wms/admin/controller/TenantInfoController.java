@@ -128,6 +128,7 @@ public class TenantInfoController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public CommonResult<List<TenantInfoVo>> list(TenantInfoQueryParam tenantInfoQueryParam) {
+		tenantInfoQueryParam.setNotTenantType(4);//排除4：内部运营
 		List<TenantInfoVo> tenantInfoVoList = tenantInfoClientService.list(tenantInfoQueryParam);
 		tenantInfoVoList.stream().forEach(v -> wrappperVo(v));
 

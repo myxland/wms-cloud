@@ -111,5 +111,8 @@ public class TenantInfoQueryParam implements Serializable {
 	
 	@ApiModelProperty(value = "查询值")
 	private String queryValue;
+	
+	@ApiModelProperty(value = "排除租户类型")
+	private Integer notTenantType;
 }
 

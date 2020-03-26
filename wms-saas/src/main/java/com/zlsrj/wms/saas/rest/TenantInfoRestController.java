@@ -94,6 +94,7 @@ public class TenantInfoRestController {
 				.eq(tenantInfoQueryParam.getInvoiceBankName() != null, TenantInfo::getInvoiceBankName, tenantInfoQueryParam.getInvoiceBankName())
 				.eq(tenantInfoQueryParam.getInvoiceBankAccountNo() != null, TenantInfo::getInvoiceBankAccountNo, tenantInfoQueryParam.getInvoiceBankAccountNo())
 				.eq(tenantInfoQueryParam.getTenantAccesskey() != null, TenantInfo::getTenantAccesskey, tenantInfoQueryParam.getTenantAccesskey())
+				.ne(tenantInfoQueryParam.getNotTenantType()!=null, TenantInfo::getTenantType, tenantInfoQueryParam.getNotTenantType());
 				;
 
 		List<TenantInfo> tenantInfoList = tenantInfoService.list(queryWrapperTenantInfo);
