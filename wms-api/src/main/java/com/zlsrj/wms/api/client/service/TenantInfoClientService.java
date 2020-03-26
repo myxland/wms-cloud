@@ -1,5 +1,7 @@
 package com.zlsrj.wms.api.client.service;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,9 @@ public interface TenantInfoClientService {
 	@RequestMapping(value = "/tenant-infos/dictionary/{id}", method = RequestMethod.GET)
 	public TenantInfoVo getDictionaryById(@PathVariable("id") String id);
 
+	@RequestMapping(value = "/tenant-infos/list", method = RequestMethod.GET)
+	public List<TenantInfoVo> list(@RequestBody TenantInfoQueryParam tenantInfoQueryParam);
+	
 	@RequestMapping(value = "/tenant-infos", method = RequestMethod.GET)
 	public Page<TenantInfoVo> page(@RequestBody TenantInfoQueryParam tenantInfoQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //

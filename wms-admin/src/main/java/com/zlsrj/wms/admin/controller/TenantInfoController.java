@@ -1,6 +1,7 @@
 package com.zlsrj.wms.admin.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantModuleClientService;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
@@ -121,6 +124,15 @@ public class TenantInfoController {
 		return CommonResult.failed();
 	}
 	
+	@ApiOperation(value = "根据参数查询租户信息列表")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<TenantInfoVo>> list(TenantInfoQueryParam tenantInfoQueryParam) {
+		List<TenantInfoVo> tenantInfoVoList = tenantInfoClientService.list(tenantInfoQueryParam);
+		tenantInfoVoList.stream().forEach(v -> wrappperVo(v));
+
+		return CommonResult.success(tenantInfoVoList);
+	}
 
 	private void wrappperVo(TenantInfoVo tenantInfoVo) {
 	}

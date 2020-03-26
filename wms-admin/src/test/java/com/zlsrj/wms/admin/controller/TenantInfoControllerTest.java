@@ -1,9 +1,7 @@
 package com.zlsrj.wms.admin.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,14 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
-import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
-import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
@@ -179,6 +177,34 @@ public class TenantInfoControllerTest {
 				MockMvcRequestBuilders.post("/tenantInfo/recharge/"+id)//
 						.content(JSON.toJSONString(tenantInfoRechargeParam))//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void listTest() throws Exception {
+//		String queryCol = "tenant_name";
+//		String queryType = "=";
+//		String queryValue = "租户名称-新增用例-0-1897";
+		
+//		String queryCol = "tenant_name";
+//		String queryType = "like";
+//		String queryValue = "1-8358";
+		
+		String queryCol = "tenant_type";
+		String queryType = "=";
+		String queryValue = "1";
+		
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("queryCol", queryCol);
+		params.add("queryType", queryType);
+		params.add("queryValue", queryValue);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantInfo/list")//
+						.params(params)
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

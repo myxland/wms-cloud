@@ -103,5 +103,13 @@ public class TenantInfoQueryParam implements Serializable {
 	@ApiModelProperty(value = "营销机构类型（1：扁平型；2：复杂型）")
 	private Integer marketingAreaType;
 
+	@ApiModelProperty(value = "查询字段")
+	private String queryCol;
+	
+	@ApiModelProperty(value = "查询条件 like = 等")
+	private String queryType;
+	
+	@ApiModelProperty(value = "查询值")
+	private String queryValue;
 }
 

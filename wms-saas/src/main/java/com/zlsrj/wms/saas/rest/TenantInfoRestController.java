@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.rest;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -57,6 +58,51 @@ public class TenantInfoRestController {
 		TenantInfo tenantInfo = tenantInfoService.getDictionaryById(id);
 
 		return entity2vo(tenantInfo);
+	}
+	
+	@ApiOperation(value = "根据参数查询租户表列表")
+	@RequestMapping(value = "/tenant-infos/list", method = RequestMethod.GET)
+	public List<TenantInfoVo> list(@RequestBody TenantInfoQueryParam tenantInfoQueryParam){
+		QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
+		queryWrapperTenantInfo.lambda()
+				.apply("=".equals(tenantInfoQueryParam.getQueryType()), tenantInfoQueryParam.getQueryCol()+"={0}", tenantInfoQueryParam.getQueryValue())
+				.apply("like".equals(tenantInfoQueryParam.getQueryType()), tenantInfoQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantInfoQueryParam.getQueryValue())
+				.eq(tenantInfoQueryParam.getId() != null, TenantInfo::getId, tenantInfoQueryParam.getId())
+				.eq(tenantInfoQueryParam.getTenantName() != null, TenantInfo::getTenantName, tenantInfoQueryParam.getTenantName())
+				.eq(tenantInfoQueryParam.getTenantBalance() != null, TenantInfo::getTenantBalance, tenantInfoQueryParam.getTenantBalance())
+				.eq(tenantInfoQueryParam.getTenantOverdraw() != null, TenantInfo::getTenantOverdraw, tenantInfoQueryParam.getTenantOverdraw())
+				.eq(tenantInfoQueryParam.getTenantDisplayName() != null, TenantInfo::getTenantDisplayName, tenantInfoQueryParam.getTenantDisplayName())
+				.eq(tenantInfoQueryParam.getTenantProvince() != null, TenantInfo::getTenantProvince, tenantInfoQueryParam.getTenantProvince())
+				.eq(tenantInfoQueryParam.getTenantCity() != null, TenantInfo::getTenantCity, tenantInfoQueryParam.getTenantCity())
+				.eq(tenantInfoQueryParam.getTenantCountyTown() != null, TenantInfo::getTenantCountyTown, tenantInfoQueryParam.getTenantCountyTown())
+				.eq(tenantInfoQueryParam.getTenantLinkAddress() != null, TenantInfo::getTenantLinkAddress, tenantInfoQueryParam.getTenantLinkAddress())
+				.eq(tenantInfoQueryParam.getTenantLinkman() != null, TenantInfo::getTenantLinkman, tenantInfoQueryParam.getTenantLinkman())
+				.eq(tenantInfoQueryParam.getTenantLinkmanMobile() != null, TenantInfo::getTenantLinkmanMobile, tenantInfoQueryParam.getTenantLinkmanMobile())
+				.eq(tenantInfoQueryParam.getTenantLinkmanTel() != null, TenantInfo::getTenantLinkmanTel, tenantInfoQueryParam.getTenantLinkmanTel())
+				.eq(tenantInfoQueryParam.getTenantLinkmanEmail() != null, TenantInfo::getTenantLinkmanEmail, tenantInfoQueryParam.getTenantLinkmanEmail())
+				.eq(tenantInfoQueryParam.getTenantLinkmanQq() != null, TenantInfo::getTenantLinkmanQq, tenantInfoQueryParam.getTenantLinkmanQq())
+				.eq(tenantInfoQueryParam.getTenantType() != null, TenantInfo::getTenantType, tenantInfoQueryParam.getTenantType())
+				.eq(tenantInfoQueryParam.getTenantRegisterTime() != null, TenantInfo::getTenantRegisterTime, tenantInfoQueryParam.getTenantRegisterTime())
+				.ge(tenantInfoQueryParam.getTenantRegisterTimeStart() != null, TenantInfo::getTenantRegisterTime,tenantInfoQueryParam.getTenantRegisterTimeStart() == null ? null: DateUtil.beginOfDay(tenantInfoQueryParam.getTenantRegisterTimeStart()))
+				.le(tenantInfoQueryParam.getTenantRegisterTimeEnd() != null, TenantInfo::getTenantRegisterTime,tenantInfoQueryParam.getTenantRegisterTimeEnd() == null ? null: DateUtil.endOfDay(tenantInfoQueryParam.getTenantRegisterTimeEnd()))
+				.eq(tenantInfoQueryParam.getInvoiceType() != null, TenantInfo::getInvoiceType, tenantInfoQueryParam.getInvoiceType())
+				.eq(tenantInfoQueryParam.getInvoiceName() != null, TenantInfo::getInvoiceName, tenantInfoQueryParam.getInvoiceName())
+				.eq(tenantInfoQueryParam.getInvoiceTaxNo() != null, TenantInfo::getInvoiceTaxNo, tenantInfoQueryParam.getInvoiceTaxNo())
+				.eq(tenantInfoQueryParam.getInvoiceAddress() != null, TenantInfo::getInvoiceAddress, tenantInfoQueryParam.getInvoiceAddress())
+				.eq(tenantInfoQueryParam.getInvoiceTel() != null, TenantInfo::getInvoiceTel, tenantInfoQueryParam.getInvoiceTel())
+				.eq(tenantInfoQueryParam.getInvoiceBankCode() != null, TenantInfo::getInvoiceBankCode, tenantInfoQueryParam.getInvoiceBankCode())
+				.eq(tenantInfoQueryParam.getInvoiceBankName() != null, TenantInfo::getInvoiceBankName, tenantInfoQueryParam.getInvoiceBankName())
+				.eq(tenantInfoQueryParam.getInvoiceBankAccountNo() != null, TenantInfo::getInvoiceBankAccountNo, tenantInfoQueryParam.getInvoiceBankAccountNo())
+				.eq(tenantInfoQueryParam.getTenantAccesskey() != null, TenantInfo::getTenantAccesskey, tenantInfoQueryParam.getTenantAccesskey())
+				;
+
+		List<TenantInfo> tenantInfoList = tenantInfoService.list(queryWrapperTenantInfo);
+
+		List<TenantInfoVo> tenantInfoVoList = tenantInfoList.stream()//
+				.map(e -> entity2vo(e))//
+				.collect(Collectors.toList());
+
+		return tenantInfoVoList;
 	}
 
 	@ApiOperation(value = "根据参数查询租户表列表")
