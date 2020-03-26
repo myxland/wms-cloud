@@ -64,7 +64,8 @@ public class ModuleInfoRestController {
 			.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
 			.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
 			.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
-		;
+			.ne(moduleInfoQueryParam.getNotBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getNotBillingMode())
+			;
 
 		List<ModuleInfo> moduleInfoList = moduleInfoService.list(queryWrapperModuleInfo);
 
@@ -98,6 +99,7 @@ public class ModuleInfoRestController {
 				.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
 				.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
 				.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
+				.ne(moduleInfoQueryParam.getNotBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getNotBillingMode())
 				;
 
 		IPage<ModuleInfo> moduleInfoPage = moduleInfoService.page(pageModuleInfo, queryWrapperModuleInfo);

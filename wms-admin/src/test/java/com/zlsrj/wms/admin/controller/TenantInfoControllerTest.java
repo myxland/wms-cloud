@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
@@ -205,6 +206,49 @@ public class TenantInfoControllerTest {
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantInfo/list")//
 						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void getByIdTest() throws Exception {
+		String id = "5776fb77e26e45209d56e39f9ceb7308";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantInfo/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void updateModeulTest() throws Exception {
+		TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam = new TenantInfoModuleInfoUpdateParam();
+		tenantInfoModuleInfoUpdateParam.setTenantId("23a60db88e184a3fa82d21dd4b0055c4");
+		tenantInfoModuleInfoUpdateParam.setModuleId("1DC71E22720A45ADA9C0EA4B8A28C0C3");
+		tenantInfoModuleInfoUpdateParam.setModuleEdition(1);
+		tenantInfoModuleInfoUpdateParam.setModuleOnOff(0);
+		tenantInfoModuleInfoUpdateParam.setModuleOnOff(1);
+		log.info(JSON.toJSONString(tenantInfoModuleInfoUpdateParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantInfo/update/module")//
+						.content(JSON.toJSONString(tenantInfoModuleInfoUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void listModuleTest() throws Exception {
+		String id = "23a60db88e184a3fa82d21dd4b0055c4";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantInfo/list/module/"+id)//
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

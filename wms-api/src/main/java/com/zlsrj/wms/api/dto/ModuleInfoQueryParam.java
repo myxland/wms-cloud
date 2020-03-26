@@ -46,6 +46,9 @@ public class ModuleInfoQueryParam implements Serializable {
 
 	@ApiModelProperty(value = "服务发布状态（1：发布 ；0：未发布）")
 	private Integer moduleOn;
+	
+	@ApiModelProperty(value = "未开通计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）")
+	private Integer notBillingMode;
 
 }
 

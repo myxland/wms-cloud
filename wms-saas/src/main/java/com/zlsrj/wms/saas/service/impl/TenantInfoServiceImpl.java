@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Resource;
@@ -30,17 +31,24 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
+import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.entity.TenantConsumptionBill;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantModule;
+import com.zlsrj.wms.api.entity.TenantRoleMenu;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.common.util.TranslateUtil;
+import com.zlsrj.wms.saas.mapper.ModuleMenuMapper;
 import com.zlsrj.wms.saas.mapper.TenantConsumptionBillMapper;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
+import com.zlsrj.wms.saas.mapper.TenantModuleMapper;
+import com.zlsrj.wms.saas.mapper.TenantRoleMenuMapper;
 import com.zlsrj.wms.saas.mq.MqConfig;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
@@ -66,6 +74,15 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Resource
 	private TenantConsumptionBillMapper tenantConsumptionBillMapper;
+	
+	@Resource
+	private TenantModuleMapper tenantModuleMapper;
+	
+	@Resource
+	private ModuleMenuMapper moduleMenuMapper;
+	
+	@Resource
+	private TenantRoleMenuMapper tenantRoleMenuMapper;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -293,6 +310,56 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		;
 		
 		success = this.update(updateWrapperTenantInfo);
+		
+		return success;
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateModule(TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam) {
+		boolean success = false;
+		
+		if(1 == tenantInfoModuleInfoUpdateParam.getModuleOnOff()) {
+			//
+			TenantModule tenantModule = TenantModule.builder()//
+					.id(idService.selectId())// 租户模块ID
+					.tenantId(tenantInfoModuleInfoUpdateParam.getTenantId())// 租户ID
+					.moduleId(tenantInfoModuleInfoUpdateParam.getModuleId())// 模块ID
+					.moduleEdition(tenantInfoModuleInfoUpdateParam.getModuleEdition())// 开通版本（1：基础版；2：高级版；3：旗舰版）
+					.moduleOpenTime(new Date())// 开通时间
+					.build();
+					
+			tenantModuleMapper.insert(tenantModule);
+			success = true;
+		} else if(0 == tenantInfoModuleInfoUpdateParam.getModuleOnOff()) {
+			QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
+			queryWrapperTenantModule.lambda()//
+					.eq(TenantModule::getTenantId, tenantInfoModuleInfoUpdateParam.getTenantId())//
+					.eq(TenantModule::getModuleId, tenantInfoModuleInfoUpdateParam.getModuleId())//
+			;
+			
+			tenantModuleMapper.delete(queryWrapperTenantModule);
+			
+			QueryWrapper<ModuleMenu> queryWrapperModuleMenu = new QueryWrapper<ModuleMenu>();
+			queryWrapperModuleMenu.lambda()//
+					.select(ModuleMenu.class,i -> false)//
+					.eq(ModuleMenu::getModuleId, tenantInfoModuleInfoUpdateParam.getModuleId())//
+			;
+			List<ModuleMenu> moduleMenuList = moduleMenuMapper.selectList(queryWrapperModuleMenu);
+			List<String> menuIdList = moduleMenuList.stream().map(ModuleMenu::getId).collect(Collectors.toList());
+			
+			QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
+			queryWrapperTenantRoleMenu.lambda()//
+					.eq(TenantRoleMenu::getTenantId, tenantInfoModuleInfoUpdateParam.getTenantId())//
+					.in(TenantRoleMenu::getMenuId, menuIdList)//
+			;
+			
+			tenantRoleMenuMapper.delete(queryWrapperTenantRoleMenu);
+			success = true;
+		} else {
+			log.error("删除出错，未知moduleOnOff={}",tenantInfoModuleInfoUpdateParam.getModuleOnOff());
+		}
+		
 		
 		return success;
 	}

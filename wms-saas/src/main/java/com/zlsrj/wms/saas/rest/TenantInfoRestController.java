@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
@@ -233,6 +234,12 @@ public class TenantInfoRestController {
 	public boolean recharge(@PathVariable("id") String id, @RequestBody TenantInfoRechargeParam tenantInfoRechargeParam) {
 		tenantInfoRechargeParam.setId(id);
 		return tenantInfoService.recharge(tenantInfoRechargeParam);
+	}
+	
+	@ApiOperation(value = "更新租户模块信息")
+	@RequestMapping(value = "/tenant-infos/update/module", method = RequestMethod.PUT)
+	public boolean updateModule(@RequestBody TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam) {
+		return tenantInfoService.updateModule(tenantInfoModuleInfoUpdateParam);
 	}
 
 	private TenantInfoVo entity2vo(TenantInfo tenantInfo) {

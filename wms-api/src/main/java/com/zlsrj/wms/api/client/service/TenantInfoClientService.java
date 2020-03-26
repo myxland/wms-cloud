@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
@@ -51,5 +52,8 @@ public interface TenantInfoClientService {
 	
 	@RequestMapping(value = "/tenant-infos/recharge/{id}", method = RequestMethod.PUT)
 	public boolean recharge(@PathVariable("id") String id, @RequestBody TenantInfoRechargeParam tenantInfoRechargeParam);
+	
+	@RequestMapping(value = "/tenant-infos/update/module", method = RequestMethod.PUT)
+	public boolean updateModule(@RequestBody TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam);
 }
 

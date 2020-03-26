@@ -1,7 +1,6 @@
 package com.zlsrj.wms.admin.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.client.service.ModuleInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantModuleClientService;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
+import com.zlsrj.wms.api.vo.ModuleInfoDataVo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.api.vo.TenantInfoRechargeVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
@@ -133,6 +133,57 @@ public class TenantInfoController {
 		tenantInfoVoList.stream().forEach(v -> wrappperVo(v));
 
 		return CommonResult.success(tenantInfoVoList);
+	}
+	
+	@ApiOperation(value = "根据ID查询租户信息")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<TenantInfoVo> getById(@PathVariable("id") String id) {
+		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(id);
+		wrappperVo(tenantInfoVo);
+
+		return CommonResult.success(tenantInfoVo);
+	}
+	
+	@ApiOperation(value = "更新租户模块")
+	@RequestMapping(value = "/update/module", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> updateModule(@RequestBody TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam) {
+		boolean success = tenantInfoClientService.updateModule(tenantInfoModuleInfoUpdateParam);
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "租户模块列表")
+	@RequestMapping(value = "/list/module/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<Object> listModule(@PathVariable("id") String id) {
+		TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(id);
+		
+		ModuleInfoQueryParam moduleInfoQueryParam = new ModuleInfoQueryParam();
+		moduleInfoQueryParam.setNotBillingMode(1);//计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）
+		moduleInfoQueryParam.setModuleOn(1);//服务发布状态（1：发布 ；0：未发布）
+		moduleInfoQueryParam.setOpenTarget(tenantInfoVo.getTenantType());
+		List<ModuleInfoVo> moduleInfoVoList = moduleInfoClientService.list(moduleInfoQueryParam);
+		
+		
+		TenantModuleQueryParam tenantModuleQueryParam = new TenantModuleQueryParam();
+		tenantModuleQueryParam.setTenantId(id);
+		List<TenantModuleVo> tenantModuleVoList = tenantModuleClientService.list(tenantModuleQueryParam);
+		
+		List<ModuleInfoDataVo> moduleInfoDataVoList = TranslateUtil.translateList(moduleInfoVoList, ModuleInfoDataVo.class);
+		for(ModuleInfoDataVo moduleInfoDataVo: moduleInfoDataVoList) {
+			if(tenantModuleVoList!=null && tenantModuleVoList.size()>0) {
+				for(TenantModuleVo tenantModuleVo:tenantModuleVoList) {
+					if(moduleInfoDataVo.getId().equals(tenantModuleVo.getModuleId())) {
+						moduleInfoDataVo.setIsopen(1);
+						moduleInfoDataVo.setModuleEdition(tenantModuleVo.getModuleEdition());
+						moduleInfoDataVo.setModuleOpenTime(tenantModuleVo.getModuleOpenTime());
+					}
+				}
+			}
+		}
+		
+		return CommonResult.success(moduleInfoDataVoList);
 	}
 
 	private void wrappperVo(TenantInfoVo tenantInfoVo) {

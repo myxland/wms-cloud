@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import com.zlsrj.wms.api.dto.TenantInfoModuleInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
@@ -195,5 +196,18 @@ public class ITenantInfoServiceTest {
 		tenantInfoRechargeParam.setRechargeMoney(new BigDecimal(RandomUtil.randomInt(1, 10)));
 		
 		this.tenantInfoService.recharge(tenantInfoRechargeParam);
+	}
+	
+	@Test
+	public void updateModuleTest() {
+		TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam = new TenantInfoModuleInfoUpdateParam();
+		tenantInfoModuleInfoUpdateParam.setTenantId("23a60db88e184a3fa82d21dd4b0055c4");
+		tenantInfoModuleInfoUpdateParam.setModuleId("1DC71E22720A45ADA9C0EA4B8A28C0C3");
+		tenantInfoModuleInfoUpdateParam.setModuleEdition(1);
+		tenantInfoModuleInfoUpdateParam.setModuleOnOff(0);
+		tenantInfoModuleInfoUpdateParam.setModuleOnOff(1);
+		
+		log.info(ToStringBuilder.reflectionToString(tenantInfoModuleInfoUpdateParam, ToStringStyle.MULTI_LINE_STYLE));
+		this.tenantInfoService.updateModule(tenantInfoModuleInfoUpdateParam);
 	}
 }
