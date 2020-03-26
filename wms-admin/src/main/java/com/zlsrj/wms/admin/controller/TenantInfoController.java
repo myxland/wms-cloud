@@ -15,12 +15,15 @@ import com.zlsrj.wms.api.client.service.TenantInfoClientService;
 import com.zlsrj.wms.api.client.service.TenantModuleClientService;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
+import com.zlsrj.wms.api.vo.TenantInfoRechargeVo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
+import com.zlsrj.wms.common.util.TranslateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -101,6 +104,21 @@ public class TenantInfoController {
 		CommonResult<Object> commonResult = tenantInfoClientService.removeById(id);
 
 		return commonResult;
+	}
+	
+	@ApiOperation(value = "租户充值")
+	@RequestMapping(value = "/recharge/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> recharge(@PathVariable("id") String id,@RequestBody TenantInfoRechargeParam tenantInfoRechargeParam) {
+		boolean success = tenantInfoClientService.recharge(id, tenantInfoRechargeParam);
+		if(success) {
+			TenantInfoVo tenantInfoVo = tenantInfoClientService.getById(id);
+			wrappperVo(tenantInfoVo);
+			TenantInfoRechargeVo tenantInfoRechargeVo = TranslateUtil.translate(tenantInfoVo, TenantInfoRechargeVo.class);
+			return CommonResult.success(tenantInfoRechargeVo);
+		}
+		
+		return CommonResult.failed();
 	}
 	
 

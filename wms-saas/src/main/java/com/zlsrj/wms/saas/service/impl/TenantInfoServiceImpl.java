@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toCollection;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -20,20 +21,25 @@ import org.apache.rocketmq.common.message.MessageQueue;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
+import com.zlsrj.wms.api.entity.TenantConsumptionBill;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.common.util.TranslateUtil;
+import com.zlsrj.wms.saas.mapper.TenantConsumptionBillMapper;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
 import com.zlsrj.wms.saas.mq.MqConfig;
 import com.zlsrj.wms.saas.service.IIdService;
@@ -57,6 +63,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Autowired
 	private MqConfig mqConfig;
+	
+	@Resource
+	private TenantConsumptionBillMapper tenantConsumptionBillMapper;
 
 	@Override
 	public boolean save(TenantInfo tenantInfo) {
@@ -250,6 +259,40 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 				log.error("发送rocketmq消息出错", e);
 			}
 		}
+		
+		return success;
+	}
+	
+	@Override
+	@Transactional
+	public boolean recharge(TenantInfoRechargeParam tenantInfoRechargeParam) {
+		boolean success = false;
+		TenantInfo tenantInfo = this.getById(tenantInfoRechargeParam.getId());
+		BigDecimal tenantBalanceBefore = tenantInfo.getTenantBalance();
+		
+		TenantConsumptionBill tenantConsumptionBill = TenantConsumptionBill.builder()//
+				.id(idService.selectId())// 租户账单ID
+				.tenantId(tenantInfoRechargeParam.getId())// 租户ID
+				.consumptionBillType(1)// 账单类型（1：充值；2：消费）
+				.consumptionBillTime(new Date())// 账单时间
+				.consumptionBillName("账户充值")// 账单名称[账户充值/短信平台/...]
+				.consumptionBillMoney(tenantInfoRechargeParam.getRechargeMoney())// 账单金额
+				.tenantBalance(tenantBalanceBefore.add(tenantInfoRechargeParam.getRechargeMoney()))// 租户账户余额
+				.consumptionBillRemark(null)// 备注
+				.build();
+				
+		tenantConsumptionBillMapper.insert(tenantConsumptionBill);
+		
+		TenantInfo tenantInfoWhere = TenantInfo.builder()//
+				.id(tenantInfoRechargeParam.getId())//
+				.build();
+		UpdateWrapper<TenantInfo> updateWrapperTenantInfo = new UpdateWrapper<TenantInfo>();
+		updateWrapperTenantInfo.setEntity(tenantInfoWhere);
+		updateWrapperTenantInfo.lambda()//
+				.set(TenantInfo::getTenantBalance, tenantBalanceBefore.add(tenantInfoRechargeParam.getRechargeMoney()))//
+		;
+		
+		success = this.update(updateWrapperTenantInfo);
 		
 		return success;
 	}

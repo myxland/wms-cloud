@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
+import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.dto.TenantRoleUpdateParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
@@ -158,6 +159,26 @@ public class TenantInfoControllerTest {
 		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantInfo/delete/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void rechargeTest() throws Exception {
+		String id = "5776fb77e26e45209d56e39f9ceb7308";
+		log.info("id={}",id);
+		
+		TenantInfoRechargeParam tenantInfoRechargeParam = new TenantInfoRechargeParam();
+		tenantInfoRechargeParam.setId(id);
+		tenantInfoRechargeParam.setRechargeMoney(new BigDecimal(RandomUtil.randomInt(1, 10)));
+		
+		log.info(JSON.toJSONString(tenantInfoRechargeParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantInfo/recharge/"+id)//
+						.content(JSON.toJSONString(tenantInfoRechargeParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);

@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryOrder;
@@ -182,5 +183,17 @@ public class ITenantInfoServiceTest {
 		String id = "48e60355794d4572b73ca6274aabe1ed";
 		log.info("id={}", id);
 		this.tenantInfoService.removeById(id);
+	}
+	
+	@Test
+	public void rechargeTest() {
+		
+		String id = "5776fb77e26e45209d56e39f9ceb7308";
+		
+		TenantInfoRechargeParam tenantInfoRechargeParam = new TenantInfoRechargeParam();
+		tenantInfoRechargeParam.setId(id);
+		tenantInfoRechargeParam.setRechargeMoney(new BigDecimal(RandomUtil.randomInt(1, 10)));
+		
+		this.tenantInfoService.recharge(tenantInfoRechargeParam);
 	}
 }

@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantInfoAddParam;
 import com.zlsrj.wms.api.dto.TenantInfoQueryParam;
+import com.zlsrj.wms.api.dto.TenantInfoRechargeParam;
 import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
@@ -178,6 +179,13 @@ public class TenantInfoRestController {
 	public CommonResult<Object> removeById(@PathVariable("id") String id) {
 		boolean success = tenantInfoService.removeById(id);
 		return success ? CommonResult.success(success) : CommonResult.failed();
+	}
+	
+	@ApiOperation(value = "租户充值")
+	@RequestMapping(value = "/tenant-infos/recharge/{id}", method = RequestMethod.PUT)
+	public boolean recharge(@PathVariable("id") String id, @RequestBody TenantInfoRechargeParam tenantInfoRechargeParam) {
+		tenantInfoRechargeParam.setId(id);
+		return tenantInfoService.recharge(tenantInfoRechargeParam);
 	}
 
 	private TenantInfoVo entity2vo(TenantInfo tenantInfo) {
