@@ -66,6 +66,18 @@ public class TenantCustomerTypeServiceImpl extends ServiceImpl<TenantCustomerTyp
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantCustomerType> queryWrapperTenantCustomerType = new QueryWrapper<TenantCustomerType>();
+		queryWrapperTenantCustomerType.lambda()//
+				.eq(TenantCustomerType::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantCustomerType);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantCustomerTypeAddParam tenantCustomerTypeAddParam) {

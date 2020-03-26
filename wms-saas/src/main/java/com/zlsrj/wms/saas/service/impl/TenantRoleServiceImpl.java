@@ -119,6 +119,18 @@ public class TenantRoleServiceImpl extends ServiceImpl<TenantRoleMapper, TenantR
 	}
 	
 	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantRole> queryWrapperTenantRole = new QueryWrapper<TenantRole>();
+		queryWrapperTenantRole.lambda()//
+				.eq(TenantRole::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantRole);
+		
+		return success;
+	}
+	
+	@Override
 	@Transactional
 	public String save(TenantRoleAddParam tenantRoleAddParam) {
 		TenantRole tenantRole = TranslateUtil.translate(tenantRoleAddParam, TenantRole.class);

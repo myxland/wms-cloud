@@ -65,6 +65,18 @@ public class TenantDepartmentServiceImpl extends ServiceImpl<TenantDepartmentMap
 	}
 	
 	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+		queryWrapperTenantDepartment.lambda()//
+				.eq(TenantDepartment::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantDepartment);
+		
+		return success;
+	}
+	
+	@Override
 	public boolean updateById(TenantDepartmentUpdateParam tenantDepartmentUpdateParam) {
 		String jsonString = JSON.toJSONString(tenantDepartmentUpdateParam);
 		TenantDepartment tenantDepartment = JSON.parseObject(jsonString, TenantDepartment.class);

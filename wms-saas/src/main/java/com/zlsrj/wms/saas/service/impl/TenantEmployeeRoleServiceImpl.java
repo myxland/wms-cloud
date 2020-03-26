@@ -65,4 +65,16 @@ public class TenantEmployeeRoleServiceImpl extends ServiceImpl<TenantEmployeeRol
 
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantEmployeeRole> queryWrapperTenantEmployeeRole = new QueryWrapper<TenantEmployeeRole>();
+		queryWrapperTenantEmployeeRole.lambda()//
+				.eq(TenantEmployeeRole::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantEmployeeRole);
+		
+		return success;
+	}
 }

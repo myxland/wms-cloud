@@ -40,7 +40,7 @@ public class TenantBusinessRulesServiceImpl extends ServiceImpl<TenantBusinessRu
 		;
 		int count = super.count(queryWrapperTenantBusinessRules);
 		if (count > 0) {
-			log.error("根据租户信息初始化水表口径失败，水表口径已存在。");
+			log.error("根据租户信息初始化业务参数配置失败，业务参数配置已存在。");
 			return false;
 		}
 		
@@ -67,6 +67,18 @@ public class TenantBusinessRulesServiceImpl extends ServiceImpl<TenantBusinessRu
 			
 			success = this.saveBatch(tenantBusinessRulesList);
 		}
+		
+		return success;
+	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantBusinessRules> queryWrapperTenantBusinessRules = new QueryWrapper<TenantBusinessRules>();
+		queryWrapperTenantBusinessRules.lambda()//
+				.eq(TenantBusinessRules::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantBusinessRules);
 		
 		return success;
 	}

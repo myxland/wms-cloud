@@ -181,6 +181,34 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 
 		return success;
 	}
+	
+	@Override
+	@Transactional
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		
+		QueryWrapper<TenantPriceStep> queryWrapperTenantPriceStep = new QueryWrapper<TenantPriceStep>();
+		queryWrapperTenantPriceStep.lambda()//
+				.eq(TenantPriceStep::getTenantId, tenantInfo.getId())//
+		;
+		
+		tenantPriceStepMapper.delete(queryWrapperTenantPriceStep);
+		
+		QueryWrapper<TenantPriceDetail> queryWrapperTenantPriceDetail = new QueryWrapper<TenantPriceDetail>();
+		queryWrapperTenantPriceDetail.lambda()//
+				.eq(TenantPriceDetail::getTenantId, tenantInfo.getId())//
+		;
+		
+		tenantPriceDetailMapper.delete(queryWrapperTenantPriceDetail);
+		
+		QueryWrapper<TenantPrice> queryWrapperTenantPrice = new QueryWrapper<TenantPrice>();
+		queryWrapperTenantPrice.lambda()//
+				.eq(TenantPrice::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantPrice);
+		
+		return success;
+	}
 
 	@Override
 	@Transactional

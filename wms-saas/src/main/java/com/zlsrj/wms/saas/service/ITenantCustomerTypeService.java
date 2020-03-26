@@ -10,6 +10,8 @@ public interface ITenantCustomerTypeService extends IService<TenantCustomerType>
 	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantCustomerTypeAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantCustomerTypeUpdateParam tenantCustomerTypeUpdateParam);

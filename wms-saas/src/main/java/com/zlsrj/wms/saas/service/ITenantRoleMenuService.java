@@ -5,5 +5,8 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantRoleMenu;
 
 public interface ITenantRoleMenuService extends IService<TenantRoleMenu> {
+	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
 }

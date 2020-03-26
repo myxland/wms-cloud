@@ -67,6 +67,18 @@ public class TenantMeterReadSituationServiceImpl extends ServiceImpl<TenantMeter
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterReadSituation> queryWrapperTenantMeterReadSituation = new QueryWrapper<TenantMeterReadSituation>();
+		queryWrapperTenantMeterReadSituation.lambda()//
+				.eq(TenantMeterReadSituation::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterReadSituation);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterReadSituationAddParam tenantMeterReadSituationAddParam) {

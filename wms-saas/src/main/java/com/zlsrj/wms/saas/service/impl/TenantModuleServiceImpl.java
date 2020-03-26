@@ -77,6 +77,18 @@ public class TenantModuleServiceImpl extends ServiceImpl<TenantModuleMapper, Ten
 
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantModule> queryWrapperTenantModule = new QueryWrapper<TenantModule>();
+		queryWrapperTenantModule.lambda()//
+				.eq(TenantModule::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantModule);
+		
+		return success;
+	}
 
 	@Override
 	public boolean saveBatchByModuleInfo(ModuleInfo moduleInfo) {

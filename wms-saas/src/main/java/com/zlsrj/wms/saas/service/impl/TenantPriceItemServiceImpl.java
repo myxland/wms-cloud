@@ -62,6 +62,18 @@ public class TenantPriceItemServiceImpl extends ServiceImpl<TenantPriceItemMappe
 
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantPriceItem> queryWrapperTenantPriceItem = new QueryWrapper<TenantPriceItem>();
+		queryWrapperTenantPriceItem.lambda()//
+				.eq(TenantPriceItem::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantPriceItem);
+		
+		return success;
+	}
 
 	@Override
 	public TenantPriceItem getAggregation(Wrapper<TenantPriceItem> wrapper) {

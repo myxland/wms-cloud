@@ -8,7 +8,10 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantPriceItem;
 
 public interface ITenantPriceItemService extends IService<TenantPriceItem> {
+	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
 	
 	TenantPriceItem getAggregation(Wrapper<TenantPriceItem> wrapper);
 	

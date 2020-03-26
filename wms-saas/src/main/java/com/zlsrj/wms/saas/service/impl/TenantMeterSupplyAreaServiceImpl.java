@@ -47,6 +47,18 @@ public class TenantMeterSupplyAreaServiceImpl extends ServiceImpl<TenantMeterSup
 
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterSupplyArea> queryWrapperTenantMeterSupplyArea = new QueryWrapper<TenantMeterSupplyArea>();
+		queryWrapperTenantMeterSupplyArea.lambda()//
+				.eq(TenantMeterSupplyArea::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterSupplyArea);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterSupplyAreaAddParam tenantMeterSupplyAreaAddParam) {

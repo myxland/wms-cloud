@@ -10,6 +10,8 @@ public interface ITenantMeterReadSituationService extends IService<TenantMeterRe
 	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantMeterReadSituationAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantMeterReadSituationUpdateParam tenantCustomerTypeUpdateParam);

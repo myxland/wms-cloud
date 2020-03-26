@@ -16,6 +16,8 @@ public interface ITenantRoleService extends IService<TenantRole> {
 	 */
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantRoleAddParam tenantRoleAddParam);
 	
 	boolean updateById(TenantRoleUpdateParam tenantRoleUpdateParam);

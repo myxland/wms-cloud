@@ -66,6 +66,18 @@ public class TenantMeterBrandServiceImpl extends ServiceImpl<TenantMeterBrandMap
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterBrand> queryWrapperTenantMeterBrand = new QueryWrapper<TenantMeterBrand>();
+		queryWrapperTenantMeterBrand.lambda()//
+				.eq(TenantMeterBrand::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterBrand);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterBrandAddParam tenantMeterBrandAddParam) {

@@ -67,6 +67,18 @@ public class TenantMeterIndustryServiceImpl extends ServiceImpl<TenantMeterIndus
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterIndustry> queryWrapperTenantMeterIndustry = new QueryWrapper<TenantMeterIndustry>();
+		queryWrapperTenantMeterIndustry.lambda()//
+				.eq(TenantMeterIndustry::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterIndustry);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterIndustryAddParam tenantMeterIndustryAddParam) {

@@ -10,6 +10,8 @@ public interface ITenantBusinessRulesService extends IService<TenantBusinessRule
 	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantBusinessRulesAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantBusinessRulesUpdateParam tenantCustomerTypeUpdateParam);

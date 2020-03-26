@@ -7,7 +7,10 @@ import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantMeterMarketingArea;
 
 public interface ITenantMeterMarketingAreaService extends IService<TenantMeterMarketingArea> {
+	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
 	
 	String save(TenantMeterMarketingAreaAddParam tenantCustomerTypeAddParam);
 

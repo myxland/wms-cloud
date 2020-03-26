@@ -90,4 +90,16 @@ public class TenantRoleMenuServiceImpl extends ServiceImpl<TenantRoleMenuMapper,
 
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
+		queryWrapperTenantRoleMenu.lambda()//
+				.eq(TenantRoleMenu::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantRoleMenu);
+		
+		return success;
+	}
 }

@@ -151,4 +151,16 @@ public class TenantInfoControllerTest {
 		log.info(responseString);
 	}
 	
+	@Test
+	public void deleteTest() throws Exception {
+		String id = "5da621db1ee643eaa28649d89204eaed";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantInfo/delete/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
 }

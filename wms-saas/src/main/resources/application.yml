@@ -105,7 +105,7 @@ mq-config:
         - TenantDepartmentInsertTag
         - TenantRoleInsertTag
         - TenantEmployeeInsertTag
-        - TenantEmployeeRoleInsertTag  
+        - TenantEmployeeRoleInsertTag
         - TenantModuleInsertTag
         - TenantRoleMenuInsertTag
         - TenantMeterSupplyAreaInsertTag
@@ -124,9 +124,22 @@ mq-config:
         - TenantLinkmanInsertTag
         - TenantOperatorInsertTag
      removeTags:
-        - TenantChargeAgencyRemoveTag      
-      
-      
-      
-      
-      
+         - TenantChargeAgencyRemoveTag
+         - TenantCustomerTypeRemoveTag
+         - TenantBusinessRulesRemoveTag
+         - TenantMeterReadSituationRemoveTag
+         - TenantMeterTypeRemoveTag
+         - TenantMeterBrandRemoveTag
+         - TenantMeterModelRemoveTag
+         - TenantMeterCaliberRemoveTag
+         - TenantMeterIndustryRemoveTag
+         - TenantPriceRemoveTag
+         - TenantPriceItemRemoveTag
+         - TenantMeterMarketingAreaRemoveTag
+         - TenantMeterSupplyAreaRemoveTag
+         - TenantRoleMenuRemoveTag
+         - TenantModuleRemoveTag
+         - TenantEmployeeRoleRemoveTag
+         - TenantEmployeeRemoveTag
+         - TenantRoleRemoveTag
+         - TenantDepartmentRemoveTag     

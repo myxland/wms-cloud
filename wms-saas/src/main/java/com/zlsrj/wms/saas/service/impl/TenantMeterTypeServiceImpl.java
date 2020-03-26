@@ -66,6 +66,18 @@ public class TenantMeterTypeServiceImpl extends ServiceImpl<TenantMeterTypeMappe
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterType> queryWrapperTenantMeterType = new QueryWrapper<TenantMeterType>();
+		queryWrapperTenantMeterType.lambda()//
+				.eq(TenantMeterType::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterType);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterTypeAddParam tenantMeterTypeAddParam) {

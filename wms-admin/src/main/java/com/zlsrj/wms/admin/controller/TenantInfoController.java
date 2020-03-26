@@ -67,7 +67,7 @@ public class TenantInfoController {
 		
 		ModuleInfoQueryParam moduleInfoQueryParam = new ModuleInfoQueryParam();
 		moduleInfoQueryParam.setOpenTarget(tenantInfoVo.getTenantType());
-		moduleInfoQueryParam.setBillingCycle(1);
+		moduleInfoQueryParam.setBillingMode(1);
 		moduleInfoQueryParam.setModuleOn(1);
 		List<ModuleInfoVo> moduleInfoVoList = moduleInfoClientService.list(moduleInfoQueryParam);
 		

@@ -50,6 +50,18 @@ public class TenantMeterMarketingAreaServiceImpl extends ServiceImpl<TenantMeter
 	}
 	
 	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterMarketingArea> queryWrapperTenantMeterMarketingArea = new QueryWrapper<TenantMeterMarketingArea>();
+		queryWrapperTenantMeterMarketingArea.lambda()//
+				.eq(TenantMeterMarketingArea::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterMarketingArea);
+		
+		return success;
+	}
+	
+	@Override
 	public String save(TenantMeterMarketingAreaAddParam tenantMeterMarketingAreaAddParam) {
 		TenantMeterMarketingArea tenantMeterMarketingArea = TranslateUtil.translate(tenantMeterMarketingAreaAddParam,
 				TenantMeterMarketingArea.class);

@@ -66,6 +66,18 @@ public class TenantMeterCaliberServiceImpl extends ServiceImpl<TenantMeterCalibe
 		
 		return success;
 	}
+	
+	@Override
+	public boolean removeBatchByTenantInfo(TenantInfo tenantInfo) {
+		boolean success = false;
+		QueryWrapper<TenantMeterCaliber> queryWrapperTenantMeterCaliber = new QueryWrapper<TenantMeterCaliber>();
+		queryWrapperTenantMeterCaliber.lambda()//
+				.eq(TenantMeterCaliber::getTenantId, tenantInfo.getId())//
+		;
+		success = this.remove(queryWrapperTenantMeterCaliber);
+		
+		return success;
+	}
 
 	@Override
 	public String save(TenantMeterCaliberAddParam tenantMeterCaliberAddParam) {

@@ -16,6 +16,8 @@ public interface ITenantDepartmentService extends IService<TenantDepartment> {
 	 */
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	boolean updateById(TenantDepartmentUpdateParam tenantDepartmentUpdateParam);
 	
 	String save(TenantDepartmentAddParam tenantDepartmentAddParam);

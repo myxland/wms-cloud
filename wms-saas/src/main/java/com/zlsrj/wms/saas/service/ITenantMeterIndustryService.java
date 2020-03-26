@@ -10,6 +10,8 @@ public interface ITenantMeterIndustryService extends IService<TenantMeterIndustr
 	
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
 	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
+	
 	String save(TenantMeterIndustryAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantMeterIndustryUpdateParam tenantCustomerTypeUpdateParam);

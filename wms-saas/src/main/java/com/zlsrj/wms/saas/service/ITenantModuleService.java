@@ -15,6 +15,8 @@ public interface ITenantModuleService extends IService<TenantModule> {
 	 * @return
 	 */
 	boolean saveBatchByTenantInfo(TenantInfo tenantInfo);
+	
+	boolean removeBatchByTenantInfo(TenantInfo tenantInfo);
 
 	/**
 	 * 根据新建模块信息创建默认用户类型
