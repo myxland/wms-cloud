@@ -55,11 +55,11 @@ public class SystemDictionariesRestController {
 	public List<SystemDictionariesVo> list(@RequestBody SystemDictionariesQueryParam systemDictionariesQueryParam) {
 		QueryWrapper<SystemDictionaries> queryWrapperSystemDictionaries = new QueryWrapper<SystemDictionaries>();
 		queryWrapperSystemDictionaries.lambda()
-				.eq(systemDictionariesQueryParam.getId() != null, SystemDictionaries::getId, systemDictionariesQueryParam.getId())
-				.eq(systemDictionariesQueryParam.getDictCode() != null, SystemDictionaries::getDictCode, systemDictionariesQueryParam.getDictCode())
-				.eq(systemDictionariesQueryParam.getDictType() != null, SystemDictionaries::getDictType, systemDictionariesQueryParam.getDictType())
-				.eq(systemDictionariesQueryParam.getDictName() != null, SystemDictionaries::getDictName, systemDictionariesQueryParam.getDictName())
-				.eq(systemDictionariesQueryParam.getDictData() != null, SystemDictionaries::getDictData, systemDictionariesQueryParam.getDictData())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getId()), SystemDictionaries::getId, systemDictionariesQueryParam.getId())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictCode()), SystemDictionaries::getDictCode, systemDictionariesQueryParam.getDictCode())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictType()), SystemDictionaries::getDictType, systemDictionariesQueryParam.getDictType())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictName()), SystemDictionaries::getDictName, systemDictionariesQueryParam.getDictName())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictData()), SystemDictionaries::getDictData, systemDictionariesQueryParam.getDictData())
 				.eq(systemDictionariesQueryParam.getAddTime() != null, SystemDictionaries::getAddTime, systemDictionariesQueryParam.getAddTime())
 				.ge(systemDictionariesQueryParam.getAddTimeStart() != null, SystemDictionaries::getAddTime,systemDictionariesQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(systemDictionariesQueryParam.getAddTimeStart()))
 				.le(systemDictionariesQueryParam.getAddTimeEnd() != null, SystemDictionaries::getAddTime,systemDictionariesQueryParam.getAddTimeEnd() == null ? null: DateUtil.endOfDay(systemDictionariesQueryParam.getAddTimeEnd()))
@@ -87,11 +87,11 @@ public class SystemDictionariesRestController {
 		QueryWrapper<SystemDictionaries> queryWrapperSystemDictionaries = new QueryWrapper<SystemDictionaries>();
 		queryWrapperSystemDictionaries.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperSystemDictionaries.lambda()
-				.eq(systemDictionariesQueryParam.getId() != null, SystemDictionaries::getId, systemDictionariesQueryParam.getId())
-				.eq(systemDictionariesQueryParam.getDictCode() != null, SystemDictionaries::getDictCode, systemDictionariesQueryParam.getDictCode())
-				.eq(systemDictionariesQueryParam.getDictType() != null, SystemDictionaries::getDictType, systemDictionariesQueryParam.getDictType())
-				.eq(systemDictionariesQueryParam.getDictName() != null, SystemDictionaries::getDictName, systemDictionariesQueryParam.getDictName())
-				.eq(systemDictionariesQueryParam.getDictData() != null, SystemDictionaries::getDictData, systemDictionariesQueryParam.getDictData())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getId()), SystemDictionaries::getId, systemDictionariesQueryParam.getId())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictCode()), SystemDictionaries::getDictCode, systemDictionariesQueryParam.getDictCode())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictType()), SystemDictionaries::getDictType, systemDictionariesQueryParam.getDictType())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictName()), SystemDictionaries::getDictName, systemDictionariesQueryParam.getDictName())
+				.eq(StringUtils.isNotEmpty(systemDictionariesQueryParam.getDictData()), SystemDictionaries::getDictData, systemDictionariesQueryParam.getDictData())
 				.eq(systemDictionariesQueryParam.getAddTime() != null, SystemDictionaries::getAddTime, systemDictionariesQueryParam.getAddTime())
 				.ge(systemDictionariesQueryParam.getAddTimeStart() != null, SystemDictionaries::getAddTime,systemDictionariesQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(systemDictionariesQueryParam.getAddTimeStart()))
 				.le(systemDictionariesQueryParam.getAddTimeEnd() != null, SystemDictionaries::getAddTime,systemDictionariesQueryParam.getAddTimeEnd() == null ? null: DateUtil.endOfDay(systemDictionariesQueryParam.getAddTimeEnd()))
