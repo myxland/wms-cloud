@@ -1,5 +1,6 @@
 package com.zlsrj.wms.saas.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,11 +14,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.ModuleInfoAddParam;
 import com.zlsrj.wms.api.dto.ModuleInfoUpdateParam;
 import com.zlsrj.wms.api.entity.ModuleInfo;
+import com.zlsrj.wms.api.entity.ModuleMenu;
 import com.zlsrj.wms.api.entity.ModulePrice;
 import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.mapper.ModuleInfoMapper;
 import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.IModuleInfoService;
+import com.zlsrj.wms.saas.service.IModuleMenuService;
 import com.zlsrj.wms.saas.service.IModulePriceService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,9 @@ public class ModuleInfoServiceImpl extends ServiceImpl<ModuleInfoMapper, ModuleI
 
 	@Resource
 	private IModulePriceService modulePriceService;
+	
+	@Resource
+	private IModuleMenuService moduleMenuService;
 
 	@Override
 	@Transactional
@@ -148,6 +154,31 @@ public class ModuleInfoServiceImpl extends ServiceImpl<ModuleInfoMapper, ModuleI
 			}
 		}
 
+		return success;
+	}
+	
+	@Override
+	@Transactional
+	public boolean removeById(Serializable id) {
+		boolean success = false;
+		//module_menu
+		//module_price
+		//module_info
+		
+		QueryWrapper<ModuleMenu> queryWrapperModuleMenu = new QueryWrapper<ModuleMenu>();
+		queryWrapperModuleMenu.lambda()//
+				.eq(ModuleMenu::getModuleId, id)//
+		;
+		moduleMenuService.remove(queryWrapperModuleMenu);
+		
+		QueryWrapper<ModulePrice> queryWrapperModulePrice = new QueryWrapper<ModulePrice>();
+		queryWrapperModulePrice.lambda()//
+				.eq(ModulePrice::getModuleId, id)//
+		;
+		modulePriceService.remove(queryWrapperModulePrice);
+		
+		success = super.removeById(id);
+		
 		return success;
 	}
 	
