@@ -78,7 +78,7 @@ public class TableNameFactory {
 				"tenant_meter_type_default", //
 				"tenant_consumption_bill", //
 				"", //
-				"", //
+				"system_dictionaries", //
 				"", //
 				"", //
 				"", //
