@@ -19,11 +19,14 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.ModuleInfoAddParam;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
+import com.zlsrj.wms.api.dto.ModuleInfoUpdateParam;
+import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
+import com.zlsrj.wms.common.util.TranslateUtil;
 import com.zlsrj.wms.saas.service.IModuleInfoService;
 
 import io.swagger.annotations.Api;
@@ -37,8 +40,6 @@ public class ModuleInfoRestController {
 
 	@Autowired
 	private IModuleInfoService moduleInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询模块信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.GET)
@@ -47,35 +48,33 @@ public class ModuleInfoRestController {
 
 		return entity2vo(moduleInfo);
 	}
-	
+
 	@ApiOperation(value = "根据参数查询模块信息列表")
 	@RequestMapping(value = "/module-infos/list", method = RequestMethod.GET)
 	public List<ModuleInfoVo> list(@RequestBody ModuleInfoQueryParam moduleInfoQueryParam) {
 		QueryWrapper<ModuleInfo> queryWrapperModuleInfo = new QueryWrapper<ModuleInfo>();
 		queryWrapperModuleInfo.lambda()
-			.eq(moduleInfoQueryParam.getId() != null, ModuleInfo::getId, moduleInfoQueryParam.getId())
-			.eq(moduleInfoQueryParam.getModuleName() != null, ModuleInfo::getModuleName, moduleInfoQueryParam.getModuleName())
-			.eq(moduleInfoQueryParam.getOpenTarget() != null, ModuleInfo::getOpenTarget, moduleInfoQueryParam.getOpenTarget())
-			.eq(moduleInfoQueryParam.getRunEnv() != null, ModuleInfo::getRunEnv, moduleInfoQueryParam.getRunEnv())
-			.eq(moduleInfoQueryParam.getRelyModuleId() != null, ModuleInfo::getRelyModuleId, moduleInfoQueryParam.getRelyModuleId())
-			.eq(moduleInfoQueryParam.getBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getBillingMode())
-			.eq(moduleInfoQueryParam.getBillingCycle() != null, ModuleInfo::getBillingCycle, moduleInfoQueryParam.getBillingCycle())
-			.eq(moduleInfoQueryParam.getBasicEditionOn() != null, ModuleInfo::getBasicEditionOn, moduleInfoQueryParam.getBasicEditionOn())
-			.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
-			.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
-			.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
-			.ne(moduleInfoQueryParam.getNotBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getNotBillingMode())
-			;
+				.eq(moduleInfoQueryParam.getId() != null, ModuleInfo::getId, moduleInfoQueryParam.getId())
+				.eq(moduleInfoQueryParam.getModuleName() != null, ModuleInfo::getModuleName, moduleInfoQueryParam.getModuleName())
+				.eq(moduleInfoQueryParam.getOpenTarget() != null, ModuleInfo::getOpenTarget, moduleInfoQueryParam.getOpenTarget())
+				.eq(moduleInfoQueryParam.getRunEnv() != null, ModuleInfo::getRunEnv, moduleInfoQueryParam.getRunEnv())
+				.eq(moduleInfoQueryParam.getRelyModuleId() != null, ModuleInfo::getRelyModuleId, moduleInfoQueryParam.getRelyModuleId())
+				.eq(moduleInfoQueryParam.getBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getBillingMode())
+				.eq(moduleInfoQueryParam.getBillingCycle() != null, ModuleInfo::getBillingCycle, moduleInfoQueryParam.getBillingCycle())
+				.eq(moduleInfoQueryParam.getBasicEditionOn() != null, ModuleInfo::getBasicEditionOn, moduleInfoQueryParam.getBasicEditionOn())
+				.eq(moduleInfoQueryParam.getAdvanceEditionOn() != null, ModuleInfo::getAdvanceEditionOn, moduleInfoQueryParam.getAdvanceEditionOn())
+				.eq(moduleInfoQueryParam.getUltimateEditionOn() != null, ModuleInfo::getUltimateEditionOn, moduleInfoQueryParam.getUltimateEditionOn())
+				.eq(moduleInfoQueryParam.getModuleOn() != null, ModuleInfo::getModuleOn, moduleInfoQueryParam.getModuleOn())
+				.ne(moduleInfoQueryParam.getNotBillingMode() != null, ModuleInfo::getBillingMode, moduleInfoQueryParam.getNotBillingMode())
+				;
 
 		List<ModuleInfo> moduleInfoList = moduleInfoService.list(queryWrapperModuleInfo);
 
-		List<ModuleInfoVo> moduleInfoVoList = moduleInfoList.stream()//
-				.map(e -> entity2vo(e))//
-				.collect(Collectors.toList());
+		List<ModuleInfoVo> moduleInfoVoList = TranslateUtil.translateList(moduleInfoList, ModuleInfoVo.class);
 
 		return moduleInfoVoList;
 	}
-
+	
 	@ApiOperation(value = "根据参数查询模块信息列表")
 	@RequestMapping(value = "/module-infos", method = RequestMethod.GET)
 	public Page<ModuleInfoVo> page(@RequestBody ModuleInfoQueryParam moduleInfoQueryParam,
@@ -86,7 +85,7 @@ public class ModuleInfoRestController {
 	) {
 		IPage<ModuleInfo> pageModuleInfo = new Page<ModuleInfo>(page, rows);
 		QueryWrapper<ModuleInfo> queryWrapperModuleInfo = new QueryWrapper<ModuleInfo>();
-		queryWrapperModuleInfo.orderBy(StringUtils.isNotEmpty(sort), "desc".equals(order), sort);
+		queryWrapperModuleInfo.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
 		queryWrapperModuleInfo.lambda()
 				.eq(moduleInfoQueryParam.getId() != null, ModuleInfo::getId, moduleInfoQueryParam.getId())
 				.eq(moduleInfoQueryParam.getModuleName() != null, ModuleInfo::getModuleName, moduleInfoQueryParam.getModuleName())
@@ -115,33 +114,18 @@ public class ModuleInfoRestController {
 
 		return moduleInfoVoPage;
 	}
-
+	
 	@ApiOperation(value = "新增模块信息")
 	@RequestMapping(value = "/module-infos", method = RequestMethod.POST)
-	public ModuleInfoVo save(@RequestBody ModuleInfo moduleInfo) {
-		if (moduleInfo.getId() == null || moduleInfo.getId().trim().length() <= 0) {
-			moduleInfo.setId(idService.selectId());
-		}
-		boolean success = moduleInfoService.save(moduleInfo);
-		if (success) {
-			ModuleInfo moduleInfoDatabase = moduleInfoService.getById(moduleInfo.getId());
-			return entity2vo(moduleInfoDatabase);
-		}
-		log.info("save ModuleInfo fail，{}", ToStringBuilder.reflectionToString(moduleInfo, ToStringStyle.JSON_STYLE));
-		return null;
+	public String save(@RequestBody ModuleInfoAddParam moduleInfoAddParam) {
+		return moduleInfoService.save(moduleInfoAddParam);
 	}
 
 	@ApiOperation(value = "更新模块信息全部信息")
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.PUT)
-	public ModuleInfoVo updateById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo) {
-		moduleInfo.setId(id);
-		boolean success = moduleInfoService.updateById(moduleInfo);
-		if (success) {
-			ModuleInfo moduleInfoDatabase = moduleInfoService.getById(id);
-			return entity2vo(moduleInfoDatabase);
-		}
-		log.info("update ModuleInfo fail，{}", ToStringBuilder.reflectionToString(moduleInfo, ToStringStyle.JSON_STYLE));
-		return null;
+	public boolean updateById(@PathVariable("id") String id, @RequestBody ModuleInfoUpdateParam moduleInfoUpdateParam) {
+		moduleInfoUpdateParam.setId(id);
+		return moduleInfoService.updateById(moduleInfoUpdateParam);
 	}
 
 	@ApiOperation(value = "根据参数更新模块信息信息")
@@ -149,12 +133,6 @@ public class ModuleInfoRestController {
 	public ModuleInfoVo updatePatchById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo) {
         ModuleInfo moduleInfoWhere = ModuleInfo.builder()//
 				.id(id)//
-				.basicEditionOn(moduleInfo.getBasicEditionOn())//
-				.advanceEditionOn(moduleInfo.getAdvanceEditionOn())//
-				.basicEditionOn(moduleInfo.getUltimateEditionOn())//
-				.ultimateModulePriceList(moduleInfo.getBasicModulePriceList())//
-				.advanceModulePriceList(moduleInfo.getAdvanceModulePriceList())//
-				.ultimateModulePriceList(moduleInfo.getUltimateModulePriceList())//
 				.build();
 		UpdateWrapper<ModuleInfo> updateWrapperModuleInfo = new UpdateWrapper<ModuleInfo>();
 		updateWrapperModuleInfo.setEntity(moduleInfoWhere);

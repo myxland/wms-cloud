@@ -80,7 +80,7 @@ public class TableNameFactory {
 				"", //
 				"system_dictionaries", //
 				"", //
-				"", //
+				"module_info", //
 				"", //
 				"", //
 				"", //

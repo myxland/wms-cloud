@@ -26,13 +26,13 @@ public class IModuleInfoServiceTest {
 	@Test
 	public void insertTest() {
 		ModuleInfo moduleInfo = ModuleInfo.builder()//
-				.id(TestCaseUtil.id())// 服务模块ID
+				.id(TestCaseUtil.id())// 
 				.moduleName(TestCaseUtil.name())// 服务模块名称
 				.openTarget(RandomUtil.randomInt(0,1000+1))// 开放对象（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
 				.runEnv(RandomUtil.randomInt(0,1000+1))// 运行环境（1：PC端；2：移动端；3：微信端；4：支付宝端；5：API接口；6：自助终端）
-				.relyModuleId(RandomUtil.randomString(32))// 依赖模块ID
+				.relyModuleId(RandomUtil.randomString(4))// 所依赖的模块ID列表
 				.billingMode(RandomUtil.randomInt(0,1000+1))// 计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）
-				.billingCycle(RandomUtil.randomInt(0,1000+1))// 计费周期（1：实时；2：按天；3：按月；4：按年）
+				.billingCycle(RandomUtil.randomInt(0,1000+1))// 计费周期（0：不计费；1：实时；2：按天；3：按月；4：按年）
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）
@@ -55,9 +55,9 @@ public class IModuleInfoServiceTest {
 				.moduleName(TestCaseUtil.name())// 服务模块名称
 				.openTarget(RandomUtil.randomInt(0,1000+1))// 开放对象（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
 				.runEnv(RandomUtil.randomInt(0,1000+1))// 运行环境（1：PC端；2：移动端；3：微信端；4：支付宝端；5：API接口；6：自助终端）
-				.relyModuleId(RandomUtil.randomString(32))// 依赖模块ID
+				.relyModuleId(RandomUtil.randomString(4))// 所依赖的模块ID列表
 				.billingMode(RandomUtil.randomInt(0,1000+1))// 计费模式（1：默认开通；2：免费；3：按量付费；4：固定价格；5：阶梯价格）
-				.billingCycle(RandomUtil.randomInt(0,1000+1))// 计费周期（1：实时；2：按天；3：按月；4：按年）
+				.billingCycle(RandomUtil.randomInt(0,1000+1))// 计费周期（0：不计费；1：实时；2：按天；3：按月；4：按年）
 				.basicEditionOn(RandomUtil.randomInt(0,1+1))// 开放基础版（1：开放；0：不开放）
 				.advanceEditionOn(RandomUtil.randomInt(0,1+1))// 开放高级版（1：开放；0：不开放）
 				.ultimateEditionOn(RandomUtil.randomInt(0,1+1))// 开放旗舰版（1：开放；0：不开放）

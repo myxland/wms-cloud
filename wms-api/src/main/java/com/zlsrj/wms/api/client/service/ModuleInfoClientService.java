@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlsrj.wms.api.dto.ModuleInfoAddParam;
 import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
+import com.zlsrj.wms.api.dto.ModuleInfoUpdateParam;
 import com.zlsrj.wms.api.entity.ModuleInfo;
 import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -30,12 +32,12 @@ public interface ModuleInfoClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
-
+	
 	@RequestMapping(value = "/module-infos", method = RequestMethod.POST)
-	public ModuleInfoVo save(@RequestBody ModuleInfo moduleInfo);
+	public String save(@RequestBody ModuleInfoAddParam moduleInfoAddParam);
 
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.PUT)
-	public ModuleInfoVo updateById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo);
+	public boolean updateById(@PathVariable("id") String id, @RequestBody ModuleInfoUpdateParam moduleInfoUpdateParam);
 
 	@RequestMapping(value = "/module-infos/{id}", method = RequestMethod.PATCH)
 	public ModuleInfoVo updatePatchById(@PathVariable("id") String id, @RequestBody ModuleInfo moduleInfo);

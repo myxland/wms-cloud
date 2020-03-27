@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zlsrj.wms.api.dto.ModuleInfoQueryParam;
 import com.zlsrj.wms.api.dto.TenantModuleQueryParam;
 import com.zlsrj.wms.api.entity.TenantModule;
-import com.zlsrj.wms.api.vo.ModuleInfoVo;
 import com.zlsrj.wms.api.vo.TenantModuleVo;
 import com.zlsrj.wms.common.api.CommonResult;
-
-import io.swagger.annotations.ApiOperation;
 
 @FeignClient(value = "WMS-SAAS", contextId = "TenantModule")
 public interface TenantModuleClientService {
