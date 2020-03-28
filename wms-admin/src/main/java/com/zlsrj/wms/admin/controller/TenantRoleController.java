@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.ModuleMenuClientService;
 import com.zlsrj.wms.api.client.service.TenantEmployeeClientService;
@@ -71,6 +72,14 @@ public class TenantRoleController {
 		TenantRoleVo tenantRoleVo = tenantRoleClientService.getById(id);
 		if(tenantRoleVo!=null && 1==tenantRoleVo.getCreateType()) {
 			return CommonResult.failed("系统默认建立的角色，不能删除");
+		}
+		
+		TenantEmployeeRoleQueryParam tenantEmployeeRoleQueryParam = new TenantEmployeeRoleQueryParam();
+		tenantEmployeeRoleQueryParam.setRoleId(id);
+		Page<TenantEmployeeRoleVo> tenantEmployeeRoleVoPage = tenantEmployeeRoleClientService.page(tenantEmployeeRoleQueryParam, 1, 500, "id", "asc");
+		if(tenantEmployeeRoleVoPage!=null && tenantEmployeeRoleVoPage.getTotal()>0) {
+			tenantEmployeeRoleVoPage.getRecords().stream().map(e->JSON.toJSONString(e)).forEach(log::info);
+			return CommonResult.failed("角色已分配给员工，不能删除");
 		}
 		
 		CommonResult<Object> commonResult = tenantRoleClientService.removeById(id);

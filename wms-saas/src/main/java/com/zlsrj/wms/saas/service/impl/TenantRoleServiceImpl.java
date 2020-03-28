@@ -311,7 +311,16 @@ public class TenantRoleServiceImpl extends ServiceImpl<TenantRoleMapper, TenantR
     
     @Override
     public boolean removeById(Serializable id) {
-    	boolean success =  super.removeById(id);
+    	boolean success =  false;
+    	
+    	QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
+    	queryWrapperTenantRoleMenu.lambda()//
+				.eq(TenantRoleMenu::getRoleId, id)//
+		;
+    	tenantRoleMenuMapper.delete(queryWrapperTenantRoleMenu);
+    	
+		success =  super.removeById(id);
+		
     	if(success) {
         	try {
     			redisService.remove(id.toString());
