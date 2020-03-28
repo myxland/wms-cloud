@@ -48,12 +48,12 @@ public class TenantInfoControllerTest {
 
 	@Test
 	public void createTest() throws Exception {
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<1;i++) {
 			TenantInfoAddParam tenantInfoAddParam = new TenantInfoAddParam();
 			
 			String companyShortName = TestCaseUtil.companyShortName();
 			
-			tenantInfoAddParam.setId(TestCaseUtil.id());// 租户ID
+			//tenantInfoAddParam.setId(TestCaseUtil.id());// 租户ID
 			tenantInfoAddParam.setTenantName("租户名称"+"-"+"新增用例"+"-"+i+"-"+RandomUtil.randomNumbers(4));// 租户名称
 			tenantInfoAddParam.setTenantBalance(new BigDecimal(0));// 账户余额
 			tenantInfoAddParam.setTenantOverdraw(new BigDecimal(0));// 透支额度
@@ -80,6 +80,12 @@ public class TenantInfoControllerTest {
 			tenantInfoAddParam.setTenantAccesskey(RandomUtil.randomString(4));// 租户KEY
 			tenantInfoAddParam.setPriceStepOn(RandomUtil.randomInt(0,1+1));
 			tenantInfoAddParam.setMarketingAreaType(RandomUtil.randomInt(1,2+1));
+			
+			tenantInfoAddParam.setWxAppid("APPID"+"-"+RandomUtil.randomString(4));// 微信公众号APPID
+			tenantInfoAddParam.setWxAppsecret("AppSecret"+"-"+RandomUtil.randomString(4));// 微信公众号AppSecret
+			tenantInfoAddParam.setWxAccountId("MID"+"-"+RandomUtil.randomString(4));// 微信商户ID
+			tenantInfoAddParam.setWxAccountApiKey("MK"+"-"+RandomUtil.randomString(4));// 微信商户API密钥
+			tenantInfoAddParam.setSmsSignature("SS"+"-"+RandomUtil.randomString(4));//短信签名
 			
 			log.info(JSON.toJSONString(tenantInfoAddParam));
 			
@@ -128,17 +134,29 @@ public class TenantInfoControllerTest {
 		tenantInfoAddParam.setPriceStepOn(RandomUtil.randomInt(0,1+1));
 		tenantInfoAddParam.setMarketingAreaType(RandomUtil.randomInt(1,2+1));
 		
+		tenantInfoAddParam.setWxAppid("APPID"+"-"+RandomUtil.randomString(4));// 微信公众号APPID
+		tenantInfoAddParam.setWxAppsecret("AppSecret"+"-"+RandomUtil.randomString(4));// 微信公众号AppSecret
+		tenantInfoAddParam.setWxAccountId("MID"+"-"+RandomUtil.randomString(4));// 微信商户ID
+		tenantInfoAddParam.setWxAccountApiKey("MK"+"-"+RandomUtil.randomString(4));// 微信商户API密钥
+		tenantInfoAddParam.setSmsSignature("SS"+"-"+RandomUtil.randomString(4));//短信签名
+		
 		log.info(JSON.toJSONString(tenantInfoAddParam));
 		
 	}
 	
 	@Test
 	public void updateTest() throws Exception {
-		String id = "dd119da46cb44455be061425da1dd9ed";
+		String id = "c8df33be9c2e46399e6b114c12ae9247";
 		log.info("id={}",id);
 		
 		TenantInfoUpdateParam tenantInfoUpdateParam = new TenantInfoUpdateParam();
 		tenantInfoUpdateParam.setTenantDisplayName("欣茂"+"更新测试"+RandomUtil.randomString(4));
+		
+		tenantInfoUpdateParam.setWxAppid("UP"+"-"+"APPID"+"-"+RandomUtil.randomString(4));// 微信公众号APPID
+		tenantInfoUpdateParam.setWxAppsecret("UP"+"-"+"AppSecret"+"-"+RandomUtil.randomString(4));// 微信公众号AppSecret
+		tenantInfoUpdateParam.setWxAccountId("UP"+"-"+"MID"+"-"+RandomUtil.randomString(4));// 微信商户ID
+		tenantInfoUpdateParam.setWxAccountApiKey("UP"+"-"+"MK"+"-"+RandomUtil.randomString(4));// 微信商户API密钥
+		tenantInfoUpdateParam.setSmsSignature("UP"+"-"+"SS"+"-"+RandomUtil.randomString(4));//短信签名
 		
 		log.info(JSON.toJSONString(tenantInfoUpdateParam));
 		
@@ -213,7 +231,7 @@ public class TenantInfoControllerTest {
 	
 	@Test
 	public void getByIdTest() throws Exception {
-		String id = "5776fb77e26e45209d56e39f9ceb7308";
+		String id = "c8df33be9c2e46399e6b114c12ae9247";
 		log.info("id={}",id);
 		
 		String responseString = mockMvc.perform(//

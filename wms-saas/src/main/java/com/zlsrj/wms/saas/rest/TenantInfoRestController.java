@@ -27,7 +27,6 @@ import com.zlsrj.wms.api.dto.TenantInfoUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantInfoVo;
 import com.zlsrj.wms.common.api.CommonResult;
-import com.zlsrj.wms.saas.service.IIdService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import cn.hutool.core.date.DateUtil;
@@ -42,8 +41,6 @@ public class TenantInfoRestController {
 
 	@Autowired
 	private ITenantInfoService tenantInfoService;
-	@Autowired
-	private IIdService idService;
 
 	@ApiOperation(value = "根据ID查询租户表")
 	@RequestMapping(value = "/tenant-infos/{id}", method = RequestMethod.GET)
@@ -94,6 +91,11 @@ public class TenantInfoRestController {
 				.eq(tenantInfoQueryParam.getInvoiceBankCode() != null, TenantInfo::getInvoiceBankCode, tenantInfoQueryParam.getInvoiceBankCode())
 				.eq(tenantInfoQueryParam.getInvoiceBankName() != null, TenantInfo::getInvoiceBankName, tenantInfoQueryParam.getInvoiceBankName())
 				.eq(tenantInfoQueryParam.getInvoiceBankAccountNo() != null, TenantInfo::getInvoiceBankAccountNo, tenantInfoQueryParam.getInvoiceBankAccountNo())
+				.eq(tenantInfoQueryParam.getWxAppid() != null, TenantInfo::getWxAppid, tenantInfoQueryParam.getWxAppid())
+				.eq(tenantInfoQueryParam.getWxAppsecret() != null, TenantInfo::getWxAppsecret, tenantInfoQueryParam.getWxAppsecret())
+				.eq(tenantInfoQueryParam.getWxAccountId() != null, TenantInfo::getWxAccountId, tenantInfoQueryParam.getWxAccountId())
+				.eq(tenantInfoQueryParam.getWxAccountApiKey() != null, TenantInfo::getWxAccountApiKey, tenantInfoQueryParam.getWxAccountApiKey())
+				.eq(tenantInfoQueryParam.getSmsSignature() != null, TenantInfo::getSmsSignature, tenantInfoQueryParam.getSmsSignature())
 				.eq(tenantInfoQueryParam.getTenantAccesskey() != null, TenantInfo::getTenantAccesskey, tenantInfoQueryParam.getTenantAccesskey())
 				.ne(tenantInfoQueryParam.getNotTenantType()!=null, TenantInfo::getTenantType, tenantInfoQueryParam.getNotTenantType());
 				;
@@ -145,6 +147,11 @@ public class TenantInfoRestController {
 				.eq(tenantInfoQueryParam.getInvoiceBankCode() != null, TenantInfo::getInvoiceBankCode, tenantInfoQueryParam.getInvoiceBankCode())
 				.eq(tenantInfoQueryParam.getInvoiceBankName() != null, TenantInfo::getInvoiceBankName, tenantInfoQueryParam.getInvoiceBankName())
 				.eq(tenantInfoQueryParam.getInvoiceBankAccountNo() != null, TenantInfo::getInvoiceBankAccountNo, tenantInfoQueryParam.getInvoiceBankAccountNo())
+				.eq(tenantInfoQueryParam.getWxAppid() != null, TenantInfo::getWxAppid, tenantInfoQueryParam.getWxAppid())
+				.eq(tenantInfoQueryParam.getWxAppsecret() != null, TenantInfo::getWxAppsecret, tenantInfoQueryParam.getWxAppsecret())
+				.eq(tenantInfoQueryParam.getWxAccountId() != null, TenantInfo::getWxAccountId, tenantInfoQueryParam.getWxAccountId())
+				.eq(tenantInfoQueryParam.getWxAccountApiKey() != null, TenantInfo::getWxAccountApiKey, tenantInfoQueryParam.getWxAccountApiKey())
+				.eq(tenantInfoQueryParam.getSmsSignature() != null, TenantInfo::getSmsSignature, tenantInfoQueryParam.getSmsSignature())
 				.eq(tenantInfoQueryParam.getTenantAccesskey() != null, TenantInfo::getTenantAccesskey, tenantInfoQueryParam.getTenantAccesskey())
 				;
 
@@ -209,6 +216,11 @@ public class TenantInfoRestController {
 				.set(tenantInfo.getInvoiceBankCode() != null, TenantInfo::getInvoiceBankCode, tenantInfo.getInvoiceBankCode())
 				.set(tenantInfo.getInvoiceBankName() != null, TenantInfo::getInvoiceBankName, tenantInfo.getInvoiceBankName())
 				.set(tenantInfo.getInvoiceBankAccountNo() != null, TenantInfo::getInvoiceBankAccountNo, tenantInfo.getInvoiceBankAccountNo())
+				.set(tenantInfo.getWxAppid() != null, TenantInfo::getWxAppid, tenantInfo.getWxAppid())
+				.set(tenantInfo.getWxAppsecret() != null, TenantInfo::getWxAppsecret, tenantInfo.getWxAppsecret())
+				.set(tenantInfo.getWxAccountId() != null, TenantInfo::getWxAccountId, tenantInfo.getWxAccountId())
+				.set(tenantInfo.getWxAccountApiKey() != null, TenantInfo::getWxAccountApiKey, tenantInfo.getWxAccountApiKey())
+				.set(tenantInfo.getSmsSignature() != null, TenantInfo::getSmsSignature, tenantInfo.getSmsSignature())
 				.set(tenantInfo.getTenantAccesskey() != null, TenantInfo::getTenantAccesskey, tenantInfo.getTenantAccesskey())
 				;
 

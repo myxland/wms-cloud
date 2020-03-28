@@ -131,7 +131,27 @@ public class TenantInfo implements Serializable {
 	@ApiModelProperty(value = "开户账号")
 	@TableField("invoice_bank_account_no")
 	private String invoiceBankAccountNo;
-
+	
+	@ApiModelProperty(value = "微信公众号APPID")
+	@TableField("wx_appid")
+	private String wxAppid;
+	
+	@ApiModelProperty(value = "微信公众号AppSecret")
+	@TableField("wx_appsecret")
+	private String wxAppsecret;
+	
+	@ApiModelProperty(value = "微信商户ID")
+	@TableField("wx_account_id")
+	private String wxAccountId;
+	
+	@ApiModelProperty(value = "微信商户API密钥")
+	@TableField("wx_account_api_key")
+	private String wxAccountApiKey;
+	
+	@ApiModelProperty(value = "短信签名")
+	@TableField("sms_signature")
+	private String smsSignature;
+	  
 	@ApiModelProperty(value = "租户KEY")
 	@TableField("tenant_accesskey")
 	private String tenantAccesskey;

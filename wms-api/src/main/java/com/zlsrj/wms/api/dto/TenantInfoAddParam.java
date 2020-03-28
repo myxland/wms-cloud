@@ -87,6 +87,21 @@ public class TenantInfoAddParam implements Serializable {
 
 	@ApiModelProperty(value = "开户账号")
 	private String invoiceBankAccountNo;
+	
+	@ApiModelProperty(value = "微信公众号APPID")
+	private String wxAppid;
+	
+	@ApiModelProperty(value = "微信公众号AppSecret")
+	private String wxAppsecret;
+	
+	@ApiModelProperty(value = "微信商户ID")
+	private String wxAccountId;
+	
+	@ApiModelProperty(value = "微信商户API密钥")
+	private String wxAccountApiKey;
+	
+	@ApiModelProperty(value = "短信签名")
+	private String smsSignature;
 
 	@ApiModelProperty(value = "租户KEY")
 	private String tenantAccesskey;
