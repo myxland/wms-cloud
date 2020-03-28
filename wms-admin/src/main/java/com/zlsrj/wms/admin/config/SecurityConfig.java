@@ -51,9 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/**/*.css", "/**/*.js", "/swagger-resources/**", "/v2/api-docs/**" };
 
 	public final static String[] LOGIN_ANT_PATH = new String[] { //
-			"/account/login", //
-			"/admin/login", //
-			"/admin/register" //
+			"/account/login"
 	};
 
 	@Override
@@ -64,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, STATIC_RESOURCE_ANT_PATH)// 允许对于网站静态资源的无授权访问
 				.permitAll().antMatchers(LOGIN_ANT_PATH)// 对登录注册要允许匿名访问
 				.permitAll().antMatchers(HttpMethod.OPTIONS)// 跨域请求会先进行一次options请求
-				.permitAll().antMatchers("/**")// 测试时全部运行访问
+				//.permitAll().antMatchers("/**")// 测试时全部运行访问
 				.permitAll().anyRequest()// 除上面外的所有请求全部需要鉴权认证
 				.authenticated();
 		// 禁用缓存

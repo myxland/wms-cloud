@@ -26,7 +26,7 @@ feign:
     enabled: true #Feign默认使用的连接工具实现类，所以里面发现只要你有body体对象，就会强制的把GET请求转换成POST请求
 
 jwt: 
-  secret: mySecret
+  secret: Z3kyMDIw
   expiration: 604800 #60*60*24
   tokenHeader: Authorization
   tokenHead: Bearer
