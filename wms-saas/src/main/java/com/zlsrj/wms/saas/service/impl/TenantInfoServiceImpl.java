@@ -346,15 +346,18 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 					.eq(ModuleMenu::getModuleId, tenantInfoModuleInfoUpdateParam.getModuleId())//
 			;
 			List<ModuleMenu> moduleMenuList = moduleMenuMapper.selectList(queryWrapperModuleMenu);
-			List<String> menuIdList = moduleMenuList.stream().map(ModuleMenu::getId).collect(Collectors.toList());
+			if(moduleMenuList!=null && moduleMenuList.size()>0) {
+				List<String> menuIdList = moduleMenuList.stream().map(ModuleMenu::getId).collect(Collectors.toList());
+				
+				QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
+				queryWrapperTenantRoleMenu.lambda()//
+						.eq(TenantRoleMenu::getTenantId, tenantInfoModuleInfoUpdateParam.getTenantId())//
+						.in(TenantRoleMenu::getMenuId, menuIdList)//
+				;
+				
+				tenantRoleMenuMapper.delete(queryWrapperTenantRoleMenu);
+			}
 			
-			QueryWrapper<TenantRoleMenu> queryWrapperTenantRoleMenu = new QueryWrapper<TenantRoleMenu>();
-			queryWrapperTenantRoleMenu.lambda()//
-					.eq(TenantRoleMenu::getTenantId, tenantInfoModuleInfoUpdateParam.getTenantId())//
-					.in(TenantRoleMenu::getMenuId, menuIdList)//
-			;
-			
-			tenantRoleMenuMapper.delete(queryWrapperTenantRoleMenu);
 			success = true;
 		} else {
 			log.error("删除出错，未知moduleOnOff={}",tenantInfoModuleInfoUpdateParam.getModuleOnOff());
