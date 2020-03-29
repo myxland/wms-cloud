@@ -4,9 +4,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.zlsrj.wms.admin.dto.AdminUserDetails;
+import com.zlsrj.wms.api.entity.AdminUser;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -24,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtTokenUtil {
 
 	private static final String CLAIM_KEY_USERNAME = "sub";
+	private static final String CLAIM_KEY_TENANT = "tenant";
 	private static final String CLAIM_KEY_CREATED = "created";
 
 	@Value("${jwt.secret}")
@@ -110,6 +115,21 @@ public class JwtTokenUtil {
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 		claims.put(CLAIM_KEY_CREATED, new Date());
+		try {
+			if(userDetails instanceof AdminUserDetails) {
+				AdminUserDetails adminUserDetails = (AdminUserDetails)userDetails;
+				AdminUser adminUser = adminUserDetails.getAdminUser();
+				if(adminUser!=null) {
+					String tenantId = adminUser.getTenantId();
+					if(StringUtils.isNotBlank(tenantId)) {
+						claims.put(CLAIM_KEY_TENANT,tenantId);
+					}
+				}
+			}
+		}catch(Exception e) {
+			log.error("获取登录用户租户信息失败", e);
+		}
+		
 		return generateToken(claims);
 	}
 

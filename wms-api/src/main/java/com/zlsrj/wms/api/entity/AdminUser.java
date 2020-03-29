@@ -26,5 +26,10 @@ public class AdminUser implements Serializable {
 	private Integer status;
 	
 	private String icon;
+	
+	/**
+	 * 租户ID
+	 */
+	private String tenantId;
 
 }

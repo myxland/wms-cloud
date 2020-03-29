@@ -22,6 +22,10 @@ public class AdminUserDetails implements UserDetails {
 		this.admin = admin;
 		this.permissionList = permissionList;
 	}
+	
+	public AdminUser getAdminUser() {
+		return admin;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

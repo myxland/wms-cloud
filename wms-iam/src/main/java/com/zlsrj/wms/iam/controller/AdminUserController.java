@@ -36,6 +36,7 @@ public class AdminUserController {
 				.password(tenantEmployee.getEmployeePassword())//
 				.status(tenantEmployee.getEmployeeStatus())//
 				.icon(null)//
+				.tenantId(tenantEmployee.getTenantId())
 				.build();
 
 		return adminUser;
