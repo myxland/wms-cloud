@@ -18,9 +18,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
-import com.zlsrj.wms.common.test.TestCaseUtil;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
+import com.zlsrj.wms.common.test.TestCaseUtil;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +43,49 @@ public class TenantBookControllerTest {
 	public void tearDown() throws Exception {
 	}
 
+	@Test
+	public void createTest() throws Exception {
+		TenantBookAddParam tenantBookAddParam = new TenantBookAddParam();
+		tenantBookAddParam.setTenantId(RandomUtil.randomString(4));// 租户ID
+		tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
+		tenantBookAddParam.setBookName("表册名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 表册名称
+		tenantBookAddParam.setBookReaderEmployeeId(RandomUtil.randomString(4));// 抄表员
+		tenantBookAddParam.setBookChargeEmployeeId(RandomUtil.randomString(4));// 收费员
+		tenantBookAddParam.setBookMarketingAreaId(RandomUtil.randomString(4));// 营销区域
+		tenantBookAddParam.setBookReadCycle(RandomUtil.randomInt(0,1000+1));// 抄表周期
+		tenantBookAddParam.setBookLastMonth(RandomUtil.randomString(4));// 最后一次抄表月份
+		tenantBookAddParam.setBookReadMonth(RandomUtil.randomString(4));// 下次抄表月份
+		tenantBookAddParam.setBookSettleCycle(RandomUtil.randomInt(0,1000+1));// 结算周期
+		tenantBookAddParam.setBookSettleLastMonth(RandomUtil.randomString(4));// 最后一次结算月份
+		tenantBookAddParam.setBookSettleMonth(RandomUtil.randomString(4));// 下次结算月份
+		tenantBookAddParam.setBookStatus(RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
+		tenantBookAddParam.setBookReadStatus(RandomUtil.randomInt(0,1+1));// 表册状态（1：抄表进行中；2：抄表截止）
+		tenantBookAddParam.setPriceCalss(RandomUtil.randomInt(0,1000+1));// 级次
+		tenantBookAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
+		
+		log.info(JSON.toJSONString(tenantBookAddParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantBook/create")//
+						.content(JSON.toJSONString(tenantBookAddParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void deleteTest() throws Exception {
+		String id = "";
+		log.info("id={}",id);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantBook/delete/"+id)//
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
 	@Test
 	public void getByIdTest() throws Exception {
 		String id = "";
@@ -69,12 +112,15 @@ public class TenantBookControllerTest {
 	}
 	
 	@Test
-	public void deleteTest() throws Exception {
-		String id = "";
-		log.info("id={}",id);
+	public void countTest() throws Exception {
+		String tenantId = "";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
 		
 		String responseString = mockMvc.perform(//
-				MockMvcRequestBuilders.get("/tenantBook/delete/"+id)//
+				MockMvcRequestBuilders.get("/tenantBook/count")//
+						.params(params)
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);
@@ -86,7 +132,6 @@ public class TenantBookControllerTest {
 		log.info("id={}",id);
 		
 		TenantBookUpdateParam tenantBookUpdateParam = new TenantBookUpdateParam();
-		tenantBookUpdateParam.setTenantId(RandomUtil.randomString(4));// 租户ID
 		tenantBookUpdateParam.setBookCode(RandomUtil.randomString(4));// 表册编号
 		tenantBookUpdateParam.setBookName(TestCaseUtil.name());// 表册名称
 		tenantBookUpdateParam.setBookReaderEmployeeId(RandomUtil.randomString(4));// 抄表员
@@ -114,34 +159,4 @@ public class TenantBookControllerTest {
 		log.info(responseString);
 	}
 	
-	@Test
-	public void createTest() throws Exception {
-		TenantBookAddParam tenantBookAddParam = new TenantBookAddParam();
-		tenantBookAddParam.setTenantId(RandomUtil.randomString(4));// 租户ID
-		tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
-		tenantBookAddParam.setBookName(TestCaseUtil.name());// 表册名称
-		tenantBookAddParam.setBookReaderEmployeeId(RandomUtil.randomString(4));// 抄表员
-		tenantBookAddParam.setBookChargeEmployeeId(RandomUtil.randomString(4));// 收费员
-		tenantBookAddParam.setBookMarketingAreaId(RandomUtil.randomString(4));// 营销区域
-		tenantBookAddParam.setBookReadCycle(RandomUtil.randomInt(0,1000+1));// 抄表周期
-		tenantBookAddParam.setBookLastMonth(RandomUtil.randomString(4));// 最后一次抄表月份
-		tenantBookAddParam.setBookReadMonth(RandomUtil.randomString(4));// 下次抄表月份
-		tenantBookAddParam.setBookSettleCycle(RandomUtil.randomInt(0,1000+1));// 结算周期
-		tenantBookAddParam.setBookSettleLastMonth(RandomUtil.randomString(4));// 最后一次结算月份
-		tenantBookAddParam.setBookSettleMonth(RandomUtil.randomString(4));// 下次结算月份
-		tenantBookAddParam.setBookStatus(RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
-		tenantBookAddParam.setBookReadStatus(RandomUtil.randomInt(0,1+1));// 表册状态（1：抄表进行中；2：抄表截止）
-		tenantBookAddParam.setPriceCalss(RandomUtil.randomInt(0,1000+1));// 级次
-		tenantBookAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
-		
-		log.info(JSON.toJSONString(tenantBookAddParam));
-		
-		String responseString = mockMvc.perform(//
-				MockMvcRequestBuilders.post("/tenantBook/create")//
-						.content(JSON.toJSONString(tenantBookAddParam))//
-						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
-						.accept(MediaType.APPLICATION_JSON_UTF8)//
-		).andReturn().getResponse().getContentAsString();
-		log.info(responseString);
-	}
 }

@@ -13,13 +13,10 @@ import lombok.Setter;
 @ApiModel(value = "TenantBook更新参数", description = "表册信息")
 public class TenantBookUpdateParam implements Serializable {
 
-	private static final long serialVersionUID = 1564461330141112134L;
+	private static final long serialVersionUID = 2671101014141112041L;
 
 	@ApiModelProperty(value = "表册ID")
 	private String id;
-
-	@ApiModelProperty(value = "租户ID")
-	private String tenantId;
 
 	@ApiModelProperty(value = "表册编号")
 	private String bookCode;

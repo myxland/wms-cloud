@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
-import com.zlsrj.wms.api.entity.TenantBook;
 import com.zlsrj.wms.api.vo.TenantBookVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -24,7 +23,10 @@ public interface TenantBookClientService {
 
 	@RequestMapping(value = "/tenant-books/list", method = RequestMethod.GET)
 	public List<TenantBookVo> list(@RequestBody TenantBookQueryParam tenantBookQueryParam);
-	
+
+	@RequestMapping(value = "/tenant-books/count", method = RequestMethod.GET)
+	public int count(@RequestBody TenantBookQueryParam tenantBookQueryParam);
+
 	@RequestMapping(value = "/tenant-books", method = RequestMethod.GET)
 	public Page<TenantBookVo> page(@RequestBody TenantBookQueryParam tenantBookQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -32,7 +34,7 @@ public interface TenantBookClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
-	
+
 	@RequestMapping(value = "/tenant-books/aggregation", method = RequestMethod.GET)
 	public TenantBookVo aggregation(@RequestBody TenantBookQueryParam tenantBookQueryParam);
 
@@ -42,10 +44,6 @@ public interface TenantBookClientService {
 	@RequestMapping(value = "/tenant-books/{id}", method = RequestMethod.PUT)
 	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantBookUpdateParam tenantBookUpdateParam);
 
-	@RequestMapping(value = "/tenant-books/{id}", method = RequestMethod.PATCH)
-	public TenantBookVo updatePatchById(@PathVariable("id") String id, @RequestBody TenantBook tenantBook);
-
 	@RequestMapping(value = "/tenant-books/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
-
