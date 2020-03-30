@@ -82,7 +82,7 @@ public class TableNameFactory {
 				"", //
 				"module_info", //
 				"", //
-				"", //
+				"tenant_book", //
 				"", //
 				"", //
 				"");
