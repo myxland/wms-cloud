@@ -18,12 +18,15 @@ import lombok.Setter;
 @ApiModel(value = "${table.entityName}更新参数", description = "${table.tableComment}")
 public class ${table.entityName}UpdateParam implements Serializable {
 
-	private static final long serialVersionUID = ${serialVersionUIDQueryParam}L;
+	private static final long serialVersionUID = ${serialVersionUIDUpdateParam}L;
 
 	<#list table.columnList as column>
+	<#if "tenant_id" == column.columnName>
+	<#else>
 	@ApiModelProperty(value = "${column.columnComment}")
 	private ${column.propertyType} ${column.propertyName};
 
+	</#if>
 	</#list>
 }
 

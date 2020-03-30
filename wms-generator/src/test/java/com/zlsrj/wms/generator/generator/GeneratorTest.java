@@ -216,6 +216,10 @@ public class GeneratorTest {
 		dataModel.put("serialVersionUID", Long.toString(JavaUtil.createSerialVersionUID(tableInfo.getEntityName())));
 		dataModel.put("serialVersionUIDQueryParam",
 				Long.toString(JavaUtil.createSerialVersionUID("QP" + tableInfo.getEntityName())));// 为了生成不同的serialVersionUID
+		dataModel.put("serialVersionUIDAddParam",
+				Long.toString(JavaUtil.createSerialVersionUID("AP" + tableInfo.getEntityName())));// 为了生成不同的serialVersionUID
+		dataModel.put("serialVersionUIDUpdateParam",
+				Long.toString(JavaUtil.createSerialVersionUID("UP" + tableInfo.getEntityName())));// 为了生成不同的serialVersionUID
 		dataModel.put("serialVersionUIDVO",
 				Long.toString(JavaUtil.createSerialVersionUID("VO" + tableInfo.getEntityName())));// 为了生成不同的serialVersionUID
 		dataModel.put("targetDir", targetDir);

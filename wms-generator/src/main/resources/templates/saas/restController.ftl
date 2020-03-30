@@ -6,8 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
@@ -95,7 +91,11 @@ public class ${table.entityName}RestController {
 		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
 		queryWrapper${table.entityName}.lambda()
 		<#list table.columnList as column>
+		<#if column.propertyType == "String">
+				.eq(StringUtils.isNotEmpty(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}()), ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#else>
 				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		</#if>
 		<#if column.likeable>
 				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
 		</#if>
@@ -115,9 +115,44 @@ public class ${table.entityName}RestController {
 
 		List<${table.entityName}> ${table.entityName?uncap_first}List = ${table.entityName?uncap_first}Service.list(queryWrapper${table.entityName});
 
-		List<${table.entityName}Vo> ${table.entityName?uncap_first}VoList = TranslateUtil.translateList(${table.entityName?uncap_first}List, ${table.entityName}Vo.class);
+		List<${table.entityName}Vo> ${table.entityName?uncap_first}VoList = ${table.entityName?uncap_first}List.stream()//
+				 .map(e -> entity2vo(e))//
+				 .collect(Collectors.toList());
 
 		return ${table.entityName?uncap_first}VoList;
+	}
+	
+	@ApiOperation(value = "根据参数查询${table.tableComment}数量")
+	@RequestMapping(value = "/${table.restSegment}s/count", method = RequestMethod.GET)
+	public int count(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam) {
+		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
+		queryWrapper${table.entityName}.lambda()
+		<#list table.columnList as column>
+		<#if column.propertyType == "String">
+				.eq(StringUtils.isNotEmpty(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}()), ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#else>
+				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		</#if>
+		<#if column.likeable>
+				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
+		</#if>
+		<#if column.dataType=="date" || column.dataType=="datetime" || column.dataType=="timestamp" || column.dataType=="time">
+				.ge(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start() == null ? null: DateUtil.beginOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Start()))
+				.le(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End() == null ? null: DateUtil.endOfDay(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}End()))
+		</#if>
+		</#list>
+		<#if table.includeParentId>
+		<#list table.columnList as column>
+		<#if column.columnName?ends_with("_parent_id")>
+				.eq(${table.entityName?uncap_first}QueryParam.getParentId()!=null,${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.getParentId())
+		</#if>
+		</#list>
+		</#if>
+				;
+
+		int count = ${table.entityName?uncap_first}Service.count(queryWrapper${table.entityName});
+
+		return count;
 	}
 	
 	@ApiOperation(value = "根据参数查询${table.tableComment}列表")
@@ -130,10 +165,14 @@ public class ${table.entityName}RestController {
 	) {
 		IPage<${table.entityName}> page${table.entityName} = new Page<${table.entityName}>(page, rows);
 		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
-		queryWrapper${table.entityName}.orderBy(StringUtils.isNotEmpty(sort), "asc".equals(order), sort);
+		queryWrapper${table.entityName}.orderBy(StringUtils.isNotBlank(sort), "asc".equals(order), sort);
 		queryWrapper${table.entityName}.lambda()
 		<#list table.columnList as column>
+		<#if column.propertyType == "String">
+				.eq(StringUtils.isNotEmpty(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}()), ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#else>
 				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		</#if>
 		<#if column.likeable>
 				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
 		</#if>
@@ -173,7 +212,11 @@ public class ${table.entityName}RestController {
 		QueryWrapper<${table.entityName}> queryWrapper${table.entityName} = new QueryWrapper<${table.entityName}>();
 		queryWrapper${table.entityName}.lambda()
 		<#list table.columnList as column>
+		<#if column.propertyType == "String">
+				.eq(StringUtils.isNotEmpty(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}()), ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		<#else>
 				.eq(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}())
+		</#if>
 		<#if column.likeable>
 				.like(${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like() != null, ${table.entityName}::get${column.propertyName?cap_first},${table.entityName?uncap_first}QueryParam.get${column.propertyName?cap_first}Like())
 		</#if>
@@ -211,35 +254,6 @@ public class ${table.entityName}RestController {
 		return ${table.entityName?uncap_first}Service.updateById(${table.entityName?uncap_first}UpdateParam);
 	}
 
-	@ApiOperation(value = "根据参数更新${table.tableComment}信息")
-	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PATCH)
-	public ${table.entityName}Vo updatePatchById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first}) {
-        ${table.entityName} ${table.entityName?uncap_first}Where = ${table.entityName}.builder()//
-				.id(id)//
-				.build();
-		UpdateWrapper<${table.entityName}> updateWrapper${table.entityName} = new UpdateWrapper<${table.entityName}>();
-		updateWrapper${table.entityName}.setEntity(${table.entityName?uncap_first}Where);
-		updateWrapper${table.entityName}.lambda()//
-				//.eq(${table.entityName}::getId, id)
-				<#list table.columnList as column>
-				<#if "PRI"==column.columnKey>
-				// .set(${table.entityName?uncap_first}.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}.get${column.propertyName?cap_first}())
-				<#else>
-				.set(${table.entityName?uncap_first}.get${column.propertyName?cap_first}() != null, ${table.entityName}::get${column.propertyName?cap_first}, ${table.entityName?uncap_first}.get${column.propertyName?cap_first}())
-				</#if>
-				</#list>
-				;
-
-		boolean success = ${table.entityName?uncap_first}Service.update(updateWrapper${table.entityName});
-		if (success) {
-			${table.entityName} ${table.entityName?uncap_first}Database = ${table.entityName?uncap_first}Service.getById(id);
-			return entity2vo(${table.entityName?uncap_first}Database);
-		}
-		log.info("partial update ${table.entityName} fail，{}",
-				ToStringBuilder.reflectionToString(${table.entityName?uncap_first}, ToStringStyle.JSON_STYLE));
-		return null;
-	}
-
 	@ApiOperation(value = "根据ID删除${table.tableComment}")
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id) {
@@ -252,8 +266,7 @@ public class ${table.entityName}RestController {
 			return null;
 		}
 
-		String jsonString = JSON.toJSONString(${table.entityName?uncap_first});
-		${table.entityName}Vo ${table.entityName?uncap_first}Vo = JSON.parseObject(jsonString, ${table.entityName}Vo.class);
+		${table.entityName}Vo ${table.entityName?uncap_first}Vo = TranslateUtil.translate(${table.entityName?uncap_first}, ${table.entityName}Vo.class);
 		<#if table.includeSysId>
 		<#list table.columnList as column>
 		<#if column.columnName?ends_with("sys_id")>

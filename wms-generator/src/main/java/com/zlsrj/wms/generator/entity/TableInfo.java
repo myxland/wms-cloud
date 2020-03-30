@@ -82,8 +82,9 @@ public class TableInfo implements Serializable {
 
 	@JSONField(serialize = false)
 	public boolean isIncludeDate() {
-		return columnList.stream().filter(column -> Arrays
-				.asList(new String[] { "datetime", "timestamp", "time", "date" }).contains(column.getDataType()))
+		return columnList.stream()//
+				.filter(column -> Arrays.asList(new String[] { "datetime", "timestamp", "time", "date" })//
+						.contains(column.getDataType()))
 				.count() > 0;
 	}
 

@@ -18,7 +18,7 @@ import lombok.Setter;
 @ApiModel(value = "${table.entityName}新增参数", description = "${table.tableComment}")
 public class ${table.entityName}AddParam implements Serializable {
 
-	private static final long serialVersionUID = ${serialVersionUIDQueryParam}L;
+	private static final long serialVersionUID = ${serialVersionUIDAddParam}L;
 
 	<#list table.columnList as column>
 	@ApiModelProperty(value = "${column.columnComment}")

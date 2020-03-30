@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}AddParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}QueryParam;
 import ${domainName}.${projectNameApi}.dto.${table.entityName}UpdateParam;
-import ${domainName}.${projectNameApi}.entity.${table.entityName};
 import ${domainName}.${projectNameApi}.vo.${table.entityName}Vo;
 import ${domainName}.common.api.CommonResult;
 
@@ -34,7 +33,10 @@ public interface ${table.entityName}ClientService {
 	</#if>
 	@RequestMapping(value = "/${table.restSegment}s/list", method = RequestMethod.GET)
 	public List<${table.entityName}Vo> list(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam);
-	
+
+	@RequestMapping(value = "/${table.restSegment}s/count", method = RequestMethod.GET)
+	public int count(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam);
+
 	@RequestMapping(value = "/${table.restSegment}s", method = RequestMethod.GET)
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
@@ -42,7 +44,7 @@ public interface ${table.entityName}ClientService {
 			@RequestParam(value = "sort") String sort, // 排序列字段名
 			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
-	
+
 	<#if table.includeAggregation>
 	@RequestMapping(value = "/${table.restSegment}s/aggregation", method = RequestMethod.GET)
 	public ${table.entityName}Vo aggregation(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam);
@@ -54,10 +56,6 @@ public interface ${table.entityName}ClientService {
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PUT)
 	public boolean updateById(@PathVariable("id") String id, @RequestBody ${table.entityName}UpdateParam ${table.entityName?uncap_first}UpdateParam);
 
-	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.PATCH)
-	public ${table.entityName}Vo updatePatchById(@PathVariable("id") String id, @RequestBody ${table.entityName} ${table.entityName?uncap_first});
-
 	@RequestMapping(value = "/${table.restSegment}s/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }
-
