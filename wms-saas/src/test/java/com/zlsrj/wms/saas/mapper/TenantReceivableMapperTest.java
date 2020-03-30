@@ -11,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlsrj.wms.api.entity.TenantBooklet;
 import com.zlsrj.wms.api.entity.TenantCustomer;
 import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantInfo;
@@ -34,8 +33,6 @@ public class TenantReceivableMapperTest {
 	private TenantInfoMapper tenantInfoMapper;
 	@Resource
 	private TenantDepartmentMapper tenantDepartmentMapper;
-	@Resource
-	private TenantBookletMapper tenantBookletMapper;
 	@Resource
 	private TenantCustomerMapper tenantCustomerMapper;
 	@Resource
@@ -72,11 +69,6 @@ public class TenantReceivableMapperTest {
 				tenantDepartment = tenantDepartmentList.get(RandomUtil.randomInt(tenantDepartmentList.size()));
 			}
 			
-			TenantBooklet tenantBooklet = null;
-			List<TenantBooklet> tenantBookletList = tenantBookletMapper.selectList(new QueryWrapper<TenantBooklet>().lambda().eq(TenantBooklet::getTenantId, tenantInfo.getId()));
-			if(tenantBookletList!=null && tenantBookletList.size()>0) {
-				tenantBooklet = tenantBookletList.get(RandomUtil.randomInt(tenantBookletList.size()));
-			}
 			
 			TenantCustomer tenantCustomer = null;
 			List<TenantCustomer> tenantCustomerList = tenantCustomerMapper.selectList(new QueryWrapper<TenantCustomer>().lambda().eq(TenantCustomer::getTenantId, tenantInfo.getId()));
@@ -104,8 +96,6 @@ public class TenantReceivableMapperTest {
 					.receivableStatus(RandomUtil.randomInt(1,3+1))// 应收账状态（1：正常；2：被冲正；3：冲正负记录）
 					.receivableType(RandomUtil.randomInt(1,3+1))// 应收类型（1：抄表；2：换表；3：追补）
 					.departmentId(tenantDepartment!=null?tenantDepartment.getId():null)// 部门ID
-					.bookletId(tenantBooklet!=null?tenantBooklet.getId():null)// 表册ID
-					.bookletCode(tenantBooklet!=null?tenantBooklet.getBookletCode():null)// 表册代码
 					.customerId(tenantCustomer!=null?tenantCustomer.getId():null)// 用户ID
 					.customerCode(tenantCustomer!=null?tenantCustomer.getCustomerCode():null)// 用户代码
 					.customerName(tenantCustomer!=null?tenantCustomer.getCustomerName():null)// 用户名称
