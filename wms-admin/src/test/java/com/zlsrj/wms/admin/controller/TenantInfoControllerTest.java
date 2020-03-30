@@ -146,17 +146,22 @@ public class TenantInfoControllerTest {
 	
 	@Test
 	public void updateTest() throws Exception {
-		String id = "c8df33be9c2e46399e6b114c12ae9247";
+		String id = "c9fe3af1f7a24ad0aa4f7bd4a3cd5d9a";
 		log.info("id={}",id);
 		
 		TenantInfoUpdateParam tenantInfoUpdateParam = new TenantInfoUpdateParam();
-		tenantInfoUpdateParam.setTenantDisplayName("欣茂"+"更新测试"+RandomUtil.randomString(4));
 		
-		tenantInfoUpdateParam.setWxAppid("UP"+"-"+"APPID"+"-"+RandomUtil.randomString(4));// 微信公众号APPID
-		tenantInfoUpdateParam.setWxAppsecret("UP"+"-"+"AppSecret"+"-"+RandomUtil.randomString(4));// 微信公众号AppSecret
-		tenantInfoUpdateParam.setWxAccountId("UP"+"-"+"MID"+"-"+RandomUtil.randomString(4));// 微信商户ID
-		tenantInfoUpdateParam.setWxAccountApiKey("UP"+"-"+"MK"+"-"+RandomUtil.randomString(4));// 微信商户API密钥
-		tenantInfoUpdateParam.setSmsSignature("UP"+"-"+"SS"+"-"+RandomUtil.randomString(4));//短信签名
+//		tenantInfoUpdateParam.setTenantType(RandomUtil.randomInt(1, 5+1)); //（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
+//		tenantInfoUpdateParam.setTenantBalance(new BigDecimal(RandomUtil.randomInt(1, 1000)));
+//		tenantInfoUpdateParam.setTenantOverdraw(new BigDecimal(RandomUtil.randomInt(1, 1000)));
+		
+		//tenantInfoUpdateParam.setTenantDisplayName("欣茂"+"更新测试"+RandomUtil.randomString(4));
+//		
+//		tenantInfoUpdateParam.setWxAppid("UP"+"-"+"APPID"+"-"+RandomUtil.randomString(4));// 微信公众号APPID
+//		tenantInfoUpdateParam.setWxAppsecret("UP"+"-"+"AppSecret"+"-"+RandomUtil.randomString(4));// 微信公众号AppSecret
+//		tenantInfoUpdateParam.setWxAccountId("UP"+"-"+"MID"+"-"+RandomUtil.randomString(4));// 微信商户ID
+//		tenantInfoUpdateParam.setWxAccountApiKey("UP"+"-"+"MK"+"-"+RandomUtil.randomString(4));// 微信商户API密钥
+//		tenantInfoUpdateParam.setSmsSignature("UP"+"-"+"SS"+"-"+RandomUtil.randomString(4));//短信签名
 		
 		log.info(JSON.toJSONString(tenantInfoUpdateParam));
 		
