@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlsrj.wms.saas.mapper.TenantCustomerMapper">
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantCustomer">
+		SELECT
+			count(id) as id,
+			sum(customer_credit_rating) as customer_credit_rating,
+			sum(customer_balance_amt) as customer_balance_amt,
+			sum(customer_freeze_balance) as customer_freeze_balance,
+			sum(customer_owe_amt) as customer_owe_amt,
+			sum(customer_penalty_amt) as customer_penalty_amt
+		FROM tenant_customer
+		${ew.customSqlSegment} 
+	</select>
+</mapper>

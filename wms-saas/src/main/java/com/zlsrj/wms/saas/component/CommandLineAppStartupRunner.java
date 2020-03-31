@@ -10,9 +10,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.zlsrj.wms.api.entity.TenantBook;
+import com.zlsrj.wms.api.entity.TenantCustomer;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.saas.config.CodeConfig;
 import com.zlsrj.wms.saas.service.ITenantBookService;
+import com.zlsrj.wms.saas.service.ITenantCustomerService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.RedisService;
 
@@ -27,6 +29,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 	private ITenantInfoService tenantInfoService;
 	@Resource
 	private ITenantBookService tenantBookService;
+	@Resource
+	private ITenantCustomerService tenantCustomerService;
 	@Resource
 	private CodeConfig codeConfig;
 	
@@ -47,6 +51,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 		
 		//初始化表册编号
 		List<TenantBook> tenantBookList = tenantBookService.getMaxBookCode();
+		List<TenantCustomer> tenantCustomerList = tenantCustomerService.getMaxCustomerCode();
 		List<TenantInfo> teantInfoList = tenantInfoService.list();
 		if (teantInfoList != null && teantInfoList.size() > 0) {
 			for (TenantInfo tenantInfo : teantInfoList) {
@@ -74,6 +79,28 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 				}
 				
 				redisService.setIfAbsent(codeConfig.getBookCode()+tenantCode, Long.toString(initBookCode));
+				
+				Optional<TenantCustomer> tenantCustomerOptional=tenantCustomerList//
+						.stream()//
+						.filter(b->id.equals(b.getTenantId()))//
+						.findFirst()//
+						;
+				
+				Long initCustomerCode = Long.parseLong(Integer.toString(tenantInfo.getTenantCode())+StringUtils.leftPad("1", 7, '0'));
+				
+				if(tenantCustomerOptional.isPresent()) {
+					TenantCustomer tenantCustomer = tenantCustomerOptional.get();
+					if(StringUtils.isNumeric(tenantCustomer.getCustomerCode())) {
+						try {
+							initCustomerCode = Long.parseLong(tenantCustomer.getCustomerCode());
+						} catch(Exception e) {
+							log.info("数据库用户编号转数字失败，bookCode={}",tenantCustomer.getCustomerCode());
+						}
+						
+					}
+				}
+				
+				redisService.setIfAbsent(codeConfig.getCustomerCode()+tenantCode, Long.toString(initCustomerCode));
 				
 			}
 		}
