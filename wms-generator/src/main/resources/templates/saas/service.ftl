@@ -13,8 +13,8 @@ public interface I${table.entityName}Service extends IService<${table.entityName
 	${table.entityName} getAggregation(Wrapper<${table.entityName}> wrapper);
 	
 	</#if>
-	String save(${table.entityName}AddParam tenantCustomerTypeAddParam);
+	String save(${table.entityName}AddParam ${table.entityName?uncap_first}AddParam);
 
-	boolean updateById(${table.entityName}UpdateParam tenantCustomerTypeUpdateParam);
+	boolean updateById(${table.entityName}UpdateParam ${table.entityName?uncap_first}UpdateParam);
 
 }
