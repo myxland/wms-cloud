@@ -98,13 +98,53 @@ public class TenantCustomerControllerTest {
 	
 	@Test
 	public void listTest() throws Exception {
-		String tenantId = "";
+		String tenantId = "933d88d4d23244079cc0b49f99aa2c0b";
 		
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("tenantId", tenantId);
 		
+		params.add("queryCol", "customer_code");
+		params.add("queryType", "=");
+		params.add("queryValue", "380000003");
+		
+		params.add("queryCol", "customer_name");
+		params.add("queryType", "like");
+		params.add("queryValue", "范旭");
+		
+		log.info(JSON.toJSONString(params));
+		
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.get("/tenantCustomer/list")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void pageTest() throws Exception {
+		String tenantId = "933d88d4d23244079cc0b49f99aa2c0b";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		
+		params.add("queryCol", "customer_code");
+		params.add("queryType", "=");
+		params.add("queryValue", "380000003");
+		
+		params.add("queryCol", "customer_name");
+		params.add("queryType", "like");
+		params.add("queryValue", "范旭");
+		
+		params.add("page", "1");
+		params.add("rows", "20");
+		params.add("sort", "add_time");
+		params.add("order", "desc");
+		
+		log.info(JSON.toJSONString(params));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantCustomer/page")//
 						.params(params)
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();

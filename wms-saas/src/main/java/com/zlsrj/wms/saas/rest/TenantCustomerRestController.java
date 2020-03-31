@@ -85,6 +85,18 @@ public class TenantCustomerRestController {
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomer.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		List<TenantCustomer> tenantCustomerList = tenantCustomerService.list(queryWrapperTenantCustomer);
 
 		List<TenantCustomerVo> tenantCustomerVoList = tenantCustomerList.stream()//
@@ -129,6 +141,18 @@ public class TenantCustomerRestController {
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomer.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		int count = tenantCustomerService.count(queryWrapperTenantCustomer);
 
 		return count;
@@ -139,8 +163,8 @@ public class TenantCustomerRestController {
 	public Page<TenantCustomerVo> page(@RequestBody TenantCustomerQueryParam tenantCustomerQueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
-			@RequestParam(value = "sort") String sort, // 排序列字段名
-			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
+			@RequestParam(value = "sort", required = false) String sort, // 排序列字段名
+			@RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	) {
 		IPage<TenantCustomer> pageTenantCustomer = new Page<TenantCustomer>(page, rows);
 		QueryWrapper<TenantCustomer> queryWrapperTenantCustomer = new QueryWrapper<TenantCustomer>();
@@ -176,6 +200,18 @@ public class TenantCustomerRestController {
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomer.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		IPage<TenantCustomer> tenantCustomerPage = tenantCustomerService.page(pageTenantCustomer, queryWrapperTenantCustomer);
 
 		Page<TenantCustomerVo> tenantCustomerVoPage = new Page<TenantCustomerVo>(page, rows);
@@ -225,6 +261,18 @@ public class TenantCustomerRestController {
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomer.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		TenantCustomer tenantCustomer = tenantCustomerService.getAggregation(queryWrapperTenantCustomer);
 		
 		return entity2vo(tenantCustomer);

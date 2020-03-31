@@ -54,6 +54,28 @@ public class TenantCustomerRestControllerTest {
 				.andReturn().getResponse().getContentAsString();
 		log.info(responseString);
 	}
+	
+	@Test
+	public void listTest() throws Exception {
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId","933d88d4d23244079cc0b49f99aa2c0b");
+		
+		params.add("queryCol", "customer_code");
+		params.add("queryType", "=");
+		params.add("queryValue", "380000003");
+		
+		params.add("queryCol", "customer_name");
+		params.add("queryType", "like");
+		params.add("queryValue", "范旭");
+		
+		log.info(JSON.toJSONString(params));
+		
+		String responseString = mockMvc.perform(MockMvcRequestBuilders.get("/tenant-customers/list").params(params))
+				.andExpect(MockMvcResultMatchers.status().isOk()) // 返回的状态是200
+				.andDo(MockMvcResultHandlers.print()) // 打印出请求和相应的内容
+				.andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
 
 	@Test
 	public void pageTest() throws Exception {

@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantCustomerClientService;
 import com.zlsrj.wms.api.dto.TenantCustomerAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerQueryParam;
 import com.zlsrj.wms.api.dto.TenantCustomerUpdateParam;
 import com.zlsrj.wms.api.vo.TenantCustomerVo;
+import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
@@ -73,6 +76,23 @@ public class TenantCustomerController {
 		int count = tenantCustomerClientService.count(tenantCustomerQueryParam);
 
 		return CommonResult.success(count);
+	}
+	
+	@ApiOperation(value = "根据参数分页查询用户信息列表")
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<CommonPage<TenantCustomerVo>> page(TenantCustomerQueryParam tenantCustomerQueryParam,
+			@RequestParam(value = "page", defaultValue = "1") int page, //
+			@RequestParam(value = "rows", defaultValue = "10") int rows, //
+			@RequestParam(value = "sort", required = false) String sort, // 排序列字段名
+			@RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
+	) {
+		Page<TenantCustomerVo> tenantCustomerVoPage = tenantCustomerClientService.page(tenantCustomerQueryParam, page,
+				rows, sort, order);
+
+		CommonPage<TenantCustomerVo> tenantCustomerCommonPage = CommonPage.restPage(tenantCustomerVoPage);
+
+		return CommonResult.success(tenantCustomerCommonPage);
 	}
 	
 	@ApiOperation(value = "根据参数更新用户信息信息")
