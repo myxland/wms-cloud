@@ -47,7 +47,7 @@ public class TenantBookControllerTest {
 	public void createTest() throws Exception {
 		TenantBookAddParam tenantBookAddParam = new TenantBookAddParam();
 		tenantBookAddParam.setTenantId("23a60db88e184a3fa82d21dd4b0055c4");// 租户ID
-		tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
+//		tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
 		tenantBookAddParam.setBookName("表册名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 表册名称
 		tenantBookAddParam.setBookReaderEmployeeId("62a6017cb94f4279867035dd57727362");// 抄表员
 		tenantBookAddParam.setBookChargeEmployeeId("62a6017cb94f4279867035dd57727362");// 收费员
@@ -132,7 +132,7 @@ public class TenantBookControllerTest {
 		log.info("id={}",id);
 		
 		TenantBookUpdateParam tenantBookUpdateParam = new TenantBookUpdateParam();
-		tenantBookUpdateParam.setBookCode(RandomUtil.randomString(4));// 表册编号
+//		tenantBookUpdateParam.setBookCode(RandomUtil.randomString(4));// 表册编号
 		tenantBookUpdateParam.setBookName("表册名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 表册名称
 		tenantBookUpdateParam.setBookReaderEmployeeId("62a6017cb94f4279867035dd57727362");// 抄表员
 		tenantBookUpdateParam.setBookChargeEmployeeId("62a6017cb94f4279867035dd57727362");// 收费员

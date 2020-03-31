@@ -20,4 +20,6 @@ public interface ITenantInfoService extends IService<TenantInfo> {
 	boolean recharge(TenantInfoRechargeParam tenantInfoRechargeParam);
 	
 	boolean updateModule(TenantInfoModuleInfoUpdateParam tenantInfoModuleInfoUpdateParam);
+	
+	int getMaxTenantCode();
 }

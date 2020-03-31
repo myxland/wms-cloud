@@ -89,6 +89,18 @@ public class RedisService<HK, V> {
 	public V getValue(String key) {
 		return valueOperations.get(key);
 	}
+	
+	public Long increment(String key) {
+		return valueOperations.increment(key);
+	}
+	
+	public Boolean hasKey(String key) {
+		return redisTemplate.hasKey(key);
+	}
+	
+	public Boolean setIfAbsent(String key, V value) {
+		return valueOperations.setIfAbsent(key,value);
+	}
 
 	public void remove(String key) {
 		redisTemplate.delete(key);

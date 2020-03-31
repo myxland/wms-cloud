@@ -44,6 +44,7 @@ import com.zlsrj.wms.common.annotation.DictionaryOrder;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 import com.zlsrj.wms.common.util.TranslateUtil;
+import com.zlsrj.wms.saas.config.CodeConfig;
 import com.zlsrj.wms.saas.mapper.ModuleMenuMapper;
 import com.zlsrj.wms.saas.mapper.TenantConsumptionBillMapper;
 import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
@@ -65,6 +66,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 	
 	@Autowired
 	private RedisService<String, String> redisService;
+	
+	@Autowired
+	private CodeConfig codeConfig;
 
 	@Autowired
 	private DefaultMQProducer defaultMQProducer;
@@ -195,6 +199,9 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		if (tenantInfo.getTenantRegisterTime() == null) {
 			tenantInfo.setTenantRegisterTime(new DateTime());
 		}
+		//租户编号
+		Long n = redisService.increment(codeConfig.getTenantCode());
+		tenantInfo.setTenantCode(n.intValue());
 
 		this.save(tenantInfo);
 
@@ -365,5 +372,28 @@ public class TenantInfoServiceImpl extends ServiceImpl<TenantInfoMapper, TenantI
 		
 		
 		return success;
+	}
+	
+	@Override
+	public int getMaxTenantCode() {
+		int max = 1;
+		try {
+			QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
+			queryWrapperTenantInfo//
+					.select("max(tenant_code) as tenant_code")//
+			;
+			TenantInfo tenantInfo = this.getOne(queryWrapperTenantInfo);
+			if (tenantInfo != null && tenantInfo.getTenantCode() != null) {
+				max = tenantInfo.getTenantCode();
+			}
+//			Optional<TenantInfo> tenantInfo = this.baseMapper.selectList(queryWrapperTenantInfo).stream().findFirst();
+//			if (tenantInfo.isPresent()) {
+//				max = tenantInfo.get().getTenantCode();
+//			}
+		} catch (Exception e) {
+			log.error("数据库查找最大租户编号失败", e);
+		}
+
+		return max;
 	}
 }

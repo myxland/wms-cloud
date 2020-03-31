@@ -1,5 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
@@ -13,4 +15,5 @@ public interface ITenantBookService extends IService<TenantBook> {
 
 	boolean updateById(TenantBookUpdateParam tenantCustomerTypeUpdateParam);
 
+	List<TenantBook> getMaxBookCode();
 }

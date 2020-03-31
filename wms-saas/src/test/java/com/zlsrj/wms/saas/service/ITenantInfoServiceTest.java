@@ -40,7 +40,7 @@ public class ITenantInfoServiceTest {
 
 	@Test
 	public void insertTest() {
-		for(int i=0;i<2;i++) {
+		for(int i=0;i<1;i++) {
 			String companyShortName = TestCaseUtil.companyShortName();
 
 			TenantInfo tenantInfo = TenantInfo.builder()//
@@ -209,5 +209,11 @@ public class ITenantInfoServiceTest {
 		
 		log.info(ToStringBuilder.reflectionToString(tenantInfoModuleInfoUpdateParam, ToStringStyle.MULTI_LINE_STYLE));
 		this.tenantInfoService.updateModule(tenantInfoModuleInfoUpdateParam);
+	}
+	
+	@Test
+	public void getMaxTenantCodeTest() {
+		int x = tenantInfoService.getMaxTenantCode();
+		log.info("x={}",x);
 	}
 }

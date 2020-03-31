@@ -142,4 +142,11 @@ mq-config:
          - TenantEmployeeRoleRemoveTag
          - TenantEmployeeRemoveTag
          - TenantRoleRemoveTag
-         - TenantDepartmentRemoveTag     
+         - TenantDepartmentRemoveTag
+         
+         
+code-config: 
+ tenantCode: TC-SEQ
+ bookCode: BC-SEQ-
+ customerCode: CC-SEQ-
+ meterCode: MC-SEQ-              

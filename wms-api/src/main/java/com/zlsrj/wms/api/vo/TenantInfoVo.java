@@ -107,5 +107,8 @@ public class TenantInfoVo implements Serializable {
 
 	@ApiModelProperty(value = "租户KEY")
 	private String tenantAccesskey;
+	
+	@ApiModelProperty(value = "租户编号")
+	private Integer tenantCode;
 
 }

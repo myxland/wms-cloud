@@ -18,8 +18,8 @@ public class TenantBookUpdateParam implements Serializable {
 	@ApiModelProperty(value = "表册ID")
 	private String id;
 
-	@ApiModelProperty(value = "表册编号")
-	private String bookCode;
+//	@ApiModelProperty(value = "表册编号")
+//	private String bookCode;
 
 	@ApiModelProperty(value = "表册名称")
 	private String bookName;

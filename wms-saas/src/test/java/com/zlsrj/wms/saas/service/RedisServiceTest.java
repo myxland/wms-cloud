@@ -36,4 +36,18 @@ public class RedisServiceTest {
 		Object obj = redisService.getValue(tenantInfo.getId());
 		log.info(obj.toString());
 	}
+	
+	@Test
+	public void incrementTest() {
+		long x = redisService.increment("n");
+		log.info("x={}",x);
+	}
+	
+	@Test
+	public void hasKeyTest() {
+		boolean has = redisService.hasKey("n");
+		log.info("x={}",has);
+		has = redisService.hasKey("m");
+		log.info("x={}",has);
+	}
 }

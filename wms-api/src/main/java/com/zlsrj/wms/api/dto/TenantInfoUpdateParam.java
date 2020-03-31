@@ -106,6 +106,9 @@ public class TenantInfoUpdateParam implements Serializable {
 	@ApiModelProperty(value = "租户KEY")
 	private String tenantAccesskey;
 	
+	@ApiModelProperty(value = "租户编号")
+	private Integer tenantCode;
+	
 	@ApiModelProperty(value = "阶梯水价")
 	private Integer priceStepOn;
 	

@@ -155,6 +155,10 @@ public class TenantInfo implements Serializable {
 	@ApiModelProperty(value = "租户KEY")
 	@TableField("tenant_accesskey")
 	private String tenantAccesskey;
+	
+	@ApiModelProperty(value = "租户编号")
+	@TableField("tenant_code")
+	private Integer tenantCode;
 
 	@ApiModelProperty(value = "部门结构")
 	@TableField(exist = false)
