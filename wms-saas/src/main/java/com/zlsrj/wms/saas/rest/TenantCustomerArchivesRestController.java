@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantCustomerArchivesAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerArchivesQueryParam;
 import com.zlsrj.wms.api.dto.TenantCustomerArchivesUpdateParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantCustomerArchives;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantCustomerArchivesVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.common.util.TranslateUtil;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantCustomerArchivesService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
@@ -77,6 +76,18 @@ public class TenantCustomerArchivesRestController {
 				.le(tenantCustomerArchivesQueryParam.getUpdateTimeEnd() != null, TenantCustomerArchives::getUpdateTime,tenantCustomerArchivesQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerArchivesQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerArchivesQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerArchivesQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerArchivesQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomerArchives.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		List<TenantCustomerArchives> tenantCustomerArchivesList = tenantCustomerArchivesService.list(queryWrapperTenantCustomerArchives);
 
 		List<TenantCustomerArchivesVo> tenantCustomerArchivesVoList = tenantCustomerArchivesList.stream()//
@@ -113,6 +124,18 @@ public class TenantCustomerArchivesRestController {
 				.le(tenantCustomerArchivesQueryParam.getUpdateTimeEnd() != null, TenantCustomerArchives::getUpdateTime,tenantCustomerArchivesQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerArchivesQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerArchivesQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerArchivesQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerArchivesQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomerArchives.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		int count = tenantCustomerArchivesService.count(queryWrapperTenantCustomerArchives);
 
 		return count;
@@ -152,6 +175,18 @@ public class TenantCustomerArchivesRestController {
 				.le(tenantCustomerArchivesQueryParam.getUpdateTimeEnd() != null, TenantCustomerArchives::getUpdateTime,tenantCustomerArchivesQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerArchivesQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantCustomerArchivesQueryParam.getQueryCol();
+		String[] queryTypes = tenantCustomerArchivesQueryParam.getQueryType();
+		String[] queryValues = tenantCustomerArchivesQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantCustomerArchives.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		IPage<TenantCustomerArchives> tenantCustomerArchivesPage = tenantCustomerArchivesService.page(pageTenantCustomerArchives, queryWrapperTenantCustomerArchives);
 
 		Page<TenantCustomerArchivesVo> tenantCustomerArchivesVoPage = new Page<TenantCustomerArchivesVo>(page, rows);

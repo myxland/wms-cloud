@@ -75,5 +75,13 @@ public class TenantCustomerArchivesQueryParam implements Serializable {
 	@ApiModelProperty(value = "数据修改时间结束")
 	private Date updateTimeEnd;
 
+	@ApiModelProperty(value = "查询字段")
+	private String[] queryCol;
+	
+	@ApiModelProperty(value = "查询条件")
+	private String[] queryType;
+	
+	@ApiModelProperty(value = "查询值")
+	private String[] queryValue;
 }
 

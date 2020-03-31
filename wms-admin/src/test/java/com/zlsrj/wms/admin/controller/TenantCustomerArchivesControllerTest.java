@@ -113,6 +113,14 @@ public class TenantCustomerArchivesControllerTest {
 
 	        params.add("page", "1");
 	        params.add("rows", "10");
+	        
+	        params.add("queryCol", "customer_code");
+	        params.add("queryType", "=");
+	        params.add("queryValue", "250000008");
+	        
+	        params.add("queryCol", "archives_name");
+	        params.add("queryType", "like");
+	        params.add("queryValue", "新增用例");
 
 	        log.info(JSON.toJSONString(params));
 
