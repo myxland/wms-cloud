@@ -148,6 +148,26 @@ public class ${table.entityName}ControllerTest {
 	}
 	
 	@Test
+	public void pageTest() throws Exception {
+	        String tenantId = "";
+
+	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+	        params.add("tenantId", tenantId);
+
+	        params.add("page", "1");
+	        params.add("rows", "10");
+
+	        log.info(JSON.toJSONString(params));
+
+	        String responseString = mockMvc.perform(//
+	                        MockMvcRequestBuilders.get("/${table.entityName?uncap_first}/page")//
+	                                        .params(params)
+	                                        .accept(MediaType.APPLICATION_JSON_UTF8)//
+	        ).andReturn().getResponse().getContentAsString();
+	        log.info(responseString);
+	}
+	
+	@Test
 	public void countTest() throws Exception {
 		String tenantId = "";
 		

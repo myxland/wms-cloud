@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${domainName}.${projectNameApi}.client.service.${table.entityName}ClientService;
 <#if table.includeSysId>
 import ${domainName}.${projectNameApi}.client.service.SystemDesignClientService;
@@ -27,6 +29,7 @@ import ${domainName}.${projectNameApi}.vo.SystemDesignVo;
 <#if table.includeModuleId>
 import ${domainName}.${projectNameApi}.vo.ModuleInfoVo;
 </#if>
+import ${domainName}.common.api.CommonPage;
 import ${domainName}.common.api.CommonResult;
 
 import io.swagger.annotations.Api;
@@ -99,6 +102,21 @@ public class ${table.entityName}Controller {
 		int count = ${table.entityName?uncap_first}ClientService.count(${table.entityName?uncap_first}QueryParam);
 
 		return CommonResult.success(count);
+	}
+	
+	@ApiOperation(value = "根据参数分页查询${table.tableComment}列表")
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<CommonPage<${table.entityName}Vo>> page(${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
+	                @RequestParam(value = "page", defaultValue = "1") int page, //
+	                @RequestParam(value = "rows", defaultValue = "10") int rows, //
+	                @RequestParam(value = "sort", required = false) String sort, // 排序列字段名
+	                @RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
+	) {
+	        Page<${table.entityName}Vo> ${table.entityName?uncap_first}VoPage = ${table.entityName?uncap_first}ClientService.page(${table.entityName?uncap_first}QueryParam, page, rows, sort, order);
+	        CommonPage<${table.entityName}Vo> ${table.entityName?uncap_first}CommonPage = CommonPage.restPage(${table.entityName?uncap_first}VoPage);
+
+	        return CommonResult.success(${table.entityName?uncap_first}CommonPage);
 	}
 	
 	@ApiOperation(value = "根据参数更新${table.tableComment}信息")

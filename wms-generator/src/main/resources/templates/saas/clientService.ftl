@@ -41,8 +41,8 @@ public interface ${table.entityName}ClientService {
 	public Page<${table.entityName}Vo> page(@RequestBody ${table.entityName}QueryParam ${table.entityName?uncap_first}QueryParam,
 			@RequestParam(value = "page", defaultValue = "1") int page, //
 			@RequestParam(value = "rows", defaultValue = "10") int rows, //
-			@RequestParam(value = "sort") String sort, // 排序列字段名
-			@RequestParam(value = "order") String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
+			@RequestParam(value = "sort", required = false) String sort, // 排序列字段名
+			@RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	);
 
 	<#if table.includeAggregation>
