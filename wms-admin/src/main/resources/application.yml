@@ -25,6 +25,11 @@ feign:
   httpclient:
     enabled: true #Feign默认使用的连接工具实现类，所以里面发现只要你有body体对象，就会强制的把GET请求转换成POST请求
 
+#ribbon的超时时间，feign客户端底层使用ribbon作为客户端负载均衡
+ribbon:
+  ReadTimeout: 6000 #Feign调用Read timed out，默认1秒即1000
+  ConnectTimeout: 6000    
+
 jwt: 
   secret: Z3kyMDIw
   expiration: 604800 #60*60*24

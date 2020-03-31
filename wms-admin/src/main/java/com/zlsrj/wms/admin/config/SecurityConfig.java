@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/**/*.css", "/**/*.js", "/swagger-resources/**", "/v2/api-docs/**" };
 
 	public final static String[] LOGIN_ANT_PATH = new String[] { //
-			"/account/login"
+			"/account/login",
+			"/timeout/**"
 	};
 
 	@Override
