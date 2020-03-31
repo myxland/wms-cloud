@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zlsrj.wms.api.client.service.TenantBookClientService;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
+import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
 import com.zlsrj.wms.api.vo.TenantBookVo;
@@ -80,6 +81,15 @@ public class TenantBookController {
 	@ResponseBody
 	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody TenantBookUpdateParam tenantBookUpdateParam) {
 		boolean success = tenantBookClientService.updateById(id, tenantBookUpdateParam);
+
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "批量更新表册信息营销区域信息")
+	@RequestMapping(value = "/update/marketingArea/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> updateById(@PathVariable("ids") String ids,@RequestBody TenantBookBatchUpdateParam tenantBookBatchUpdateParam) {
+		boolean success = tenantBookClientService.updateByIds(ids, tenantBookBatchUpdateParam);
 
 		return CommonResult.success(success);
 	}

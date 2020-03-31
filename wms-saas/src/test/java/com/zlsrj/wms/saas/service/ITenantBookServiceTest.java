@@ -3,6 +3,7 @@ package com.zlsrj.wms.saas.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
+import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.entity.TenantBook;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
@@ -43,7 +45,7 @@ public class ITenantBookServiceTest {
 		tenantBookAddParam.setBookSettleMonth(RandomUtil.randomString(4));// 下次结算月份
 		tenantBookAddParam.setBookStatus(RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
 		tenantBookAddParam.setBookReadStatus(RandomUtil.randomInt(1,2+1));// 表册状态（1：抄表进行中；2：抄表截止）
-		tenantBookAddParam.setPriceCalss(RandomUtil.randomInt(0,1000+1));// 级次
+		tenantBookAddParam.setPriceClass(RandomUtil.randomInt(0,1000+1));// 级次
 		tenantBookAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
 
 		log.info(ToStringBuilder.reflectionToString(tenantBookAddParam, ToStringStyle.MULTI_LINE_STYLE));
@@ -73,7 +75,7 @@ public class ITenantBookServiceTest {
 				.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				.priceCalss(RandomUtil.randomInt(0,1000+1))// 级次
+				.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
 				.priceMemo(RandomUtil.randomString(4))// 备注
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
@@ -83,6 +85,26 @@ public class ITenantBookServiceTest {
 		log.info(ToStringBuilder.reflectionToString(tenantBook, ToStringStyle.MULTI_LINE_STYLE));
 
 		boolean success = tenantBookService.updateById(tenantBook);
+
+		log.info(Boolean.toString(success));
+	}
+	
+	@Test
+	public void updateBatchTest() {
+
+		String[] ids = new String[] {"0b31d1c0a89a4a5eb0e481f417b0e9a9","c47de065d6464467972fe0f33ba119fd"};
+
+		TenantBookBatchUpdateParam tenantBookBatchUpdateParam  = new TenantBookBatchUpdateParam();
+		tenantBookBatchUpdateParam.setIds(StringUtils.join(ids, ","));
+		tenantBookBatchUpdateParam.setBookMarketingAreaId("MAI"+"-"+RandomUtil.randomString(4));
+		tenantBookBatchUpdateParam.setOwn(RandomUtil.randomInt(0, 1+1));
+		tenantBookBatchUpdateParam.setMeterread(RandomUtil.randomInt(0, 1+1));
+		tenantBookBatchUpdateParam.setReceivable(RandomUtil.randomInt(0, 1+1));
+		tenantBookBatchUpdateParam.setPay(RandomUtil.randomInt(0, 1+1));
+
+		log.info(ToStringBuilder.reflectionToString(tenantBookBatchUpdateParam, ToStringStyle.MULTI_LINE_STYLE));
+
+		boolean success = tenantBookService.updateByIds(tenantBookBatchUpdateParam);
 
 		log.info(Boolean.toString(success));
 	}

@@ -61,7 +61,7 @@ public class TenantBookQueryParam implements Serializable {
 	private Integer bookReadStatus;
 
 	@ApiModelProperty(value = "级次")
-	private Integer priceCalss;
+	private Integer priceClass;
 
 	@ApiModelProperty(value = "备注")
 	private String priceMemo;
@@ -84,5 +84,13 @@ public class TenantBookQueryParam implements Serializable {
 	@ApiModelProperty(value = "数据修改时间结束")
 	private Date updateTimeEnd;
 
+	@ApiModelProperty(value = "查询字段")
+	private String queryCol;
+	
+	@ApiModelProperty(value = "查询条件 like = 等")
+	private String queryType="=";
+	
+	@ApiModelProperty(value = "查询值")
+	private String queryValue;
 }
 

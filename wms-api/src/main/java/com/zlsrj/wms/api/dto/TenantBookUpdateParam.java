@@ -58,7 +58,7 @@ public class TenantBookUpdateParam implements Serializable {
 	private Integer bookReadStatus;
 
 	@ApiModelProperty(value = "级次")
-	private Integer priceCalss;
+	private Integer priceClass;
 
 	@ApiModelProperty(value = "备注")
 	private String priceMemo;

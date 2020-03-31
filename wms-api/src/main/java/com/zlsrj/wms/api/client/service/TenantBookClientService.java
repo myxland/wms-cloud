@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
+import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
 import com.zlsrj.wms.api.vo.TenantBookVo;
@@ -44,6 +45,9 @@ public interface TenantBookClientService {
 	@RequestMapping(value = "/tenant-books/{id}", method = RequestMethod.PUT)
 	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantBookUpdateParam tenantBookUpdateParam);
 
+	@RequestMapping(value = "/tenant-books/marketingArea/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String ids, @RequestBody TenantBookBatchUpdateParam tenantBookBatchUpdateParam);
+	
 	@RequestMapping(value = "/tenant-books/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }

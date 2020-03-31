@@ -67,7 +67,7 @@ public class TenantBookMapperTest {
 					.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 					.bookStatus(RandomUtil.randomInt(1,0+1))// 有效状态（1：可用；0：禁用）
 					.bookReadStatus(RandomUtil.randomInt(1,2+1))// 表册状态（1：抄表进行中；2：抄表截止）
-					.priceCalss(RandomUtil.randomInt(0,1000+1))// 级次
+					.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
 					.priceMemo(RandomUtil.randomString(4))// 备注
 					.addTime(TestCaseUtil.dateBefore())// 数据新增时间
 					.updateTime(TestCaseUtil.dateBefore())// 数据修改时间

@@ -77,7 +77,7 @@ public class TenantBookRestControllerTest {
 		// params.add("bookSettleMonth",RandomUtil.randomString(4));// 下次结算月份
 		// params.add("bookStatus",RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
 		// params.add("bookReadStatus",RandomUtil.randomInt(0,1+1));// 表册状态（1：抄表进行中；2：抄表截止）
-		// params.add("priceCalss",RandomUtil.randomInt(0,1000+1));// 级次
+		// params.add("priceClass",RandomUtil.randomInt(0,1000+1));// 级次
 		// params.add("priceMemo",RandomUtil.randomString(4));// 备注
 		// params.add("addTime",new Date());// 数据新增时间
 		// params.add("updateTime",new Date());// 数据修改时间
@@ -108,7 +108,7 @@ public class TenantBookRestControllerTest {
 				.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				.priceCalss(RandomUtil.randomInt(0,1000+1))// 级次
+				.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
 				.priceMemo(RandomUtil.randomString(4))// 备注
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
@@ -144,7 +144,7 @@ public class TenantBookRestControllerTest {
 				.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				.priceCalss(RandomUtil.randomInt(0,1000+1))// 级次
+				.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
 				.priceMemo(RandomUtil.randomString(4))// 备注
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
@@ -179,7 +179,7 @@ public class TenantBookRestControllerTest {
 				//.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				//.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				//.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				//.priceCalss(RandomUtil.randomInt(0,1000+1))// 级次
+				//.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
 				//.priceMemo(RandomUtil.randomString(4))// 备注
 				//.addTime(new Date())// 数据新增时间
 				//.updateTime(new Date())// 数据修改时间

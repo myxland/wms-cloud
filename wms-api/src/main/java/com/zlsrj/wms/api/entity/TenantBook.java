@@ -90,8 +90,8 @@ public class TenantBook implements Serializable {
 	private Integer bookReadStatus;
 
 	@ApiModelProperty(value = "级次")
-	@TableField("price_calss")
-	private Integer priceCalss;
+	@TableField("price_class")
+	private Integer priceClass;
 
 	@ApiModelProperty(value = "备注")
 	@TableField("price_memo")

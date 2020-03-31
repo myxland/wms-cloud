@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,15 +16,16 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
+import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantBook;
+import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantBookVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.common.util.TranslateUtil;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.service.ITenantBookService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
 
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
@@ -55,6 +55,8 @@ public class TenantBookRestController {
 	public List<TenantBookVo> list(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
+				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -70,7 +72,7 @@ public class TenantBookRestController {
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookSettleMonth()), TenantBook::getBookSettleMonth, tenantBookQueryParam.getBookSettleMonth())
 				.eq(tenantBookQueryParam.getBookStatus() != null, TenantBook::getBookStatus, tenantBookQueryParam.getBookStatus())
 				.eq(tenantBookQueryParam.getBookReadStatus() != null, TenantBook::getBookReadStatus, tenantBookQueryParam.getBookReadStatus())
-				.eq(tenantBookQueryParam.getPriceCalss() != null, TenantBook::getPriceCalss, tenantBookQueryParam.getPriceCalss())
+				.eq(tenantBookQueryParam.getPriceClass() != null, TenantBook::getPriceClass, tenantBookQueryParam.getPriceClass())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getPriceMemo()), TenantBook::getPriceMemo, tenantBookQueryParam.getPriceMemo())
 				.eq(tenantBookQueryParam.getAddTime() != null, TenantBook::getAddTime, tenantBookQueryParam.getAddTime())
 				.ge(tenantBookQueryParam.getAddTimeStart() != null, TenantBook::getAddTime,tenantBookQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantBookQueryParam.getAddTimeStart()))
@@ -94,6 +96,8 @@ public class TenantBookRestController {
 	public int count(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
+				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -109,7 +113,7 @@ public class TenantBookRestController {
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookSettleMonth()), TenantBook::getBookSettleMonth, tenantBookQueryParam.getBookSettleMonth())
 				.eq(tenantBookQueryParam.getBookStatus() != null, TenantBook::getBookStatus, tenantBookQueryParam.getBookStatus())
 				.eq(tenantBookQueryParam.getBookReadStatus() != null, TenantBook::getBookReadStatus, tenantBookQueryParam.getBookReadStatus())
-				.eq(tenantBookQueryParam.getPriceCalss() != null, TenantBook::getPriceCalss, tenantBookQueryParam.getPriceCalss())
+				.eq(tenantBookQueryParam.getPriceClass() != null, TenantBook::getPriceClass, tenantBookQueryParam.getPriceClass())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getPriceMemo()), TenantBook::getPriceMemo, tenantBookQueryParam.getPriceMemo())
 				.eq(tenantBookQueryParam.getAddTime() != null, TenantBook::getAddTime, tenantBookQueryParam.getAddTime())
 				.ge(tenantBookQueryParam.getAddTimeStart() != null, TenantBook::getAddTime,tenantBookQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantBookQueryParam.getAddTimeStart()))
@@ -136,6 +140,8 @@ public class TenantBookRestController {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.orderBy(StringUtils.isNotBlank(sort), "asc".equals(order), sort);
 		queryWrapperTenantBook.lambda()
+				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())		
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -151,7 +157,7 @@ public class TenantBookRestController {
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookSettleMonth()), TenantBook::getBookSettleMonth, tenantBookQueryParam.getBookSettleMonth())
 				.eq(tenantBookQueryParam.getBookStatus() != null, TenantBook::getBookStatus, tenantBookQueryParam.getBookStatus())
 				.eq(tenantBookQueryParam.getBookReadStatus() != null, TenantBook::getBookReadStatus, tenantBookQueryParam.getBookReadStatus())
-				.eq(tenantBookQueryParam.getPriceCalss() != null, TenantBook::getPriceCalss, tenantBookQueryParam.getPriceCalss())
+				.eq(tenantBookQueryParam.getPriceClass() != null, TenantBook::getPriceClass, tenantBookQueryParam.getPriceClass())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getPriceMemo()), TenantBook::getPriceMemo, tenantBookQueryParam.getPriceMemo())
 				.eq(tenantBookQueryParam.getAddTime() != null, TenantBook::getAddTime, tenantBookQueryParam.getAddTime())
 				.ge(tenantBookQueryParam.getAddTimeStart() != null, TenantBook::getAddTime,tenantBookQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantBookQueryParam.getAddTimeStart()))
@@ -180,6 +186,8 @@ public class TenantBookRestController {
 	public TenantBookVo aggregation(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
+				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -195,7 +203,7 @@ public class TenantBookRestController {
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookSettleMonth()), TenantBook::getBookSettleMonth, tenantBookQueryParam.getBookSettleMonth())
 				.eq(tenantBookQueryParam.getBookStatus() != null, TenantBook::getBookStatus, tenantBookQueryParam.getBookStatus())
 				.eq(tenantBookQueryParam.getBookReadStatus() != null, TenantBook::getBookReadStatus, tenantBookQueryParam.getBookReadStatus())
-				.eq(tenantBookQueryParam.getPriceCalss() != null, TenantBook::getPriceCalss, tenantBookQueryParam.getPriceCalss())
+				.eq(tenantBookQueryParam.getPriceClass() != null, TenantBook::getPriceClass, tenantBookQueryParam.getPriceClass())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getPriceMemo()), TenantBook::getPriceMemo, tenantBookQueryParam.getPriceMemo())
 				.eq(tenantBookQueryParam.getAddTime() != null, TenantBook::getAddTime, tenantBookQueryParam.getAddTime())
 				.ge(tenantBookQueryParam.getAddTimeStart() != null, TenantBook::getAddTime,tenantBookQueryParam.getAddTimeStart() == null ? null: DateUtil.beginOfDay(tenantBookQueryParam.getAddTimeStart()))
@@ -221,6 +229,13 @@ public class TenantBookRestController {
 	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantBookUpdateParam tenantBookUpdateParam) {
 		tenantBookUpdateParam.setId(id);
 		return tenantBookService.updateById(tenantBookUpdateParam);
+	}
+	
+	@ApiOperation(value = "批量更新表册信息营销区域")
+	@RequestMapping(value = "/tenant-books/marketingArea/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String ids, @RequestBody TenantBookBatchUpdateParam tenantBookBatchUpdateParam) {
+		tenantBookBatchUpdateParam.setIds(ids);
+		return tenantBookService.updateByIds(tenantBookBatchUpdateParam);
 	}
 
 	@ApiOperation(value = "根据ID删除表册信息")
