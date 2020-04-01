@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 import com.zlsrj.wms.api.entity.TenantBook;
 import com.zlsrj.wms.api.entity.TenantCustomer;
 import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantMeter;
 import com.zlsrj.wms.saas.config.CodeConfig;
 import com.zlsrj.wms.saas.service.ITenantBookService;
 import com.zlsrj.wms.saas.service.ITenantCustomerService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantMeterService;
 import com.zlsrj.wms.saas.service.RedisService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,8 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 	private ITenantBookService tenantBookService;
 	@Resource
 	private ITenantCustomerService tenantCustomerService;
+	@Resource
+	private ITenantMeterService tenantMeterService;
 	@Resource
 	private CodeConfig codeConfig;
 	
@@ -52,6 +56,7 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 		//初始化表册编号
 		List<TenantBook> tenantBookList = tenantBookService.getMaxBookCode();
 		List<TenantCustomer> tenantCustomerList = tenantCustomerService.getMaxCustomerCode();
+		List<TenantMeter> tenantMeterList = tenantMeterService.getMaxMeterCode();
 		List<TenantInfo> teantInfoList = tenantInfoService.list();
 		if (teantInfoList != null && teantInfoList.size() > 0) {
 			for (TenantInfo tenantInfo : teantInfoList) {
@@ -102,6 +107,27 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
 				
 				redisService.setIfAbsent(codeConfig.getCustomerCode()+tenantCode, Long.toString(initCustomerCode));
 				
+				Optional<TenantMeter> tenantMeterOptional=tenantMeterList//
+						.stream()//
+						.filter(b->id.equals(b.getTenantId()))//
+						.findFirst()//
+						;
+				
+				Long initMeterCode = Long.parseLong(Integer.toString(tenantInfo.getTenantCode())+StringUtils.leftPad("1", 7, '0'));
+				
+				if(tenantMeterOptional.isPresent()) {
+					TenantMeter tenantMeter = tenantMeterOptional.get();
+					if(StringUtils.isNumeric(tenantMeter.getMeterCode())) {
+						try {
+							initMeterCode = Long.parseLong(tenantMeter.getMeterCode());
+						} catch(Exception e) {
+							log.info("数据库水表编号转数字失败，bookCode={}",tenantMeter.getMeterCode());
+						}
+						
+					}
+				}
+				
+				redisService.setIfAbsent(codeConfig.getMeterCode()+tenantCode, Long.toString(initMeterCode));
 			}
 		}
 	}

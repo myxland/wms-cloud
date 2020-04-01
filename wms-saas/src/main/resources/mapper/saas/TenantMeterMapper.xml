@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlsrj.wms.saas.mapper.TenantMeterMapper">
+	<select id="selectAggregation" resultType="com.zlsrj.wms.api.entity.TenantMeter">
+		SELECT
+			count(id) as id,
+			sum(meter_peoples) as meter_peoples,
+			sum(meter_read_order) as meter_read_order,
+			sum(meter_read_code) as meter_read_code,
+			sum(meter_settle_code) as meter_settle_code,
+			sum(meter_owe_amt) as meter_owe_amt,
+			sum(meter_penalty_amt) as meter_penalty_amt,
+			sum(meter_year_total_waters) as meter_year_total_waters,
+			sum(meter_total_waters) as meter_total_waters,
+			sum(meter_price_step_waters) as meter_price_step_waters
+		FROM tenant_meter
+		${ew.customSqlSegment} 
+	</select>
+</mapper>

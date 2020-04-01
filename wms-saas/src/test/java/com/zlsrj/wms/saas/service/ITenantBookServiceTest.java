@@ -12,10 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlsrj.wms.api.dto.TenantBookAddParam;
 import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.entity.TenantBook;
+import com.zlsrj.wms.api.entity.TenantEmployee;
+import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantMeterMarketingArea;
 import com.zlsrj.wms.common.test.TestCaseUtil;
+import com.zlsrj.wms.saas.mapper.TenantEmployeeMapper;
+import com.zlsrj.wms.saas.mapper.TenantInfoMapper;
+import com.zlsrj.wms.saas.mapper.TenantMeterMarketingAreaMapper;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,32 +34,71 @@ public class ITenantBookServiceTest {
 
 	@Autowired
 	private ITenantBookService tenantBookService;
+	@Autowired
+	private TenantInfoMapper tenantInfoMapper;
+	@Autowired
+	private TenantEmployeeMapper tenantEmployeeMapper;
+	@Autowired
+	private TenantMeterMarketingAreaMapper tenantMeterMarketingAreaMapper;
 
 	@Test
 	public void insertTest() {
-		TenantBookAddParam tenantBookAddParam = new TenantBookAddParam();
-		tenantBookAddParam.setTenantId("23a60db88e184a3fa82d21dd4b0055c4");// 租户ID
-//		tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
-		tenantBookAddParam.setBookName("表册名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 表册名称
-		tenantBookAddParam.setBookReaderEmployeeId("62a6017cb94f4279867035dd57727362");// 抄表员
-		tenantBookAddParam.setBookChargeEmployeeId("62a6017cb94f4279867035dd57727362");// 收费员
-		tenantBookAddParam.setBookMarketingAreaId("220126d5e3a14cca93f5d87131c85cc6");// 营销区域
-		tenantBookAddParam.setBookReadCycle(RandomUtil.randomInt(0,1000+1));// 抄表周期
-		tenantBookAddParam.setBookLastMonth(RandomUtil.randomString(4));// 最后一次抄表月份
-		tenantBookAddParam.setBookReadMonth(RandomUtil.randomString(4));// 下次抄表月份
-		tenantBookAddParam.setBookSettleCycle(RandomUtil.randomInt(0,1000+1));// 结算周期
-		tenantBookAddParam.setBookSettleLastMonth(RandomUtil.randomString(4));// 最后一次结算月份
-		tenantBookAddParam.setBookSettleMonth(RandomUtil.randomString(4));// 下次结算月份
-		tenantBookAddParam.setBookStatus(RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
-		tenantBookAddParam.setBookReadStatus(RandomUtil.randomInt(1,2+1));// 表册状态（1：抄表进行中；2：抄表截止）
-		tenantBookAddParam.setPriceClass(RandomUtil.randomInt(0,1000+1));// 级次
-		tenantBookAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
+		for(int i=0;i<5;i++) {
+			QueryWrapper<TenantInfo> queryWrapperTenantInfo = new QueryWrapper<TenantInfo>();
+			queryWrapperTenantInfo.lambda()//
+					.eq(TenantInfo::getTenantType, 1)// 租户类型（1：使用单位；2：水表厂商；3：代收机构；4：内部运营；5：分销商）
+					.in(TenantInfo::getId,"933d88d4d23244079cc0b49f99aa2c0b",
+							"e1ddb601b6cc48b79f989d710712f6d0");
+			;
+			
+			List<TenantInfo> tenantInfoList = tenantInfoMapper.selectList(queryWrapperTenantInfo);
+			TenantInfo tenantInfo = tenantInfoList.get(RandomUtil.randomInt(tenantInfoList.size()));
+			
+			String tenantId = tenantInfo.getId();
+			
+			QueryWrapper<TenantMeterMarketingArea> queryWrapperTenantMeterMarketingArea = new QueryWrapper<TenantMeterMarketingArea>();
+			queryWrapperTenantMeterMarketingArea.lambda()//
+					.eq(TenantMeterMarketingArea::getTenantId, tenantId)// 
+			;
 
-		log.info(ToStringBuilder.reflectionToString(tenantBookAddParam, ToStringStyle.MULTI_LINE_STYLE));
+			List<TenantMeterMarketingArea> tenantMeterMarketingAreaList = tenantMeterMarketingAreaMapper.selectList(queryWrapperTenantMeterMarketingArea);
+			TenantMeterMarketingArea tenantMeterMarketingArea = tenantMeterMarketingAreaList.get(RandomUtil.randomInt(tenantMeterMarketingAreaList.size()));
+			
+			
+			QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
+			queryWrapperTenantEmployee.lambda()//
+					.eq(TenantEmployee::getTenantId, tenantId)// 
+			;
 
-		String id = tenantBookService.save(tenantBookAddParam);
+			List<TenantEmployee> tenantEmployeeList = tenantEmployeeMapper.selectList(queryWrapperTenantEmployee);
+			TenantEmployee tenantEmployee = tenantEmployeeList.get(RandomUtil.randomInt(tenantEmployeeList.size()));
+			
+			
+			
+			TenantBookAddParam tenantBookAddParam = new TenantBookAddParam();
+			tenantBookAddParam.setTenantId(tenantId);// 租户ID
+//			tenantBookAddParam.setBookCode(RandomUtil.randomString(4));// 表册编号
+			tenantBookAddParam.setBookName("表册名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 表册名称
+			tenantBookAddParam.setBookReaderEmployeeId(tenantEmployee.getId());// 抄表员
+			tenantBookAddParam.setBookChargeEmployeeId(tenantEmployee.getId());// 收费员
+			tenantBookAddParam.setBookMarketingAreaId(tenantMeterMarketingArea.getId());// 营销区域
+			tenantBookAddParam.setBookReadCycle(RandomUtil.randomInt(0,1000+1));// 抄表周期
+			tenantBookAddParam.setBookLastMonth(RandomUtil.randomString(4));// 最后一次抄表月份
+			tenantBookAddParam.setBookReadMonth(RandomUtil.randomString(4));// 下次抄表月份
+			tenantBookAddParam.setBookSettleCycle(RandomUtil.randomInt(0,1000+1));// 结算周期
+			tenantBookAddParam.setBookSettleLastMonth(RandomUtil.randomString(4));// 最后一次结算月份
+			tenantBookAddParam.setBookSettleMonth(RandomUtil.randomString(4));// 下次结算月份
+			tenantBookAddParam.setBookStatus(RandomUtil.randomInt(0,1+1));// 有效状态（1：可用；0：禁用）
+			tenantBookAddParam.setBookReadStatus(RandomUtil.randomInt(1,2+1));// 表册状态（1：抄表进行中；2：抄表截止）
+			tenantBookAddParam.setPriceClass(RandomUtil.randomInt(0,1000+1));// 级次
+			tenantBookAddParam.setPriceMemo(RandomUtil.randomString(4));// 备注
 
-		log.info("id={}",id);
+			log.info(ToStringBuilder.reflectionToString(tenantBookAddParam, ToStringStyle.MULTI_LINE_STYLE));
+
+			String id = tenantBookService.save(tenantBookAddParam);
+
+			log.info("id={}",id);
+		}
 	}
 
 	@Test
