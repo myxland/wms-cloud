@@ -87,7 +87,7 @@ public class TableNameFactory {
 				"tenant_customer_archives", //
 				"tenant_customer_contacts", //
 				"tenant_customer_invoice", //
-				"", //
+				"tenant_customer_statement", //
 				"", //
 				"", //
 				"", //
