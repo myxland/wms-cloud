@@ -85,7 +85,7 @@ public class TableNameFactory {
 				"tenant_book", //
 				"tenant_customer", //
 				"tenant_customer_archives", //
-				"", //
+				"tenant_customer_contacts", //
 				"", //
 				"", //
 				"", //
