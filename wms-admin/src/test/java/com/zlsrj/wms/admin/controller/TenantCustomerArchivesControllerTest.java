@@ -46,12 +46,12 @@ public class TenantCustomerArchivesControllerTest {
 	@Test
 	public void createTest() throws Exception {
 		TenantCustomerArchivesAddParam tenantCustomerArchivesAddParam = new TenantCustomerArchivesAddParam();
-		tenantCustomerArchivesAddParam.setTenantId(RandomUtil.randomString(4));// 租户ID
-		tenantCustomerArchivesAddParam.setCustomerId(RandomUtil.randomString(4));// 用户ID
-		tenantCustomerArchivesAddParam.setCustomerCode(RandomUtil.randomString(4));// 用户号
+		tenantCustomerArchivesAddParam.setTenantId("e1ddb601b6cc48b79f989d710712f6d0");// 租户ID
+		tenantCustomerArchivesAddParam.setCustomerId("297694801cfc450c9be5058ad3e4823b");// 用户ID
+		tenantCustomerArchivesAddParam.setCustomerCode("4520000004");// 用户号
 		tenantCustomerArchivesAddParam.setArchivesName("档案名称"+"-"+"新增用例"+"-"+RandomUtil.randomNumbers(4));// 档案名称
-		tenantCustomerArchivesAddParam.setArchivesCreateTime(new Date());// 创建时间
-		tenantCustomerArchivesAddParam.setArchivesCreateDate(new Date());// 创建日期
+		tenantCustomerArchivesAddParam.setArchivesCreateTime(TestCaseUtil.dateBefore());// 创建时间
+		tenantCustomerArchivesAddParam.setArchivesCreateDate(TestCaseUtil.dateBefore());// 创建日期
 		tenantCustomerArchivesAddParam.setArchivesFilename(RandomUtil.randomString(4));// 存储文件名称JSON串
 		tenantCustomerArchivesAddParam.setArchivesInformation(RandomUtil.randomString(4));// 证件信息JSON串，例如身份证号、地址等
 		tenantCustomerArchivesAddParam.setArchivesCode(RandomUtil.randomString(4));// 证件号码，例如身份证号等

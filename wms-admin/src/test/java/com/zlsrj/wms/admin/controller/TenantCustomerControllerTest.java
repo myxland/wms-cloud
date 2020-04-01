@@ -122,6 +122,28 @@ public class TenantCustomerControllerTest {
 	}
 	
 	@Test
+	public void list2Test() throws Exception {
+		String tenantId = "e1ddb601b6cc48b79f989d710712f6d0";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		
+		params.add("queryCol", "customer_id");
+		params.add("queryType", "=");
+		params.add("queryValue", "297694801cfc450c9be5058ad3e4823b");
+		
+		
+		log.info(JSON.toJSONString(params));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantCustomer/list")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
 	public void pageTest() throws Exception {
 		String tenantId = "933d88d4d23244079cc0b49f99aa2c0b";
 		
@@ -140,6 +162,30 @@ public class TenantCustomerControllerTest {
 		params.add("rows", "20");
 		params.add("sort", "add_time");
 		params.add("order", "desc");
+		
+		log.info(JSON.toJSONString(params));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantCustomer/page")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void page2Test() throws Exception {
+		String tenantId = "e1ddb601b6cc48b79f989d710712f6d0";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		
+		
+		params.add("page", "1");
+		params.add("rows", "10");
+		
+		
+		params.add("queryData", "曾");
 		
 		log.info(JSON.toJSONString(params));
 		

@@ -1,8 +1,10 @@
-package com.zlsrj.wms.api.dto;
+package com.zlsrj.wms.api.vo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,16 +13,19 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel(value = "TenantCustomer查询参数", description = "用户信息")
-public class TenantCustomerQueryParam implements Serializable {
+@ApiModel(value = "TenantCustomerData对象", description = "用户信息")
+public class TenantCustomerDataVo implements Serializable {
 
-	private static final long serialVersionUID = 1031297111514412421L;
+	private static final long serialVersionUID = 1400131412151141400L;
 
 	@ApiModelProperty(value = "用户ID")
 	private String id;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantId;
+
+	@ApiModelProperty(value = "租户ID")
+	private String tenantName;
 
 	@ApiModelProperty(value = "用户号")
 	private String customerCode;
@@ -40,32 +45,14 @@ public class TenantCustomerQueryParam implements Serializable {
 	@ApiModelProperty(value = "建档时间")
 	private Date customerRegisterTime;
 
-	@ApiModelProperty(value = "建档时间开始")
-	private Date customerRegisterTimeStart;
-
-	@ApiModelProperty(value = "建档时间结束")
-	private Date customerRegisterTimeEnd;
-
 	@ApiModelProperty(value = "立户日期")
 	private Date customerRegisterDate;
-
-	@ApiModelProperty(value = "立户日期开始")
-	private Date customerRegisterDateStart;
-
-	@ApiModelProperty(value = "立户日期结束")
-	private Date customerRegisterDateEnd;
 
 	@ApiModelProperty(value = "信用等级")
 	private Integer customerCreditRating;
 
 	@ApiModelProperty(value = "最近评估日期")
 	private Date customerRatingDate;
-
-	@ApiModelProperty(value = "最近评估日期开始")
-	private Date customerRatingDateStart;
-
-	@ApiModelProperty(value = "最近评估日期结束")
-	private Date customerRatingDateEnd;
 
 	@ApiModelProperty(value = "预存余额")
 	private BigDecimal customerBalanceAmt;
@@ -85,31 +72,21 @@ public class TenantCustomerQueryParam implements Serializable {
 	@ApiModelProperty(value = "数据新增时间")
 	private Date addTime;
 
-	@ApiModelProperty(value = "数据新增时间开始")
-	private Date addTimeStart;
-
-	@ApiModelProperty(value = "数据新增时间结束")
-	private Date addTimeEnd;
-
 	@ApiModelProperty(value = "数据修改时间")
 	private Date updateTime;
 
-	@ApiModelProperty(value = "数据修改时间开始")
-	private Date updateTimeStart;
-
-	@ApiModelProperty(value = "数据修改时间结束")
-	private Date updateTimeEnd;
-
-	@ApiModelProperty(value = "查询字段")
-	private String[] queryCol;
+	@ApiModelProperty(value = "用户结算信息")
+	private TenantCustomerStatementVo tenantCustomerStatement;
 	
-	@ApiModelProperty(value = "查询条件")
-	private String[] queryType;
+	@ApiModelProperty(value = "用户开票信息")
+	private TenantCustomerInvoiceVo tenantCustomerInvoice;
 	
-	@ApiModelProperty(value = "查询值")
-	private String[] queryValue;
+	@ApiModelProperty(value = "用户联系人")
+	private List<TenantCustomerContactsVo> tenantCustomerContactsList = new ArrayList<TenantCustomerContactsVo>();
 	
-	@ApiModelProperty(value = "综合查询值")
-	private String queryData;
+	@ApiModelProperty(value = "用户档案信息")
+	private List<TenantCustomerArchivesVo> tenantCustomerArchivesList = new ArrayList<TenantCustomerArchivesVo>();
+	
+	@ApiModelProperty(value = "用户水表信息")
+	private List<TenantMeterVo> tenantMeterList = new ArrayList<TenantMeterVo>();
 }
-

@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantCustomerAddParam;
 import com.zlsrj.wms.api.dto.TenantCustomerQueryParam;
 import com.zlsrj.wms.api.dto.TenantCustomerUpdateParam;
-import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantCustomer;
+import com.zlsrj.wms.api.entity.TenantCustomerContacts;
+import com.zlsrj.wms.api.entity.TenantInfo;
+import com.zlsrj.wms.api.entity.TenantMeter;
 import com.zlsrj.wms.api.vo.TenantCustomerVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.common.util.TranslateUtil;
-import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantCustomerContactsService;
 import com.zlsrj.wms.saas.service.ITenantCustomerService;
+import com.zlsrj.wms.saas.service.ITenantInfoService;
+import com.zlsrj.wms.saas.service.ITenantMeterService;
 
 import cn.hutool.core.date.DateUtil;
 import io.swagger.annotations.Api;
@@ -41,6 +44,10 @@ public class TenantCustomerRestController {
 	private ITenantCustomerService tenantCustomerService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
+	@Autowired
+	private ITenantMeterService tenantMeterService;
+	@Autowired
+	private ITenantCustomerContactsService tenantCustomerContactsService;
 
 	@ApiOperation(value = "根据ID查询用户信息")
 	@RequestMapping(value = "/tenant-customers/{id}", method = RequestMethod.GET)
@@ -53,6 +60,27 @@ public class TenantCustomerRestController {
 	@ApiOperation(value = "根据参数查询用户信息列表")
 	@RequestMapping(value = "/tenant-customers/list", method = RequestMethod.GET)
 	public List<TenantCustomerVo> list(@RequestBody TenantCustomerQueryParam tenantCustomerQueryParam) {
+		QueryWrapper<TenantMeter> queryWrapperTenantMeter = new QueryWrapper<TenantMeter>();
+		queryWrapperTenantMeter.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantMeter::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantMeter::getMeterAddress, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantMeter::getMeterCode, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantMeter> tenantMeterList = tenantMeterService.list(queryWrapperTenantMeter);
+		
+		QueryWrapper<TenantCustomerContacts> queryWrapperTenantCustomerContacts = new QueryWrapper<TenantCustomerContacts>();
+		queryWrapperTenantCustomerContacts.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantCustomerContacts::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomerContacts::getContactsName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomerContacts::getContactsMobile, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantCustomerContacts> tenantCustomerContactsList = tenantCustomerContactsService.list(queryWrapperTenantCustomerContacts);
+	
+		
 		QueryWrapper<TenantCustomer> queryWrapperTenantCustomer = new QueryWrapper<TenantCustomer>();
 		queryWrapperTenantCustomer.lambda()
 				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getId()), TenantCustomer::getId, tenantCustomerQueryParam.getId())
@@ -83,7 +111,13 @@ public class TenantCustomerRestController {
 				.eq(tenantCustomerQueryParam.getUpdateTime() != null, TenantCustomer::getUpdateTime, tenantCustomerQueryParam.getUpdateTime())
 				.ge(tenantCustomerQueryParam.getUpdateTimeStart() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerQueryParam.getUpdateTimeStart()))
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
-				;
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomer::getCustomerCode, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerAddress, tenantCustomerQueryParam.getQueryData())//
+								.or(tenantMeterList.size()>0).in(tenantMeterList.size()>0,TenantCustomer::getId,tenantMeterList.stream().map(TenantMeter::getCustomerId).distinct().toArray())
+								.or(tenantCustomerContactsList.size()>0).in(tenantCustomerContactsList.size()>0,TenantCustomer::getId,tenantCustomerContactsList.stream().map(TenantCustomerContacts::getCustomerId).distinct().toArray())
+				);
 
 		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
 		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
@@ -91,8 +125,8 @@ public class TenantCustomerRestController {
 		if (queryCols != null && queryCols.length > 0) {
 			for (int i = 0; i < queryCols.length; i++) {
 				queryWrapperTenantCustomer.lambda()//
-						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
-						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+						.apply("=".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + " like CONCAT('%',{0},'%')", queryValues[i])//
 				;
 			}
 		}
@@ -109,6 +143,27 @@ public class TenantCustomerRestController {
 	@ApiOperation(value = "根据参数查询用户信息数量")
 	@RequestMapping(value = "/tenant-customers/count", method = RequestMethod.GET)
 	public int count(@RequestBody TenantCustomerQueryParam tenantCustomerQueryParam) {
+		QueryWrapper<TenantMeter> queryWrapperTenantMeter = new QueryWrapper<TenantMeter>();
+		queryWrapperTenantMeter.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantMeter::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantMeter::getMeterAddress, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantMeter::getMeterCode, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantMeter> tenantMeterList = tenantMeterService.list(queryWrapperTenantMeter);
+		
+		QueryWrapper<TenantCustomerContacts> queryWrapperTenantCustomerContacts = new QueryWrapper<TenantCustomerContacts>();
+		queryWrapperTenantCustomerContacts.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantCustomerContacts::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomerContacts::getContactsName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomerContacts::getContactsMobile, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantCustomerContacts> tenantCustomerContactsList = tenantCustomerContactsService.list(queryWrapperTenantCustomerContacts);
+	
+		
 		QueryWrapper<TenantCustomer> queryWrapperTenantCustomer = new QueryWrapper<TenantCustomer>();
 		queryWrapperTenantCustomer.lambda()
 				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getId()), TenantCustomer::getId, tenantCustomerQueryParam.getId())
@@ -139,7 +194,13 @@ public class TenantCustomerRestController {
 				.eq(tenantCustomerQueryParam.getUpdateTime() != null, TenantCustomer::getUpdateTime, tenantCustomerQueryParam.getUpdateTime())
 				.ge(tenantCustomerQueryParam.getUpdateTimeStart() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerQueryParam.getUpdateTimeStart()))
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
-				;
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomer::getCustomerCode, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerAddress, tenantCustomerQueryParam.getQueryData())//
+								.or(tenantMeterList.size()>0).in(tenantMeterList.size()>0,TenantCustomer::getId,tenantMeterList.stream().map(TenantMeter::getCustomerId).distinct().toArray())
+								.or(tenantCustomerContactsList.size()>0).in(tenantCustomerContactsList.size()>0,TenantCustomer::getId,tenantCustomerContactsList.stream().map(TenantCustomerContacts::getCustomerId).distinct().toArray())
+				);
 
 		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
 		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
@@ -147,8 +208,8 @@ public class TenantCustomerRestController {
 		if (queryCols != null && queryCols.length > 0) {
 			for (int i = 0; i < queryCols.length; i++) {
 				queryWrapperTenantCustomer.lambda()//
-						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
-						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+						.apply("=".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + " like CONCAT('%',{0},'%')", queryValues[i])//
 				;
 			}
 		}
@@ -166,6 +227,26 @@ public class TenantCustomerRestController {
 			@RequestParam(value = "sort", required = false) String sort, // 排序列字段名
 			@RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	) {
+		QueryWrapper<TenantMeter> queryWrapperTenantMeter = new QueryWrapper<TenantMeter>();
+		queryWrapperTenantMeter.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantMeter::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantMeter::getMeterAddress, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantMeter::getMeterCode, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantMeter> tenantMeterList = tenantMeterService.list(queryWrapperTenantMeter);
+		
+		QueryWrapper<TenantCustomerContacts> queryWrapperTenantCustomerContacts = new QueryWrapper<TenantCustomerContacts>();
+		queryWrapperTenantCustomerContacts.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantCustomerContacts::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomerContacts::getContactsName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomerContacts::getContactsMobile, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantCustomerContacts> tenantCustomerContactsList = tenantCustomerContactsService.list(queryWrapperTenantCustomerContacts);
+		
 		IPage<TenantCustomer> pageTenantCustomer = new Page<TenantCustomer>(page, rows);
 		QueryWrapper<TenantCustomer> queryWrapperTenantCustomer = new QueryWrapper<TenantCustomer>();
 		queryWrapperTenantCustomer.orderBy(StringUtils.isNotBlank(sort), "asc".equals(order), sort);
@@ -198,7 +279,13 @@ public class TenantCustomerRestController {
 				.eq(tenantCustomerQueryParam.getUpdateTime() != null, TenantCustomer::getUpdateTime, tenantCustomerQueryParam.getUpdateTime())
 				.ge(tenantCustomerQueryParam.getUpdateTimeStart() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerQueryParam.getUpdateTimeStart()))
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
-				;
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomer::getCustomerCode, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerAddress, tenantCustomerQueryParam.getQueryData())//
+								.or(tenantMeterList.size()>0).in(tenantMeterList.size()>0,TenantCustomer::getId,tenantMeterList.stream().map(TenantMeter::getCustomerId).distinct().toArray())
+								.or(tenantCustomerContactsList.size()>0).in(tenantCustomerContactsList.size()>0,TenantCustomer::getId,tenantCustomerContactsList.stream().map(TenantCustomerContacts::getCustomerId).distinct().toArray())
+				);
 
 		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
 		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
@@ -206,11 +293,13 @@ public class TenantCustomerRestController {
 		if (queryCols != null && queryCols.length > 0) {
 			for (int i = 0; i < queryCols.length; i++) {
 				queryWrapperTenantCustomer.lambda()//
-						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
-						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+						.apply("=".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + " like CONCAT('%',{0},'%')", queryValues[i])//
 				;
 			}
 		}
+		
+		
 		
 		IPage<TenantCustomer> tenantCustomerPage = tenantCustomerService.page(pageTenantCustomer, queryWrapperTenantCustomer);
 
@@ -229,6 +318,26 @@ public class TenantCustomerRestController {
 	@ApiOperation(value = "根据参数查询用户信息统计")
 	@RequestMapping(value = "/tenant-customers/aggregation", method = RequestMethod.GET)
 	public TenantCustomerVo aggregation(@RequestBody TenantCustomerQueryParam tenantCustomerQueryParam) {
+		QueryWrapper<TenantMeter> queryWrapperTenantMeter = new QueryWrapper<TenantMeter>();
+		queryWrapperTenantMeter.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantMeter::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantMeter::getMeterAddress, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantMeter::getMeterCode, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantMeter> tenantMeterList = tenantMeterService.list(queryWrapperTenantMeter);
+		
+		QueryWrapper<TenantCustomerContacts> queryWrapperTenantCustomerContacts = new QueryWrapper<TenantCustomerContacts>();
+		queryWrapperTenantCustomerContacts.lambda()//
+				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getTenantId()), TenantCustomerContacts::getTenantId,
+						tenantCustomerQueryParam.getTenantId())
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomerContacts::getContactsName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomerContacts::getContactsMobile, tenantCustomerQueryParam.getQueryData())//
+				);
+		List<TenantCustomerContacts> tenantCustomerContactsList = tenantCustomerContactsService.list(queryWrapperTenantCustomerContacts);
+	
 		QueryWrapper<TenantCustomer> queryWrapperTenantCustomer = new QueryWrapper<TenantCustomer>();
 		queryWrapperTenantCustomer.lambda()
 				.eq(StringUtils.isNotEmpty(tenantCustomerQueryParam.getId()), TenantCustomer::getId, tenantCustomerQueryParam.getId())
@@ -259,7 +368,13 @@ public class TenantCustomerRestController {
 				.eq(tenantCustomerQueryParam.getUpdateTime() != null, TenantCustomer::getUpdateTime, tenantCustomerQueryParam.getUpdateTime())
 				.ge(tenantCustomerQueryParam.getUpdateTimeStart() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeStart() == null ? null: DateUtil.beginOfDay(tenantCustomerQueryParam.getUpdateTimeStart()))
 				.le(tenantCustomerQueryParam.getUpdateTimeEnd() != null, TenantCustomer::getUpdateTime,tenantCustomerQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantCustomerQueryParam.getUpdateTimeEnd()))
-				;
+				.and(StringUtils.isNotBlank(tenantCustomerQueryParam.getQueryData()),
+						i -> i.like(TenantCustomer::getCustomerCode, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerName, tenantCustomerQueryParam.getQueryData())//
+								.or().like(TenantCustomer::getCustomerAddress, tenantCustomerQueryParam.getQueryData())//
+								.or(tenantMeterList.size()>0).in(tenantMeterList.size()>0,TenantCustomer::getId,tenantMeterList.stream().map(TenantMeter::getCustomerId).distinct().toArray())
+								.or(tenantCustomerContactsList.size()>0).in(tenantCustomerContactsList.size()>0,TenantCustomer::getId,tenantCustomerContactsList.stream().map(TenantCustomerContacts::getCustomerId).distinct().toArray())
+				);
 
 		String[] queryCols = tenantCustomerQueryParam.getQueryCol();
 		String[] queryTypes = tenantCustomerQueryParam.getQueryType();
@@ -267,8 +382,8 @@ public class TenantCustomerRestController {
 		if (queryCols != null && queryCols.length > 0) {
 			for (int i = 0; i < queryCols.length; i++) {
 				queryWrapperTenantCustomer.lambda()//
-						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
-						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+						.apply("=".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), ("customer_id".equals(queryCols[i])?"id":queryCols[i]) + " like CONCAT('%',{0},'%')", queryValues[i])//
 				;
 			}
 		}
