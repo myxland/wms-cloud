@@ -252,17 +252,14 @@ public class TenantEmployeeController {
 		return CommonResult.success(tenantEmployeeAndTenantRoleList);
 	}
 	
-	@ApiOperation(value = "根据参数查询租户员工列表",hidden=true)
+	@ApiOperation(value = "根据参数查询租户员工列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public CommonResult<CommonPage<TenantEmployeeVo>> list(TenantEmployeeQueryParam tenantEmployeeQueryParam, int pageNum,
-			int pageSize) {
-		Page<TenantEmployeeVo> tenantEmployeeVoPage = tenantEmployeeClientService.page(tenantEmployeeQueryParam, pageNum, pageSize, "id", "desc");
-		tenantEmployeeVoPage.getRecords().stream().forEach(v->wrappperVo(v));
+	public CommonResult<List<TenantEmployeeVo>> list(TenantEmployeeQueryParam tenantEmployeeQueryParam) {
+		List<TenantEmployeeVo> tenantEmployeeVoList = tenantEmployeeClientService.list(tenantEmployeeQueryParam);
+		tenantEmployeeVoList.stream().forEach(v->wrappperVo(v));
 
-		CommonPage<TenantEmployeeVo> tenantEmployeeCommonPage = CommonPage.restPage(tenantEmployeeVoPage);
-
-		return CommonResult.success(tenantEmployeeCommonPage);
+		return CommonResult.success(tenantEmployeeVoList);
 	}
 
 	private void wrappperVo(TenantEmployeeVo tenantEmployeeVo) {

@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
@@ -252,6 +254,21 @@ public class TenantEmployeeControllerTest {
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.post("/tenantEmployee/reset/password/"+id)//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void listTest() throws Exception {
+		String tenantId = "23a60db88e184a3fa82d21dd4b0055c4";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantEmployee/list")//
+						.params(params)
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();
 		log.info(responseString);
