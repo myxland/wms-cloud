@@ -55,8 +55,8 @@ public class TenantBookRestController {
 	public List<TenantBookVo> list(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
-				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
-				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
+				.apply("=".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -96,8 +96,8 @@ public class TenantBookRestController {
 	public int count(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
-				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
-				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
+				.apply("=".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -140,8 +140,8 @@ public class TenantBookRestController {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.orderBy(StringUtils.isNotBlank(sort), "asc".equals(order), sort);
 		queryWrapperTenantBook.lambda()
-				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
-				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())		
+				.apply("=".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())		
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())
@@ -186,8 +186,8 @@ public class TenantBookRestController {
 	public TenantBookVo aggregation(@RequestBody TenantBookQueryParam tenantBookQueryParam) {
 		QueryWrapper<TenantBook> queryWrapperTenantBook = new QueryWrapper<TenantBook>();
 		queryWrapperTenantBook.lambda()
-				.apply("=".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
-				.apply("like".equals(tenantBookQueryParam.getQueryType()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
+				.apply("=".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+"={0}", tenantBookQueryParam.getQueryValue())
+				.apply("like".equals(tenantBookQueryParam.getQueryType()) && StringUtils.isNotBlank(tenantBookQueryParam.getQueryCol()), tenantBookQueryParam.getQueryCol()+" like CONCAT('%',{0},'%')", tenantBookQueryParam.getQueryValue())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getId()), TenantBook::getId, tenantBookQueryParam.getId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getTenantId()), TenantBook::getTenantId, tenantBookQueryParam.getTenantId())
 				.eq(StringUtils.isNotEmpty(tenantBookQueryParam.getBookCode()), TenantBook::getBookCode, tenantBookQueryParam.getBookCode())

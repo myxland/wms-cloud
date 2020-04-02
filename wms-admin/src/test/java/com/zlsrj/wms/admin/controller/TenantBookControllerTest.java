@@ -118,6 +118,21 @@ public class TenantBookControllerTest {
 	}
 	
 	@Test
+	public void list2Test() throws Exception {
+		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantBook/list")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
 	public void countTest() throws Exception {
 		String tenantId = "23a60db88e184a3fa82d21dd4b0055c4";
 		
