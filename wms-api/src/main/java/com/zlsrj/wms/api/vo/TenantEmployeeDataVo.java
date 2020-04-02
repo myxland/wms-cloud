@@ -27,6 +27,9 @@ public class TenantEmployeeDataVo implements Serializable {
 	
 	@ApiModelProperty(value = "员工所属部门")
 	private String employeeDepartmentName;
+	
+	@ApiModelProperty(value = "员工所属部门路径")
+	private String employeeDepartmentPath;
 
 	@ApiModelProperty(value = "租户ID")
 	private String tenantId;

@@ -27,4 +27,6 @@ public class TenantDepartmentDataVo implements Serializable {
 	@ApiModelProperty(value = "上级部门ID")
 	private String departmentParentId;
 
+	@ApiModelProperty(value = "部门路径")
+	private String departmentPath;
 }

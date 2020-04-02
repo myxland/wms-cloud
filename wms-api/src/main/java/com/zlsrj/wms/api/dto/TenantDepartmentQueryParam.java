@@ -30,5 +30,8 @@ public class TenantDepartmentQueryParam implements Serializable {
 	@ApiModelProperty(value = "父级ID")
 	private String parentId;
 	
+	@ApiModelProperty(value = "部门路径")
+	private String departmentPath;
+	
 }
 

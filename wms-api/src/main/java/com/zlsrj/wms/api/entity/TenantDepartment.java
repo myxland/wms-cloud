@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zlsrj.wms.common.annotation.DictionaryDescription;
 import com.zlsrj.wms.common.annotation.DictionaryText;
 import com.zlsrj.wms.common.annotation.DictionaryValue;
 
@@ -47,5 +48,8 @@ public class TenantDepartment implements Serializable {
 	@TableField("department_parent_id")
 	private String departmentParentId;
 
-
+	@ApiModelProperty(value = "部门路径")
+	@DictionaryDescription
+	@TableField("department_path")
+	private String departmentPath;
 }

@@ -252,6 +252,56 @@ public class TenantEmployeeController {
 		return CommonResult.success(tenantEmployeeAndTenantRoleList);
 	}
 	
+	@ApiOperation(value = "根据本部门及子部门查询租户员工列表")
+	@RequestMapping(value = "/list/department/parent/{departmentParentId}", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<TenantEmployeeAndTenantRoleVo>> listByDepartmentParentId(@PathVariable("departmentParentId") String departmentParentId) {
+		TenantEmployeeQueryParam tenantEmployeeQueryParam = new TenantEmployeeQueryParam();
+		tenantEmployeeQueryParam.setEmployeeDepartmentParentId(departmentParentId);
+		
+		List<TenantEmployeeVo> tenantEmployeeVoList = tenantEmployeeClientService.list(tenantEmployeeQueryParam);
+		tenantEmployeeVoList.stream().forEach(v->wrappperVo(v));
+		
+		List<TenantEmployeeAndTenantRoleVo> tenantEmployeeAndTenantRoleList = tenantEmployeeVoList.stream()//
+				.map(e -> JSON.parseObject(JSON.toJSONString(e), TenantEmployeeAndTenantRoleVo.class))//
+				.collect(Collectors.toList());
+		
+		for(TenantEmployeeAndTenantRoleVo tenantEmployeeAndTenantRoleVo :tenantEmployeeAndTenantRoleList) {
+			//角色信息
+			List<TenantRoleDataVo> tenantRoleDataVoList = new ArrayList<TenantRoleDataVo>();
+			TenantDepartmentVo tenantDepartmentVo = tenantDepartmentClientService.getById(departmentParentId);
+			String tenantId = tenantDepartmentVo.getTenantId();
+			
+			TenantRoleQueryParam tenantRoleQueryParam = new TenantRoleQueryParam();
+			tenantRoleQueryParam.setTenantId(tenantId);
+			List<TenantRoleVo> tenantRoleVoList = tenantRoleClientService.list(tenantRoleQueryParam);
+			if(tenantRoleVoList!=null && tenantRoleVoList.size()>0) {
+				for(TenantRoleVo tenantRoleVo:tenantRoleVoList) {
+					TenantEmployeeRoleQueryParam tenantEmployeeRoleQueryParam = new TenantEmployeeRoleQueryParam();
+					tenantEmployeeRoleQueryParam.setTenantId(tenantId);
+					tenantEmployeeRoleQueryParam.setEmployeeId(tenantEmployeeAndTenantRoleVo.getId());
+					Page<TenantEmployeeRoleVo> tenantEmployeeRolePage=tenantEmployeeRoleClientService.page(tenantEmployeeRoleQueryParam, 1, 500, "id", "asc");
+					
+					TenantRoleDataVo tenantRoleDataVo = TranslateUtil.translate(tenantRoleVo, TenantRoleDataVo.class);
+					tenantRoleDataVo.setIssel(0);
+					
+					if(tenantEmployeeRolePage!=null && tenantEmployeeRolePage.getSize()>0) {
+						for(TenantEmployeeRoleVo tenantEmployeeRoleVo:tenantEmployeeRolePage.getRecords()) {
+							if(tenantRoleDataVo.getId().equals(tenantEmployeeRoleVo.getRoleId())) {
+								tenantRoleDataVo.setIssel(1);
+							}
+						}
+					}
+					tenantRoleDataVoList.add(tenantRoleDataVo);
+				}
+			}
+			tenantEmployeeAndTenantRoleVo.setTenantRoleList(tenantRoleDataVoList);
+		}
+		
+		
+		return CommonResult.success(tenantEmployeeAndTenantRoleList);
+	}
+	
 	@ApiOperation(value = "根据参数查询租户员工列表")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody

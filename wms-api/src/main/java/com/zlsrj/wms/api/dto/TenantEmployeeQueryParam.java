@@ -50,5 +50,7 @@ public class TenantEmployeeQueryParam implements Serializable {
 	@ApiModelProperty(value = "操作员创建类型（1：平台默认创建；2：租户自建）")
 	private Integer employeeCreateType;
 
+	@ApiModelProperty(value = "员工所属部门父级ID")
+	private String employeeDepartmentParentId;
 }
 

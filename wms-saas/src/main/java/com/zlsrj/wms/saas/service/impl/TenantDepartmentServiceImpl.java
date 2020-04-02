@@ -93,6 +93,18 @@ public class TenantDepartmentServiceImpl extends ServiceImpl<TenantDepartmentMap
 			tenantDepartment.setId(idService.selectId());
 		}
 		
+		//departmentPath
+		//如果是一级部门，则为"/"
+		//如果多级部门，则为"/01/0102/0103/"
+		if(StringUtils.isBlank(tenantDepartment.getDepartmentParentId())) {
+			tenantDepartment.setDepartmentPath("/");
+		} else {
+			TenantDepartment  tenantDepartmentParent = this.getById(tenantDepartment.getDepartmentParentId());
+			if(tenantDepartmentParent!=null) {
+				tenantDepartment.setDepartmentPath(tenantDepartmentParent.getDepartmentPath()+tenantDepartment.getDepartmentParentId()+"/");
+			}
+		}
+		
 		this.save(tenantDepartment);
 		
 		return tenantDepartment.getId();
@@ -178,5 +190,39 @@ public class TenantDepartmentServiceImpl extends ServiceImpl<TenantDepartmentMap
         }
     	return success;
     }
+    
+	@Override
+	public List<TenantDepartment> getParentList(String id) {
+		TenantDepartment tenantDepartment = this.getById(id);
+		if (tenantDepartment == null) {
+			return null;
+		}
 
+		if (tenantDepartment.getDepartmentPath() == null || tenantDepartment.getDepartmentPath().length() <= 1) {
+			return null;
+		}
+
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+		queryWrapperTenantDepartment//
+				.apply(true, "FIND_IN_SET(id,{0}) ", tenantDepartment.getDepartmentPath().replaceAll("/", ","))//
+		;
+
+		queryWrapperTenantDepartment.lambda()//
+				.orderByAsc(TenantDepartment::getDepartmentPath)//
+		;
+
+		return this.list(queryWrapperTenantDepartment);
+	}
+
+	@Override
+	public List<TenantDepartment> getChildrenList(String id){
+		QueryWrapper<TenantDepartment> queryWrapperTenantDepartment = new QueryWrapper<TenantDepartment>();
+
+		queryWrapperTenantDepartment.lambda()//
+				.like(TenantDepartment::getDepartmentPath, StringUtils.join("/",id,"/"))//
+				.orderByAsc(TenantDepartment::getDepartmentPath)//
+		;
+		
+		return this.list(queryWrapperTenantDepartment);
+	}
 }

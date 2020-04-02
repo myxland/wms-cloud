@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantEmployeeAddParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeQueryParam;
 import com.zlsrj.wms.api.dto.TenantEmployeeUpdateParam;
+import com.zlsrj.wms.api.entity.TenantCustomerContacts;
+import com.zlsrj.wms.api.entity.TenantDepartment;
 import com.zlsrj.wms.api.entity.TenantEmployee;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.vo.TenantEmployeeVo;
 import com.zlsrj.wms.common.api.CommonResult;
 import com.zlsrj.wms.common.util.TranslateUtil;
+import com.zlsrj.wms.saas.service.ITenantDepartmentService;
 import com.zlsrj.wms.saas.service.ITenantEmployeeService;
 import com.zlsrj.wms.saas.service.ITenantInfoService;
 import com.zlsrj.wms.saas.strategy.password.PasswordContext;
@@ -45,6 +48,8 @@ public class TenantEmployeeRestController {
 	private ITenantEmployeeService tenantEmployeeService;
 	@Autowired
 	private ITenantInfoService tenantInfoService;
+	@Autowired
+	private ITenantDepartmentService tenantDepartmentService;
 	
 	@Autowired
 	private PasswordContext passwordContext;
@@ -71,6 +76,13 @@ public class TenantEmployeeRestController {
 	@ApiOperation(value = "根据参数查询租户员工列表")
 	@RequestMapping(value = "/tenant-employees/list", method = RequestMethod.GET)
 	public List<TenantEmployeeVo> list(@RequestBody TenantEmployeeQueryParam tenantEmployeeQueryParam) {
+		List<TenantDepartment> tenantDepartmentList = tenantDepartmentService.getChildrenList(tenantEmployeeQueryParam.getEmployeeDepartmentParentId());
+		List<String> tenantDepartmentIdList = tenantDepartmentList.stream()//
+				.map(TenantDepartment::getId)//
+				.distinct()//
+				.collect(Collectors.toList());
+		tenantDepartmentIdList.add(tenantEmployeeQueryParam.getEmployeeDepartmentParentId());
+		
 		QueryWrapper<TenantEmployee> queryWrapperTenantEmployee = new QueryWrapper<TenantEmployee>();
 		queryWrapperTenantEmployee.lambda()
 				.eq(tenantEmployeeQueryParam.getId() != null, TenantEmployee::getId, tenantEmployeeQueryParam.getId())
@@ -85,6 +97,9 @@ public class TenantEmployeeRestController {
 				.eq(tenantEmployeeQueryParam.getEmployeeEnterpriceWx() != null, TenantEmployee::getEmployeeEnterpriceWx, tenantEmployeeQueryParam.getEmployeeEnterpriceWx())
 				.eq(tenantEmployeeQueryParam.getEmployeeDingding() != null, TenantEmployee::getEmployeeDingding, tenantEmployeeQueryParam.getEmployeeDingding())
 				.eq(tenantEmployeeQueryParam.getEmployeeCreateType() != null, TenantEmployee::getEmployeeCreateType, tenantEmployeeQueryParam.getEmployeeCreateType())
+				.in(StringUtils.isNotBlank(tenantEmployeeQueryParam.getEmployeeDepartmentParentId()), //
+						TenantEmployee::getEmployeeDepartmentId, //
+						tenantDepartmentIdList)
 				;
 
 		List<TenantEmployee> tenantEmployeeList = tenantEmployeeService.list(queryWrapperTenantEmployee);
@@ -191,6 +206,13 @@ public class TenantEmployeeRestController {
 			TenantInfo tenantInfo = tenantInfoService.getDictionaryById(tenantEmployee.getTenantId());
 			if (tenantInfo != null) {
 				tenantEmployeeVo.setTenantName(tenantInfo.getTenantName());
+			}
+		}
+		if (StringUtils.isEmpty(tenantEmployeeVo.getEmployeeDepartmentName())) {
+			TenantDepartment tenantDepartment = tenantDepartmentService.getDictionaryById(tenantEmployee.getEmployeeDepartmentId());
+			if (tenantDepartment != null) {
+				tenantEmployeeVo.setEmployeeDepartmentName(tenantDepartment.getDepartmentName());
+				tenantEmployeeVo.setEmployeeDepartmentPath(tenantDepartment.getDepartmentPath());
 			}
 		}
 		return tenantEmployeeVo;

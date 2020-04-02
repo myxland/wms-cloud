@@ -1,6 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantDepartmentAddParam;
@@ -23,4 +24,8 @@ public interface ITenantDepartmentService extends IService<TenantDepartment> {
 	String save(TenantDepartmentAddParam tenantDepartmentAddParam);
 	
 	TenantDepartment getDictionaryById(Serializable id);
+	
+	List<TenantDepartment> getParentList(String id);
+	
+	List<TenantDepartment> getChildrenList(String id);
 }

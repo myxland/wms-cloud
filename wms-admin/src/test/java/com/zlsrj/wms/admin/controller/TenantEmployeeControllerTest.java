@@ -196,6 +196,17 @@ public class TenantEmployeeControllerTest {
 	}
 	
 	@Test
+	public void getByDepartmentParentTest() throws Exception {
+		String departmentParentId = "66BED12184674A59BC7319A536F18C2B";
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantEmployee/list/department/parent/"+departmentParentId)//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
 	public void deleteBatchTest() throws Exception {
 		String[] ids = new String[] {"ca0392149d534246938957b2d8b42515","2f4703120ff54730bb506195ef6a1e1f"};
 		log.info("ids={}",StringUtils.join(ids, ","));

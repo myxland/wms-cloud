@@ -31,6 +31,12 @@ public class TenantEmployeeAndTenantRoleVo implements Serializable {
 	@ApiModelProperty(value = "员工所属部门ID")
 	private String employeeDepartmentId;
 	
+	@ApiModelProperty(value = "员工所属部门名称")
+	private String employeeDepartmentName;
+	
+	@ApiModelProperty(value = "员工所属部门路径")
+	private String employeeDepartmentPath;
+	
 	@ApiModelProperty(value = "可登录系统（1：可登录；0：不能登录）")
 	private Integer employeeLoginOn;
 
