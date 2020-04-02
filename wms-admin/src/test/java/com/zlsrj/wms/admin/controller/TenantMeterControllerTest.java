@@ -3,6 +3,7 @@ package com.zlsrj.wms.admin.controller;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.zlsrj.wms.api.dto.TenantMeterAddParam;
+import com.zlsrj.wms.api.dto.TenantMeterBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantMeterUpdateParam;
 import com.zlsrj.wms.common.test.TestCaseUtil;
 
@@ -135,22 +137,29 @@ public class TenantMeterControllerTest {
 	
 	@Test
 	public void pageTest() throws Exception {
-	        String tenantId = "";
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", "e1ddb601b6cc48b79f989d710712f6d0");
 
-	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-	        params.add("tenantId", tenantId);
+		params.add("page", "1");
+		params.add("rows", "10");
+		// params.add("sort", "id");
+		// params.add("order", "desc");
 
-	        params.add("page", "1");
-	        params.add("rows", "10");
+		params.add("queryCol", "id");
+		params.add("queryType", "=");
+		params.add("queryValue", "e7e469182a4a4f6abb551b23ccf038e8");
 
-	        log.info(JSON.toJSONString(params));
+		params.add("queryCol", "meter_address");
+		params.add("queryType", "like");
+		params.add("queryValue", "号");
 
-	        String responseString = mockMvc.perform(//
-	                        MockMvcRequestBuilders.get("/tenantMeter/page")//
-	                                        .params(params)
-	                                        .accept(MediaType.APPLICATION_JSON_UTF8)//
-	        ).andReturn().getResponse().getContentAsString();
-	        log.info(responseString);
+		log.info(JSON.toJSONString(params));
+
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantMeter/page")//
+						.params(params).accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
 	}
 	
 	@Test
@@ -216,6 +225,26 @@ public class TenantMeterControllerTest {
 		String responseString = mockMvc.perform(//
 				MockMvcRequestBuilders.post("/tenantMeter/update/"+id)//
 						.content(JSON.toJSONString(tenantMeterUpdateParam))//
+						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void batchUpdateTest() throws Exception {
+		String[] ids = new String[] {"109d82f66604463faf3a09d249ec6b7f","10f86976533e46378d746a05b97817c3"};
+		log.info("ids={}",StringUtils.join(ids, ","));
+		
+		TenantMeterBatchUpdateParam tenantMeterBatchUpdateParam = new TenantMeterBatchUpdateParam();
+		tenantMeterBatchUpdateParam.setMeterBookId(new String[] {"61928b54f5f0475c9fb5bfef28e5131b","61928b54f5f0475c9fb5bfef28e5131b"});// 表册ID
+		tenantMeterBatchUpdateParam.setMeterReadOrder(new Integer[] {0,1});// 抄表顺序
+		
+		log.info(JSON.toJSONString(tenantMeterBatchUpdateParam));
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.post("/tenantMeter/update/batch/"+StringUtils.join(ids, ","))//
+						.content(JSON.toJSONString(tenantMeterBatchUpdateParam))//
 						.contentType(MediaType.APPLICATION_JSON_UTF8) // 数据的格式
 						.accept(MediaType.APPLICATION_JSON_UTF8)//
 		).andReturn().getResponse().getContentAsString();

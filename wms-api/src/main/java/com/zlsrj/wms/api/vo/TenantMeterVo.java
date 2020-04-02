@@ -3,9 +3,7 @@ package com.zlsrj.wms.api.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -142,4 +140,6 @@ public class TenantMeterVo implements Serializable {
 	@ApiModelProperty(value = "数据修改时间")
 	private Date updateTime;
 
+	@ApiModelProperty(value = "水表计费")
+	private List<TenantMeterPriceVo> tenantMeterPriceList;
 }

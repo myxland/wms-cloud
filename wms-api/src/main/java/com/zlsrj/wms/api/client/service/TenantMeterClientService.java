@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantMeterAddParam;
+import com.zlsrj.wms.api.dto.TenantMeterBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantMeterQueryParam;
 import com.zlsrj.wms.api.dto.TenantMeterUpdateParam;
 import com.zlsrj.wms.api.vo.TenantMeterVo;
@@ -44,6 +45,9 @@ public interface TenantMeterClientService {
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.PUT)
 	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantMeterUpdateParam tenantMeterUpdateParam);
 
+	@RequestMapping(value = "/tenant-meters/batch/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String ids, @RequestBody TenantMeterBatchUpdateParam tenantMeterBatchUpdateParam);
+	
 	@RequestMapping(value = "/tenant-meters/{id}", method = RequestMethod.DELETE)
 	public CommonResult<Object> removeById(@PathVariable("id") String id);
 }

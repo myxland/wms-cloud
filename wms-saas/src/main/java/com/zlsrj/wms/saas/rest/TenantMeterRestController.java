@@ -1,6 +1,5 @@
 package com.zlsrj.wms.saas.rest;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.dto.TenantMeterAddParam;
+import com.zlsrj.wms.api.dto.TenantMeterBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantMeterQueryParam;
 import com.zlsrj.wms.api.dto.TenantMeterUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
@@ -111,6 +111,18 @@ public class TenantMeterRestController {
 				.le(tenantMeterQueryParam.getUpdateTimeEnd() != null, TenantMeter::getUpdateTime,tenantMeterQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantMeterQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantMeterQueryParam.getQueryCol();
+		String[] queryTypes = tenantMeterQueryParam.getQueryType();
+		String[] queryValues = tenantMeterQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantMeter.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		List<TenantMeter> tenantMeterList = tenantMeterService.list(queryWrapperTenantMeter);
 
 		List<TenantMeterVo> tenantMeterVoList = tenantMeterList.stream()//
@@ -181,6 +193,18 @@ public class TenantMeterRestController {
 				.le(tenantMeterQueryParam.getUpdateTimeEnd() != null, TenantMeter::getUpdateTime,tenantMeterQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantMeterQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantMeterQueryParam.getQueryCol();
+		String[] queryTypes = tenantMeterQueryParam.getQueryType();
+		String[] queryValues = tenantMeterQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantMeter.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		int count = tenantMeterService.count(queryWrapperTenantMeter);
 
 		return count;
@@ -254,6 +278,18 @@ public class TenantMeterRestController {
 				.le(tenantMeterQueryParam.getUpdateTimeEnd() != null, TenantMeter::getUpdateTime,tenantMeterQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantMeterQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantMeterQueryParam.getQueryCol();
+		String[] queryTypes = tenantMeterQueryParam.getQueryType();
+		String[] queryValues = tenantMeterQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantMeter.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		IPage<TenantMeter> tenantMeterPage = tenantMeterService.page(pageTenantMeter, queryWrapperTenantMeter);
 
 		Page<TenantMeterVo> tenantMeterVoPage = new Page<TenantMeterVo>(page, rows);
@@ -329,6 +365,18 @@ public class TenantMeterRestController {
 				.le(tenantMeterQueryParam.getUpdateTimeEnd() != null, TenantMeter::getUpdateTime,tenantMeterQueryParam.getUpdateTimeEnd() == null ? null: DateUtil.endOfDay(tenantMeterQueryParam.getUpdateTimeEnd()))
 				;
 
+		String[] queryCols = tenantMeterQueryParam.getQueryCol();
+		String[] queryTypes = tenantMeterQueryParam.getQueryType();
+		String[] queryValues = tenantMeterQueryParam.getQueryValue();
+		if (queryCols != null && queryCols.length > 0) {
+			for (int i = 0; i < queryCols.length; i++) {
+				queryWrapperTenantMeter.lambda()//
+						.apply("=".equals(queryTypes[i]), queryCols[i] + "={0}", queryValues[i])//
+						.apply("like".equals(queryTypes[i]), queryCols[i] + " like CONCAT('%',{0},'%')", queryValues[i])//
+				;
+			}
+		}
+		
 		TenantMeter tenantMeter = tenantMeterService.getAggregation(queryWrapperTenantMeter);
 		
 		return entity2vo(tenantMeter);
@@ -345,6 +393,13 @@ public class TenantMeterRestController {
 	public boolean updateById(@PathVariable("id") String id, @RequestBody TenantMeterUpdateParam tenantMeterUpdateParam) {
 		tenantMeterUpdateParam.setId(id);
 		return tenantMeterService.updateById(tenantMeterUpdateParam);
+	}
+	
+	@ApiOperation(value = "更新水表信息全部信息")
+	@RequestMapping(value = "/tenant-meters/batch/{ids}", method = RequestMethod.PUT)
+	public boolean updateByIds(@PathVariable("ids") String ids, @RequestBody TenantMeterBatchUpdateParam tenantMeterBatchUpdateParam) {
+		tenantMeterBatchUpdateParam.setId(ids.split(","));
+		return tenantMeterService.updateByIds(tenantMeterBatchUpdateParam);
 	}
 
 	@ApiOperation(value = "根据ID删除水表信息")

@@ -89,7 +89,7 @@ public class TableNameFactory {
 				"tenant_customer_invoice", //
 				"tenant_customer_statement", //
 				"tenant_meter", //
-				"", //
+				"tenant_meter_price", //
 				"", //
 				"", //
 				"", //

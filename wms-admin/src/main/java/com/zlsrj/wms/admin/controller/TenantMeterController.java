@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlsrj.wms.api.client.service.TenantMeterClientService;
+import com.zlsrj.wms.api.client.service.TenantMeterPriceClientService;
 import com.zlsrj.wms.api.dto.TenantMeterAddParam;
+import com.zlsrj.wms.api.dto.TenantMeterBatchUpdateParam;
+import com.zlsrj.wms.api.dto.TenantMeterPriceQueryParam;
 import com.zlsrj.wms.api.dto.TenantMeterQueryParam;
 import com.zlsrj.wms.api.dto.TenantMeterUpdateParam;
+import com.zlsrj.wms.api.vo.TenantMeterPriceVo;
 import com.zlsrj.wms.api.vo.TenantMeterVo;
 import com.zlsrj.wms.common.api.CommonPage;
 import com.zlsrj.wms.common.api.CommonResult;
@@ -32,6 +36,8 @@ public class TenantMeterController {
 
 	@Autowired
 	private TenantMeterClientService tenantMeterClientService;
+	@Autowired
+	private TenantMeterPriceClientService tenantMeterPriceClientService;
 
 	@ApiOperation(value = "新增水表信息")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -87,10 +93,22 @@ public class TenantMeterController {
 	                @RequestParam(value = "sort", required = false) String sort, // 排序列字段名
 	                @RequestParam(value = "order", required = false) String order // 可以是 'asc' 或者 'desc'，默认值是 'asc'
 	) {
-	        Page<TenantMeterVo> tenantMeterVoPage = tenantMeterClientService.page(tenantMeterQueryParam, page, rows, sort, order);
-	        CommonPage<TenantMeterVo> tenantMeterCommonPage = CommonPage.restPage(tenantMeterVoPage);
+        Page<TenantMeterVo> tenantMeterVoPage = tenantMeterClientService.page(tenantMeterQueryParam, page, rows, sort, order);
+		if (tenantMeterVoPage != null && tenantMeterVoPage.getTotal() > 0) {
+			for (TenantMeterVo tenantMeterVo : tenantMeterVoPage.getRecords()) {
+				String meterId = tenantMeterVo.getId();
+				String tenantId = tenantMeterVo.getTenantId();
+				TenantMeterPriceQueryParam tenantMeterPriceQueryParam = new TenantMeterPriceQueryParam();
+				tenantMeterPriceQueryParam.setTenantId(tenantId);
+				tenantMeterPriceQueryParam.setMeterId(meterId);
+				List<TenantMeterPriceVo> tenantMeterPriceVoList = tenantMeterPriceClientService.list(tenantMeterPriceQueryParam);
+				tenantMeterVo.setTenantMeterPriceList(tenantMeterPriceVoList);
+			}
+		}
+        
+        CommonPage<TenantMeterVo> tenantMeterCommonPage = CommonPage.restPage(tenantMeterVoPage);
 
-	        return CommonResult.success(tenantMeterCommonPage);
+        return CommonResult.success(tenantMeterCommonPage);
 	}
 	
 	@ApiOperation(value = "根据参数更新水表信息信息")
@@ -98,6 +116,15 @@ public class TenantMeterController {
 	@ResponseBody
 	public CommonResult<Object> updateById(@PathVariable("id") String id,@RequestBody TenantMeterUpdateParam tenantMeterUpdateParam) {
 		boolean success = tenantMeterClientService.updateById(id, tenantMeterUpdateParam);
+
+		return CommonResult.success(success);
+	}
+	
+	@ApiOperation(value = "根据参数批量更新水表信息信息")
+	@RequestMapping(value = "/update/batch/{ids}", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Object> updateById(@PathVariable("ids") String ids,@RequestBody TenantMeterBatchUpdateParam tenantMeterBatchUpdateParam) {
+		boolean success = tenantMeterClientService.updateByIds(ids, tenantMeterBatchUpdateParam);
 
 		return CommonResult.success(success);
 	}

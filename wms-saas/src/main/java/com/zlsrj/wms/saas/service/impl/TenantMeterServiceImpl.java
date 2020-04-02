@@ -5,11 +5,13 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zlsrj.wms.api.dto.TenantMeterAddParam;
+import com.zlsrj.wms.api.dto.TenantMeterBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantMeterUpdateParam;
 import com.zlsrj.wms.api.entity.TenantInfo;
 import com.zlsrj.wms.api.entity.TenantMeter;
@@ -66,6 +68,26 @@ public class TenantMeterServiceImpl extends ServiceImpl<TenantMeterMapper, Tenan
 				TenantMeter.class);
 
 		return this.updateById(tenantMeter);
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateByIds(TenantMeterBatchUpdateParam tenantMeterBatchUpdateParam) {
+		boolean success = false;
+		String[] id = tenantMeterBatchUpdateParam.getId();
+		if(id!=null && id.length>0) {
+			for(int i=0;i<id.length;i++) {
+				TenantMeter tenantMeter = TenantMeter.builder()
+						.id(id[i])
+						.meterBookId(tenantMeterBatchUpdateParam.getMeterBookId()[i])
+						.meterReadOrder(tenantMeterBatchUpdateParam.getMeterReadOrder()[i])
+						.build();
+				 this.updateById(tenantMeter);
+			}
+			
+		}
+		success = true;
+		return success;
 	}
 	
 	@Override
