@@ -49,7 +49,7 @@ public class TenantPriceServiceImpl extends ServiceImpl<TenantPriceMapper, Tenan
 	@Resource
 	private TenantPriceStepMapper tenantPriceStepMapper;
 
-	private final static String[] PRICE_NAME = new String[] { "居民价格", "居民阶梯价格", "非居民价格", "特种行业价格" };
+	private final static String[] PRICE_NAME = new String[] { "居民价格", "非居民价格", "特种行业价格" };
 	
 	private final static int[] PRICE_STEP_CLASS = new int[] { 1,2,3 };
 	private final static BigDecimal[] PRICE_STEP_START_CODE = new BigDecimal[] { new BigDecimal(1), new BigDecimal(201), new BigDecimal(401)};
