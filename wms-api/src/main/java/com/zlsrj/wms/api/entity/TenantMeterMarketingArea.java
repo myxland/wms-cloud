@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zlsrj.wms.common.annotation.DictionaryEntity;
+import com.zlsrj.wms.common.annotation.DictionaryText;
+import com.zlsrj.wms.common.annotation.DictionaryValue;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,12 +27,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Builder
 @TableName("tenant_meter_marketing_area")
+@DictionaryEntity
 @ApiModel(value = "TenantMeterMarketingArea对象", description = "营销机构")
 public class TenantMeterMarketingArea implements Serializable {
 
 	private static final long serialVersionUID = 1271211132101312231L;
 
 	@ApiModelProperty(value = "营销机构ID")
+	@DictionaryValue
 	@TableId(value = "id", type = IdType.INPUT)
 	private String id;
 
@@ -42,6 +47,7 @@ public class TenantMeterMarketingArea implements Serializable {
 	private Integer marketingAreaType;
 
 	@ApiModelProperty(value = "名称")
+	@DictionaryText
 	@TableField("marketing_area_name")
 	private String marketingAreaName;
 

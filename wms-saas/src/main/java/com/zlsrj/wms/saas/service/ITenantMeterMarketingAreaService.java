@@ -1,5 +1,7 @@
 package com.zlsrj.wms.saas.service;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zlsrj.wms.api.dto.TenantMeterMarketingAreaAddParam;
 import com.zlsrj.wms.api.dto.TenantMeterMarketingAreaUpdateParam;
@@ -15,5 +17,7 @@ public interface ITenantMeterMarketingAreaService extends IService<TenantMeterMa
 	String save(TenantMeterMarketingAreaAddParam tenantCustomerTypeAddParam);
 
 	boolean updateById(TenantMeterMarketingAreaUpdateParam tenantCustomerTypeUpdateParam);
+	
+	TenantMeterMarketingArea getDictionaryById(Serializable id);
 
 }

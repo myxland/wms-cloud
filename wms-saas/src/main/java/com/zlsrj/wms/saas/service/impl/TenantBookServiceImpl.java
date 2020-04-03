@@ -115,4 +115,15 @@ public class TenantBookServiceImpl extends ServiceImpl<TenantBookMapper, TenantB
 
 		return tenantBookList;
 	}
+	
+	@Override
+	public List<TenantBook> getReaderEmployeeList(QueryWrapper<TenantBook> queryWrapperTenantBook) {
+		queryWrapperTenantBook//
+				.select("distinct book_reader_employee_id,book_marketing_area_id")//
+				.orderByAsc("book_reader_employee_id", "book_marketing_area_id")//
+		;
+		List<TenantBook> tenantBookList = this.list(queryWrapperTenantBook);
+
+		return tenantBookList;
+	}
 }

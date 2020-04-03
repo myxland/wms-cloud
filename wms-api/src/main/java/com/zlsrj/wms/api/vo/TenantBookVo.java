@@ -35,12 +35,21 @@ public class TenantBookVo implements Serializable {
 
 	@ApiModelProperty(value = "抄表员")
 	private String bookReaderEmployeeId;
+	
+	@ApiModelProperty(value = "抄表员")
+	private String bookReaderEmployeeName;
 
 	@ApiModelProperty(value = "收费员")
 	private String bookChargeEmployeeId;
+	
+	@ApiModelProperty(value = "收费员")
+	private String bookChargeEmployeeName;
 
 	@ApiModelProperty(value = "营销区域")
 	private String bookMarketingAreaId;
+	
+	@ApiModelProperty(value = "营销区域")
+	private String bookMarketingAreaName;
 
 	@ApiModelProperty(value = "抄表周期")
 	private Integer bookReadCycle;

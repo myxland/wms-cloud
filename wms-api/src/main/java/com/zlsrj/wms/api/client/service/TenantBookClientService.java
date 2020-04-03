@@ -14,6 +14,7 @@ import com.zlsrj.wms.api.dto.TenantBookAddParam;
 import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
+import com.zlsrj.wms.api.vo.TenantBookReaderVo;
 import com.zlsrj.wms.api.vo.TenantBookVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -38,6 +39,9 @@ public interface TenantBookClientService {
 
 	@RequestMapping(value = "/tenant-books/aggregation", method = RequestMethod.GET)
 	public TenantBookVo aggregation(@RequestBody TenantBookQueryParam tenantBookQueryParam);
+	
+	@RequestMapping(value = "/tenant-books/reader", method = RequestMethod.GET)
+	public List<TenantBookReaderVo> reader(@RequestBody TenantBookQueryParam tenantBookQueryParam);
 
 	@RequestMapping(value = "/tenant-books", method = RequestMethod.POST)
 	public String save(@RequestBody TenantBookAddParam tenantBookAddParam);

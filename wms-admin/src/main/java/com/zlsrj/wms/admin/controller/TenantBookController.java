@@ -15,6 +15,7 @@ import com.zlsrj.wms.api.dto.TenantBookAddParam;
 import com.zlsrj.wms.api.dto.TenantBookBatchUpdateParam;
 import com.zlsrj.wms.api.dto.TenantBookQueryParam;
 import com.zlsrj.wms.api.dto.TenantBookUpdateParam;
+import com.zlsrj.wms.api.vo.TenantBookReaderVo;
 import com.zlsrj.wms.api.vo.TenantBookVo;
 import com.zlsrj.wms.common.api.CommonResult;
 
@@ -74,6 +75,15 @@ public class TenantBookController {
 		int count = tenantBookClientService.count(tenantBookQueryParam);
 
 		return CommonResult.success(count);
+	}
+	
+	@ApiOperation(value = "根据参数查询表册信息列表")
+	@RequestMapping(value = "/list/reader", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<List<TenantBookReaderVo>> reader(TenantBookQueryParam tenantBookQueryParam) {
+		List<TenantBookReaderVo> tenantBookReaderVoList = tenantBookClientService.reader(tenantBookQueryParam);
+
+		return CommonResult.success(tenantBookReaderVoList);
 	}
 	
 	@ApiOperation(value = "根据参数更新表册信息信息")

@@ -118,6 +118,63 @@ public class TenantBookControllerTest {
 	}
 	
 	@Test
+	public void readerTest() throws Exception {
+		String tenantId = "8f04796dcccb41059078d2ba93ad650b";
+//		String queryCol = "book_code";
+//		String queryValue = "910005";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+//		params.add("queryCol", queryCol);
+//		params.add("queryValue", queryValue);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantBook/list/reader")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void reader2Test() throws Exception {
+		String tenantId = "8f04796dcccb41059078d2ba93ad650b";
+		String queryCol = "book_reader_employee_id";
+		String queryValue = "146365fd5d1444fba4579afe4cf25426";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		params.add("queryCol", queryCol);
+		params.add("queryValue", queryValue);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantBook/list/reader")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
+	public void reader3Test() throws Exception {
+		String tenantId = "8f04796dcccb41059078d2ba93ad650b";
+		String queryCol = "book_id";
+		String queryValue = "12831711f50544b48ed17b49aeb692cc";
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("tenantId", tenantId);
+		params.add("queryCol", queryCol);
+		params.add("queryValue", queryValue);
+		
+		String responseString = mockMvc.perform(//
+				MockMvcRequestBuilders.get("/tenantBook/list/reader")//
+						.params(params)
+						.accept(MediaType.APPLICATION_JSON_UTF8)//
+		).andReturn().getResponse().getContentAsString();
+		log.info(responseString);
+	}
+	
+	@Test
 	public void list2Test() throws Exception {
 		String tenantId = "AE6492EB900A4CEAB9C6E2DB3E03C344";
 		
