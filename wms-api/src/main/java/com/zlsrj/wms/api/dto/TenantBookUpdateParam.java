@@ -57,11 +57,8 @@ public class TenantBookUpdateParam implements Serializable {
 	@ApiModelProperty(value = "表册状态（1：抄表进行中；2：抄表截止）")
 	private Integer bookReadStatus;
 
-	@ApiModelProperty(value = "级次")
-	private Integer priceClass;
-
 	@ApiModelProperty(value = "备注")
-	private String priceMemo;
+	private String bookMemo;
 
 	@ApiModelProperty(value = "数据新增时间")
 	private Date addTime;

@@ -108,8 +108,7 @@ public class TenantBookRestControllerTest {
 				.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
-				.priceMemo(RandomUtil.randomString(4))// 备注
+				.bookMemo(RandomUtil.randomString(4))// 备注
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
 				.build();
@@ -144,8 +143,7 @@ public class TenantBookRestControllerTest {
 				.bookSettleMonth(RandomUtil.randomString(4))// 下次结算月份
 				.bookStatus(RandomUtil.randomInt(0,1+1))// 有效状态（1：可用；0：禁用）
 				.bookReadStatus(RandomUtil.randomInt(0,1+1))// 表册状态（1：抄表进行中；2：抄表截止）
-				.priceClass(RandomUtil.randomInt(0,1000+1))// 级次
-				.priceMemo(RandomUtil.randomString(4))// 备注
+				.bookMemo(RandomUtil.randomString(4))// 备注
 				.addTime(new Date())// 数据新增时间
 				.updateTime(new Date())// 数据修改时间
 				.build();

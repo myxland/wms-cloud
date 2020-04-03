@@ -89,13 +89,9 @@ public class TenantBook implements Serializable {
 	@TableField("book_read_status")
 	private Integer bookReadStatus;
 
-	@ApiModelProperty(value = "级次")
-	@TableField("price_class")
-	private Integer priceClass;
-
 	@ApiModelProperty(value = "备注")
-	@TableField("price_memo")
-	private String priceMemo;
+	@TableField("book_memo")
+	private String bookMemo;
 
 	@ApiModelProperty(value = "数据新增时间")
 	@TableField("add_time")
